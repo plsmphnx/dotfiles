@@ -1,0 +1,112 @@
+
+[DEFAULT]
+git_update =
+	git pull
+	git submodule update --init --recursive
+lib =
+	tar_checkout() {
+		file=${1##*/}
+		wget -q $1
+		tar xf $file
+		rm $file
+	}
+	tar_update() {
+		file=${1##*/}
+		fldr=${PWD##*/}
+		cd ..
+		wget -q $1
+		rm -rf $fldr
+		tar xf $file
+		rm $file
+	}
+
+[clone/SOM-st/CSOM]
+checkout = git clone 'https://github.com/SOM-st/CSOM'
+
+[clone/SOM-st/SOM]
+checkout = git clone 'https://github.com/SOM-st/SOM'
+
+[clone/antirez/rax]
+checkout = git clone 'https://github.com/antirez/rax'
+
+[clone/antirez/sds]
+checkout = git clone 'https://github.com/antirez/sds'
+
+[clone/ccrma/s7]
+checkout = tar_checkout 'ftp://ccrma-ftp.stanford.edu/pub/Lisp/s7.tar.gz'
+update = tar_update 'ftp://ccrma-ftp.stanford.edu/pub/Lisp/s7.tar.gz'
+
+[clone/egallesio/STklos]
+checkout = git clone 'https://github.com/egallesio/STklos'
+
+[clone/endless-sky/endless-sky]
+checkout = git clone 'https://github.com/endless-sky/endless-sky'
+
+[clone/endless-sky/endless-sky-editor]
+checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
+
+[clone/endless-sky/endless-sky-high-dpi]
+checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
+
+[clone/jakogut/mlibc]
+checkout = git clone 'https://github.com/jakogut/mlibc'
+
+[clone/jakogut/tinyht]
+checkout = git clone 'https://github.com/jakogut/tinyht'
+
+[clone/jakogut/tinyvm]
+checkout = git clone 'https://github.com/jakogut/tinyvm'
+
+[clone/kimtg/arcadia]
+checkout = git clone 'https://github.com/kimtg/arcadia'
+
+[clone/liballeg/allegro5]
+checkout = git clone 'https://github.com/liballeg/allegro5'
+
+[clone/libsdl/SDL]
+checkout = hg clone 'https://hg.libsdl.org/SDL'
+
+[clone/libsdl/SDL_image]
+checkout = hg clone 'https://hg.libsdl.org/SDL_image'
+
+[clone/libsdl/SDL_mixer]
+checkout = hg clone 'https://hg.libsdl.org/SDL_mixer'
+
+[clone/libsdl/SDL_net]
+checkout = hg clone 'https://hg.libsdl.org/SDL_net'
+
+[clone/libsdl/SDL_rtf]
+checkout = hg clone 'https://hg.libsdl.org/SDL_rtf'
+
+[clone/libsdl/SDL_ttf]
+checkout = hg clone 'https://hg.libsdl.org/SDL_ttf'
+
+[clone/lua/lua]
+checkout = git clone 'https://github.com/lua/lua'
+
+[clone/mruby/mruby]
+checkout = git clone 'https://github.com/mruby/mruby'
+
+[clone/msteveb/jimtcl]
+checkout = git clone 'https://github.com/msteveb/jimtcl'
+
+[clone/musl-libc/musl]
+checkout = git clone 'git://git.musl-libc.org/musl'
+
+[clone/orangeduck/BuildYourOwnLisp]
+checkout = git clone 'https://github.com/orangeduck/BuildYourOwnLisp'
+
+[clone/orx/orx]
+checkout = git clone 'https://github.com/orx/orx'
+
+[clone/red/red]
+checkout = git clone 'https://github.com/red/red'
+
+[clone/seL4/seL4]
+checkout = git clone 'https://github.com/seL4/seL4'
+
+[clone/vgeddes/panda-smalltalk]
+checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
+
+[clone/wesnoth/wesnoth]
+checkout = git clone 'https://github.com/wesnoth/wesnoth'
