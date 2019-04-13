@@ -7,4 +7,3 @@ prompt_newline='%666v '
 
 zplugin load mafredri/zsh-async
 zplugin load sindresorhus/pure
-
