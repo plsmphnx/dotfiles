@@ -32,6 +32,12 @@ checkout = git clone 'https://github.com/antirez/rax'
 [clone/antirez/sds]
 checkout = git clone 'https://github.com/antirez/sds'
 
+[clone/be5invis/Iosevka]
+checkout = git clone 'https://github.com/be5invis/Iosevka'
+
+[clone/caryll/otfcc]
+checkout = git clone 'https://github.com/caryll/otfcc'
+
 [clone/ccrma/s7]
 checkout = tar_checkout 'ftp://ccrma-ftp.stanford.edu/pub/Lisp/s7.tar.gz'
 update = tar_update 'ftp://ccrma-ftp.stanford.edu/pub/Lisp/s7.tar.gz'

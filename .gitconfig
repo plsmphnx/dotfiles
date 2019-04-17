@@ -1,0 +1,6 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Carl LeCompte
+	email = 43455988+plsmphnx@users.noreply.github.com
+[credential]
+	helper = store
