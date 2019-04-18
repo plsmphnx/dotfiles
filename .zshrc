@@ -23,8 +23,12 @@ alias grep="grep --color=auto"
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
-# working directory path
-path+=(.)
+# cache
+ZSH_CACHE_DIR=~/.zsh/cache
+[[ -d $ZSH_CACHE_DIR ]] || mkdir $ZSH_CACHE_DIR
+
+# local paths
+path+=(~/.bin .)
 
 # local config
 for rc in ~/.zshrc.d/*.zsh(N); source $rc
