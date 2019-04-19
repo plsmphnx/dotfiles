@@ -2,7 +2,11 @@ set autoindent
 set boldtext
 set linenumbers
 set mouse
+set quiet
 set smarthome
+set smooth
 set softwrap
 set tabsize 4
 set tabstospaces
+
+include "~/.nano/*.nanorc"

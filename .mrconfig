@@ -1,4 +1,3 @@
-
 [DEFAULT]
 git_update =
 	git pull
