@@ -36,4 +36,4 @@ for rc in ~/.zshrc.d/*.zsh(N); source $rc
 # core plugins
 zplugin light zsh-users/zsh-completions
 zplugin ice atinit"zpcompinit; zpcdreplay"
-zplugin light zsh-users/zsh-syntax-highlighting
+zplugin light zdharma/fast-syntax-highlighting
