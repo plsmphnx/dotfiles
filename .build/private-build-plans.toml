@@ -1,0 +1,30 @@
+[buildPlans.iosevka-clecompt]
+family = "Iosevka CEL"
+design = [
+	"term",
+	"expanded",
+	"v-l-serifed",
+	"v-i-serifed",
+	"v-j-serifed",
+	"v-a-doublestorey",
+	"v-f-straight",
+	"v-g-singlestorey",
+	"v-m-longleg",
+	"v-t-standard",
+	"v-q-taily",
+	"v-y-curly",
+	"v-zero-slashed",
+	"v-one-serifed",
+	"v-three-twoarks",
+	"v-tilde-low",
+	"v-asterisk-low",
+	"v-paragraph-high",
+	"v-caret-high",
+	"v-underscore-high",
+	"v-percent-rings",
+	"v-at-long",
+	"v-eszet-sulzbacher",
+	"v-brace-curly",
+	"v-dollar-through",
+	"v-numbersign-upright"
+]

@@ -18,6 +18,7 @@ setopt appendhistory histignoredups histreduceblanks histverify
 # color aliases
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
+alias less="less -R"
 
 # keybinds
 bindkey "^[[H" beginning-of-line
@@ -35,5 +36,5 @@ for rc in ~/.zshrc.d/*.zsh(N); source $rc
 
 # core plugins
 zplugin light zsh-users/zsh-completions
-zplugin ice atinit"zpcompinit; zpcdreplay"
+zplugin ice lucid wait"0" atinit"zpcompinit; zpcdreplay"
 zplugin light zdharma/fast-syntax-highlighting
