@@ -19,6 +19,9 @@ lib =
 		rm $file
 	}
 
+[clone/LuxCoreRender/LuxCore]
+checkout = git clone 'https://github.com/LuxCoreRender/LuxCore'
+
 [clone/SOM-st/CSOM]
 checkout = git clone 'https://github.com/SOM-st/CSOM'
 
@@ -52,6 +55,12 @@ checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
 
 [clone/endless-sky/endless-sky-high-dpi]
 checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
+
+[clone/google/filament]
+checkout = git clone 'https://github.com/google/filament'
+
+[clone/imageworks/OpenShadingLanguage]
+checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
 
 [clone/jakogut/mlibc]
 checkout = git clone 'https://github.com/jakogut/mlibc'
@@ -88,6 +97,9 @@ checkout = hg clone 'https://hg.libsdl.org/SDL_ttf'
 
 [clone/lua/lua]
 checkout = git clone 'https://github.com/lua/lua'
+
+[clone/mitsuba-renderer/mitsuba]
+checkout = git clone 'https://github.com/mitsuba-renderer/mitsuba'
 
 [clone/mruby/mruby]
 checkout = git clone 'https://github.com/mruby/mruby'
