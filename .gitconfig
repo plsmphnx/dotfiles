@@ -1,6 +1,10 @@
-# This is Git's per-user configuration file.
 [user]
     name = Carl LeCompte
     email = 43455988+plsmphnx@users.noreply.github.com
 [credential]
     helper = store
+[color]
+    ui = true
+[alias]
+    first = !sh -c 'git push -u origin $(git rev-parse --abbrev-ref HEAD)'
+    smash = !sh -c 'git commit --amend --no-edit && git push --force-with-lease'
