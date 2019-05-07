@@ -1,23 +1,25 @@
 [DEFAULT]
 git_update =
-	git pull
-	git submodule update --init --recursive
+    git pull
+    git submodule update --init --recursive
+git_gc =
+    git gc "$@"
 lib =
-	tar_checkout() {
-		file=${1##*/}
-		wget -q $1
-		tar xf $file
-		rm $file
-	}
-	tar_update() {
-		file=${1##*/}
-		fldr=${PWD##*/}
-		cd ..
-		wget -q $1
-		rm -rf $fldr
-		tar xf $file
-		rm $file
-	}
+    tar_checkout() {
+        file=${1##*/}
+        wget -q $1
+        tar xf $file
+        rm $file
+    }
+    tar_update() {
+        file=${1##*/}
+        fldr=${PWD##*/}
+        cd ..
+        wget -q $1
+        rm -rf $fldr
+        tar xf $file
+        rm $file
+    }
 
 [clone/LuxCoreRender/LuxCore]
 checkout = git clone 'https://github.com/LuxCoreRender/LuxCore'
