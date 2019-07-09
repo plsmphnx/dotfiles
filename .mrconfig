@@ -36,8 +36,14 @@ checkout = git clone 'https://github.com/antirez/rax'
 [clone/antirez/sds]
 checkout = git clone 'https://github.com/antirez/sds'
 
+[clone/ashinn/chibi-scheme]
+checkout = git clone 'https://github.com/ashinn/chibi-scheme'
+
 [clone/be5invis/Iosevka]
 checkout = git clone 'https://github.com/be5invis/Iosevka'
+
+[clone/blender/cycles]
+checkout = git clone 'git://git.blender.org/cycles'
 
 [clone/caryll/otfcc]
 checkout = git clone 'https://github.com/caryll/otfcc'

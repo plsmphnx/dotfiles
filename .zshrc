@@ -16,8 +16,8 @@ SAVEHIST=1000
 setopt appendhistory histignoredups histreduceblanks histverify
 
 # color aliases
-alias ls="ls --color=auto"
-alias grep="grep --color=auto"
+alias ls="ls --color -C"
+alias grep="grep --color"
 alias less="less -R"
 
 # keybinds
