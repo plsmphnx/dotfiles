@@ -4,134 +4,109 @@ git_update =
     git submodule update --init --recursive
 git_gc =
     git gc "$@"
-lib =
-    tar_checkout() {
-        file=${1##*/}
-        wget -q $1
-        tar xf $file
-        rm $file
-    }
-    tar_update() {
-        file=${1##*/}
-        fldr=${PWD##*/}
-        cd ..
-        wget -q $1
-        rm -rf $fldr
-        tar xf $file
-        rm $file
-    }
 
-[clone/LuxCoreRender/LuxCore]
-checkout = git clone 'https://github.com/LuxCoreRender/LuxCore'
 
-[clone/SOM-st/CSOM]
-checkout = git clone 'https://github.com/SOM-st/CSOM'
 
-[clone/SOM-st/SOM]
-checkout = git clone 'https://github.com/SOM-st/SOM'
-
-[clone/antirez/rax]
+[clone/core/antirez/rax]
 checkout = git clone 'https://github.com/antirez/rax'
-
-[clone/antirez/sds]
+[clone/core/antirez/sds]
 checkout = git clone 'https://github.com/antirez/sds'
 
-[clone/ashinn/chibi-scheme]
-checkout = git clone 'https://github.com/ashinn/chibi-scheme'
-
-[clone/be5invis/Iosevka]
-checkout = git clone 'https://github.com/be5invis/Iosevka'
-
-[clone/blender/cycles]
-checkout = git clone 'git://git.blender.org/cycles'
-
-[clone/caryll/otfcc]
-checkout = git clone 'https://github.com/caryll/otfcc'
-
-[clone/ccrma/s7]
-checkout = tar_checkout 'ftp://ccrma-ftp.stanford.edu/pub/Lisp/s7.tar.gz'
-update = tar_update 'ftp://ccrma-ftp.stanford.edu/pub/Lisp/s7.tar.gz'
-
-[clone/egallesio/STklos]
-checkout = git clone 'https://github.com/egallesio/STklos'
-
-[clone/endless-sky/endless-sky]
-checkout = git clone 'https://github.com/endless-sky/endless-sky'
-
-[clone/endless-sky/endless-sky-editor]
-checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
-
-[clone/endless-sky/endless-sky-high-dpi]
-checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
-
-[clone/google/filament]
-checkout = git clone 'https://github.com/google/filament'
-
-[clone/imageworks/OpenShadingLanguage]
-checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
-
-[clone/jakogut/mlibc]
-checkout = git clone 'https://github.com/jakogut/mlibc'
-
-[clone/jakogut/tinyht]
-checkout = git clone 'https://github.com/jakogut/tinyht'
-
-[clone/jakogut/tinyvm]
-checkout = git clone 'https://github.com/jakogut/tinyvm'
-
-[clone/kimtg/arcadia]
-checkout = git clone 'https://github.com/kimtg/arcadia'
-
-[clone/liballeg/allegro5]
-checkout = git clone 'https://github.com/liballeg/allegro5'
-
-[clone/libsdl/SDL]
-checkout = hg clone 'https://hg.libsdl.org/SDL'
-
-[clone/libsdl/SDL_image]
-checkout = hg clone 'https://hg.libsdl.org/SDL_image'
-
-[clone/libsdl/SDL_mixer]
-checkout = hg clone 'https://hg.libsdl.org/SDL_mixer'
-
-[clone/libsdl/SDL_net]
-checkout = hg clone 'https://hg.libsdl.org/SDL_net'
-
-[clone/libsdl/SDL_rtf]
-checkout = hg clone 'https://hg.libsdl.org/SDL_rtf'
-
-[clone/libsdl/SDL_ttf]
-checkout = hg clone 'https://hg.libsdl.org/SDL_ttf'
-
-[clone/lua/lua]
-checkout = git clone 'https://github.com/lua/lua'
-
-[clone/mitsuba-renderer/mitsuba]
-checkout = git clone 'https://github.com/mitsuba-renderer/mitsuba'
-
-[clone/mruby/mruby]
-checkout = git clone 'https://github.com/mruby/mruby'
-
-[clone/msteveb/jimtcl]
-checkout = git clone 'https://github.com/msteveb/jimtcl'
-
-[clone/musl-libc/musl]
+[clone/core/musl-libc/musl]
 checkout = git clone 'git://git.musl-libc.org/musl'
 
-[clone/orangeduck/BuildYourOwnLisp]
-checkout = git clone 'https://github.com/orangeduck/BuildYourOwnLisp'
-
-[clone/orx/orx]
-checkout = git clone 'https://github.com/orx/orx'
-
-[clone/red/red]
-checkout = git clone 'https://github.com/red/red'
-
-[clone/seL4/seL4]
+[clone/core/seL4/seL4]
 checkout = git clone 'https://github.com/seL4/seL4'
 
-[clone/vgeddes/panda-smalltalk]
+
+[clone/font/be5invis/Iosevka]
+checkout = git clone 'https://github.com/be5invis/Iosevka'
+
+[clone/font/caryll/otfcc]
+checkout = git clone 'https://github.com/caryll/otfcc'
+
+
+[clone/game/endless-sky/endless-sky]
+checkout = git clone 'https://github.com/endless-sky/endless-sky'
+[clone/game/endless-sky/endless-sky-editor]
+checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
+[clone/game/endless-sky/endless-sky-high-dpi]
+checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
+
+[clone/game/wesnoth/wesnoth]
+checkout = git clone 'https://github.com/wesnoth/wesnoth'
+
+
+[clone/engine/liballeg/allegro5]
+checkout = git clone 'https://github.com/liballeg/allegro5'
+
+[clone/engine/libsdl/SDL]
+checkout = hg clone 'https://hg.libsdl.org/SDL'
+[clone/engine/libsdl/SDL_image]
+checkout = hg clone 'https://hg.libsdl.org/SDL_image'
+[clone/engine/libsdl/SDL_mixer]
+checkout = hg clone 'https://hg.libsdl.org/SDL_mixer'
+[clone/engine/libsdl/SDL_net]
+checkout = hg clone 'https://hg.libsdl.org/SDL_net'
+[clone/engine/libsdl/SDL_rtf]
+checkout = hg clone 'https://hg.libsdl.org/SDL_rtf'
+[clone/engine/libsdl/SDL_ttf]
+checkout = hg clone 'https://hg.libsdl.org/SDL_ttf'
+
+[clone/engine/orx/orx]
+checkout = git clone 'https://github.com/orx/orx'
+
+
+[clone/language/SOM-st/CSOM]
+checkout = git clone 'https://github.com/SOM-st/CSOM'
+[clone/language/SOM-st/SOM]
+checkout = git clone 'https://github.com/SOM-st/SOM'
+
+[clone/language/ashinn/chibi-scheme]
+checkout = git clone 'https://github.com/ashinn/chibi-scheme'
+
+[clone/language/egallesio/STklos]
+checkout = git clone 'https://github.com/egallesio/STklos'
+
+[clone/language/gnu/gforth]
+checkout = git clone 'git://git.savannah.gnu.org/gforth'
+
+[clone/language/kimtg/arcadia]
+checkout = git clone 'https://github.com/kimtg/arcadia'
+
+[clone/language/lua/lua]
+checkout = git clone 'https://github.com/lua/lua'
+
+[clone/language/mruby/mruby]
+checkout = git clone 'https://github.com/mruby/mruby'
+
+[clone/language/msteveb/jimtcl]
+checkout = git clone 'https://github.com/msteveb/jimtcl'
+
+[clone/language/orangeduck/BuildYourOwnLisp]
+checkout = git clone 'https://github.com/orangeduck/BuildYourOwnLisp'
+
+[clone/language/red/red]
+checkout = git clone 'https://github.com/red/red'
+
+[clone/language/unicon/unicon]
+checkout = svn checkout 'https://svn.code.sf.net/p/unicon/code/trunk/unicon'
+
+[clone/language/vgeddes/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
 
-[clone/wesnoth/wesnoth]
-checkout = git clone 'https://github.com/wesnoth/wesnoth'
+
+[clone/renderer/LuxCoreRender/LuxCore]
+checkout = git clone 'https://github.com/LuxCoreRender/LuxCore'
+
+[clone/renderer/blender/cycles]
+checkout = git clone 'git://git.blender.org/cycles'
+
+[clone/renderer/google/filament]
+checkout = git clone 'https://github.com/google/filament'
+
+[clone/renderer/imageworks/OpenShadingLanguage]
+checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
+
+[clone/renderer/mitsuba-renderer/mitsuba]
+checkout = git clone 'https://github.com/mitsuba-renderer/mitsuba'
