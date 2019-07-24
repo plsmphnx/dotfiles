@@ -71,6 +71,9 @@ checkout = git clone 'https://github.com/egallesio/STklos'
 [clone/language/gnu/gforth]
 checkout = git clone 'git://git.savannah.gnu.org/gforth'
 
+[clone/language/gtownsend/icon]
+checkout = git clone 'https://github.com/gtownsend/icon'
+
 [clone/language/kimtg/arcadia]
 checkout = git clone 'https://github.com/kimtg/arcadia'
 
@@ -89,8 +92,6 @@ checkout = git clone 'https://github.com/orangeduck/BuildYourOwnLisp'
 [clone/language/red/red]
 checkout = git clone 'https://github.com/red/red'
 
-[clone/language/unicon/unicon]
-checkout = svn checkout 'https://svn.code.sf.net/p/unicon/code/trunk/unicon'
 
 [clone/language/vgeddes/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
