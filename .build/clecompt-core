@@ -1,0 +1,11 @@
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+
+Package: clecompt-core
+Depends: aptitude, build-essential, cruft, curl, debsums, git, grc, net-tools, pass, ssh, tmux, zsh
+Description: personal core packages
+
+File: /etc/apt/apt.conf.d/default 644
+ APT::Install-Suggests "0";
+ APT::Install-Recommends "0";
