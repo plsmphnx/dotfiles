@@ -1,0 +1,11 @@
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+
+Package: clecompt-clone
+Depends: git, mercurial, myrepos, subversion
+Description: automatic repository clone
+
+File: /etc/cron.daily/mr-up 755
+ #!/bin/bash
+ for c in /home/*/.mrconfig; do runuser -u $(stat -c '%U' "$c") -- mr -d $(dirname "$c") up &> /dev/null; done
