@@ -2,7 +2,7 @@ Section: misc
 Priority: optional
 Standards-Version: 3.9.2
 
-Package: clecompt-clone
+Package: clecompt-repo
 Depends: git, mercurial, myrepos, subversion
 Description: automatic repository clone
 

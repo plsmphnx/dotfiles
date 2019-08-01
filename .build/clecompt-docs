@@ -1,0 +1,7 @@
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+
+Package: clecompt-docs
+Depends: pandoc, pdftk, texlive-full
+Description: document editing tools
