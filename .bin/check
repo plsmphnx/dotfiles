@@ -1,0 +1,20 @@
+#!/bin/bash
+case $1 in
+    cruft)
+        cruft --ignore "/boot /home /tmp /sys"
+        ;;
+    files)
+        debsums -acs
+        ;;
+    installed)
+        if [ "$2" = "all" ]
+        then
+            aptitude search '(~poptional|~pextra) ~i !~slibs'
+        else
+            aptitude search '(~poptional|~pextra) ~i !~R~i'
+        fi
+        ;;
+    missing)
+        aptitude search '!~poptional !~pextra !~slibs !~v !~i'
+        ;;
+esac

@@ -1,0 +1,2 @@
+#!/bin/bash
+du -hd2 | sort -h | awk -F'/' "NF==$1"

@@ -26,6 +26,9 @@ checkout = git clone 'https://github.com/be5invis/Iosevka'
 checkout = git clone 'https://github.com/caryll/otfcc'
 
 
+[clone/game/AliceLR/megazeux]
+checkout = git clone 'https://github.com/AliceLR/megazeux'
+
 [clone/game/endless-sky/endless-sky]
 checkout = git clone 'https://github.com/endless-sky/endless-sky'
 [clone/game/endless-sky/endless-sky-editor]
