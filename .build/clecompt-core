@@ -3,7 +3,7 @@ Priority: optional
 Standards-Version: 3.9.2
 
 Package: clecompt-core
-Depends: aptitude, build-essential, cruft, curl, debsums, git, grc, net-tools, pass, ssh, tmux, zsh
+Depends: aptitude, build-essential, cruft, curl, debsums, git, grc, highlight, net-tools, pass, ssh, tmux, zsh
 Description: personal core packages
 
 File: /etc/apt/apt.conf.d/default 644

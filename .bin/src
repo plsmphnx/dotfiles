@@ -1,0 +1,2 @@
+#!/bin/bash
+highlight --force --validate-input -O truecolor -ls darkness "$@" <&0 | less -R

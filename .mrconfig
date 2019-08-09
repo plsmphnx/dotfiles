@@ -25,6 +25,9 @@ checkout = git clone 'https://github.com/be5invis/Iosevka'
 [clone/font/caryll/otfcc]
 checkout = git clone 'https://github.com/caryll/otfcc'
 
+[clone/font/dmhendricks/file-icon-vectors]
+checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
+
 
 [clone/game/AliceLR/megazeux]
 checkout = git clone 'https://github.com/AliceLR/megazeux'

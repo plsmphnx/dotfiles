@@ -1,7 +1,12 @@
 #!/bin/bash
 case $1 in
     cruft)
-        cruft --ignore "/boot /home /tmp /sys"
+        if [ "$2" = "all" ]
+        then
+            cruft --ignore "/home"
+        else
+            cruft --ignore "/boot /home /tmp /sys /var"
+        fi
         ;;
     files)
         debsums -acs
