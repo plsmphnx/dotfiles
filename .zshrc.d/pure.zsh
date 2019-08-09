@@ -5,5 +5,5 @@ PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'
 prompt_newline='%666v '
 
-zplugin load mafredri/zsh-async
-zplugin load sindresorhus/pure
+zplugin ice pick"async.zsh" src"pure.zsh"
+zplugin light sindresorhus/pure
