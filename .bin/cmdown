@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/sh
 dpkg-query -S "$(readlink -f "$(which "$1")")"

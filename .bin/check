@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 case $1 in
     cruft)
         if [ "$2" = "all" ]

@@ -7,5 +7,5 @@ Depends: git, mercurial, myrepos, subversion
 Description: automatic repository clone
 
 File: /etc/cron.daily/mr-up 755
- #!/bin/bash
- for c in /home/*/.mrconfig; do runuser -u $(stat -c '%U' "$c") -- mr -d $(dirname "$c") up &> /dev/null; done
+ #!/bin/sh
+ for c in /home/*/.mrconfig; do runuser -u $(stat -c '%U' "$c") -- mr -d $(dirname "$c") up >/dev/null 2>&1; done

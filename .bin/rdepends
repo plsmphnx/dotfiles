@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/sh
 apt-cache rdepends --no-pre-depends --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances "$@"
