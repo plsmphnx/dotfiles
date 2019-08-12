@@ -6,7 +6,6 @@ git_gc =
     git gc "$@"
 
 
-
 [clone/core/antirez/rax]
 checkout = git clone 'https://github.com/antirez/rax'
 [clone/core/antirez/sds]
@@ -38,6 +37,9 @@ checkout = git clone 'https://github.com/endless-sky/endless-sky'
 checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
 [clone/game/endless-sky/endless-sky-high-dpi]
 checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
+
+[clone/game/nesbox/TIC-80]
+checkout = git clone 'https://github.com/nesbox/TIC-80'
 
 [clone/game/wesnoth/wesnoth]
 checkout = git clone 'https://github.com/wesnoth/wesnoth'
@@ -97,7 +99,6 @@ checkout = git clone 'https://github.com/orangeduck/BuildYourOwnLisp'
 
 [clone/language/red/red]
 checkout = git clone 'https://github.com/red/red'
-
 
 [clone/language/vgeddes/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
