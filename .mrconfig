@@ -73,9 +73,6 @@ checkout = git clone 'https://github.com/SOM-st/SOM'
 [clone/language/ashinn/chibi-scheme]
 checkout = git clone 'https://github.com/ashinn/chibi-scheme'
 
-[clone/language/egallesio/STklos]
-checkout = git clone 'https://github.com/egallesio/STklos'
-
 [clone/language/gnu/gforth]
 checkout = git clone 'git://git.savannah.gnu.org/gforth'
 
