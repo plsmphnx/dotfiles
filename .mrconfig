@@ -115,3 +115,11 @@ checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
 
 [clone/renderer/mitsuba-renderer/mitsuba]
 checkout = git clone 'https://github.com/mitsuba-renderer/mitsuba'
+
+
+[clone/rpg/AlliteratedGames/cannibal-contagion-rpg]
+checkout = git clone 'https://github.com/AlliteratedGames/cannibal-contagion-rpg'
+[clone/rpg/amazingrando/blades-in-the-dark-srd-content]
+checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
+[clone/rpg/amazingrando/fate-srd-content]
+checkout = git clone 'https://github.com/amazingrando/fate-srd-content'
