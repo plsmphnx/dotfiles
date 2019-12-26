@@ -18,16 +18,6 @@ checkout = git clone 'git://git.musl-libc.org/musl'
 checkout = git clone 'https://github.com/seL4/seL4'
 
 
-[clone/font/be5invis/Iosevka]
-checkout = git clone 'https://github.com/be5invis/Iosevka'
-
-[clone/font/caryll/otfcc]
-checkout = git clone 'https://github.com/caryll/otfcc'
-
-[clone/font/dmhendricks/file-icon-vectors]
-checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
-
-
 [clone/game/AliceLR/megazeux]
 checkout = git clone 'https://github.com/AliceLR/megazeux'
 
@@ -123,3 +113,16 @@ checkout = git clone 'https://github.com/AlliteratedGames/cannibal-contagion-rpg
 checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
 [clone/rpg/amazingrando/fate-srd-content]
 checkout = git clone 'https://github.com/amazingrando/fate-srd-content'
+
+
+[clone/text/asciidoctor/asciidoctor]
+checkout = git clone 'https://github.com/asciidoctor/asciidoctor'
+
+[clone/text/be5invis/Iosevka]
+checkout = git clone 'https://github.com/be5invis/Iosevka'
+
+[clone/text/caryll/otfcc]
+checkout = git clone 'https://github.com/caryll/otfcc'
+
+[clone/text/dmhendricks/file-icon-vectors]
+checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
