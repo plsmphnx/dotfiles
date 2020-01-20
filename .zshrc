@@ -1,13 +1,13 @@
 # plugin manager
-declare -A ZPLGM
-ZPLGM[HOME_DIR]=~/.zsh
-ZPLGM[ZCOMPDUMP_PATH]=~/.zsh/completion
-ZPLGM[COMPINIT_OPTS]="-i -d ${ZPLGM[ZCOMPDUMP_PATH]}"
-[[ -d ${ZPLGM[HOME_DIR]} ]] || ZPLG_HOME=${ZPLGM[HOME_DIR]} \
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
-source "${ZPLGM[HOME_DIR]}/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+declare -A ZINIT
+ZINIT[HOME_DIR]=~/.zsh
+ZINIT[ZCOMPDUMP_PATH]=~/.zsh/completion
+ZINIT[COMPINIT_OPTS]="-i -d ${ZINIT[ZCOMPDUMP_PATH]}"
+[[ -d ${ZINIT[HOME_DIR]} ]] || ZINIT_HOME=${ZINIT[HOME_DIR]} \
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+source "${ZINIT[HOME_DIR]}/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # history
 HISTFILE=~/.zsh/history
@@ -36,6 +36,6 @@ path+=(~/.bin .)
 for rc in ~/.zshrc.d/*.zsh(N); source $rc
 
 # core plugins
-zplugin light zsh-users/zsh-completions
-zplugin ice lucid wait"0" atinit"zpcompinit; zpcdreplay"
-zplugin light zdharma/fast-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit ice lucid wait"0" atinit"zpcompinit; zpcdreplay"
+zinit light zdharma/fast-syntax-highlighting
