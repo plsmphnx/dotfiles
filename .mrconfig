@@ -109,6 +109,7 @@ checkout = git clone 'https://github.com/mitsuba-renderer/mitsuba'
 
 [clone/rpg/AlliteratedGames/cannibal-contagion-rpg]
 checkout = git clone 'https://github.com/AlliteratedGames/cannibal-contagion-rpg'
+
 [clone/rpg/amazingrando/blades-in-the-dark-srd-content]
 checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
 [clone/rpg/amazingrando/fate-srd-content]
@@ -126,3 +127,6 @@ checkout = git clone 'https://github.com/caryll/otfcc'
 
 [clone/text/dmhendricks/file-icon-vectors]
 checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
+
+[clone/text/sile-typesetter/sile]
+checkout = git clone 'https://github.com/sile-typesetter/sile'
