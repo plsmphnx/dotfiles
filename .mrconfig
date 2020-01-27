@@ -130,3 +130,5 @@ checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 
 [clone/text/sile-typesetter/sile]
 checkout = git clone 'https://github.com/sile-typesetter/sile'
+[clone/text/sile-typesetter/libtexpdf]
+checkout = git clone 'https://github.com/sile-typesetter/libtexpdf'

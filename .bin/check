@@ -3,9 +3,9 @@ case $1 in
     cruft)
         if [ "$2" = "all" ]
         then
-            cruft --ignore "/home"
+            cruft --ignore "/home /mnt"
         else
-            cruft --ignore "/boot /home /tmp /sys /var"
+            cruft --ignore "/boot /home /mnt /tmp /sys /var"
         fi
         ;;
     files)
