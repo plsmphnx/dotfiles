@@ -128,7 +128,12 @@ checkout = git clone 'https://github.com/caryll/otfcc'
 [clone/text/dmhendricks/file-icon-vectors]
 checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 
-[clone/text/sile-typesetter/sile]
-checkout = git clone 'https://github.com/sile-typesetter/sile'
+[clone/text/harfbuzz/harfbuzz]
+checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
+
+[clone/text/sile-typesetter/cassowary.lua]
+checkout = git clone 'https://github.com/sile-typesetter/cassowary.lua'
 [clone/text/sile-typesetter/libtexpdf]
 checkout = git clone 'https://github.com/sile-typesetter/libtexpdf'
+[clone/text/sile-typesetter/sile]
+checkout = git clone 'https://github.com/sile-typesetter/sile'
