@@ -1,15 +1,5 @@
 {
     "segments": {
-        "right": [
-            {
-                "function": "powerline.segments.common.net.external_ip",
-                "args": {
-                    "query_url": "https://api.ipify.org"
-                }
-            },
-            {
-                "function": "powerline.segments.common.net.hostname"
-            }
-        ]
+        "right": []
     }
 }
