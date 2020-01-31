@@ -125,6 +125,9 @@ checkout = git clone 'https://github.com/asciidoctor/asciidoctor'
 [clone/text/be5invis/Iosevka]
 checkout = git clone 'https://github.com/be5invis/Iosevka'
 
+[clone/text/bramstein/typeset]
+checkout = git clone 'https://github.com/bramstein/typeset'
+
 [clone/text/caryll/otfcc]
 checkout = git clone 'https://github.com/caryll/otfcc'
 
@@ -133,6 +136,9 @@ checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 
 [clone/text/harfbuzz/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
+
+[clone/text/libharu/libharu]
+checkout = git clone 'https://github.com/libharu/libharu'
 
 [clone/text/sile-typesetter/cassowary.lua]
 checkout = git clone 'https://github.com/sile-typesetter/cassowary.lua'
