@@ -1,0 +1,24 @@
+#!/bin/sh
+cd ~
+ln -s ~/dotfiles/.gitconfig
+
+ln -s ~/dotfiles/.nanorc
+git clone https://github.com/scopatz/nanorc .nano
+
+ln -s ~/dotfiles/.zshrc
+mkdir .zshrc.d
+cd .zshrc.d
+ln -s ~/dotfiles/.zshrc.d/color.zsh
+ln -s ~/dotfiles/.zshrc.d/pure.zsh
+cd ..
+
+mkdir .bin
+cd .bin
+ln -s ~/dotfiles/.bin/check
+ln -s ~/dotfiles/.bin/cmdown
+ln -s ~/dotfiles/.bin/rdepends
+ln -s ~/dotfiles/.bin/src
+ln -s ~/dotfiles/.bin/sz
+cd ..
+
+chsh -s /bin/zsh
