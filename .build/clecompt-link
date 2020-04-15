@@ -1,0 +1,7 @@
+Section: misc
+Priority: optional
+Standards-Version: 3.9.2
+
+Package: clecompt-link
+Depends: certbot, fail2ban, fcgiwrap, nftables, nginx-extras, whois
+Description: server base infrastructure
