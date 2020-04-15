@@ -6,6 +6,9 @@ git_gc =
     git gc "$@"
 
 
+[clone/core/RIOT-OS/RIOT]
+checkout = git clone 'https://github.com/RIOT-OS/RIOT'
+
 [clone/core/antirez/rax]
 checkout = git clone 'https://github.com/antirez/rax'
 [clone/core/antirez/sds]
@@ -30,6 +33,11 @@ checkout = git clone 'https://github.com/endless-sky/endless-sky'
 checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
 [clone/game/endless-sky/endless-sky-high-dpi]
 checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
+
+[clone/game/minetest/minetest]
+checkout = git clone 'https://github.com/minetest/minetest'
+[clone/game/minetest/minetest_game]
+checkout = git clone 'https://github.com/minetest/minetest_game'
 
 [clone/game/nesbox/TIC-80]
 checkout = git clone 'https://github.com/nesbox/TIC-80'
