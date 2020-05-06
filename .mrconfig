@@ -6,9 +6,6 @@ git_gc =
     git gc "$@"
 
 
-[clone/core/RIOT-OS/RIOT]
-checkout = git clone 'https://github.com/RIOT-OS/RIOT'
-
 [clone/core/antirez/rax]
 checkout = git clone 'https://github.com/antirez/rax'
 [clone/core/antirez/sds]
@@ -16,6 +13,9 @@ checkout = git clone 'https://github.com/antirez/sds'
 
 [clone/core/musl-libc/musl]
 checkout = git clone 'git://git.musl-libc.org/musl'
+
+[clone/core/nothings/stb]
+checkout = git clone 'https://github.com/nothings/stb'
 
 [clone/core/seL4/seL4]
 checkout = git clone 'https://github.com/seL4/seL4'
@@ -66,22 +66,11 @@ checkout = hg clone 'https://hg.libsdl.org/SDL_ttf'
 checkout = git clone 'https://github.com/orx/orx'
 
 
-[clone/language/SOM-st/CSOM]
-checkout = git clone 'https://github.com/SOM-st/CSOM'
-[clone/language/SOM-st/SOM]
-checkout = git clone 'https://github.com/SOM-st/SOM'
-
 [clone/language/ashinn/chibi-scheme]
 checkout = git clone 'https://github.com/ashinn/chibi-scheme'
 
-[clone/language/gnu/gforth]
-checkout = git clone 'git://git.savannah.gnu.org/gforth'
-
 [clone/language/gtownsend/icon]
 checkout = git clone 'https://github.com/gtownsend/icon'
-
-[clone/language/kimtg/arcadia]
-checkout = git clone 'https://github.com/kimtg/arcadia'
 
 [clone/language/lua/lua]
 checkout = git clone 'https://github.com/lua/lua'
@@ -91,12 +80,6 @@ checkout = git clone 'https://github.com/mruby/mruby'
 
 [clone/language/msteveb/jimtcl]
 checkout = git clone 'https://github.com/msteveb/jimtcl'
-
-[clone/language/orangeduck/BuildYourOwnLisp]
-checkout = git clone 'https://github.com/orangeduck/BuildYourOwnLisp'
-
-[clone/language/red/red]
-checkout = git clone 'https://github.com/red/red'
 
 [clone/language/vgeddes/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
@@ -118,9 +101,6 @@ checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
 checkout = git clone 'https://github.com/mitsuba-renderer/mitsuba'
 
 
-[clone/rpg/AlliteratedGames/cannibal-contagion-rpg]
-checkout = git clone 'https://github.com/AlliteratedGames/cannibal-contagion-rpg'
-
 [clone/rpg/amazingrando/blades-in-the-dark-srd-content]
 checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
 [clone/rpg/amazingrando/fate-srd-content]
@@ -133,9 +113,6 @@ checkout = git clone 'https://github.com/asciidoctor/asciidoctor'
 [clone/text/be5invis/Iosevka]
 checkout = git clone 'https://github.com/be5invis/Iosevka'
 
-[clone/text/bramstein/typeset]
-checkout = git clone 'https://github.com/bramstein/typeset'
-
 [clone/text/caryll/otfcc]
 checkout = git clone 'https://github.com/caryll/otfcc'
 
@@ -145,12 +122,5 @@ checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 [clone/text/harfbuzz/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
 
-[clone/text/libharu/libharu]
-checkout = git clone 'https://github.com/libharu/libharu'
-
-[clone/text/sile-typesetter/cassowary.lua]
-checkout = git clone 'https://github.com/sile-typesetter/cassowary.lua'
-[clone/text/sile-typesetter/libtexpdf]
-checkout = git clone 'https://github.com/sile-typesetter/libtexpdf'
 [clone/text/sile-typesetter/sile]
 checkout = git clone 'https://github.com/sile-typesetter/sile'
