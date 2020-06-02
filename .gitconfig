@@ -5,6 +5,8 @@
     helper = store
 [color]
     ui = true
+[pull]
+    rebase = false
 [alias]
     first = !sh -c 'git push -u origin $(git rev-parse --abbrev-ref HEAD)'
     smash = !sh -c 'git commit --amend --no-edit && git push --force-with-lease'
