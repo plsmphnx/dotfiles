@@ -119,6 +119,9 @@ checkout = git clone 'https://github.com/caryll/otfcc'
 [clone/text/dmhendricks/file-icon-vectors]
 checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 
+[clone/text/ghostscript/mupdf]
+checkout = git clone 'git://git.ghostscript.com/mupdf'
+
 [clone/text/harfbuzz/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
 
