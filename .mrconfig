@@ -6,124 +6,124 @@ git_gc =
     git gc "$@"
 
 
-[clone/core/antirez/rax]
+[clone/core/rax]
 checkout = git clone 'https://github.com/antirez/rax'
-[clone/core/antirez/sds]
+[clone/core/sds]
 checkout = git clone 'https://github.com/antirez/sds'
 
-[clone/core/musl-libc/musl]
+[clone/core/musl]
 checkout = git clone 'git://git.musl-libc.org/musl'
 
-[clone/core/nothings/stb]
+[clone/core/stb]
 checkout = git clone 'https://github.com/nothings/stb'
 
-[clone/core/seL4/seL4]
+[clone/core/seL4]
 checkout = git clone 'https://github.com/seL4/seL4'
 
-[clone/core/starwing/amoeba]
+[clone/core/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
 
 
-[clone/game/AliceLR/megazeux]
-checkout = git clone 'https://github.com/AliceLR/megazeux'
-
-[clone/game/endless-sky/endless-sky]
-checkout = git clone 'https://github.com/endless-sky/endless-sky'
-[clone/game/endless-sky/endless-sky-editor]
-checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
-[clone/game/endless-sky/endless-sky-high-dpi]
-checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
-
-[clone/game/minetest/minetest]
-checkout = git clone 'https://github.com/minetest/minetest'
-[clone/game/minetest/minetest_game]
-checkout = git clone 'https://github.com/minetest/minetest_game'
-
-[clone/game/nesbox/TIC-80]
-checkout = git clone 'https://github.com/nesbox/TIC-80'
-
-[clone/game/wesnoth/wesnoth]
-checkout = git clone 'https://github.com/wesnoth/wesnoth'
-
-
-[clone/engine/liballeg/allegro5]
+[clone/engine/allegro5]
 checkout = git clone 'https://github.com/liballeg/allegro5'
 
-[clone/engine/libsdl/SDL]
+[clone/engine/SDL]
 checkout = hg clone 'https://hg.libsdl.org/SDL'
-[clone/engine/libsdl/SDL_image]
+[clone/engine/SDL_image]
 checkout = hg clone 'https://hg.libsdl.org/SDL_image'
-[clone/engine/libsdl/SDL_mixer]
+[clone/engine/SDL_mixer]
 checkout = hg clone 'https://hg.libsdl.org/SDL_mixer'
-[clone/engine/libsdl/SDL_net]
+[clone/engine/SDL_net]
 checkout = hg clone 'https://hg.libsdl.org/SDL_net'
-[clone/engine/libsdl/SDL_rtf]
+[clone/engine/SDL_rtf]
 checkout = hg clone 'https://hg.libsdl.org/SDL_rtf'
-[clone/engine/libsdl/SDL_ttf]
+[clone/engine/SDL_ttf]
 checkout = hg clone 'https://hg.libsdl.org/SDL_ttf'
 
-[clone/engine/orx/orx]
+[clone/engine/orx]
 checkout = git clone 'https://github.com/orx/orx'
 
 
-[clone/language/ashinn/chibi-scheme]
+[clone/game/megazeux]
+checkout = git clone 'https://github.com/AliceLR/megazeux'
+
+[clone/game/endless-sky]
+checkout = git clone 'https://github.com/endless-sky/endless-sky'
+[clone/game/endless-sky-editor]
+checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
+[clone/game/endless-sky-high-dpi]
+checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
+
+[clone/game/minetest]
+checkout = git clone 'https://github.com/minetest/minetest'
+[clone/game/minetest_game]
+checkout = git clone 'https://github.com/minetest/minetest_game'
+
+[clone/game/TIC-80]
+checkout = git clone 'https://github.com/nesbox/TIC-80'
+
+[clone/game/wesnoth]
+checkout = git clone 'https://github.com/wesnoth/wesnoth'
+
+
+[clone/language/chibi-scheme]
 checkout = git clone 'https://github.com/ashinn/chibi-scheme'
 
-[clone/language/gtownsend/icon]
+[clone/language/icon]
 checkout = git clone 'https://github.com/gtownsend/icon'
 
-[clone/language/lua/lua]
+[clone/language/lua]
 checkout = git clone 'https://github.com/lua/lua'
 
-[clone/language/mruby/mruby]
+[clone/language/mruby]
 checkout = git clone 'https://github.com/mruby/mruby'
 
-[clone/language/msteveb/jimtcl]
+[clone/language/jimtcl]
 checkout = git clone 'https://github.com/msteveb/jimtcl'
 
-[clone/language/vgeddes/panda-smalltalk]
+[clone/language/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
 
 
-[clone/renderer/LuxCoreRender/LuxCore]
+[clone/renderer/LuxCore]
 checkout = git clone 'https://github.com/LuxCoreRender/LuxCore'
 
-[clone/renderer/blender/cycles]
+[clone/renderer/cycles]
 checkout = git clone 'git://git.blender.org/cycles'
 
-[clone/renderer/google/filament]
+[clone/renderer/filament]
 checkout = git clone 'https://github.com/google/filament'
 
-[clone/renderer/imageworks/OpenShadingLanguage]
+[clone/renderer/OpenShadingLanguage]
 checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
 
-[clone/renderer/mitsuba-renderer/mitsuba]
+[clone/renderer/mitsuba]
 checkout = git clone 'https://github.com/mitsuba-renderer/mitsuba'
 
 
-[clone/rpg/amazingrando/blades-in-the-dark-srd-content]
+[clone/rpg/blades-in-the-dark-srd-content]
 checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
-[clone/rpg/amazingrando/fate-srd-content]
+[clone/rpg/fate-srd-content]
 checkout = git clone 'https://github.com/amazingrando/fate-srd-content'
 
 
-[clone/text/asciidoctor/asciidoctor]
+[clone/text/asciidoctor]
 checkout = git clone 'https://github.com/asciidoctor/asciidoctor'
 
-[clone/text/be5invis/Iosevka]
+[clone/text/Iosevka]
 checkout = git clone 'https://github.com/be5invis/Iosevka'
 
-[clone/text/caryll/otfcc]
+[clone/text/otfcc]
 checkout = git clone 'https://github.com/caryll/otfcc'
 
-[clone/text/dmhendricks/file-icon-vectors]
+[clone/text/file-icon-vectors]
 checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 
-[clone/text/ghostscript/mupdf]
+[clone/text/mupdf]
 checkout = git clone 'git://git.ghostscript.com/mupdf'
 
-[clone/text/harfbuzz/harfbuzz]
+[clone/text/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
 
-[clone/text/sile-typesetter/sile]
+[clone/text/sile]
 checkout = git clone 'https://github.com/sile-typesetter/sile'
