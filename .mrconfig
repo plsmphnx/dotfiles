@@ -47,6 +47,9 @@ checkout = git clone 'https://github.com/orx/orx'
 [clone/game/megazeux]
 checkout = git clone 'https://github.com/AliceLR/megazeux'
 
+[clone/game/citadel]
+checkout = git clone 'https://github.com/davewx7/citadel'
+
 [clone/game/endless-sky]
 checkout = git clone 'https://github.com/endless-sky/endless-sky'
 [clone/game/endless-sky-editor]
@@ -61,6 +64,9 @@ checkout = git clone 'https://github.com/minetest/minetest_game'
 
 [clone/game/TIC-80]
 checkout = git clone 'https://github.com/nesbox/TIC-80'
+
+[clone/game/Tanks-of-Freedom]
+checkout = git clone 'https://github.com/w84death/Tanks-of-Freedom'
 
 [clone/game/wesnoth]
 checkout = git clone 'https://github.com/wesnoth/wesnoth'
