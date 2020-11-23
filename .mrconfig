@@ -43,6 +43,9 @@ checkout = hg clone 'https://hg.libsdl.org/SDL_ttf'
 [clone/engine/orx]
 checkout = git clone 'https://github.com/orx/orx'
 
+[clone/engine/raylib]
+checkout = git clone 'https://github.com/raysan5/raylib'
+
 
 [clone/game/megazeux]
 checkout = git clone 'https://github.com/AliceLR/megazeux'
@@ -89,6 +92,9 @@ checkout = git clone 'https://github.com/msteveb/jimtcl'
 
 [clone/language/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
+
+[clone/language/zig]
+checkout = git clone 'https://github.com/ziglang/zig'
 
 
 [clone/renderer/LuxCore]
