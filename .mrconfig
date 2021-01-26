@@ -99,8 +99,6 @@ checkout = git clone 'https://github.com/be5invis/Iosevka'
 checkout = git clone 'https://github.com/asciidoctor/asciidoctor'
 [clone/text/file-icon-vectors]
 checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
-[clone/text/ghostpdl]
-checkout = git clone 'git://git.ghostscript.com/ghostpdl'
 [clone/text/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
 [clone/text/mupdf]
