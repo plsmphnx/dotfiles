@@ -21,7 +21,7 @@ checkout = git clone 'https://github.com/nothings/stb'
 [clone/engine/allegro5]
 checkout = git clone 'https://github.com/liballeg/allegro5'
 [clone/engine/cairo]
-checkout = git clone 'git://anongit.freedesktop.org/git/cairo'
+checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo'
 [clone/engine/libsdl/SDL]
 checkout = hg clone 'https://hg.libsdl.org/SDL'
 [clone/engine/libsdl/SDL_image]
