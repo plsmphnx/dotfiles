@@ -7,6 +7,8 @@ git_gc =
 
 [clone/core/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
+[clone/core/layout]
+checkout = git clone 'https://github.com/randrew/layout'
 [clone/core/musl]
 checkout = git clone 'git://git.musl-libc.org/musl'
 [clone/core/rax]
@@ -60,10 +62,14 @@ checkout = git clone 'https://github.com/minetest/minetest_game'
 [clone/game/wesnoth]
 checkout = git clone 'https://github.com/wesnoth/wesnoth'
 
+[clone/language/Nim]
+checkout = git clone 'https://github.com/nim-lang/Nim'
 [clone/language/chibi-scheme]
 checkout = git clone 'https://github.com/ashinn/chibi-scheme'
 [clone/language/icon]
 checkout = git clone 'https://github.com/gtownsend/icon'
+[clone/language/koka]
+checkout = git clone 'https://github.com/koka-lang/koka'
 [clone/language/jimtcl]
 checkout = git clone 'https://github.com/msteveb/jimtcl'
 [clone/language/lua]
