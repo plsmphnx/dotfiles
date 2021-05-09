@@ -12,6 +12,11 @@ ln -s ~/dotfiles/.zshrc.d/color.zsh
 ln -s ~/dotfiles/.zshrc.d/pure.zsh
 cd ..
 
+mkdir .ssh
+cd .ssh
+ln -s ~/dotfiles/.ssh/config
+cd ..
+
 mkdir .bin
 cd .bin
 ln -s ~/dotfiles/.bin/check
