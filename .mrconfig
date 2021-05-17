@@ -20,22 +20,12 @@ checkout = git clone 'https://github.com/seL4/seL4'
 [clone/core/stb]
 checkout = git clone 'https://github.com/nothings/stb'
 
+[clone/engine/SDL]
+checkout = hg clone 'https://hg.libsdl.org/SDL'
 [clone/engine/allegro5]
 checkout = git clone 'https://github.com/liballeg/allegro5'
 [clone/engine/cairo]
 checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo'
-[clone/engine/libsdl/SDL]
-checkout = hg clone 'https://hg.libsdl.org/SDL'
-[clone/engine/libsdl/SDL_image]
-checkout = hg clone 'https://hg.libsdl.org/SDL_image'
-[clone/engine/libsdl/SDL_mixer]
-checkout = hg clone 'https://hg.libsdl.org/SDL_mixer'
-[clone/engine/libsdl/SDL_net]
-checkout = hg clone 'https://hg.libsdl.org/SDL_net'
-[clone/engine/libsdl/SDL_rtf]
-checkout = hg clone 'https://hg.libsdl.org/SDL_rtf'
-[clone/engine/libsdl/SDL_ttf]
-checkout = hg clone 'https://hg.libsdl.org/SDL_ttf'
 [clone/engine/orx]
 checkout = git clone 'https://github.com/orx/orx'
 [clone/engine/raylib]
