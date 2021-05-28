@@ -1,3 +1,3 @@
 path+=(./node_modules/.bin)
 goto_ignore+=('*node_modules*')
-zinit load lukechilds/zsh-better-npm-completion
+zinit light lukechilds/zsh-better-npm-completion

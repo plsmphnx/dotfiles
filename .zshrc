@@ -6,8 +6,6 @@ ZINIT[COMPINIT_OPTS]="-i -d ${ZINIT[ZCOMPDUMP_PATH]}"
 [[ -d ${ZINIT[HOME_DIR]} ]] || ZINIT_HOME=${ZINIT[HOME_DIR]} \
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 source "${ZINIT[HOME_DIR]}/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
 
 # history
 HISTFILE=~/.zsh/history
@@ -37,5 +35,5 @@ for rc in ~/.zshrc.d/*.zsh(N); source $rc
 
 # core plugins
 zinit light zsh-users/zsh-completions
-zinit ice lucid wait"0" atinit"zpcompinit; zpcdreplay"
+zinit ice wait lucid atinit'zpcompinit;zpcdreplay'
 zinit light zdharma/fast-syntax-highlighting
