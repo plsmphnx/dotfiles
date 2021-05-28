@@ -1,3 +1,3 @@
 precmd() {
-    print -nP '\033k%~\033\\'
+    [[ -v TMUX ]] && print -nP '\033k%~\033\\'
 }
