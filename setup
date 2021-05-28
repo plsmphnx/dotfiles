@@ -12,6 +12,12 @@ ln -s ~/dotfiles/.zshrc.d/color.zsh
 ln -s ~/dotfiles/.zshrc.d/pure.zsh
 cd ..
 
+ln -s ~/dotfiles/.tmux.conf
+mkdir .tmux.conf.d
+cd .tmux.conf.d
+ln -s ~/dotfiles/.tmux.conf.d/theme.conf
+cd ..
+
 mkdir .ssh
 cd .ssh
 ln -s ~/dotfiles/.ssh/config
