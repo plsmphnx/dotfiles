@@ -12,6 +12,5 @@ path=(${path:#/mnt/*})
 wslbin() {
     local exe=$(wslpath $1)
     local bin=~/.bin/${2:-$exe:t:r}
-    echo "${(q)exe} \"\$@\"" > $bin
-    chmod +x $bin
+    ln -s "$exe" "$bin"
 }
