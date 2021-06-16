@@ -30,6 +30,9 @@ ZSH_CACHE_DIR=~/.zsh/cache
 # local paths
 path+=(~/.bin .)
 
+# right prompt
+ZLE_RPROMPT_INDENT=0
+
 # local config
 for rc in ~/.zshrc.d/*.zsh(N); source $rc
 
