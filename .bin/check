@@ -20,6 +20,11 @@ case $1 in
         fi
         ;;
     missing)
-        aptitude search '!~poptional !~pextra !~slibs !~v !~i'
+        if [ "$2" = "install" ]
+        then
+            aptitude install '!~poptional !~pextra !~slibs !~v !~i'
+        else
+            aptitude search '!~poptional !~pextra !~slibs !~v !~i'
+        fi
         ;;
 esac
