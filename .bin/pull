@@ -1,0 +1,13 @@
+#!/bin/sh
+ARGS="ssh.clecompt.link:$2/ . -avz --delete"
+case $1 in
+    time)
+        rsync $ARGS
+        ;;
+    size)
+        rsync $ARGS --size-only
+        ;;
+    hash)
+        rsync $ARGS --checksum
+        ;;
+esac
