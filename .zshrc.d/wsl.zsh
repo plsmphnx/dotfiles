@@ -14,3 +14,11 @@ wslbin() {
     local bin=~/.bin/${2:-$exe:t:r}
     ln -s "$exe" "$bin"
 }
+
+# Add shorthand to mount drives
+wslmnt() {
+    sudo mkdir /mnt/$1 && sudo mount -t drvfs "${1:u}:\\" /mnt/$1 -o metadata
+}
+wslumnt() {
+    sudo umount /mnt/$1 && sudo rmdir /mnt/$1
+}

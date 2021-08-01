@@ -1,5 +1,11 @@
 #!/bin/sh
-ARGS="ssh.clecompt.link:$2/ . -avz --delete"
+if [ -d $2 ]
+then
+    SRC=$2
+else
+    SRC=ssh.clecompt.link:$2
+fi
+ARGS="$SRC/ . -avz --delete"
 case $1 in
     time)
         rsync $ARGS
