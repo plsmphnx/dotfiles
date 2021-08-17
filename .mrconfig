@@ -15,13 +15,11 @@ checkout = git clone 'git://git.musl-libc.org/musl'
 checkout = git clone 'https://github.com/antirez/rax'
 [clone/core/sds]
 checkout = git clone 'https://github.com/antirez/sds'
-[clone/core/seL4]
+[clone/core/sel4]
 checkout = git clone 'https://github.com/seL4/seL4'
 [clone/core/stb]
 checkout = git clone 'https://github.com/nothings/stb'
 
-[clone/engine/SDL]
-checkout = hg clone 'https://hg.libsdl.org/SDL'
 [clone/engine/allegro5]
 checkout = git clone 'https://github.com/liballeg/allegro5'
 [clone/engine/cairo]
@@ -30,11 +28,9 @@ checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo'
 checkout = git clone 'https://github.com/orx/orx'
 [clone/engine/raylib]
 checkout = git clone 'https://github.com/raysan5/raylib'
+[clone/engine/sdl]
+checkout = hg clone 'https://hg.libsdl.org/SDL'
 
-[clone/game/TIC-80]
-checkout = git clone 'https://github.com/nesbox/TIC-80'
-[clone/game/Tanks-of-Freedom]
-checkout = git clone 'https://github.com/w84death/Tanks-of-Freedom'
 [clone/game/citadel]
 checkout = git clone 'https://github.com/davewx7/citadel'
 [clone/game/endless-sky/endless-sky]
@@ -47,13 +43,15 @@ checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
 checkout = git clone 'https://github.com/AliceLR/megazeux'
 [clone/game/minetest/minetest]
 checkout = git clone 'https://github.com/minetest/minetest'
-[clone/game/minetest/minetest_game]
+[clone/game/minetest/minetest-game]
 checkout = git clone 'https://github.com/minetest/minetest_game'
+[clone/game/tanks-of-freedom]
+checkout = git clone 'https://github.com/w84death/Tanks-of-Freedom'
+[clone/game/tic-80]
+checkout = git clone 'https://github.com/nesbox/TIC-80'
 [clone/game/wesnoth]
 checkout = git clone 'https://github.com/wesnoth/wesnoth'
 
-[clone/language/Nim]
-checkout = git clone 'https://github.com/nim-lang/Nim'
 [clone/language/chibi-scheme]
 checkout = git clone 'https://github.com/ashinn/chibi-scheme'
 [clone/language/icon]
@@ -66,37 +64,39 @@ checkout = git clone 'https://github.com/msteveb/jimtcl'
 checkout = git clone 'https://github.com/lua/lua'
 [clone/language/mruby]
 checkout = git clone 'https://github.com/mruby/mruby'
+[clone/language/nim]
+checkout = git clone 'https://github.com/nim-lang/Nim'
 [clone/language/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
 [clone/language/zig]
 checkout = git clone 'https://github.com/ziglang/zig'
 
-[clone/renderer/LuxCore]
-checkout = git clone 'https://github.com/LuxCoreRender/LuxCore'
-[clone/renderer/MDL-SDK]
-checkout = git clone 'https://github.com/NVIDIA/MDL-SDK'
-[clone/renderer/MaterialX]
-checkout = git clone 'https://github.com/materialx/MaterialX'
-[clone/renderer/OpenShadingLanguage]
-checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
 [clone/renderer/cycles]
 checkout = git clone 'git://git.blender.org/cycles'
 [clone/renderer/filament]
 checkout = git clone 'https://github.com/google/filament'
+[clone/renderer/lux-core]
+checkout = git clone 'https://github.com/LuxCoreRender/LuxCore'
+[clone/renderer/material-x]
+checkout = git clone 'https://github.com/materialx/MaterialX'
+[clone/renderer/mdl-sdk]
+checkout = git clone 'https://github.com/NVIDIA/MDL-SDK'
+[clone/renderer/open-shading-language]
+checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
 
 [clone/rpg/blades-in-the-dark-srd-content]
 checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
 [clone/rpg/fate-srd-content]
 checkout = git clone 'https://github.com/amazingrando/fate-srd-content'
 
-[clone/text/Iosevka]
-checkout = git clone 'https://github.com/be5invis/Iosevka'
 [clone/text/asciidoctor]
 checkout = git clone 'https://github.com/asciidoctor/asciidoctor'
 [clone/text/file-icon-vectors]
 checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 [clone/text/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
+[clone/text/iosevka]
+checkout = git clone 'https://github.com/be5invis/Iosevka'
 [clone/text/mupdf]
 checkout = git clone 'git://git.ghostscript.com/mupdf'
 [clone/text/sile]
