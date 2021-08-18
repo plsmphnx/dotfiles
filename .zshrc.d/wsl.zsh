@@ -17,7 +17,7 @@ wslbin() {
 
 # Add shorthand to mount drives
 wslmnt() {
-    sudo mkdir /mnt/$1 && sudo mount -t drvfs "${1:u}:\\" /mnt/$1 -o metadata
+    sudo mkdir /mnt/$1 && sudo mount -t drvfs "${1:u}:\\" /mnt/$1 -o noatime,uid=1000,gid=1000
 }
 wslumnt() {
     sudo umount /mnt/$1 && sudo rmdir /mnt/$1
