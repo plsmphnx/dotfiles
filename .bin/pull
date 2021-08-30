@@ -1,19 +1,19 @@
 #!/bin/sh
-if [ -d $2 ]
+if [ -d "$2" ]
 then
-    SRC=$2
+    SRC="$2"
 else
-    SRC=ssh.clecompt.link:$2
+    SRC="ssh.clecompt.link:$2"
 fi
-ARGS="$SRC/ . -avz --delete"
+ARGS=". -avz --delete"
 case $1 in
     time)
-        rsync $ARGS
+        rsync "$SRC/" $ARGS
         ;;
     size)
-        rsync $ARGS --size-only
+        rsync "$SRC/" $ARGS --size-only
         ;;
     hash)
-        rsync $ARGS --checksum
+        rsync "$SRC/" $ARGS --checksum
         ;;
 esac
