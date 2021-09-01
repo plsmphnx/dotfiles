@@ -19,6 +19,8 @@ checkout = git clone 'https://github.com/antirez/sds'
 checkout = git clone 'https://github.com/seL4/seL4'
 [clone/core/stb]
 checkout = git clone 'https://github.com/nothings/stb'
+[clone/core/toybox]
+checkout = git clone 'https://github.com/landley/toybox'
 
 [clone/engine/allegro5]
 checkout = git clone 'https://github.com/liballeg/allegro5'
@@ -52,14 +54,12 @@ checkout = git clone 'https://github.com/nesbox/TIC-80'
 [clone/game/wesnoth]
 checkout = git clone 'https://github.com/wesnoth/wesnoth'
 
-[clone/language/chibi-scheme]
-checkout = git clone 'https://github.com/ashinn/chibi-scheme'
 [clone/language/icon]
 checkout = git clone 'https://github.com/gtownsend/icon'
-[clone/language/koka]
-checkout = git clone 'https://github.com/koka-lang/koka'
 [clone/language/jimtcl]
 checkout = git clone 'https://github.com/msteveb/jimtcl'
+[clone/language/koka]
+checkout = git clone 'https://github.com/koka-lang/koka'
 [clone/language/lua]
 checkout = git clone 'https://github.com/lua/lua'
 [clone/language/mruby]
@@ -68,6 +68,9 @@ checkout = git clone 'https://github.com/mruby/mruby'
 checkout = git clone 'https://github.com/nim-lang/Nim'
 [clone/language/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
+[clone/language/s7]
+checkout = git -c 'http.sslVerify=false' clone 'https://cm-gitlab.stanford.edu/bil/s7.git'
+update = git -c 'http.sslVerify=false' pull
 [clone/language/zig]
 checkout = git clone 'https://github.com/ziglang/zig'
 

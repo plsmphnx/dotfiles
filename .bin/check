@@ -3,9 +3,9 @@ case $1 in
     cruft)
         if [ "$2" = "all" ]
         then
-            cruft --ignore "/home /mnt"
+            cruft-ng | grep -Ev '^ +([^ /])'
         else
-            cruft --ignore "/boot /home /mnt /tmp /sys /var"
+            cruft-ng | grep -Ev '^ +([^ /]|/boot|/var)'
         fi
         ;;
     files)
