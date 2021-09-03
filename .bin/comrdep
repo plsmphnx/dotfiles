@@ -1,7 +1,7 @@
 #!/bin/sh
-D1=$(mktemp)
-D2=$(mktemp)
-rdepends "$1" | grep '^  ' | sed 's/  //' | sort > "$D1"
-rdepends "$2" | grep '^  ' | sed 's/  //' | sort > "$D2"
-comm -1 -2 "$D1" "$D2"
-rm "$D1" "$D2"
+TEMP=$(mktemp)
+RD(){ rdepends "$1" | grep '^  ' | sed 's/  //' | sort; }
+RD "$1" > "$TEMP"; shift
+for A in "$@"; do echo "$(RD "$A" | comm -12 "$TEMP" -)" > "$TEMP"; done
+cat "$TEMP"
+rm "$TEMP"
