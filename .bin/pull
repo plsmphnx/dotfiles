@@ -3,7 +3,7 @@ if [ -d "$2" ]
 then
     SRC="$2"
 else
-    SRC="ssh.clecompt.link:$2"
+    SRC="ssh.clecompt.net:$2"
 fi
 ARGS=". -avz --delete"
 case $1 in
