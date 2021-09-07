@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -0.25 10 10">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -.25 10 10">
     <defs>
-        <path id="f" d="M -0.2 9
+        <path id="f" d="M -.2 9
                         l -.8 0
                         a 9.0375 9.0375 0 0 1 0 -9
                         l .8 0
@@ -19,5 +19,5 @@
         </g>
     </defs>
     <use href="#w" fill="red" />
-    <use href="#w" fill="yellow" fill-opacity="0.25" />
+    <use href="#w" fill="yellow" fill-opacity=".25" />
 </svg> 
