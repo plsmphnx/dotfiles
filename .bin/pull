@@ -3,7 +3,7 @@ if [ -d "$2" ]
 then
     SRC="$2"
 else
-    SRC="script:$2"
+    SRC="server:$2"
 fi
 ARGS=". -avz --delete"
 case $1 in
