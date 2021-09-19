@@ -9,7 +9,7 @@ ln -s ~/dotfiles/.zshrc
 mkdir .zshrc.d
 cd .zshrc.d
 ln -s ~/dotfiles/.zshrc.d/color.zsh
-ln -s ~/dotfiles/.zshrc.d/pure.zsh
+ln -s ~/dotfiles/.zshrc.d/prompt.zsh
 ln -s ~/dotfiles/.zshrc.d/title-path.zsh
 cd ..
 
