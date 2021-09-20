@@ -10,4 +10,4 @@ prompt_dirname() {
 prompt_basename() {
     basename "$(print -nP %~)"
 }
-PROMPT='%F{cyan}$(prompt_dirname)%B$(prompt_basename)%b%f %(?.%F{white}>%f.%F{red}%B%?%b>%f) '
+PROMPT='%F{cyan}$(prompt_dirname)%B$(prompt_basename)%b%f %(?.>.%F{red}%B%?%b>%f) '
