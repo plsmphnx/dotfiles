@@ -28,7 +28,7 @@ ZSH_CACHE_DIR=~/.zsh/cache
 [[ -d $ZSH_CACHE_DIR ]] || mkdir $ZSH_CACHE_DIR
 
 # local paths
-path+=(~/.bin .)
+path=(. ~/.bin $path)
 
 # right prompt
 ZLE_RPROMPT_INDENT=0
