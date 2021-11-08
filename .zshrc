@@ -39,4 +39,4 @@ for rc in ~/.zshrc.d/*.zsh(N); source $rc
 # core plugins
 zinit light zsh-users/zsh-completions
 zinit ice wait lucid atinit'zpcompinit;zpcdreplay'
-zinit light zdharma/fast-syntax-highlighting
+zinit light zsh-users/zsh-syntax-highlighting
