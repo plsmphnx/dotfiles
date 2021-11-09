@@ -1,14 +1,12 @@
+ZDOTDIR=~/.zsh
+
 # plugin manager
-declare -A ZINIT
-ZINIT[HOME_DIR]=~/.zsh
-ZINIT[ZCOMPDUMP_PATH]=~/.zsh/completion
-ZINIT[COMPINIT_OPTS]="-i -d ${ZINIT[ZCOMPDUMP_PATH]}"
-[[ -d ${ZINIT[HOME_DIR]} ]] || ZINIT_HOME=${ZINIT[HOME_DIR]} \
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-source "${ZINIT[HOME_DIR]}/bin/zinit.zsh"
+[[ -f $ZDOTDIR/.zcomet/bin/zcomet.zsh ]] || \
+    git clone https://github.com/agkozak/zcomet.git $ZDOTDIR/.zcomet/bin
+source $ZDOTDIR/.zcomet/bin/zcomet.zsh
 
 # history
-HISTFILE=~/.zsh/history
+HISTFILE=$ZDOTDIR/.history
 HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory histignoredups histreduceblanks histverify
@@ -24,7 +22,7 @@ bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
 # cache
-ZSH_CACHE_DIR=~/.zsh/cache
+ZSH_CACHE_DIR=$ZDOTDIR/.cache
 [[ -d $ZSH_CACHE_DIR ]] || mkdir $ZSH_CACHE_DIR
 
 # local paths
@@ -33,28 +31,10 @@ path=(. ~/.bin $path)
 # right prompt
 ZLE_RPROMPT_INDENT=0
 
-# highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-declare -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES=(
-    [redirection]='none'
-
-    [single-hyphen-option]='fg=cyan'
-    [double-hyphen-option]='fg=cyan'
-
-    [autodirectory]='fg=green'
-    [precommand]='fg=green'
-    [suffix-alias]='fg=green'
-
-    [path]='fg=magenta,bold'
-    [globbing]='fg=blue,bold'
-    [history-expansion]='fg=blue,bold'
-)
-
 # local config
 for rc in ~/.zshrc.d/*.zsh(N); source $rc
 
 # core plugins
-zinit light zsh-users/zsh-completions
-zinit ice wait lucid atinit'zpcompinit;zpcdreplay'
-zinit light zsh-users/zsh-syntax-highlighting
+zcomet load zsh-users/zsh-completions
+zcomet compinit
+zcomet load zsh-users/zsh-syntax-highlighting
