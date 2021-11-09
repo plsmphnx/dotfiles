@@ -16,7 +16,7 @@ checkout = git clone 'https://github.com/antirez/rax'
 [clone/core/sds]
 checkout = git clone 'https://github.com/antirez/sds'
 [clone/core/sel4]
-checkout = git clone 'https://github.com/seL4/seL4'
+checkout = git clone 'https://github.com/seL4/seL4' sel4
 [clone/core/stb]
 checkout = git clone 'https://github.com/nothings/stb'
 [clone/core/toybox]
@@ -31,7 +31,7 @@ checkout = git clone 'https://github.com/orx/orx'
 [clone/engine/raylib]
 checkout = git clone 'https://github.com/raysan5/raylib'
 [clone/engine/sdl]
-checkout = hg clone 'https://hg.libsdl.org/SDL'
+checkout = hg clone 'https://hg.libsdl.org/SDL' sdl
 
 [clone/game/citadel]
 checkout = git clone 'https://github.com/davewx7/citadel'
@@ -46,11 +46,11 @@ checkout = git clone 'https://github.com/AliceLR/megazeux'
 [clone/game/minetest/minetest]
 checkout = git clone 'https://github.com/minetest/minetest'
 [clone/game/minetest/minetest-game]
-checkout = git clone 'https://github.com/minetest/minetest_game'
+checkout = git clone 'https://github.com/minetest/minetest_game' minetest-game
 [clone/game/tanks-of-freedom]
-checkout = git clone 'https://github.com/w84death/Tanks-of-Freedom'
+checkout = git clone 'https://github.com/w84death/Tanks-of-Freedom' tanks-of-freedom
 [clone/game/tic-80]
-checkout = git clone 'https://github.com/nesbox/TIC-80'
+checkout = git clone 'https://github.com/nesbox/TIC-80' tic-80
 [clone/game/wesnoth]
 checkout = git clone 'https://github.com/wesnoth/wesnoth'
 
@@ -65,7 +65,7 @@ checkout = git clone 'https://github.com/lua/lua'
 [clone/language/mruby]
 checkout = git clone 'https://github.com/mruby/mruby'
 [clone/language/nim]
-checkout = git clone 'https://github.com/nim-lang/Nim'
+checkout = git clone 'https://github.com/nim-lang/Nim' nim
 [clone/language/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
 [clone/language/s7]
@@ -79,13 +79,13 @@ checkout = git clone 'git://git.blender.org/cycles'
 [clone/renderer/filament]
 checkout = git clone 'https://github.com/google/filament'
 [clone/renderer/lux-core]
-checkout = git clone 'https://github.com/LuxCoreRender/LuxCore'
+checkout = git clone 'https://github.com/LuxCoreRender/LuxCore' lux-core
 [clone/renderer/material-x]
-checkout = git clone 'https://github.com/materialx/MaterialX'
+checkout = git clone 'https://github.com/materialx/MaterialX' material-x
 [clone/renderer/mdl-sdk]
-checkout = git clone 'https://github.com/NVIDIA/MDL-SDK'
+checkout = git clone 'https://github.com/NVIDIA/MDL-SDK' mdl-sdk
 [clone/renderer/open-shading-language]
-checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage'
+checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage' open-shading-language
 
 [clone/rpg/blades-in-the-dark-srd-content]
 checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
@@ -99,7 +99,7 @@ checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 [clone/text/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
 [clone/text/iosevka]
-checkout = git clone 'https://github.com/be5invis/Iosevka'
+checkout = git clone 'https://github.com/be5invis/Iosevka' iosevka
 [clone/text/mupdf]
 checkout = git clone 'git://git.ghostscript.com/mupdf'
 [clone/text/sile]
