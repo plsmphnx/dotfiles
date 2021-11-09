@@ -33,6 +33,24 @@ path=(. ~/.bin $path)
 # right prompt
 ZLE_RPROMPT_INDENT=0
 
+# highlighting
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+declare -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES=(
+    [redirection]='none'
+
+    [single-hyphen-option]='fg=cyan'
+    [double-hyphen-option]='fg=cyan'
+
+    [autodirectory]='fg=green'
+    [precommand]='fg=green'
+    [suffix-alias]='fg=green'
+
+    [path]='fg=magenta,bold'
+    [globbing]='fg=blue,bold'
+    [history-expansion]='fg=blue,bold'
+)
+
 # local config
 for rc in ~/.zshrc.d/*.zsh(N); source $rc
 
