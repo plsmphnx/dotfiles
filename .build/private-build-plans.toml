@@ -1,30 +1,124 @@
 [buildPlans.iosevka-clecompt]
 family = "Iosevka CEL"
-design = [
-	"term",
-	"expanded",
-	"v-l-serifed",
-	"v-i-serifed",
-	"v-j-serifed",
-	"v-a-doublestorey",
-	"v-f-straight",
-	"v-g-singlestorey",
-	"v-m-longleg",
-	"v-t-standard",
-	"v-q-taily",
-	"v-y-curly",
-	"v-zero-slashed",
-	"v-one-serifed",
-	"v-three-twoarks",
-	"v-tilde-low",
-	"v-asterisk-low",
-	"v-paragraph-high",
-	"v-caret-high",
-	"v-underscore-high",
-	"v-percent-rings",
-	"v-at-long",
-	"v-eszet-sulzbacher",
-	"v-brace-curly",
-	"v-dollar-through",
-	"v-numbersign-upright"
-]
+spacing = "fixed"
+serifs = "sans"
+
+[buildPlans.iosevka-clecompt.variants.design]
+## LATIN ##
+capital-a = "curly-serifless"
+capital-b = "standard-serifless"
+capital-c = "serifless"
+capital-d = "standard-serifless"
+capital-e = "serifless"
+capital-f = "serifless"
+capital-g = "toothless-rounded-serifless-hooked"
+capital-h = "serifless"
+capital-i = "serifed"
+capital-j = "serifed"
+capital-k = "curly-serifless"
+capital-l = "serifless"
+capital-m = "hanging"
+capital-n = "standard"
+capital-p = "closed"
+capital-q = "curly-tailed"
+capital-r = "curly"
+capital-s = "serifless"
+capital-t = "serifless"
+capital-u = "toothless-rounded"
+capital-v = "curly"
+capital-w = "curly"
+capital-x = "curly-serifless"
+capital-y = "curly-serifless"
+capital-z = "curly-serifless"
+a = "double-storey-serifless"
+b = "toothed"
+c = "serifless"
+d = "toothed-serifless"
+e = "flat-crossbar"
+f = "serifless"
+g = "single-storey-serifless"
+h = "straight"
+i = "serifed"
+j = "serifed"
+k = "curly-serifless"
+l = "serifed"
+m = "normal"
+n = "straight"
+p = "eared"
+q = "straight"
+r = "serifless"
+s = "serifless"
+t = "standard"
+u = "toothed"
+v = "curly"
+w = "curly"
+x = "curly-serifless"
+y = "cursive"
+z = "curly-serifless"
+
+## MISC ##
+long-s = "flat-hook-tailed"
+eszet = "sulzbacher"
+turn-v = "curly"
+
+## GREEK ##
+lower-alpha = "crossing"
+lower-delta = "rounded"
+capital-gamma = "serifless"
+lower-iota = "tailed-serifed"
+lower-lambda = "curly"
+lower-mu = "tailed"
+lower-xi = "rounded"
+
+## CYRILLIC ##
+cyrl-capital-ze = "serifless"
+cyrl-ze = "serifless"
+cyrl-capital-ka = "curly-serifless"
+cyrl-ka = "curly-serifless"
+cyrl-el = "tailed"
+cyrl-en = "tailed-serifless"
+cyrl-ef = "serifless"
+cyrl-che = "standard"
+cyrl-capital-u = "curly"
+cyrl-capital-ya = "curly"
+cyrl-ya = "curly"
+cyrl-yeri = "corner"
+cyrl-yery = "corner"
+
+## NUMBERS ##
+zero = "slashed"
+one = "base"
+two = "curly-neck"
+three = "two-arcs"
+four = "closed"
+five = "vertical-upper-left-bar"
+six = "closed-contour"
+seven = "curly-serifless"
+eight = "two-circles"
+nine = "closed-contour"
+
+## PUNCTUATION ##
+tilde = "low"
+asterisk = "penta-low"
+underscore = "high"
+paragraph-sign = "high"
+caret = "high"
+paren = "normal"
+brace = "curly"
+number-sign = "upright"
+ampersand = "closed"
+at = "threefold-tall"
+dollar = "through"
+cent = "through"
+percent = "rings-continuous-slash"
+bar = "natural-slope"
+lig-ltgteq = "flat"
+ascii-single-quote = "straight"
+ascii-grave = "straight"
+question = "smooth"
+punctuation-dot = "round"
+
+[buildPlans.iosevka-clecompt.widths.normal]
+shape = 625
+menu = 5
+css = "normal"
