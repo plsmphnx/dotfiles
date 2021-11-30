@@ -1,0 +1,5 @@
+#!/bin/sh
+DIR="$(pwd)"
+cd "$1"
+tar chf - * | xz -9 - > "$DIR/${1##*/}.tar.xz"
+cd "$DIR"
