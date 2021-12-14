@@ -4,17 +4,26 @@ hash -d _="/mnt/c/Users/$USER"
 # Remove Windows paths
 path=(${path:#/mnt/*})
 
-# Add shorthand to build links to Windows programs
-wslbin() {
-    local exe=$(wslpath $1)
-    local bin=~/.bin/${2:-$exe:t:r}
-    ln -s "$exe" "$bin"
-}
+# Add utility script
+wsl() {
+    case $1 in
+        path)
+            wslpath $2
+            ;;
 
-# Add shorthand to mount drives
-wslmnt() {
-    sudo mkdir /mnt/$1 && sudo mount -t drvfs "${1:u}:\\" /mnt/$1 -o noatime,uid=1000,gid=1000
-}
-wslumnt() {
-    sudo umount /mnt/$1 && sudo rmdir /mnt/$1
+        # Shorthand to build links to Windows programs
+        link)
+            local exe=$(wslpath $2)
+            local bin=~/.bin/${3:-$exe:t:r}
+            ln -s "$exe" "$bin"
+            ;;
+
+        # Shorthand to (un-)mount drives
+        mount)
+            sudo mkdir /mnt/$2 && sudo mount -t drvfs "${1:u}:\\" /mnt/$2 -o noatime,uid=1000,gid=1000
+            ;;
+        unmount)
+            sudo umount /mnt/$2 && sudo rmdir /mnt/$2
+            ;;
+    esac
 }
