@@ -20,7 +20,7 @@ wsl() {
 
         # Shorthand to (un-)mount drives
         mount)
-            sudo mkdir /mnt/$2 && sudo mount -t drvfs "${1:u}:\\" /mnt/$2 -o noatime,uid=1000,gid=1000
+            sudo mkdir /mnt/$2 && sudo mount -t drvfs "${2:u}:\\" /mnt/$2 -o noatime,uid=1000,gid=1000
             ;;
         unmount)
             sudo umount /mnt/$2 && sudo rmdir /mnt/$2
