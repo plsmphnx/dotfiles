@@ -98,6 +98,8 @@ checkout = git clone 'https://github.com/asciidoctor/asciidoctor'
 checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 [clone/text/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
+[clone/text/heirloom-doctools]
+checkout = git clone 'https://github.com/n-t-roff/heirloom-doctools'
 [clone/text/iosevka]
 checkout = git clone 'https://github.com/be5invis/Iosevka' iosevka
 [clone/text/mupdf]
