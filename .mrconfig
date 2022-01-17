@@ -108,6 +108,16 @@ checkout = git clone 'https://github.com/bramstein/hypher'
 checkout = git clone 'https://github.com/be5invis/Iosevka' iosevka
 [clone/text/mupdf]
 checkout = git clone 'git://git.ghostscript.com/mupdf'
+[clone/text/neat/neateqn]
+checkout = git clone 'https://github.com/aligrudi/neateqn'
+[clone/text/neat/neatmkfn]
+checkout = git clone 'https://github.com/aligrudi/neatmkfn'
+[clone/text/neat/neatpost]
+checkout = git clone 'https://github.com/aligrudi/neatpost'
+[clone/text/neat/neatrefer]
+checkout = git clone 'https://github.com/aligrudi/neatrefer'
+[clone/text/neat/neatroff]
+checkout = git clone 'https://github.com/aligrudi/neatroff'
 [clone/text/sile]
 checkout = git clone 'https://github.com/sile-typesetter/sile'
 [clone/text/typeset]
