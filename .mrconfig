@@ -100,9 +100,9 @@ checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
 [clone/text/heirloom-doctools]
 checkout = git clone 'https://github.com/n-t-roff/heirloom-doctools'
-[clone/text/hyphenation-patterns]
+[clone/text/hypher/hyphenation-patterns]
 checkout = git clone 'https://github.com/bramstein/hyphenation-patterns'
-[clone/text/hypher]
+[clone/text/hypher/hypher]
 checkout = git clone 'https://github.com/bramstein/hypher'
 [clone/text/iosevka]
 checkout = git clone 'https://github.com/be5invis/Iosevka' iosevka
