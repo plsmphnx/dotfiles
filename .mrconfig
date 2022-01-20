@@ -100,25 +100,13 @@ checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
 [clone/text/heirloom-doctools]
 checkout = git clone 'https://github.com/n-t-roff/heirloom-doctools'
-[clone/text/hypher/hyphenation-patterns]
-checkout = git clone 'https://github.com/bramstein/hyphenation-patterns'
-[clone/text/hypher/hypher]
-checkout = git clone 'https://github.com/bramstein/hypher'
+[clone/text/hyphen]
+checkout = git clone 'https://github.com/hunspell/hyphen'
 [clone/text/iosevka]
 checkout = git clone 'https://github.com/be5invis/Iosevka' iosevka
+[clone/text/lout]
+checkout = git clone 'https://github.com/william8000/lout'
 [clone/text/mupdf]
 checkout = git clone 'git://git.ghostscript.com/mupdf'
-[clone/text/neat/neateqn]
-checkout = git clone 'https://github.com/aligrudi/neateqn'
-[clone/text/neat/neatmkfn]
-checkout = git clone 'https://github.com/aligrudi/neatmkfn'
-[clone/text/neat/neatpost]
-checkout = git clone 'https://github.com/aligrudi/neatpost'
-[clone/text/neat/neatrefer]
-checkout = git clone 'https://github.com/aligrudi/neatrefer'
-[clone/text/neat/neatroff]
-checkout = git clone 'https://github.com/aligrudi/neatroff'
 [clone/text/sile]
 checkout = git clone 'https://github.com/sile-typesetter/sile'
-[clone/text/typeset]
-checkout = git clone 'https://github.com/bramstein/typeset'
