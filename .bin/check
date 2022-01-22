@@ -1,30 +1,14 @@
 #!/bin/sh
 case $1 in
     cruft)
-        if [ "$2" = "all" ]
-        then
-            cruft-ng | grep -Ev '^ +([^ /])'
-        else
-            cruft-ng | grep -Ev '^ +([^ /]|/boot|/var)'
-        fi
+        [ "$2" = "all" ] && FILTER="" || FILTER="|/boot|/var"
+        cruft-ng | grep -Ev "^ +([^ /]$FILTER)"
         ;;
     files)
         debsums -acs
         ;;
-    installed)
-        if [ "$2" = "all" ]
-        then
-            aptitude search '(~poptional|~pextra) ~i !~slibs'
-        else
-            aptitude search '(~poptional|~pextra) ~i !~R~i'
-        fi
-        ;;
-    missing)
-        if [ "$2" = "install" ]
-        then
-            aptitude install '!~poptional !~pextra !~slibs !~v !~i'
-        else
-            aptitude search '!~poptional !~pextra !~slibs !~v !~i'
-        fi
+    packages)
+        [ "$2" = "all" ] && FILTER="" || FILTER="!~R~i"
+        aptitude search "(!~poptional !~pextra !~i | (~poptional | ~pextra) ~i) !~slibs !~v $FILTER"
         ;;
 esac
