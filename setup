@@ -31,6 +31,7 @@ ln -s ~/dotfiles/.bin/check
 ln -s ~/dotfiles/.bin/cmdown
 ln -s ~/dotfiles/.bin/comrdep
 ln -s ~/dotfiles/.bin/rdepends
+ln -s ~/dotfiles/.bin/rename
 ln -s ~/dotfiles/.bin/src
 ln -s ~/dotfiles/.bin/sz
 cd ..
