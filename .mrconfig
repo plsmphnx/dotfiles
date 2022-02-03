@@ -31,7 +31,7 @@ checkout = git clone 'https://github.com/orx/orx'
 [clone/engine/raylib]
 checkout = git clone 'https://github.com/raysan5/raylib'
 [clone/engine/sdl]
-checkout = hg clone 'https://hg.libsdl.org/SDL' sdl
+checkout = git clone 'https://github.com/libsdl-org/SDL' sdl
 
 [clone/game/citadel]
 checkout = git clone 'https://github.com/davewx7/citadel'
