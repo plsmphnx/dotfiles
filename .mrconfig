@@ -66,6 +66,8 @@ checkout = git clone 'https://github.com/lua/lua'
 checkout = git clone 'https://github.com/mruby/mruby'
 [clone/language/nim]
 checkout = git clone 'https://github.com/nim-lang/Nim' nim
+[clone/language/odin]
+checkout = git clone 'https://github.com/odin-lang/Odin' odin
 [clone/language/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
 [clone/language/s7]
