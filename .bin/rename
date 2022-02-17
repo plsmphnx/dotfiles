@@ -1,7 +1,4 @@
 #!/bin/sh
 P="$1"
 shift
-for f in "$@"
-do
-    mv -n "$f" "$(echo "$f" | sed "$P")"
-done
+for f in "$@"; do mv -n "$f" "$(echo "$f" | sed "$P")"; done
