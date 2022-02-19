@@ -1,0 +1,9 @@
+{
+    "basename": true,
+    "clipboard": "terminal",
+    "colorscheme": "monokai-dark",
+    "mouse": false,
+    "rmtrailingws": true,
+    "savehistory": false,
+    "tabstospaces": true
+}
