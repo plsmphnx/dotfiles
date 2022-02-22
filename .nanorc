@@ -10,4 +10,9 @@ set softwrap
 set tabsize 4
 set tabstospaces
 
+set errorcolor      red
+set keycolor        cyan
+set numbercolor     gray
+set scrollercolor   gray
+
 include "~/.nano/*.nanorc"
