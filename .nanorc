@@ -1,7 +1,10 @@
 set atblanks
 set autoindent
 set boldtext
+set constantshow
 set linenumbers
+set minibar
+set nohelp
 set smarthome
 set softwrap
 set tabsize 4
