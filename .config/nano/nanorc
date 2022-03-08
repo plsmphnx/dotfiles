@@ -15,4 +15,4 @@ set keycolor        cyan
 set numbercolor     gray
 set scrollercolor   gray
 
-include "~/.nano/*.nanorc"
+include "~/.local/share/nano/*.nanorc"

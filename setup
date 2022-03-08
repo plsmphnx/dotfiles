@@ -1,39 +1,27 @@
 #!/bin/sh
+SCRIPT=$(cd "$(dirname "$0")" && pwd)
+. .zshenv
+
+mkdir -p $XDG_CONFIG_HOME && cd $XDG_CONFIG_HOME
+for CONF in $SCRIPT/.config/*; do ln -s $CONF; done
 cd ~
-ln -s ~/dotfiles/.gitconfig
 
-ln -s ~/dotfiles/.nanorc
-git clone https://github.com/scopatz/nanorc .nano
+mkdir -p $XDG_DATA_HOME && cd $XDG_DATA_HOME
+git clone https://github.com/scopatz/nanorc nano
+link_data() {
+    mkdir -p $1 && cd $1
+    for DATA in $2; do ln -s $SCRIPT/.data/$1/$DATA; done
+    cd ..
+}
+link_data tmux "theme.conf"
+link_data zsh "color.zsh highlight.zsh prompt.zsh title-path.zsh"
+cd ~
 
-ln -s ~/dotfiles/.zshrc
-mkdir .zshrc.d
-cd .zshrc.d
-ln -s ~/dotfiles/.zshrc.d/color.zsh
-ln -s ~/dotfiles/.zshrc.d/highlight.zsh
-ln -s ~/dotfiles/.zshrc.d/prompt.zsh
-ln -s ~/dotfiles/.zshrc.d/title-path.zsh
-cd ..
+mkdir -p .local/bin && cd .local/bin
+for BIN in $SCRIPT/.bin/*; do ln -s $BIN; done
+cd ~
 
-ln -s ~/dotfiles/.tmux.conf
-mkdir .tmux.conf.d
-cd .tmux.conf.d
-ln -s ~/dotfiles/.tmux.conf.d/theme.conf
-cd ..
-
-mkdir .ssh
-cd .ssh
-ln -s ~/dotfiles/.ssh/config
-cd ..
-
-mkdir .bin
-cd .bin
-ln -s ~/dotfiles/.bin/check
-ln -s ~/dotfiles/.bin/cmdown
-ln -s ~/dotfiles/.bin/comrdep
-ln -s ~/dotfiles/.bin/rdepends
-ln -s ~/dotfiles/.bin/rename
-ln -s ~/dotfiles/.bin/src
-ln -s ~/dotfiles/.bin/sz
-cd ..
+ln -s $SCRIPT/.ssh
+ln -s $SCRIPT/.zshenv
 
 chsh -s /bin/zsh

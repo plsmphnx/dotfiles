@@ -1,12 +1,16 @@
-ZDOTDIR=~/.zsh
+# cache and state
+ZSH_CACHE_DIR=$XDG_CACHE_HOME/zsh
+ZSH_STATE_DIR=$XDG_STATE_HOME/zsh
 
 # plugin manager
-[[ -f $ZDOTDIR/.zcomet/bin/zcomet.zsh ]] || \
-    git clone https://github.com/agkozak/zcomet.git $ZDOTDIR/.zcomet/bin
-source $ZDOTDIR/.zcomet/bin/zcomet.zsh
+zstyle ':zcomet:*' home-dir $ZSH_STATE_DIR/zcomet
+zstyle ':zcomet:compinit' dump-file $ZSH_STATE_DIR/compdump
+[[ -f $ZSH_STATE_DIR/zcomet/bin/zcomet.zsh ]] || \
+    git clone https://github.com/agkozak/zcomet.git $ZSH_STATE_DIR/zcomet/bin
+source $ZSH_STATE_DIR/zcomet/bin/zcomet.zsh
 
 # history
-HISTFILE=$ZDOTDIR/.history
+HISTFILE=$ZSH_STATE_DIR/history
 HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory histignoredups histreduceblanks histverify
@@ -21,18 +25,14 @@ alias less="less -R"
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
-# cache
-ZSH_CACHE_DIR=$ZDOTDIR/.cache
-[[ -d $ZSH_CACHE_DIR ]] || mkdir $ZSH_CACHE_DIR
-
 # local paths
-path=(. ~/.bin $path)
+path=(. ~/.local/bin $path)
 
 # right prompt
 ZLE_RPROMPT_INDENT=0
 
 # local config
-for rc in ~/.zshrc.d/*.zsh(N); source $rc
+for rc in $XDG_DATA_HOME/zsh/*.zsh(N); source $rc
 
 # core plugins
 zcomet load zsh-users/zsh-completions
