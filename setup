@@ -1,6 +1,6 @@
 #!/bin/sh
 SCRIPT=$(cd "$(dirname "$0")" && pwd)
-. .zshenv
+. $SCRIPT/.zshenv
 
 mkdir -p $XDG_CONFIG_HOME && cd $XDG_CONFIG_HOME
 for CONF in $SCRIPT/.config/*; do ln -s $CONF; done
@@ -21,7 +21,10 @@ mkdir -p .local/bin && cd .local/bin
 for BIN in $SCRIPT/.bin/*; do ln -s $BIN; done
 cd ~
 
-ln -s $SCRIPT/.ssh
+mkdir -p .ssh && cd .ssh
+ln -s $SCRIPT/.ssh/config
+cd ~
+
 ln -s $SCRIPT/.zshenv
 
 chsh -s /bin/zsh
