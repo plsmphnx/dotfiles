@@ -2,28 +2,28 @@
 SCRIPT=$(cd "$(dirname "$0")" && pwd)
 . $SCRIPT/.zshenv
 
-mkdir -p $XDG_CONFIG_HOME && cd $XDG_CONFIG_HOME
-for CONF in $SCRIPT/.config/*; do ln -s $CONF; done
-cd ~
+setup_dir() { mkdir -p $1 && cd $1; }
 
-mkdir -p $XDG_DATA_HOME && cd $XDG_DATA_HOME
-git clone https://github.com/scopatz/nanorc nano
-link_data() {
-    mkdir -p $1 && cd $1
-    for DATA in $2; do ln -s $SCRIPT/.data/$1/$DATA; done
-    cd ..
-}
-link_data tmux "theme.conf"
-link_data zsh "color.zsh highlight.zsh prompt.zsh title-path.zsh"
-cd ~
+(setup_dir $XDG_BIN_HOME
+    for BIN in $SCRIPT/.bin/*; do ln -s $BIN; done
+)
 
-mkdir -p .local/bin && cd .local/bin
-for BIN in $SCRIPT/.bin/*; do ln -s $BIN; done
-cd ~
+(setup_dir $XDG_CONFIG_HOME
+    for CONFIG in $SCRIPT/.config/*; do ln -s $CONFIG; done
+)
 
-mkdir -p .ssh && cd .ssh
-ln -s $SCRIPT/.ssh/config
-cd ~
+(setup_dir $XDG_DATA_HOME
+    link_data() (setup_dir $1
+        for DATA in $2; do ln -s $SCRIPT/.data/$1/$DATA; done
+    )
+    git clone https://github.com/scopatz/nanorc nano
+    link_data tmux "theme.conf"
+    link_data zsh/rc "color.zsh highlight.zsh prompt.zsh title-path.zsh"
+)
+
+(setup_dir .ssh
+    ln -s $SCRIPT/.ssh/config
+)
 
 ln -s $SCRIPT/.zshenv
 

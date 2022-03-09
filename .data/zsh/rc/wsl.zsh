@@ -14,7 +14,7 @@ wsl() {
         # Shorthand to build links to Windows programs
         link)
             local exe=$(wslpath $2)
-            local bin=~/.local/bin/${3:-$exe:t:r}
+            local bin=$XDG_BIN_HOME/${3:-$exe:t:r}
             ln -s "$exe" "$bin"
             ;;
 

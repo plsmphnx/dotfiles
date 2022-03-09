@@ -1,13 +1,15 @@
 # cache and state
 ZSH_CACHE_DIR=$XDG_CACHE_HOME/zsh
+mkdir -p $ZSH_CACHE_DIR
 ZSH_STATE_DIR=$XDG_STATE_HOME/zsh
+mkdir -p $ZSH_STATE_DIR
 
 # plugin manager
-zstyle ':zcomet:*' home-dir $ZSH_STATE_DIR/zcomet
-zstyle ':zcomet:compinit' dump-file $ZSH_STATE_DIR/compdump
-[[ -f $ZSH_STATE_DIR/zcomet/bin/zcomet.zsh ]] || \
-    git clone https://github.com/agkozak/zcomet.git $ZSH_STATE_DIR/zcomet/bin
-source $ZSH_STATE_DIR/zcomet/bin/zcomet.zsh
+zstyle ':zcomet:*' home-dir $ZSH_CACHE_DIR/zcomet
+zstyle ':zcomet:compinit' dump-file $ZSH_CACHE_DIR/compdump
+[[ -f $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh ]] || \
+    git clone https://github.com/agkozak/zcomet.git $ZSH_CACHE_DIR/zcomet/bin
+source $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh
 
 # history
 HISTFILE=$ZSH_STATE_DIR/history
@@ -26,13 +28,13 @@ bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
 # local paths
-path=(. ~/.local/bin $path)
+path=(. $XDG_BIN_HOME $path)
 
 # right prompt
 ZLE_RPROMPT_INDENT=0
 
 # local config
-for rc in $XDG_DATA_HOME/zsh/*.zsh(N); source $rc
+for rc in $XDG_DATA_HOME/zsh/rc/*.zsh(N); source $rc
 
 # core plugins
 zcomet load zsh-users/zsh-completions

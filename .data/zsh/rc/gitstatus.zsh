@@ -1,4 +1,4 @@
-GITSTATUS_CACHE_DIR=$ZSH_STATE_DIR/gitstatus
+GITSTATUS_CACHE_DIR=$ZSH_CACHE_DIR/gitstatus
 zcomet load romkatv/gitstatus gitstatus.prompt.zsh
 
 setopt PROMPT_SUBST
