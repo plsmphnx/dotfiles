@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -4.75 10 10">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6.5 -6.5 13 13">
     <defs>
-        <path id="f" d="M .2 4.5
-                        l .8 0
-                        a 9.0375 9.0375 0 0 0 0 -9
-                        l -.8 0
-                        a 10.625 10.625 0 0 1 0 9
+        <path id="f" d="M 0 6
+                        l 1.1 0
+                        a 9.125 9.125 0 0 0 0 -12
+                        l -1.1 0
+                        a 10 10 0 0 1 0 12
                         Z" />
         <g id="w">
             <use href="#f" transform="rotate(18)"/>
