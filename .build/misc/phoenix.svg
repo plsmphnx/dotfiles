@@ -1,21 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -.25 10 10">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -4.75 10 10">
     <defs>
-        <path id="f" d="M -.2 9
-                        l -.8 0
-                        a 9.0375 9.0375 0 0 1 0 -9
+        <path id="f" d="M .2 4.5
                         l .8 0
-                        a 10.625 10.625 0 0 0 0 9
+                        a 9.0375 9.0375 0 0 0 0 -9
+                        l -.8 0
+                        a 10.625 10.625 0 0 1 0 9
                         Z" />
         <g id="w">
-            <use href="#f" transform="rotate(-18 0 4.5)"/>
-            <use href="#f" transform="rotate(-36 0 4.5)"/>
-            <use href="#f" transform="rotate(-54 0 4.5)"/>
-            <use href="#f" transform="rotate(-72 0 4.5)"/>
-            <use href="#f" transform="rotate(-90 0 4.5)"/>
-            <use href="#f" transform="rotate(-108 0 4.5)"/>
-            <use href="#f" transform="rotate(-126 0 4.5)"/>
-            <use href="#f" transform="rotate(-144 0 4.5)"/>
-            <use href="#f" transform="rotate(-162 0 4.5)"/>
+            <use href="#f" transform="rotate(18)"/>
+            <use href="#f" transform="rotate(36)"/>
+            <use href="#f" transform="rotate(54)"/>
+            <use href="#f" transform="rotate(72)"/>
+            <use href="#f" transform="rotate(90)"/>
+            <use href="#f" transform="rotate(108)"/>
+            <use href="#f" transform="rotate(126)"/>
+            <use href="#f" transform="rotate(144)"/>
+            <use href="#f" transform="rotate(162)"/>
         </g>
     </defs>
     <use href="#w" fill="red" />
