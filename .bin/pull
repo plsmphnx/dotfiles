@@ -1,12 +1,15 @@
 #!/bin/sh
-if [ -d "$2" ]
+MODE="$1"
+FILE="$2"
+shift 2
+if [ -d "$FILE" ]
 then
-    SRC="$2"
+    SRC="$FILE"
 else
-    SRC="server:$2"
+    SRC="server:$FILE"
 fi
-ARGS=". -avz --delete"
-case $1 in
+ARGS=". -avz --delete $@"
+case $MODE in
     time)
         rsync "$SRC/" $ARGS
         ;;
