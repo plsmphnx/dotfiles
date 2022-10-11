@@ -26,6 +26,10 @@ checkout = git clone 'https://github.com/landley/toybox'
 checkout = git clone 'https://github.com/liballeg/allegro5'
 [clone/engine/cairo]
 checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo.git'
+[clone/engine/godot]
+checkout = git clone 'https://github.com/godotengine/godot'
+[clone/engine/o3de]
+checkout = git clone 'https://github.com/o3de/o3de'
 [clone/engine/orx]
 checkout = git clone 'https://github.com/orx/orx'
 [clone/engine/raylib]
@@ -33,6 +37,8 @@ checkout = git clone 'https://github.com/raysan5/raylib'
 [clone/engine/sdl]
 checkout = git clone 'https://github.com/libsdl-org/SDL' sdl
 
+[clone/game/beyond-all-reason]
+checkout = git clone 'https://github.com/beyond-all-reason/Beyond-All-Reason' beyond-all-reason
 [clone/game/citadel]
 checkout = git clone 'https://github.com/davewx7/citadel'
 [clone/game/endless-sky/endless-sky]
@@ -49,6 +55,8 @@ checkout = git clone 'https://github.com/minetest/minetest'
 checkout = git clone 'https://github.com/minetest/minetest_game' minetest-game
 [clone/game/tanks-of-freedom]
 checkout = git clone 'https://github.com/w84death/Tanks-of-Freedom' tanks-of-freedom
+[clone/game/teeworlds]
+checkout = git clone 'https://github.com/teeworlds/teeworlds'
 [clone/game/tic-80]
 checkout = git clone 'https://github.com/nesbox/TIC-80' tic-80
 [clone/game/wesnoth]
@@ -108,6 +116,8 @@ checkout = git clone 'https://github.com/hunspell/hyphen'
 checkout = git clone 'https://github.com/be5invis/Iosevka' iosevka
 [clone/text/lout]
 checkout = git clone 'https://github.com/william8000/lout'
+[clone/text/material-design-icons]
+checkout = git clone 'https://github.com/google/material-design-icons'
 [clone/text/mupdf]
 checkout = git clone 'git://git.ghostscript.com/mupdf'
 [clone/text/sile]
