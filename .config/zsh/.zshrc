@@ -28,7 +28,7 @@ bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
 # local paths
-path=(. $XDG_BIN_HOME $path)
+path+=($XDG_BIN_HOME .)
 
 # right prompt
 ZLE_RPROMPT_INDENT=0
