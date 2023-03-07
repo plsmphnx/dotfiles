@@ -7,6 +7,8 @@ git_gc =
 
 [clone/core/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
+[clone/core/crun]
+checkout = git clone 'https://github.com/containers/crun'
 [clone/core/layout]
 checkout = git clone 'https://github.com/randrew/layout'
 [clone/core/musl]
@@ -85,7 +87,7 @@ update = git -c 'http.sslVerify=false' pull
 checkout = git clone 'https://github.com/ziglang/zig'
 
 [clone/renderer/cycles]
-checkout = git clone 'git://git.blender.org/cycles'
+checkout = git clone 'https://projects.blender.org/blender/cycles'
 [clone/renderer/filament]
 checkout = git clone 'https://github.com/google/filament'
 [clone/renderer/lux-core]
