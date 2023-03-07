@@ -27,14 +27,17 @@ alias less="less -R"
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
-# local paths
-path+=($XDG_BIN_HOME .)
-
 # right prompt
 ZLE_RPROMPT_INDENT=0
 
+# unique paths
+typeset -U path PATH
+
 # local config
 for rc in $XDG_DATA_HOME/zsh/rc/*.zsh(N); source $rc
+
+# local paths
+path+=($XDG_BIN_HOME .)
 
 # core plugins
 zcomet load zsh-users/zsh-completions
