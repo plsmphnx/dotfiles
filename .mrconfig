@@ -7,8 +7,6 @@ git_gc =
 
 [clone/core/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
-[clone/core/crun]
-checkout = git clone 'https://github.com/containers/crun'
 [clone/core/layout]
 checkout = git clone 'https://github.com/randrew/layout'
 [clone/core/musl]
@@ -85,6 +83,15 @@ checkout = git -c 'http.sslVerify=false' clone 'https://cm-gitlab.stanford.edu/b
 update = git -c 'http.sslVerify=false' pull
 [clone/language/zig]
 checkout = git clone 'https://github.com/ziglang/zig'
+
+[clone/sandbox/bubblewrap]
+checkout = git clone 'https://github.com/containers/bubblewrap'
+[clone/sandbox/crun]
+checkout = git clone 'https://github.com/containers/crun'
+[clone/sandbox/flatpak]
+checkout = git clone 'https://github.com/flatpak/flatpak'
+[clone/sandbox/ostree]
+checkout = git clone 'https://github.com/ostreedev/ostree'
 
 [clone/renderer/cycles]
 checkout = git clone 'https://projects.blender.org/blender/cycles'
