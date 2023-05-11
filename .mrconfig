@@ -26,6 +26,12 @@ checkout = git clone 'https://github.com/landley/toybox'
 checkout = git clone 'https://github.com/liballeg/allegro5'
 [clone/engine/cairo]
 checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo.git'
+[clone/engine/drummyfish/raycastlib]
+checkout = git clone 'https://gitlab.com/drummyfish/raycastlib.git'
+[clone/engine/drummyfish/small3dlib]
+checkout = git clone 'https://gitlab.com/drummyfish/small3dlib.git'
+[clone/engine/drummyfish/tinyphysicsengine]
+checkout = git clone 'https://gitlab.com/drummyfish/tinyphysicsengine.git'
 [clone/engine/godot]
 checkout = git clone 'https://github.com/godotengine/godot'
 [clone/engine/o3de]
@@ -86,6 +92,8 @@ checkout = git clone 'https://github.com/ziglang/zig'
 
 [clone/sandbox/bubblewrap]
 checkout = git clone 'https://github.com/containers/bubblewrap'
+[clone/sandbox/composefs]
+checkout = git clone 'https://github.com/containers/composefs'
 [clone/sandbox/crun]
 checkout = git clone 'https://github.com/containers/crun'
 [clone/sandbox/flatpak]
