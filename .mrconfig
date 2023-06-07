@@ -4,6 +4,8 @@ git_update =
     git submodule update --init --recursive
 git_gc =
     git gc "$@"
+git_prune =
+    git remote prune origin
 
 [clone/core/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
@@ -53,6 +55,12 @@ checkout = git clone 'https://github.com/endless-sky/endless-sky'
 checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
 [clone/game/endless-sky/endless-sky-high-dpi]
 checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
+[clone/game/megamek/megamek]
+checkout = git clone 'https://github.com/MegaMek/megamek'
+[clone/game/megamek/megameklab]
+checkout = git clone 'https://github.com/MegaMek/megameklab'
+[clone/game/megamek/mekhq]
+checkout = git clone 'https://github.com/MegaMek/mekhq'
 [clone/game/megazeux]
 checkout = git clone 'https://github.com/AliceLR/megazeux'
 [clone/game/minetest/minetest]
