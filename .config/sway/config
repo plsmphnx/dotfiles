@@ -134,6 +134,3 @@ client.unfocused #ffffff00 #ffffff00 #ffffff88 #ffffff00
 focus_follows_mouse no
 
 include /etc/sway/config.d/*
-
-exec pipewire
-exec pipewire-pulse
