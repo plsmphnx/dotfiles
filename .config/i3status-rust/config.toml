@@ -1,0 +1,51 @@
+icons_format = "{icon}"
+
+[theme]
+theme = "native"
+
+[icons]
+icons = "material"
+[icons.overrides]
+bat = [
+    "\ue19c",
+    "\uebdc",
+    "\uebd9",
+    "\uebe0",
+    "\uebdd",
+    "\uebe2",
+    "\uebd4",
+    "\uebd2",
+    "\ue1a4",
+]
+
+[[block]]
+block = "focused_window"
+format = "$title"
+
+[[block]]
+block = "sound"
+format = "$icon"
+device_kind = "sink"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "sound"
+format = "$icon"
+device_kind = "source"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "net"
+format = "$icon"
+
+[[block]]
+block = "battery"
+format = "$icon"
+
+[[block]]
+block = "time"
+format = "$timestamp.datetime(f:'%I:%M %p') "

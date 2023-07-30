@@ -5,6 +5,7 @@ settings.application.prefer_dark_mode = true
 settings.webview.enable_developer_extras = true
 settings.webview.enable_java = false
 settings.webview.enable_smooth_scrolling = true
+settings.webview.hardware_acceleration_policy = "always"
 
 settings.window.close_with_last_tab = true
 settings.window.home_page = "google.com"
