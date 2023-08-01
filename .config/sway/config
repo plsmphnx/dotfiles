@@ -5,7 +5,7 @@ set $menu wofi -GIS drun
 output * bg #000000 solid_color
 
 output eDP-1 scale 1.5
-input "9610:30:Pine64_Pinebook_Pro_Touchpad" {
+input type:touchpad {
     natural_scroll enabled
     tap enabled
 }
@@ -115,7 +115,6 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# bar swaybar_command waybar
 bar {
     position top
     status_command i3status-rs
@@ -128,7 +127,6 @@ bar {
 }
 
 font NotoSansMNerdFontPropo 10
-default_border pixel 2
 smart_borders on
 client.focused #ffffff44 #ffffff44 #ffffffff #ffffff88
 client.focused_inactive #ffffff00 #ffffff00 #ffffff88 #ffffff00
