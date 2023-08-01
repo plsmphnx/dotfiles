@@ -127,13 +127,14 @@ bar {
     }
 }
 
-font Noto Sans Mono, Material Icons 10
+font NotoSansMNerdFontPropo 10
 default_border pixel 2
 smart_borders on
 client.focused #ffffff44 #ffffff44 #ffffffff #ffffff88
 client.focused_inactive #ffffff00 #ffffff00 #ffffff88 #ffffff00
 client.unfocused #ffffff00 #ffffff00 #ffffff88 #ffffff00
-
 focus_follows_mouse no
+
+exec sworkstyle
 
 include /etc/sway/config.d/*
