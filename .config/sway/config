@@ -7,6 +7,10 @@ input type:touchpad {
     natural_scroll enabled
     tap enabled
 }
+seat * hide_cursor {
+    8000
+    when-typing enable
+}
 
 output eDP-1 scale 1.5
 
@@ -101,15 +105,33 @@ bindsym $mod+backspace scratchpad show
 # Resizing
 #
 
-mode "resize" {
+mode 󰩨 {
     bindsym left resize shrink width 10px
     bindsym down resize grow height 10px
     bindsym up resize shrink height 10px
     bindsym right resize grow width 10px
 
-    bindsym escape mode "default"
+    bindsym $mod+r mode default
+    bindsym escape mode default
 }
-bindsym $mod+r mode "resize"
+bindsym $mod+r mode 󰩨
+
+#
+# Style
+#
+
+set $c0 #ffffff00
+set $c1 #ffffff44
+set $c2 #ffffff88
+set $c3 #ffffffcc
+set $c4 #ffffffff
+
+font NotoSansMNerdFontPropo 10
+default_border pixel 2
+smart_borders on
+client.focused $c1 $c1 $c3 $c2
+client.focused_inactive $c0 $c0 $c2 $c0
+client.unfocused $c0 $c0 $c2 $c0
 
 #
 # Bar
@@ -119,24 +141,21 @@ bar {
     position top
     status_command i3status-rs
     colors {
-        separator #ffffff00
-        statusline #ffffffcc
-        focused_workspace #ffffff44 #ffffff44 #ffffffcc
-        active_workspace #ffffff44 #ffffff00 #ffffffcc
-        inactive_workspace #ffffff00 #ffffff00 #ffffffcc
+        separator $c0
+        statusline $c3
+        focused_workspace $c1 $c1 $c3
+        active_workspace $c1 $c0 $c3
+        inactive_workspace $c0 $c0 $c3
+        urgent_workspace $c2 $c2 $c4
     }
 }
 exec sworkstyle
 
 #
-# Style
+# Miscellaneous
 #
 
-font NotoSansMNerdFontPropo 10
-smart_borders on
-client.focused #ffffff44 #ffffff44 #ffffffcc #ffffff88
-client.focused_inactive #ffffff00 #ffffff00 #ffffff88 #ffffff00
-client.unfocused #ffffff00 #ffffff00 #ffffff88 #ffffff00
-focus_follows_mouse no
+xwayland enable
+focus_follows_mouse always
 
 include /etc/sway/config.d/*
