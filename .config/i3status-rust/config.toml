@@ -1,5 +1,3 @@
-icons_format = "{icon}"
-
 [theme]
 theme = "native"
 
@@ -29,6 +27,8 @@ cmd = "pavucontrol"
 [[block]]
 block = "net"
 format = "$icon"
+inactive_format = "$icon"
+missing_format = "\u00d7"
 [[block.click]]
 button = "left"
 cmd = "iwgtk"
@@ -36,6 +36,11 @@ cmd = "iwgtk"
 [[block]]
 block = "battery"
 format = "$icon"
+full_format = "$icon"
+charging_format = "$icon"
+empty_format = "$icon!"
+not_charging_format = "$icon"
+missing_format = "$icon"
 
 [[block]]
 block = "time"
