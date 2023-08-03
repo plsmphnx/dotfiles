@@ -1,0 +1,47 @@
+[theme]
+theme = "native"
+
+[icons]
+icons = "material-nf"
+
+[[block]]
+block = "focused_window"
+format = "$title|"
+
+[[block]]
+block = "sound"
+format = "$icon"
+device_kind = "sink"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "sound"
+format = "$icon"
+device_kind = "source"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "net"
+format = "$icon"
+inactive_format = "$icon"
+missing_format = "\u00d7"
+[[block.click]]
+button = "left"
+cmd = "iwgtk"
+
+[[block]]
+block = "battery"
+format = "$icon"
+full_format = "$icon"
+charging_format = "$icon"
+empty_format = "$icon!"
+not_charging_format = "$icon"
+missing_format = "$icon"
+
+[[block]]
+block = "time"
+format = "$timestamp.datetime(f:'%I:%M %p') "
