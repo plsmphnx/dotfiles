@@ -150,6 +150,7 @@ bar {
         active_workspace    $c4 $c0 $cc
         inactive_workspace  $c0 $c0 $cc
         urgent_workspace    $c8 $c8 $cf
+        binding_mode        $c0 $c0 $c8
     }
 }
 exec sworkstyle
