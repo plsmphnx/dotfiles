@@ -1,0 +1,6 @@
+#!/bin/sh
+ORIGIN=$(git rev-parse --abbrev-ref origin/HEAD | cut -c 8-)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+git checkout "$ORIGIN"
+git pull
+git branch -d "$BRANCH"
