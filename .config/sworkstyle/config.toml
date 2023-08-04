@@ -1,6 +1,8 @@
 [matching]
 'imv'                   = "\U0000f03e"
-'org.twosheds.iwgtk'    = "\U000f05a9"
 'luakit'                = "\U000f059f"
 'mpv'                   = "\U000f0567"
+'org.twosheds.iwgtk'    = "\U000f05a9"
 'pcmanfm'               = "\U000f0770"
+
+'code-url-handler'      = "\U000f0a1e"
