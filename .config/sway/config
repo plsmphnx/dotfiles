@@ -127,7 +127,7 @@ set $c8 #ffffff88
 set $cc #ffffffcc
 set $cf #ffffffff
 
-font Noto Sans Mono, Symbols Nerd Font 10
+font pango:Noto Sans Mono, Symbols Nerd Font 10
 default_border pixel 2
 smart_borders on
 client.focused          $c4 $c4 $cc $c8

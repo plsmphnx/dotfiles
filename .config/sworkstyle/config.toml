@@ -1,8 +1,11 @@
-[matching]
-'imv'                   = "\U0000f03e"
-'luakit'                = "\U000f059f"
-'mpv'                   = "\U000f0567"
-'org.twosheds.iwgtk'    = "\U000f05a9"
-'pcmanfm'               = "\U000f0770"
+fallback                = "<span font='Symbols Nerd Font 12'>\U0000f2d0</span>"
 
-'code-url-handler'      = "\U000f0a1e"
+[matching]
+'foot'                  = "<span font='Symbols Nerd Font 12'>\U0000f489</span>"
+'imv'                   = "<span font='Symbols Nerd Font 12'>\U0000f03e</span>"
+'luakit'                = "<span font='Symbols Nerd Font 12'>\U000f059f</span>"
+'mpv'                   = "<span font='Symbols Nerd Font 12'>\U000f0567</span>"
+'org.twosheds.iwgtk'    = "<span font='Symbols Nerd Font 12'>\U000f05a9</span>"
+'pcmanfm'               = "<span font='Symbols Nerd Font 12'>\U000f0770</span>"
+
+'code-url-handler'      = "<span font='Symbols Nerd Font 12'>\U000f0a1e</span>"

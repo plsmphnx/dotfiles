@@ -1,3 +1,5 @@
+icons_format = "<span font='Symbols Nerd Font 12'>{icon}</span>"
+
 [theme]
 theme = "native"
 
