@@ -14,18 +14,22 @@ seat * hide_cursor {
     when-typing enable
 }
 
+set $command 
+set $move 󰆾
+set $resize 󰩨
+
 bindsym $mod+left focus left
 bindsym $mod+down focus down
 bindsym $mod+up focus up
 bindsym $mod+right focus right
 
-bindsym --release super_l mode 
-mode  {
+bindsym --release super_l mode $command
+mode $command {
     bindsym super_l mode default
-    bindsym shift_l mode 󰆾
-    bindsym shift_r mode 󰆾
-    bindsym control_l mode 󰩨
-    bindsym control_r mode 󰩨
+    bindsym shift_l mode $move
+    bindsym shift_r mode $move
+    bindsym control_l mode $resize
+    bindsym control_r mode $resize
 
     bindsym return mode default, exec $menu
     bindsym backslash mode default, exec $term
@@ -54,12 +58,12 @@ mode  {
     bindsym backspace mode default, scratchpad show
 }
 
-mode 󰆾 {
+mode $move {
     bindsym super_l mode default
-    bindsym shift_l mode 
-    bindsym shift_r mode 
-    bindsym control_l mode 󰩨
-    bindsym control_r mode 󰩨
+    bindsym shift_l mode default
+    bindsym shift_r mode default
+    bindsym control_l mode $resize
+    bindsym control_r mode $resize
 
     bindsym left move left
     bindsym down move down
@@ -80,12 +84,12 @@ mode 󰆾 {
     bindsym backspace mode default, move scratchpad
 }
 
-mode 󰩨 {
+mode $resize {
     bindsym super_l mode default
-    bindsym shift_l mode 󰆾
-    bindsym shift_r mode 󰆾
-    bindsym control_l mode 
-    bindsym control_r mode 
+    bindsym shift_l mode $move
+    bindsym shift_r mode $move
+    bindsym control_l mode default
+    bindsym control_r mode default
 
     bindsym left resize shrink width 10px
     bindsym down resize grow height 10px
