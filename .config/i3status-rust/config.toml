@@ -5,6 +5,8 @@ theme = "native"
 
 [icons]
 icons = "material-nf"
+[icons.overrides]
+volume_muted = "\U000f0581"
 
 [[block]]
 block = "focused_window"
