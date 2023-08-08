@@ -4,3 +4,4 @@ tray-enabled=false
 [org/gnome/desktop/interface]
 gtk-theme='Graphite-Dark-compact'
 font-name='Noto Sans Mono'
+icon-theme='Tela-grey-dark'

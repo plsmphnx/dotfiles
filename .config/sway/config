@@ -161,6 +161,8 @@ exec sworkstyle
 # Builtins
 #
 
+for_window [app_id="blueberry.py"] floating enable
+for_window [app_id="org.twosheds.iwgtk"] floating enable
 for_window [app_id="pavucontrol"] floating enable
 
 #
