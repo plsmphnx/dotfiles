@@ -1,6 +1,7 @@
 fallback                = "<span font='Symbols Nerd Font 12'>\U0000f2d0</span>"
 
 [matching]
+'blueberry.py'          = "<span font='Symbols Nerd Font 12'>\U000f00af</span>"
 'foot'                  = "<span font='Symbols Nerd Font 12'>\U0000f489</span>"
 'imv'                   = "<span font='Symbols Nerd Font 12'>\U0000f03e</span>"
 'luakit'                = "<span font='Symbols Nerd Font 12'>\U000f059f</span>"

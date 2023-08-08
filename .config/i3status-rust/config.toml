@@ -39,6 +39,7 @@ cmd = "iwgtk"
 
 [[block]]
 block = "battery"
+driver = "upower"
 format = "$icon"
 full_format = "$icon"
 charging_format = "$icon"
