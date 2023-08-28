@@ -35,6 +35,7 @@ mode $command {
     bindsym backslash mode default, exec $term
     bindsym l mode default, exec swaylock
     bindsym r mode default, reload
+    bindsym n mode default, exec swaync-client -t -sw
 
     bindsym escape mode default, kill
     bindsym f mode default, fullscreen
@@ -82,6 +83,7 @@ mode $move {
     bindsym 0 mode default, move container to workspace number 10, workspace number 10
 
     bindsym backspace mode default, move scratchpad
+    bindsym s mode default, sticky toggle
 }
 
 mode $resize {
@@ -156,6 +158,7 @@ bar {
     }
 }
 exec sworkstyle
+exec swaync
 
 #
 # Builtins
@@ -170,7 +173,7 @@ for_window [app_id="pavucontrol"] floating enable
 #
 
 floating_modifier $mod normal
-focus_follows_mouse always
+focus_follows_mouse no
 xwayland enable
 
 include /etc/sway/config.d/*
