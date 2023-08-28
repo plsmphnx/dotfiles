@@ -1,0 +1,38 @@
+{
+  "widgets": [
+    "menubar",
+    "volume",
+    "backlight",
+    "title",
+    "dnd",
+    "notifications"
+  ],
+  "widget-config": {
+    "menubar": {
+      "menu#power": {
+        "label": "\udb81\udc25",
+        "position": "right",
+        "actions": [
+          {
+            "label": "Shut down",
+            "command": "systemctl poweroff"
+          }
+        ]
+      }
+    },
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear All"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "volume": {
+      "show-per-app": true
+    },
+    "backlight": {
+      "device": "edp-backlight"
+    }
+  }
+}

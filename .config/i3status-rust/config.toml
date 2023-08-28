@@ -1,8 +1,12 @@
+icons_format = "<span font='Symbols Nerd Font 12'>{icon}</span>"
+
 [theme]
 theme = "native"
 
 [icons]
 icons = "material-nf"
+[icons.overrides]
+volume_muted = "\U000f0581"
 
 [[block]]
 block = "focused_window"
@@ -35,6 +39,7 @@ cmd = "iwgtk"
 
 [[block]]
 block = "battery"
+driver = "upower"
 format = "$icon"
 full_format = "$icon"
 charging_format = "$icon"
@@ -44,4 +49,15 @@ missing_format = "$icon"
 
 [[block]]
 block = "time"
-format = "$timestamp.datetime(f:'%I:%M %p') "
+format = "$timestamp.datetime(f:'%I:%M %p')"
+
+[[block]]
+block = "notify"
+format = "$icon{($notification_count.eng(w:1))|} "
+driver = "swaync"
+[[block.click]]
+button = "left"
+action = "show"
+[[block.click]]
+button = "right"
+action = "toggle_paused"
