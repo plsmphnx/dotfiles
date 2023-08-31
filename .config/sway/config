@@ -128,17 +128,18 @@ mode $resize {
 #
 
 set $c0 #ffffff00
-set $c4 #ffffff44
-set $c8 #ffffff88
+set $c3 #ffffff33
+set $c6 #ffffff66
+set $c9 #ffffff99
 set $cc #ffffffcc
 set $cf #ffffffff
 
 font pango:Noto Sans Mono, Symbols Nerd Font 10
 default_border pixel 2
 smart_borders on
-client.focused          $c4 $c4 $cc $c8
-client.focused_inactive $c0 $c0 $c8 $c0
-client.unfocused        $c0 $c0 $c8 $c0
+client.focused          $c3 $c3 $cc $c6
+client.focused_inactive $c0 $c0 $c6 $c0
+client.unfocused        $c0 $c0 $c6 $c0
 
 #
 # Bar
@@ -150,11 +151,11 @@ bar {
     colors {
         separator           $c0
         statusline          $cc
-        focused_workspace   $c4 $c4 $cc
-        active_workspace    $c4 $c0 $cc
+        focused_workspace   $c3 $c3 $cc
+        active_workspace    $c3 $c0 $cc
         inactive_workspace  $c0 $c0 $cc
-        urgent_workspace    $c8 $c8 $cf
-        binding_mode        $c0 $c0 $c8
+        urgent_workspace    $c6 $c6 $cf
+        binding_mode        $c0 $c0 $c6
     }
 }
 exec sworkstyle
