@@ -47,6 +47,8 @@ checkout = git clone 'https://github.com/libsdl-org/SDL' sdl
 
 [clone/game/beyond-all-reason]
 checkout = git clone 'https://github.com/beyond-all-reason/Beyond-All-Reason' beyond-all-reason
+[clone/game/bytepath]
+checkout = git clone 'https://github.com/a327ex/BYTEPATH' bytepath
 [clone/game/citadel]
 checkout = git clone 'https://github.com/davewx7/citadel'
 [clone/game/endless-sky/endless-sky]
