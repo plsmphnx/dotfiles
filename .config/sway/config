@@ -175,6 +175,6 @@ for_window [app_id="pavucontrol"] floating enable
 
 floating_modifier $mod normal
 focus_follows_mouse no
-xwayland enable
+xwayland disable
 
 include /etc/sway/config.d/*
