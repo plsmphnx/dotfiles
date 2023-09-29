@@ -176,5 +176,6 @@ for_window [app_id="pavucontrol"] floating enable
 floating_modifier $mod normal
 focus_follows_mouse no
 xwayland disable
+seat * xcursor_theme graphite-dark
 
 include /etc/sway/config.d/*

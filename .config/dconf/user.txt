@@ -2,6 +2,7 @@
 tray-enabled=false
 
 [org/gnome/desktop/interface]
-gtk-theme='Graphite-Dark-compact'
+cursor-theme='graphite-dark'
 font-name='Noto Sans Mono'
+gtk-theme='Graphite-Dark-compact'
 icon-theme='Tela-grey-dark'
