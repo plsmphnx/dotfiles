@@ -14,7 +14,7 @@ seat * hide_cursor {
     when-typing enable
 }
 
-set $command 
+set $command 
 set $move 󰆾
 set $resize 󰩨
 
@@ -23,46 +23,48 @@ bindsym $mod+down focus down
 bindsym $mod+up focus up
 bindsym $mod+right focus right
 
-bindsym --release super_l mode $command
+set $return bar bar strip_workspace_numbers yes, mode default
+
+bindsym --release super_l bar bar strip_workspace_numbers no, mode $command
 mode $command {
-    bindsym super_l mode default
+    bindsym super_l $return
     bindsym shift_l mode $move
     bindsym shift_r mode $move
     bindsym control_l mode $resize
     bindsym control_r mode $resize
 
-    bindsym return mode default, exec $menu
-    bindsym backslash mode default, exec $term
-    bindsym l mode default, exec swaylock
-    bindsym r mode default, reload
-    bindsym n mode default, exec swaync-client -t -sw
+    bindsym return $return, exec $menu
+    bindsym backslash $return, exec $term
+    bindsym l $return, exec swaylock
+    bindsym r $return, reload
+    bindsym n $return, exec swaync-client -t -sw
 
-    bindsym escape mode default, kill
-    bindsym f mode default, fullscreen
+    bindsym escape $return, kill
+    bindsym f $return, fullscreen
 
     bindsym left focus left
     bindsym down focus down
     bindsym up focus up
     bindsym right focus right
 
-    bindsym 1 mode default, workspace number 1
-    bindsym 2 mode default, workspace number 2
-    bindsym 3 mode default, workspace number 3
-    bindsym 4 mode default, workspace number 4
-    bindsym 5 mode default, workspace number 5
-    bindsym 6 mode default, workspace number 6
-    bindsym 7 mode default, workspace number 7
-    bindsym 8 mode default, workspace number 8
-    bindsym 9 mode default, workspace number 9
-    bindsym 0 mode default, workspace number 10
+    bindsym 1 $return, workspace number 1
+    bindsym 2 $return, workspace number 2
+    bindsym 3 $return, workspace number 3
+    bindsym 4 $return, workspace number 4
+    bindsym 5 $return, workspace number 5
+    bindsym 6 $return, workspace number 6
+    bindsym 7 $return, workspace number 7
+    bindsym 8 $return, workspace number 8
+    bindsym 9 $return, workspace number 9
+    bindsym 0 $return, workspace number 10
 
-    bindsym backspace mode default, scratchpad show
+    bindsym backspace $return, scratchpad show
 }
 
 mode $move {
-    bindsym super_l mode default
-    bindsym shift_l mode default
-    bindsym shift_r mode default
+    bindsym super_l $return
+    bindsym shift_l $return
+    bindsym shift_r $return
     bindsym control_l mode $resize
     bindsym control_r mode $resize
 
@@ -71,27 +73,27 @@ mode $move {
     bindsym up move up
     bindsym right move right
 
-    bindsym 1 mode default, move container to workspace number 1, workspace number 1
-    bindsym 2 mode default, move container to workspace number 2, workspace number 2
-    bindsym 3 mode default, move container to workspace number 3, workspace number 3
-    bindsym 4 mode default, move container to workspace number 4, workspace number 4
-    bindsym 5 mode default, move container to workspace number 5, workspace number 5
-    bindsym 6 mode default, move container to workspace number 6, workspace number 6
-    bindsym 7 mode default, move container to workspace number 7, workspace number 7
-    bindsym 8 mode default, move container to workspace number 8, workspace number 8
-    bindsym 9 mode default, move container to workspace number 9, workspace number 9
-    bindsym 0 mode default, move container to workspace number 10, workspace number 10
+    bindsym 1 $return, move container to workspace number 1, workspace number 1
+    bindsym 2 $return, move container to workspace number 2, workspace number 2
+    bindsym 3 $return, move container to workspace number 3, workspace number 3
+    bindsym 4 $return, move container to workspace number 4, workspace number 4
+    bindsym 5 $return, move container to workspace number 5, workspace number 5
+    bindsym 6 $return, move container to workspace number 6, workspace number 6
+    bindsym 7 $return, move container to workspace number 7, workspace number 7
+    bindsym 8 $return, move container to workspace number 8, workspace number 8
+    bindsym 9 $return, move container to workspace number 9, workspace number 9
+    bindsym 0 $return, move container to workspace number 10, workspace number 10
 
-    bindsym backspace mode default, move scratchpad
-    bindsym s mode default, sticky toggle
+    bindsym backspace $return, move scratchpad
+    bindsym s $return, sticky toggle
 }
 
 mode $resize {
-    bindsym super_l mode default
+    bindsym super_l $return
     bindsym shift_l mode $move
     bindsym shift_r mode $move
-    bindsym control_l mode default
-    bindsym control_r mode default
+    bindsym control_l $return
+    bindsym control_r $return
 
     bindsym left resize shrink width 10px
     bindsym down resize grow height 10px
@@ -146,6 +148,7 @@ client.unfocused        $c0 $c0 $c6 $c0
 #
 
 bar {
+    id bar
     position top
     status_command i3status-rs
     colors {
@@ -157,6 +160,7 @@ bar {
         urgent_workspace    $c6 $c6 $cf
         binding_mode        $c0 $c0 $c6
     }
+    strip_workspace_numbers yes
 }
 exec sworkstyle
 exec swaync
