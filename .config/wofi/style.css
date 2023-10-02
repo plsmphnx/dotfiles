@@ -1,0 +1,15 @@
+window {
+    background-color: rgba(1, 1, 1, 0);
+}
+
+* {
+    border-radius: 8px;
+}
+
+#scroll {
+    background-color: rgba(1, 1, 1, 0.25);
+}
+
+#input {
+    margin-bottom: 8px;
+}
