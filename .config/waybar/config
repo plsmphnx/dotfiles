@@ -1,0 +1,85 @@
+{
+    "layer": "top",
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/submap",
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "tray",
+        "pulseaudio",
+        "bluetooth",
+        "network",
+        "battery",
+        "clock"
+    ],
+    "clock": {
+        "format": "{:%I:%M %p}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "battery": {
+        "states": {
+            "critical": 12
+        },
+        "format": "{icon}",
+        "format-charging": "{icon}\udb85\udc0b",
+        "format-full": "",
+        "format-icons": [
+            "\udb80\udc8e",
+            "\udb80\udc7a",
+            "\udb80\udc7b",
+            "\udb80\udc7c",
+            "\udb80\udc7d",
+            "\udb80\udc7e",
+            "\udb80\udc7f",
+            "\udb80\udc80",
+            "\udb80\udc81",
+            "\udb80\udc82",
+            "\udb80\udc79"
+        ],
+        "tooltip-format": "{capacity}% ({time})",
+        "tooltip-format-charging": "{capacity}% (charging)"
+    },
+    "network": {
+        "format-wifi": "{icon}",
+        "format-icons": [
+            "\udb82\udd2f",
+            "\udb82\udd1f",
+            "\udb82\udd22",
+            "\udb82\udd25",
+            "\udb82\udd28"
+        ],
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}",
+        "format-ethernet": "\udb80\ude00",
+        "tooltip-format-ethernet": "{ipaddr}",
+        "format-linked": "\udb80\udd64",
+        "tooltip-format-linked": "{ifname} (no IP)",
+        "format-disconnected": "\udb80\udd64",
+        "tooltip-format-disconnected": "disconnected",
+        "on-click": "iwgtk"
+    },
+    "bluetooth": {
+        "format-disabled": "\udb80\udcb2",
+        "format-on": "\udb80\udcaf",
+        "format-connected": "\udb80\udcb1",
+        "on-click": "blueberry"
+    },
+    "pulseaudio": {
+        "format": "{icon}{format_source}",
+        "format-muted": "\udb83\ude08{format_source}",
+        "format-source": "\udb80\udf6c",
+        "format-source-muted": "\udb80\udf6d",
+        "format-icons": {
+            "headphone": "\udb80\udecb",
+            "hands-free": "?",
+            "headset": "\udb80\udece",
+            "phone": "?",
+            "portable": "?",
+            "car": "?",
+            "default": ["\udb81\udd7f", "\udb81\udd80", "\udb81\udd7e"]
+        },
+        "on-click": "pavucontrol"
+    }
+}
