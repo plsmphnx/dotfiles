@@ -24,8 +24,6 @@ checkout = git clone 'https://github.com/nothings/stb'
 [clone/core/toybox]
 checkout = git clone 'https://github.com/landley/toybox'
 
-[clone/engine/allegro5]
-checkout = git clone 'https://github.com/liballeg/allegro5'
 [clone/engine/cairo]
 checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo.git'
 [clone/engine/drummyfish/raycastlib]
@@ -71,8 +69,6 @@ checkout = git clone 'https://github.com/minetest/minetest'
 checkout = git clone 'https://github.com/minetest/minetest_game' minetest-game
 [clone/game/tanks-of-freedom]
 checkout = git clone 'https://github.com/w84death/Tanks-of-Freedom' tanks-of-freedom
-[clone/game/teeworlds]
-checkout = git clone 'https://github.com/teeworlds/teeworlds'
 [clone/game/tic-80]
 checkout = git clone 'https://github.com/nesbox/TIC-80' tic-80
 [clone/game/wesnoth]
