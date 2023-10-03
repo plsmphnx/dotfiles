@@ -7,13 +7,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs: {
-    nixosConfigurations.server = inputs.nixpkgs.lib.nixosSystem {
+  outputs = { nixpkgs, nixos-hardware, clecompt, ... } @ inputs: {
+    nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
       specialArgs = { inherit inputs; };
       modules = [
-        inputs.clecompt.nixosModules.core
-        inputs.nixos-hardware.nixosModules.raspberry-pi-4
+        clecompt.nixosModules.core
+        nixos-hardware.nixosModules.raspberry-pi-4
         ./configuration.nix
       ];
     };
