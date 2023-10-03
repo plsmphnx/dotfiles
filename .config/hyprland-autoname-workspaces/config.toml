@@ -1,0 +1,21 @@
+version = "1.1.11"
+
+[format]
+workspace = "{id}{delim}<span color='#ffffffcc'><big>{clients}</big></span>"
+
+[class]
+"DEFAULT"               = "\U0000f2d0"
+"blueberry.py"          = "\U000f00af"
+"foot"                  = "\U0000f489"
+"imv"                   = "\U0000f03e"
+"luakit"                = "\U000f059f"
+"lite-xl"               = "\U000f0169"
+"mpv"                   = "\U000f0567"
+"org.twosheds.iwgtk"    = "\U000f05a9"
+"pavucontrol"           = "\U0000f028"
+"pcmanfm"               = "\U000f0770"
+
+"code-url-handler"      = "\U000f0a1e"
+
+[exclude]
+"" = "^$"

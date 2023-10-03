@@ -1,51 +1,45 @@
+@define-color c0 transparent;
+@define-color c3 rgba(255, 255, 255, 0.2);
+@define-color c6 rgba(255, 255, 255, 0.4);
+@define-color c9 rgba(255, 255, 255, 0.6);
+@define-color cc rgba(255, 255, 255, 0.8);
+@define-color cf white;
+
 * {
     font-family: "Noto Sans Mono", "Symbols Nerd Font Mono";
     font-size: 14px;
 }
 
 window#waybar {
-    background-color: transparent;
-    color: #ffffff;
-    transition-property: background-color;
-    transition-duration: .5s;
+    background-color: @c0;
+    color: @cc;
 }
 
-#taskbar button,
 #workspaces button {
-    padding: 0 4px;
-    background-color: transparent;
-    color: #ffffff;
+    color: @c6;
+    border-radius: 4px;
+    padding: 0 1ex;
 }
 
-#taskbar button:hover,
+#workspaces button.active {
+    background-color: @c3;
+}
+
 #workspaces button:hover {
-    box-shadow: inherit;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: inherit;
 }
 
-#workspaces button.focused {
-    background-color: rgba(255, 255, 255, 0.25);
+#submap {
+    color: @c6;
+    padding: 0 1ex;
 }
 
-#mode {
-    background-color: rgba(255, 255, 255, 0.25);
-    padding: 0 8px;
-}
-
-#window,
-#clock {
-    padding: 0 8px;
+#clock, #network, #bluetooth, #pipewire {
+    padding: 0 0.5ex;
 }
 
 #battery.charging {
-    letter-spacing: -8px;
-}
-
-@keyframes blink {
-    to {
-        color: #ff3f3f;
-    }
+    letter-spacing: -1ex;
 }
 
 #battery.critical:not(.charging) {

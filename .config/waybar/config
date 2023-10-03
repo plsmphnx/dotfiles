@@ -17,7 +17,15 @@
     ],
     "clock": {
         "format": "{:%I:%M %p}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+        "tooltip-format": "{calendar}",
+        "calendar": {
+            "format": {
+                "months":   "<span color='#ffffff'><b>{}</b></span>",
+                "weekdays": "<span color='#ffffff'><u>{}</u></span>",
+                "today":    "<span color='#ffffff'>{}</span>",
+                "days":     "<span color='#666666'>{}</span>"
+            }
+        }
     },
     "battery": {
         "states": {
@@ -36,8 +44,7 @@
             "\udb80\udc7f",
             "\udb80\udc80",
             "\udb80\udc81",
-            "\udb80\udc82",
-            "\udb80\udc79"
+            "\udb80\udc82"
         ],
         "tooltip-format": "{capacity}% ({time})",
         "tooltip-format-charging": "{capacity}% (charging)"
@@ -67,8 +74,8 @@
         "on-click": "blueberry"
     },
     "pulseaudio": {
-        "format": "{icon}{format_source}",
-        "format-muted": "\udb83\ude08{format_source}",
+        "format": "{icon} {format_source}",
+        "format-muted": "\udb83\ude08 {format_source}",
         "format-source": "\udb80\udf6c",
         "format-source-muted": "\udb80\udf6d",
         "format-icons": {
@@ -80,6 +87,7 @@
             "car": "?",
             "default": ["\udb81\udd7f", "\udb81\udd80", "\udb81\udd7e"]
         },
+        "tooltip-format": "{desc} ({volume}%)",
         "on-click": "pavucontrol"
     }
 }
