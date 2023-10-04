@@ -5,7 +5,8 @@
         "hyprland/submap",
     ],
     "modules-center": [
-        "hyprland/window"
+        "hyprland/window",
+        "custom/close"
     ],
     "modules-right": [
         "tray",
@@ -89,5 +90,9 @@
         },
         "tooltip-format": "{desc} ({volume}%)",
         "on-click": "pavucontrol"
+    },
+    "custom/close": {
+        "format": "\udb84\udf98",
+        "on-click": "hyprctl dispatch killactive"
     }
 }

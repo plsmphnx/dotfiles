@@ -34,7 +34,12 @@ window#waybar {
     padding: 0 1ex;
 }
 
-#clock, #network, #bluetooth, #pipewire {
+#clock,
+#network,
+#bluetooth,
+#pipewire,
+#custom-close,
+#window {
     padding: 0 0.5ex;
 }
 
@@ -56,4 +61,8 @@ window#waybar {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
+}
+
+#custom-close {
+    color: @c3
 }
