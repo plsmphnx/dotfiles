@@ -92,7 +92,8 @@
         "on-click": "pavucontrol"
     },
     "custom/close": {
-        "format": "\udb84\udf98",
+        "format": "\udb80\udd56",
+        "tooltip": false,
         "on-click": "hyprctl dispatch killactive"
     }
 }

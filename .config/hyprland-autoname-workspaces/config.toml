@@ -6,6 +6,7 @@ workspace = "{id}{delim}<span color='#ffffffcc'><big>{clients}</big></span>"
 [class]
 "DEFAULT"               = "\U0000f2d0"
 "blueberry.py"          = "\U000f00af"
+"firefox"               = "\U000f0239"
 "foot"                  = "\U0000f489"
 "imv"                   = "\U0000f03e"
 "luakit"                = "\U000f059f"
