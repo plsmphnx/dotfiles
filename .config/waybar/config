@@ -6,6 +6,8 @@
     ],
     "modules-center": [
         "hyprland/window",
+        "custom/minimize",
+        "custom/maximize",
         "custom/close"
     ],
     "modules-right": [
@@ -45,7 +47,8 @@
             "\udb80\udc7f",
             "\udb80\udc80",
             "\udb80\udc81",
-            "\udb80\udc82"
+            "\udb80\udc82",
+            "\udb80\udc79"
         ],
         "tooltip-format": "{capacity}% ({time})",
         "tooltip-format-charging": "{capacity}% (charging)"
@@ -92,8 +95,18 @@
         "on-click": "pavucontrol"
     },
     "custom/close": {
-        "format": "\udb80\udd56",
+        "format": "<small>\udb80\udd56</small>",
         "tooltip": false,
         "on-click": "hyprctl dispatch killactive"
+    },
+    "custom/maximize": {
+        "format": "<small>\udb81\uddaf</small>",
+        "tooltip": false,
+        "on-click": "hyprctl dispatch movetoworkspace empty"
+    },
+    "custom/minimize": {
+        "format": "<small>\udb81\uddb0</small>",
+        "tooltip": false,
+        "on-click": "hyprctl dispatch movetoworkspacesilent empty"
     }
 }
