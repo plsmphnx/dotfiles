@@ -5,9 +5,8 @@
         "hyprland/submap",
     ],
     "modules-center": [
+        "custom/window",
         "hyprland/window",
-        "custom/minimize",
-        "custom/maximize",
         "custom/close"
     ],
     "modules-right": [
@@ -97,16 +96,13 @@
     "custom/close": {
         "format": "<small>\udb80\udd56</small>",
         "tooltip": false,
-        "on-click": "hyprctl dispatch killactive"
+        "on-click": "hyprctl dispatch killactive",
+        "on-click-right": "hyprctl dispatch movetoworkspacesilent empty"
     },
-    "custom/maximize": {
-        "format": "<small>\udb81\uddaf</small>",
+    "custom/window": {
+        "format": "<small>\udb81\udc15</small>",
         "tooltip": false,
-        "on-click": "hyprctl dispatch movetoworkspace empty"
-    },
-    "custom/minimize": {
-        "format": "<small>\udb81\uddb0</small>",
-        "tooltip": false,
-        "on-click": "hyprctl dispatch movetoworkspacesilent empty"
+        "on-click": "hyprctl dispatch movetoworkspace empty",
+        "on-click-right": "hyprctl dispatch togglefloating"
     }
 }

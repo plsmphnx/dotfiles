@@ -39,8 +39,7 @@ window#waybar {
 #bluetooth,
 #pipewire,
 #custom-close,
-#custom-maximize,
-#custom-minimize,
+#custom-window,
 #window {
     padding: 0 0.5ex;
 }
@@ -66,7 +65,6 @@ window#waybar {
 }
 
 #custom-close,
-#custom-maximize,
-#custom-minimize {
+#custom-window {
     color: @c3
 }
