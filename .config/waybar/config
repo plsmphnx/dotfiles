@@ -94,13 +94,13 @@
         "on-click": "pavucontrol"
     },
     "custom/close": {
-        "format": "<small>\udb80\udd56</small>",
+        "format": "<big>\uff3d\u00d7</big>",
         "tooltip": false,
         "on-click": "hyprctl dispatch killactive",
         "on-click-right": "hyprctl dispatch movetoworkspacesilent empty"
     },
     "custom/window": {
-        "format": "<small>\udb81\udc15</small>",
+        "format": "<big>\u002b\uff3b</big>",
         "tooltip": false,
         "on-click": "hyprctl dispatch movetoworkspace empty",
         "on-click-right": "hyprctl dispatch togglefloating"

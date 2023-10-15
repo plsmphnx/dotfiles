@@ -66,5 +66,6 @@ window#waybar {
 
 #custom-close,
 #custom-window {
-    color: @c3
+    color: @c3;
+    letter-spacing: -1ex;
 }
