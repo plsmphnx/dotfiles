@@ -1,6 +1,0 @@
-#!/bin/sh
-swaymsg -t get_workspaces | jq '[
-    [ .[].num ] as $i
-    | ( $i | range(1;length+2) )
-    | select( IN($i[]) | not )
-][0]'

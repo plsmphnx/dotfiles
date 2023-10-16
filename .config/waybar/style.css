@@ -34,13 +34,15 @@ window#waybar {
     padding: 0 1ex;
 }
 
+#bluetooth,
 #clock,
 #network,
-#bluetooth,
 #pipewire,
-#custom-close,
-#custom-window,
-#window {
+#tray,
+#window,
+#custom-exit,
+#custom-menu,
+#custom-size {
     padding: 0 0.5ex;
 }
 
@@ -64,8 +66,8 @@ window#waybar {
     -gtk-icon-effect: highlight;
 }
 
-#custom-close,
-#custom-window {
+#custom-exit,
+#custom-size {
     color: @c3;
     letter-spacing: -1ex;
 }

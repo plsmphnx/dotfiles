@@ -1,13 +1,13 @@
 {
-    "layer": "top",
+    "layer": "overlay",
     "modules-left": [
         "hyprland/workspaces",
         "hyprland/submap",
     ],
     "modules-center": [
-        "custom/window",
+        "custom/size",
         "hyprland/window",
-        "custom/close"
+        "custom/exit"
     ],
     "modules-right": [
         "tray",
@@ -15,8 +15,28 @@
         "bluetooth",
         "network",
         "battery",
-        "clock"
+        "clock",
+        "custom/menu"
     ],
+    "custom/menu": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "\udb82\udfab",
+            "none": "\udb80\udf5c",
+            "dnd-notification": "\udb82\udfab",
+            "dnd-none": "\udb80\udf5c",
+            "inhibited-notification": "\udb82\udfab",
+            "inhibited-none": "\udb80\udf5c",
+            "dnd-inhibited-notification": "\udb82\udfab",
+            "dnd-inhibited-none": "\udb80\udf5c"
+        },
+        "exec": "swaync-client -swb",
+        "return-type": "json",
+        "escape": true,
+        "on-click": "sleep 0.1 && ~/.local/share/ux/notify",
+        "on-click-right": "sleep 0.1 && ~/.local/share/ux/menu"
+    },
     "clock": {
         "format": "{:%I:%M %p}",
         "tooltip-format": "{calendar}",
@@ -93,13 +113,13 @@
         "tooltip-format": "{desc} ({volume}%)",
         "on-click": "pavucontrol"
     },
-    "custom/close": {
+    "custom/exit": {
         "format": "<big>\uff3d\u00d7</big>",
         "tooltip": false,
         "on-click": "hyprctl dispatch killactive",
         "on-click-right": "hyprctl dispatch movetoworkspacesilent empty"
     },
-    "custom/window": {
+    "custom/size": {
         "format": "<big>\u002b\uff3b</big>",
         "tooltip": false,
         "on-click": "hyprctl dispatch movetoworkspace empty",
