@@ -1,5 +1,5 @@
 {
-    "layer": "overlay",
+    "layer": "top",
     "margin-bottom": 2,
     "modules-left": [
         "hyprland/workspaces",

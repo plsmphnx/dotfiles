@@ -4,3 +4,4 @@ allow_markup=true
 gtk_dark=true
 insensitive=true
 single_click=true
+key_expand=Tab
