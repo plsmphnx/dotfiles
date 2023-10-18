@@ -1,3 +1,7 @@
 .background {
     border-radius: 0;
 }
+
+.titlebar {
+    box-shadow: none;
+}

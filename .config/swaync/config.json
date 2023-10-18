@@ -3,6 +3,7 @@
     "menubar",
     "volume",
     "backlight",
+    "mpris",
     "title",
     "dnd",
     "notifications"
@@ -12,12 +13,16 @@
       "menu#power": {
         "label": "\udb81\udc25",
         "position": "right",
-        "actions": [
-          {
-            "label": "Shut down",
-            "command": "systemctl poweroff"
-          }
-        ]
+        "actions": [{
+          "label": "Shutdown",
+          "command": "systemctl poweroff"
+        }, {
+          "label": "Suspend",
+          "command": "systemctl suspend"
+        }, {
+          "label": "Logout",
+          "command": "hyprctl dispatch exit"
+        }]
       }
     },
     "title": {

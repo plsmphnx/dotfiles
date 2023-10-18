@@ -8,30 +8,40 @@
 * {
     font-family: "Noto Sans Mono", "Symbols Nerd Font Mono";
     font-size: 14px;
+    background: transparent;
+    box-shadow: none;
+    text-shadow: none;
 }
 
 window#waybar {
-    background-color: @c0;
     color: @cc;
 }
 
+#clock,
+#submap,
+#window,
 #workspaces button {
-    color: @c6;
-    border-radius: 4px;
+    border-radius: 8px;
+    border-style: solid;
+    border-left-width: 0.25ex;
+    border-right-width: 0.25ex;
     padding: 0 1ex;
 }
 
+#submap,
+#workspaces button {
+    color: @c6;
+    border-color: @c0;
+}
+
+#clock,
+#window,
 #workspaces button.active {
-    background-color: @c3;
+    border-color: @c9;
 }
 
 #workspaces button:hover {
-    border: inherit;
-}
-
-#submap {
-    color: @c6;
-    padding: 0 1ex;
+    border-color: @cc;
 }
 
 #bluetooth,
@@ -43,7 +53,7 @@ window#waybar {
 #custom-exit,
 #custom-menu,
 #custom-size {
-    padding: 0 0.5ex;
+    margin: 0 0.5ex;
 }
 
 #battery.charging {
@@ -68,6 +78,5 @@ window#waybar {
 
 #custom-exit,
 #custom-size {
-    color: @c3;
-    letter-spacing: -1ex;
+    color: @c6;
 }

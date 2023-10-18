@@ -1,5 +1,6 @@
 {
     "layer": "overlay",
+    "margin-bottom": 2,
     "modules-left": [
         "hyprland/workspaces",
         "hyprland/submap",
@@ -114,13 +115,13 @@
         "on-click": "pavucontrol"
     },
     "custom/exit": {
-        "format": "<big>\uff3d\u00d7</big>",
+        "format": "<big>\u00d7</big>",
         "tooltip": false,
         "on-click": "hyprctl dispatch killactive",
         "on-click-right": "hyprctl dispatch movetoworkspacesilent empty"
     },
     "custom/size": {
-        "format": "<big>\u002b\uff3b</big>",
+        "format": "<big>\u002b</big>",
         "tooltip": false,
         "on-click": "hyprctl dispatch movetoworkspace empty",
         "on-click-right": "hyprctl dispatch togglefloating"
