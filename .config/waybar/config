@@ -118,7 +118,7 @@
         "format": "<big>\u00d7</big>",
         "tooltip": false,
         "on-click": "hyprctl dispatch killactive",
-        "on-click-right": "hyprctl dispatch movetoworkspacesilent empty"
+        "on-click-right": "hyprctl dispatch movetoworkspacesilent special:background"
     },
     "custom/size": {
         "format": "<big>\u002b</big>",
