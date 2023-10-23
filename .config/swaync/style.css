@@ -1,6 +1,9 @@
+* {
+    font-family: "Noto Sans Mono", "Symbols Nerd Font Mono";
+}
+
 .widget-menubar>box>.menu-button-bar>button {
-    font-family: Symbols Nerd Font;
-    font-size: 200%;
+    font-size: 150%;
 }
 
 .blank-window,

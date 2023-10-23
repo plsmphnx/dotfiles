@@ -14,16 +14,28 @@
         "label": "\udb81\udc25",
         "position": "right",
         "actions": [{
-          "label": "Shutdown",
+          "label": "Shutdown \udb81\udc25",
           "command": "systemctl poweroff"
         }, {
-          "label": "Suspend",
+          "label": " Restart \udb81\udf09",
+          "command": "systemctl restart"
+        }, {
+          "label": " Suspend \udb82\udd04",
           "command": "systemctl suspend"
         }, {
-          "label": "Logout",
+          "label": "  Logout \udb81\uddfd",
           "command": "hyprctl dispatch exit"
+        }, {
+          "label": "    Lock \udb80\udf3e",
+          "command": "~/.local/share/ux/lock"
         }]
       }
+    },
+    "volume": {
+      "show-per-app": true
+    },
+    "backlight": {
+      "device": "edp-backlight"
     },
     "title": {
       "text": "Notifications",
@@ -32,12 +44,6 @@
     },
     "dnd": {
       "text": "Do Not Disturb"
-    },
-    "volume": {
-      "show-per-app": true
-    },
-    "backlight": {
-      "device": "edp-backlight"
     }
   }
 }
