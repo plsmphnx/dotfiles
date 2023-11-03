@@ -7,6 +7,11 @@ git_gc =
 git_prune =
     git remote prune origin
 
+[clone/ai/ggml]
+checkout = git clone 'https://github.com/ggerganov/ggml'
+[clone/ai/llama-cpp]
+checkout = git clone 'https://github.com/ggerganov/llama.cpp' llama-cpp
+
 [clone/core/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
 [clone/core/layout]
