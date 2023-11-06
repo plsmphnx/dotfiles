@@ -11,6 +11,12 @@ git_prune =
 checkout = git clone 'https://github.com/ggerganov/ggml'
 [clone/ai/llama-cpp]
 checkout = git clone 'https://github.com/ggerganov/llama.cpp' llama-cpp
+[clone/ai/onnxruntime]
+checkout = git clone 'https://github.com/microsoft/onnxruntime'
+[clone/ai/piper]
+checkout = git clone 'https://github.com/rhasspy/piper'
+[clone/ai/piper-phonemize]
+checkout = git clone 'https://github.com/rhasspy/piper-phonemize'
 
 [clone/core/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
