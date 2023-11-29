@@ -20,11 +20,11 @@
           "label": " Restart \udb81\udf09",
           "command": "systemctl reboot"
         }, {
-          "label": " Suspend \udb82\udd04",
-          "command": "systemctl suspend"
-        }, {
           "label": "  Logout \udb81\uddfd",
           "command": "hyprctl dispatch exit"
+        }, {
+          "label": "   Sleep \udb82\udd04",
+          "command": "systemctl suspend"
         }, {
           "label": "    Lock \udb80\udf3e",
           "command": "~/.local/share/ux/lock"
