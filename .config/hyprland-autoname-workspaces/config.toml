@@ -1,7 +1,9 @@
-version = "1.1.11"
+version = "1.1.13"
 
 [format]
 workspace = "{id}{delim}<span color='#ffffffcc'><big>{clients}</big></span>"
+client = "{icon}"
+client_active = "{icon}"
 
 [class]
 "DEFAULT"                       = "\U0000f2d0"
