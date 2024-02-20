@@ -120,6 +120,9 @@
         "on-click": "hyprctl dispatch killactive",
         "on-click-right": "hyprctl dispatch movetoworkspacesilent special:background"
     },
+    "hyprland/window": {
+        "separate-outputs": true
+    },
     "custom/size": {
         "format": "<big>\u002b</big>",
         "tooltip": false,

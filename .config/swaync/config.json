@@ -24,7 +24,7 @@
           "command": "hyprctl dispatch exit"
         }, {
           "label": "   Sleep \udb82\udd04",
-          "command": "systemctl suspend"
+          "command": "systemctl suspend-then-hibernate"
         }, {
           "label": "    Lock \udb80\udf3e",
           "command": "~/.local/share/ux/lock"
