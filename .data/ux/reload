@@ -2,4 +2,4 @@ nix run --no-write-lock-file github:plsmphnx/hyprmks \
     ~/.config/hypr/hyprland.conf > ~/.local/share/hypr/mks.conf
 hyprctl reload
 pkill waybar
-waybar &
+waybar & disown

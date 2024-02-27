@@ -19,7 +19,7 @@
 
 .notification-default-action,
 .notification-action {
-    background: alpha(@noti-bg, 0.1);
+    background: alpha(@noti-bg, 0.25);
     border-width: 2px;
 }
 
@@ -36,5 +36,5 @@
 }
 
 .control-center {
-    background: alpha(@cc-bg, 0.1);
+    background: alpha(@cc-bg, 0.25);
 }

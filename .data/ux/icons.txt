@@ -1,0 +1,25 @@
+blueberry           f00af
+foot                0f489
+imv                 0f03e
+luakit              f059f
+lite-xl             f0169
+mpv                 f0567
+zathura             f0219
+iwgtk               f05a9
+pavucontrol         0f028
+pcmanfm             f0770
+
+blender             f00ab
+chrome              0e743
+code                f0a1e
+discord             f066f
+firefox             f0239
+gimp                f11e3
+mcpelauncher        f0373
+pithos              f03db
+steam               0f1b6
+
+teams.microsoft.com f02bb
+outlook.office.com  f0d22
+word.office.com     f1392
+microsoft-edge      f01e9

@@ -1,1 +1,1 @@
-swaync-client -t &
+swaync-client -t & disown

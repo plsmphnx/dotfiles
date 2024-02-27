@@ -1,0 +1,46 @@
+@define-color c0 transparent;
+@define-color c3 rgba(255, 255, 255, 0.2);
+@define-color c6 rgba(255, 255, 255, 0.4);
+@define-color c9 rgba(255, 255, 255, 0.6);
+@define-color cc rgba(255, 255, 255, 0.8);
+@define-color cf white;
+
+* { all: unset }
+
+* {
+    font-family: 'Noto Sans Mono', 'Symbols Nerd Font Mono';
+    font-size: 14px;
+    color: @cc;
+}
+
+label {
+    padding: 0 1ex;
+}
+
+.workspaces {
+    padding: 0 1px;
+}
+
+.clock,
+.title,
+.workspaces button {
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 0 2px;
+    margin: 0 -1px;
+    border-color: @c0;
+}
+
+.workspaces label {
+    font-size: 125%;
+}
+
+.clock,
+.title,
+.workspaces button.focused {
+    border-color: @c9;
+}
+
+.workspaces button:hover {
+    border-color: @cc;
+}

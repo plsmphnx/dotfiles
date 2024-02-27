@@ -1,0 +1,6 @@
+#!/bin/sh
+ags -q
+ln -sf ../../.data/ux
+ln -sf ~/.nix-profile/share/com.github.Aylur.ags/types
+rm -rf ~/.config/ags
+nix run nixpkgs#typescript -- --outDir ~/.config/ags
