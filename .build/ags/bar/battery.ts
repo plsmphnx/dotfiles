@@ -14,7 +14,5 @@ export default () =>
         const time = new Date(battery.time_remaining * 1000)
             .toISOString()
             .substring(14, 19);
-        self.tooltip_text = `${battery.percent}% ${
-            battery.charging ? Icons.Battery.Tooltip : ''
-        }(${time})`;
+        self.tooltip_text = `${battery.percent}% (${time})`;
     });

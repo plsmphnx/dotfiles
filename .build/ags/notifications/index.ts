@@ -3,7 +3,10 @@ import type { Notification } from 'service/notifications';
 const notifications = await Service.import('notifications');
 const popups = notifications.bind('popups');
 
-const NotificationIcon = ({ app_entry, app_icon, image }: Notification) => {
+const hyprland = await Service.import('hyprland');
+const activeMonitorId = hyprland.active.monitor.bind('id');
+
+const notificationIcon = ({ app_entry, app_icon, image }: Notification) => {
     if (image) {
         return Widget.Box({
             css: `
@@ -23,8 +26,8 @@ const NotificationIcon = ({ app_entry, app_icon, image }: Notification) => {
     return Widget.Icon(icon);
 };
 
-export const NotificationBox = (n: Notification) => {
-    const icon = NotificationIcon(n);
+export const notificationPopup = (n: Notification) => {
+    const icon = notificationIcon(n);
 
     const title = Widget.Label({
         class_name: 'title',
@@ -69,13 +72,16 @@ export const NotificationBox = (n: Notification) => {
     });
 };
 
-export default () =>
+export default (monitor: number) =>
     Widget.Window({
-        name: 'notifications',
+        name: `notifications-${monitor}`,
+        monitor,
         anchor: ['top', 'right'],
         child: Widget.Box({
             vertical: true,
             css: 'padding: 1px;',
-            children: popups.as(popups => popups.map(NotificationBox)),
+            children: Utils.merge([popups, activeMonitorId], (ps, id) =>
+                id === monitor ? ps.map(notificationPopup) : [],
+            ),
         }),
     });

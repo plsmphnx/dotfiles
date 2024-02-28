@@ -8,6 +8,7 @@ zathura             f0219
 iwgtk               f05a9
 pavucontrol         0f028
 pcmanfm             f0770
+l3afpad             f09ee
 
 blender             f00ab
 chrome              0e743

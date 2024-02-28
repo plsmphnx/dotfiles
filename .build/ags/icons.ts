@@ -35,7 +35,6 @@ export default {
             '\u{f008b}',
             '\u{f0085}',
         ],
-        Tooltip: '\u{f140b}',
     },
 
     Volume: {
@@ -50,7 +49,8 @@ export default {
     },
 
     Network: {
-        Ethernet: '\u{f0200}',
+        Off: '\u{f0164}',
+        Wired: '\u{f0200}',
         Wifi: {
             Off: '\u{f092d}',
             On: [
@@ -62,4 +62,9 @@ export default {
             ],
         },
     },
+
+    Title: {
+        Exit: `\xd7`,
+        Size: `\x2b`,
+    }
 };

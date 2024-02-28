@@ -67,6 +67,7 @@ export default (monitor: number) => {
             const next: { [w: number]: Button<any, any> } = {};
             const buttons = ws
                 .filter(w => w.id > 0 && w.monitorID === monitor)
+                .sort((a, b) => a.id - b.id)
                 .map(w => (next[w.id] = prev[w.id] || button(w.id)));
             prev = next;
             return buttons;
