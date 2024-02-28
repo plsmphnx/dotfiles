@@ -3,7 +3,7 @@ import Icons from '../icons.js';
 const battery = await Service.import('battery');
 
 export default () =>
-    Widget.Label({ class_name: 'battery' }).hook(battery, self => {
+    Widget.Label().hook(battery, self => {
         self.visible = battery.available && !battery.charged;
 
         self.label = Icons.select(

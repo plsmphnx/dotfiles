@@ -37,4 +37,29 @@ export default {
         ],
         Tooltip: '\u{f140b}',
     },
+
+    Volume: {
+        Speaker: {
+            Off: '\u{f0581}',
+            On: ['\u{f057f}', '\u{f0580}', '\u{f057e}'],
+        },
+        Microphone: {
+            Off: '\u{f036d}',
+            On: ['\u{f036c}'],
+        },
+    },
+
+    Network: {
+        Ethernet: '\u{f0200}',
+        Wifi: {
+            Off: '\u{f092d}',
+            On: [
+                '\u{f092f}',
+                '\u{f091f}',
+                '\u{f0922}',
+                '\u{f0925}',
+                '\u{f0928}',
+            ],
+        },
+    },
 };

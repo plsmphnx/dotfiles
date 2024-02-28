@@ -9,6 +9,6 @@ const date = Variable('', { poll: [1000, time] });
 
 export default () =>
     Widget.Label({
-        class_name: 'clock',
+        class_name: 'icars',
         label: date.bind(),
     });

@@ -1,4 +1,4 @@
-import type { Client, Workspace } from 'service/hyprland';
+import type { Client } from 'service/hyprland';
 import type { Button } from 'widgets/button';
 import Icons from '../icons.js';
 
@@ -53,15 +53,23 @@ function button(w: number) {
     return Widget.Button({
         on_clicked: () => hyprland.messageAsync(`dispatch workspace ${w}`),
         child: Widget.Label({ label: labels.as(l => l[w] || '') }),
-        class_name: activeWorkspaceId.as(a => (a === w ? 'focused' : '')),
+        class_name: activeWorkspaceId.as(a =>
+            a === w ? 'icars focused' : 'icars',
+        ),
     });
 }
 
 export default (monitor: number) => {
+    let prev: { [w: number]: Button<any, any> } = {};
     return Widget.Box({
         class_name: 'workspaces',
-        children: workspaces.as(ws =>
-            ws.filter(w => w.monitorID === monitor).map(w => button(w.id)),
-        ),
+        children: workspaces.as(ws => {
+            const next: { [w: number]: Button<any, any> } = {};
+            const buttons = ws
+                .filter(w => w.id > 0 && w.monitorID === monitor)
+                .map(w => (next[w.id] = prev[w.id] || button(w.id)));
+            prev = next;
+            return buttons;
+        }),
     });
 };

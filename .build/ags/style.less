@@ -1,0 +1,83 @@
+@c0: transparent;
+@c3: rgba(255, 255, 255, 0.2);
+@c6: rgba(255, 255, 255, 0.4);
+@c9: rgba(255, 255, 255, 0.6);
+@cc: rgba(255, 255, 255, 0.8);
+@cf: white;
+
+@bg: rgba(0, 0, 0, 0.4);
+
+@border: 2px;
+@offset: (@border / 2);
+
+* {
+    all: unset;
+    font-family: 'Noto Sans Mono', 'Symbols Nerd Font Mono';
+    font-size: 14px;
+    color: @cc;
+}
+
+.status {
+    padding: 0 0.5ex;
+    label {
+        padding: 0 0.5ex;
+    }
+}
+
+.icars {
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 0 @border;
+    border-color: @c6;
+    padding: 0 1ex;
+}
+
+.workspaces {
+    padding: 0 @offset;
+    label {
+        font: 125% 'Symbols Nerd Font Mono';
+    }
+    button {
+        margin: 0 (-@offset);
+        &:not(.focused) {
+            border-color: @c0;
+        }
+        &:hover {
+            border-color: @c9;
+        }
+    }
+}
+
+.dim {
+    color: @c6;
+}
+
+.notification {
+    .icars();
+    min-width: 64ex;
+    margin: 1ex;
+    padding: 0;
+    background-color: @bg;
+    .title {
+        font-weight: bold;
+    }
+    .info,
+    button {
+        padding: 1ex;
+    }
+    button {
+        border-top-color: @c3;
+        border-top-style: solid;
+        border-top-width: @border;
+        &:hover {
+            background-color: @c3;
+        }
+    }
+}
+
+menu,
+tooltip {
+    border-radius: 4px;
+    background-color: @bg;
+    padding: 1ex;
+}
