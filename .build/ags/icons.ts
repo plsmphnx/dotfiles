@@ -64,7 +64,12 @@ export default {
     },
 
     Title: {
-        Exit: `\xd7`,
-        Size: `\x2b`,
-    }
+        Exit: '\xd7',
+        Size: '\x2b',
+    },
+
+    Notifications: {
+        Open: '\u{f039f}',
+        Closed: '\u{f035c}',
+    },
 };

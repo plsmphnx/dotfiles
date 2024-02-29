@@ -8,7 +8,8 @@
 @bg: rgba(0, 0, 0, 0.4);
 
 @border: 2px;
-@offset: (@border / 2);
+@radius: 8px;
+@margin: 0.5em;
 
 * {
     all: unset;
@@ -18,27 +19,27 @@
 }
 
 .status {
-    padding: 0 0.5ex;
+    padding: 0 (@margin / 2);
     label {
-        padding: 0 0.5ex;
+        padding: 0 (@margin / 2);
     }
 }
 
 .icars {
-    border-radius: 8px;
+    border-radius: @radius;
     border-style: solid;
     border-width: 0 @border;
     border-color: @c6;
-    padding: 0 1ex;
+    padding: 0 @margin;
 }
 
 .workspaces {
-    padding: 0 @offset;
+    padding: 0 (@border / 2);
     label {
         font: 125% 'Symbols Nerd Font Mono';
     }
     button {
-        margin: 0 (-@offset);
+        margin: 0 (-@border / 2);
         &:not(.focused) {
             border-color: @c0;
         }
@@ -54,24 +55,33 @@
 
 .notification {
     .icars();
-    min-width: 64ex;
-    margin: 1ex;
+    min-width: 64 * @margin;
+    margin: @margin;
     padding: 0;
     background-color: @bg;
     .title {
         font-weight: bold;
+        padding-bottom: 0;
     }
-    .info,
-    button {
-        padding: 1ex;
+    button,
+    .text {
+        padding: @margin;
     }
-    button {
-        border-top-color: @c3;
-        border-top-style: solid;
-        border-top-width: @border;
-        &:hover {
-            background-color: @c3;
-        }
+    button:hover {
+        font-weight: bold;
+    }
+    button + button {
+        border-left: @border solid @c3;
+    }
+    .active {
+        border-radius: @radius;
+        border-bottom: @border solid @c3;
+    }
+    .icon {
+        font-size: 250%;
+        min-width: 0.8em + (0.8 * @margin);
+        min-height: 0.8em + (0.8 * @margin);
+        border-radius: @radius;
     }
 }
 
@@ -79,5 +89,5 @@ menu,
 tooltip {
     .icars();
     background-color: @bg;
-    padding: 0.5ex 1ex;
+    padding: @margin;
 }

@@ -23,4 +23,5 @@ steam               0f1b6
 teams.microsoft.com f02bb
 outlook.office.com  f0d22
 word.office.com     f1392
+excel.office.com    f138f
 microsoft-edge      f01e9
