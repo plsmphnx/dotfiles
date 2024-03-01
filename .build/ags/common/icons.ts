@@ -1,15 +1,17 @@
-export default {
-    select(icons: string[], value: number) {
+function select(...icons: string[]) {
+    return (value: number) => {
         const index = Math.floor(value * icons.length);
         return icons[Math.max(0, Math.min(index, icons.length - 1))];
-    },
+    };
+}
 
-    Client: {
+export default {
+    Workspaces: {
         Fallback: '\u{0f2d0}',
     },
 
     Battery: {
-        Draining: [
+        Draining: select(
             '\u{f008e}',
             '\u{f007a}',
             '\u{f007b}',
@@ -21,8 +23,8 @@ export default {
             '\u{f0081}',
             '\u{f0082}',
             '\u{f0079}',
-        ],
-        Charging: [
+        ),
+        Charging: select(
             '\u{f089f}',
             '\u{f089c}',
             '\u{f0086}',
@@ -34,17 +36,17 @@ export default {
             '\u{f008a}',
             '\u{f008b}',
             '\u{f0085}',
-        ],
+        ),
     },
 
-    Volume: {
+    Audio: {
         Speaker: {
             Off: '\u{f0581}',
-            On: ['\u{f057f}', '\u{f0580}', '\u{f057e}'],
+            On: select('\u{f057f}', '\u{f0580}', '\u{f057e}'),
         },
         Microphone: {
             Off: '\u{f036d}',
-            On: ['\u{f036c}'],
+            On: select('\u{f036c}'),
         },
     },
 
@@ -53,13 +55,13 @@ export default {
         Wired: '\u{f0200}',
         Wifi: {
             Off: '\u{f092d}',
-            On: [
+            On: select(
                 '\u{f092f}',
                 '\u{f091f}',
                 '\u{f0922}',
                 '\u{f0925}',
                 '\u{f0928}',
-            ],
+            ),
         },
     },
 
@@ -69,7 +71,15 @@ export default {
     },
 
     Notifications: {
+        Icon: '\u{f035c}',
         Open: '\u{f039f}',
-        Closed: '\u{f035c}',
     },
+
+    Mpris: {
+        Icon: '\u{f075a}',
+        Play: '\u{f040a}',
+        Pause: '\u{f03e4}',
+        Prev: '\u{f04ae}',
+        Next: '\u{f04ad}',
+    }
 };

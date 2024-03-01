@@ -1,4 +1,4 @@
-import Icons from '../icons.js';
+import Icons from '../common/icons.js';
 
 const audio = await Service.import('audio');
 
@@ -8,10 +8,7 @@ export default () =>
         child: Widget.Label().hook(audio.speaker, self => {
             self.label =
                 audio.speaker.is_muted || audio.speaker.volume === 0
-                    ? Icons.Volume.Speaker.Off
-                    : Icons.select(
-                          Icons.Volume.Speaker.On,
-                          audio.speaker.volume,
-                      );
+                    ? Icons.Audio.Speaker.Off
+                    : Icons.Audio.Speaker.On(audio.speaker.volume);
         }),
     });

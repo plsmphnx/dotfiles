@@ -11,6 +11,8 @@
 @radius: 8px;
 @margin: 0.5em;
 
+@width: 64 * @margin;
+
 * {
     all: unset;
     font-family: 'Noto Sans Mono', 'Symbols Nerd Font Mono';
@@ -20,6 +22,7 @@
 
 .status {
     padding: 0 (@margin / 2);
+    image,
     label {
         padding: 0 (@margin / 2);
     }
@@ -53,29 +56,25 @@
     color: @c6;
 }
 
-.notification {
+.action {
     .icars();
-    min-width: 64 * @margin;
+    min-width: @width;
     margin: @margin;
-    padding: 0;
     background-color: @bg;
     .title {
         font-weight: bold;
-        padding-bottom: 0;
     }
-    button,
-    .text {
-        padding: @margin;
+    > box {
+        padding: @margin 0;
     }
-    button:hover {
-        font-weight: bold;
+    > box + box {
+        border-top: @border solid @c3;
     }
     button + button {
         border-left: @border solid @c3;
     }
-    .active {
-        border-radius: @radius;
-        border-bottom: @border solid @c3;
+    button:hover {
+        font-weight: bold;
     }
     .icon {
         font-size: 250%;
@@ -83,6 +82,13 @@
         min-height: 0.8em + (0.8 * @margin);
         border-radius: @radius;
     }
+}
+
+.player {
+    .icars();
+    min-width: @width;
+    margin: @margin;
+    background-color: @bg;
 }
 
 menu,

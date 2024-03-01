@@ -1,7 +1,8 @@
 import Battery from './battery.js';
 import Clock from './clock.js';
+import Mpris from '../mpris/index.js';
 import Network from './network.js';
-import Notifications from './notifications.js';
+import Notifications from '../notifications/index.js';
 import Submap from './submap.js';
 import SysTray from './systray.js';
 import Title from './title.js';
@@ -12,10 +13,11 @@ const Status = () =>
     Widget.Box(
         { class_name: 'status' },
         SysTray(),
+        Mpris.Status(),
         Volume(),
         Network(),
         Battery(),
-        Notifications(),
+        Notifications.All.Status(),
     );
 
 const Left = (monitor: number) =>

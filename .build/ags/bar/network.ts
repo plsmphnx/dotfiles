@@ -1,4 +1,4 @@
-import Icons from '../icons.js';
+import Icons from '../common/icons.js';
 
 const network = await Service.import('network');
 
@@ -9,8 +9,7 @@ export default () =>
             switch (network.primary) {
                 case 'wifi':
                     if (network.wifi.enabled) {
-                        self.label = Icons.select(
-                            Icons.Network.Wifi.On,
+                        self.label = Icons.Network.Wifi.On(
                             network.wifi.strength / 100,
                         );
                     } else {

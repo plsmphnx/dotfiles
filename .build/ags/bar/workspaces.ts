@@ -1,6 +1,6 @@
 import type { Client } from 'service/hyprland';
 import type { Button } from 'widgets/button';
-import Icons from '../icons.js';
+import Icons from '../common/icons.js';
 
 const hyprland = await Service.import('hyprland');
 
@@ -27,7 +27,7 @@ function icon(client: Client) {
             return icon;
         }
     }
-    return Icons.Client.Fallback;
+    return Icons.Workspaces.Fallback;
 }
 
 function sort(a: Client, b: Client) {

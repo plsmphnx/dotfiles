@@ -1,4 +1,4 @@
-import Icons from '../icons.js';
+import Icons from '../common/icons.js';
 
 const hyprland = await Service.import('hyprland');
 

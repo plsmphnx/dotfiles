@@ -7,6 +7,7 @@ export default {
     style: './style.css',
     windows: [
         ...hyprland.monitors.map(m => Bar(m.id)),
-        ...hyprland.monitors.map(m => Notifications(m.id)),
+        Notifications.Popups,
+        Notifications.All.Window,
     ],
 };

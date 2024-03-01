@@ -1,24 +1,21 @@
 import type { Notification } from 'service/notifications';
+import type { Label } from 'widgets/label';
+import Dropdown from '../common/dropdown.js';
+import Icons from '../common/icons.js';
+import Toggle from '../common/toggle.js';
+
 
 const notifications = await Service.import('notifications');
 const popups = notifications.bind('popups');
 const all = notifications.bind('notifications');
 
-const hyprland = await Service.import('hyprland');
-const activeMonitorId = hyprland.active.monitor.bind('id');
-
 notifications.popupTimeout = 5000;
 
-const notificationIcon = ({ app_entry, app_icon, image }: Notification) => {
+function notificationIcon({ app_entry, app_icon, image }: Notification) {
     if (image) {
         return Widget.Box({
             class_name: 'icon',
-            css: `
-                background-image: url("${image}");
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-            `,
+            css: `background: url("${image}") center/contain no-repeat`,
         });
     }
 
@@ -31,29 +28,40 @@ const notificationIcon = ({ app_entry, app_icon, image }: Notification) => {
     }
 
     return undefined;
-};
+}
 
-export const notificationPopup = (n: Notification) => {
+function markup(label: Label<any>, value: string) {
+    if (/<a|&\w+;/.test(value)) {
+        label.set_markup(value);
+    } else {
+        label.label = value;
+    }
+}
+
+function notificationPopup(n: Notification) {
     const icon = notificationIcon(n);
 
     const title = Widget.Label({
         class_name: 'title',
-        label: n.summary,
         truncate: 'end',
         xalign: 0,
         use_markup: true,
     });
+    markup(title, n.summary);
 
     const body = Widget.Label({
-        class_name: 'body',
-        label: n.body,
         wrap: true,
         xalign: 0,
         use_markup: true,
     });
+    markup(body, n.body);
+
+    const defaultAction = n.actions.find(({ id }) => id === 'default');
+    const customActions = n.actions.filter(({ id }) => id !== 'default');
 
     const actions = Widget.Box({
-        children: n.actions.map(({ id, label }) =>
+        class_name: 'block',
+        children: customActions.map(({ id, label }) =>
             Widget.Button({
                 on_clicked: () => n.invoke(id),
                 hexpand: true,
@@ -62,48 +70,38 @@ export const notificationPopup = (n: Notification) => {
         ),
     });
 
-    const text = Widget.Box({
-        class_name: 'text',
-        vertical: true,
-        children: [title, body],
-    });
+    const text = Widget.Box({ vertical: true, children: [title, body] });
     const info = Widget.Box({ children: icon ? [icon, text] : [text] });
 
-    if (actions.children.length > 0) {
-        info.toggleClassName('active');
-    }
-
     return Widget.EventBox({
-        on_primary_click: () => n.close(),
+        on_primary_click: () => defaultAction && n.invoke(defaultAction.id),
+        on_secondary_click: () => n.close(),
         child: Widget.Box({
-            class_name: `notification ${n.urgency}`,
+            class_name: `action ${n.urgency}`,
             vertical: true,
-            children: actions.children.length > 0 ? [info, actions] : [info],
+            children: customActions.length > 0 ? [info, actions] : [info],
         }),
     });
-};
+}
 
-export const Dropdown = Variable(false);
-const list = Utils.merge([popups, all, Dropdown.bind()], (ps, ns, dd) =>
-    dd ? ns : ps,
-);
+export default {
+    Popups: Dropdown({
+        name: 'notification-popups',
+        show: popups.as(p => p.length > 0),
+        child: Widget.Box({
+            vertical: true,
+            children: popups.as(p => p.map(notificationPopup)),
+        }),
+    }),
 
-export default (monitor: number) => {
-    const children = Utils.merge([list, activeMonitorId], (vs, id) =>
-        id === monitor ? vs.map(notificationPopup) : [],
-    );
-    return Widget.Window({
-        name: `notifications-${monitor}`,
-        monitor,
-        anchor: ['top', 'right'],
-        child: Widget.Box(
-            { css: 'padding: 1px;' },
-            Widget.Revealer({
-                transition: 'slide_down',
-                transition_duration: 1000,
-                child: Widget.Box({ vertical: true, children }),
-                reveal_child: children.as(c => c.length > 0),
-            }),
-        ),
-    });
+    All: Toggle({
+        name: 'notifications',
+        show: all.as(p => p.length > 0),
+        child: Widget.Box({
+            vertical: true,
+            children: all.as(p => p.map(notificationPopup)),
+        }),
+        icon: Icons.Notifications.Icon,
+        open: Icons.Notifications.Open,
+    }),
 };
