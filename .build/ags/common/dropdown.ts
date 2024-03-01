@@ -3,15 +3,13 @@ import type { Binding } from 'service';
 const hyprland = await Service.import('hyprland');
 const activeMonitorId = hyprland.active.monitor.bind('id');
 
-export default ({
-    name,
-    show,
-    child,
-}: {
+export interface Props {
     name: string;
     show: Binding<any, any, boolean>;
     child: any;
-}) =>
+}
+
+export default ({ name, show, child }: Props) =>
     Widget.Window({
         name,
         monitor: activeMonitorId,

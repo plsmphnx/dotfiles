@@ -4,7 +4,6 @@ import Dropdown from '../common/dropdown.js';
 import Icons from '../common/icons.js';
 import Toggle from '../common/toggle.js';
 
-
 const notifications = await Service.import('notifications');
 const popups = notifications.bind('popups');
 const all = notifications.bind('notifications');
@@ -15,16 +14,25 @@ function notificationIcon({ app_entry, app_icon, image }: Notification) {
     if (image) {
         return Widget.Box({
             class_name: 'icon',
-            css: `background: url("${image}") center/contain no-repeat`,
+            vpack: 'start',
+            css: `background-image: url("${image}")`,
         });
     }
 
     if (Utils.lookUpIcon(app_icon)) {
-        return Widget.Icon({ class_name: 'icon', icon: app_icon });
+        return Widget.Icon({
+            class_name: 'icon',
+            vpack: 'start',
+            icon: app_icon,
+        });
     }
 
     if (app_entry && Utils.lookUpIcon(app_entry)) {
-        return Widget.Icon({ class_name: 'icon', icon: app_entry });
+        return Widget.Icon({
+            class_name: 'icon',
+            vpack: 'start',
+            icon: app_entry,
+        });
     }
 
     return undefined;
@@ -60,7 +68,6 @@ function notificationPopup(n: Notification) {
     const customActions = n.actions.filter(({ id }) => id !== 'default');
 
     const actions = Widget.Box({
-        class_name: 'block',
         children: customActions.map(({ id, label }) =>
             Widget.Button({
                 on_clicked: () => n.invoke(id),

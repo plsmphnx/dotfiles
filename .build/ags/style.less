@@ -64,6 +64,9 @@
     .title {
         font-weight: bold;
     }
+    .subtitle {
+        font-style: italic;
+    }
     > box {
         padding: @margin 0;
     }
@@ -81,14 +84,11 @@
         min-width: 0.8em + (0.8 * @margin);
         min-height: 0.8em + (0.8 * @margin);
         border-radius: @radius;
+        margin-right: (0.4 * @margin);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
-}
-
-.player {
-    .icars();
-    min-width: @width;
-    margin: @margin;
-    background-color: @bg;
 }
 
 menu,
