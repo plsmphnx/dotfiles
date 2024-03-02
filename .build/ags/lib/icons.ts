@@ -82,4 +82,13 @@ export default {
         Prev: '\u{f04ae}',
         Next: '\u{f04ad}',
     },
+
+    Power: {
+        Icon: '\u{f0425}',
+        Shutdown: '\u{f0425}',
+        Restart: '\u{f0709}',
+        Logout: '\u{f05fd}',
+        Sleep: '\u{f0904}',
+        Lock: '\u{f033e}',
+    },
 };

@@ -11,7 +11,7 @@
 @radius: 8px;
 @margin: 0.5em;
 
-@width: 64 * @margin;
+@width: 48 * @margin;
 
 * {
     all: unset;
@@ -36,6 +36,12 @@
     padding: 0 @margin;
 }
 
+.float {
+    .icars();
+    background-color: @bg;
+    margin: @margin;
+}
+
 .workspaces {
     padding: 0 (@border / 2);
     label {
@@ -57,10 +63,8 @@
 }
 
 .action {
-    .icars();
+    .float();
     min-width: @width;
-    margin: @margin;
-    background-color: @bg;
     .title {
         font-weight: bold;
     }
@@ -73,11 +77,11 @@
     > box + box {
         border-top: @border solid @c3;
     }
+    button:not(:hover) label {
+        .dim();
+    }
     button + button {
         border-left: @border solid @c3;
-    }
-    button:hover {
-        font-weight: bold;
     }
     .icon {
         font-size: 250%;
@@ -91,9 +95,33 @@
     }
 }
 
+.menu {
+    .float();
+    padding: @margin;
+    button:not(:hover) label {
+        .dim();
+    }
+}
+
 menu,
 tooltip {
-    .icars();
-    background-color: @bg;
+    .float();
     padding: @margin;
+}
+
+trough {
+    border-radius: 0.5em;
+    border: @border solid @c3;
+    padding: 0 0.5em;
+    margin: 0 @margin;
+}
+
+slider {
+    border-radius: 0.5em;
+    background-color: @c9;
+    min-height: 1em;
+    min-width: 1em;
+    &:hover {
+        background-color: @cc;
+    }
 }

@@ -1,8 +1,8 @@
 import type { Notification } from 'service/notifications';
 import type { Label } from 'widgets/label';
-import Dropdown from '../common/dropdown.js';
-import Icons from '../common/icons.js';
-import Toggle from '../common/toggle.js';
+import Dropdown from '../lib/dropdown.js';
+import Icons from '../lib/icons.js';
+import Toggle from '../lib/toggle.js';
 
 const notifications = await Service.import('notifications');
 const popups = notifications.bind('popups');
@@ -91,24 +91,28 @@ function notificationPopup(n: Notification) {
     });
 }
 
-export default {
-    Popups: Dropdown({
-        name: 'notification-popups',
-        show: popups.as(p => p.length > 0),
-        child: Widget.Box({
-            vertical: true,
-            children: popups.as(p => p.map(notificationPopup)),
-        }),
+Dropdown({
+    name: 'notification-popups',
+    child: Widget.Box({
+        vertical: true,
+        children: popups.as(p => p.map(notificationPopup)),
     }),
+    reveal: popups.as(p => p.length > 0),
+});
 
-    All: Toggle({
-        name: 'notifications',
-        show: all.as(p => p.length > 0),
-        child: Widget.Box({
-            vertical: true,
-            children: all.as(p => p.map(notificationPopup)),
+const toggle = Toggle({
+    name: 'notifications',
+    status: () =>
+        Widget.Label({
+            label: toggle.Reveal.bind().as(o =>
+                o ? Icons.Notifications.Open : Icons.Notifications.Icon,
+            ),
         }),
-        icon: Icons.Notifications.Icon,
-        open: Icons.Notifications.Open,
+    dropdown: Widget.Box({
+        vertical: true,
+        children: all.as(p => p.map(notificationPopup)),
     }),
-};
+    reveal: all.as(p => p.length > 0),
+});
+
+export default toggle.Button;

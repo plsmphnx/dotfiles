@@ -1,4 +1,4 @@
-import Icons from '../common/icons.js';
+import Icons from '../lib/icons.js';
 
 const network = await Service.import('network');
 
