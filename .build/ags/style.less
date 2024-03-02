@@ -15,6 +15,9 @@
 
 * {
     all: unset;
+}
+
+window {
     font-family: 'Noto Sans Mono', 'Symbols Nerd Font Mono';
     font-size: 14px;
     color: @cc;
@@ -40,6 +43,7 @@
     .icars();
     background-color: @bg;
     margin: @margin;
+    padding: @margin;
 }
 
 .workspaces {
@@ -71,17 +75,18 @@
     .subtitle {
         font-style: italic;
     }
-    > box {
-        padding: @margin 0;
-    }
-    > box + box {
+    > :not(:first-child) {
+        margin-top: @margin;
         border-top: @border solid @c3;
+        padding-top: @margin;
     }
-    button:not(:hover) label {
-        .dim();
-    }
-    button + button {
-        border-left: @border solid @c3;
+    button {
+        &:not(:hover) label {
+            .dim();
+        }
+        &:not(:first-child) {
+            border-left: @border solid @c3;
+        }
     }
     .icon {
         font-size: 250%;
@@ -95,18 +100,28 @@
     }
 }
 
-.menu {
+tooltip {
     .float();
-    padding: @margin;
-    button:not(:hover) label {
-        .dim();
+}
+
+.menu(@item) {
+    .float();
+    @{item} {
+        &:not(:hover) label {
+            .dim();
+        }
+        &:not(:first-child) {
+            margin-top: (@margin / 2);
+        }
     }
 }
 
-menu,
-tooltip {
-    .float();
-    padding: @margin;
+.menu {
+    .menu(button);
+}
+
+menu {
+    .menu(menuitem);
 }
 
 trough {

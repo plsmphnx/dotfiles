@@ -18,14 +18,12 @@ const toggle = Toggle({
         vertical: true,
         children: Object.entries(COMMANDS).map(([name, cmd]) =>
             Widget.Button({
+                css: 'font-size: 150%',
                 on_clicked: () => {
                     toggle.Reveal.value = false;
                     Utils.execAsync(cmd);
                 },
-                child: Widget.Label({
-                    label: `${name} ${(Icons.Power as any)[name]}`,
-                    hpack: 'end',
-                }),
+                child: Widget.Label((Icons.Power as any)[name]),
             }),
         ),
     }),

@@ -1,3 +1,5 @@
+import Toggle from '../lib/toggle.js';
+
 function time() {
     return new Date().toLocaleString(undefined, {
         hour: '2-digit',
@@ -7,8 +9,12 @@ function time() {
 
 const date = Variable('', { poll: [1000, time] });
 
-export default () =>
-    Widget.Label({
-        class_name: 'icars',
-        label: date.bind(),
-    });
+export default Toggle({
+    name: 'clock',
+    status: () =>
+        Widget.Label({
+            class_name: 'icars',
+            label: date.bind(),
+        }),
+    dropdown: Widget.Calendar(),
+}).Button;
