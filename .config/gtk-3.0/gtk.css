@@ -1,5 +1,10 @@
 .background {
     border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+list, notebook {
+    background-color: transparent;
 }
 
 .titlebar {

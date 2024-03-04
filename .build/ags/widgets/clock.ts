@@ -13,7 +13,7 @@ export default Toggle({
     name: 'clock',
     status: () =>
         Widget.Label({
-            class_name: 'icars',
+            class_name: 'target',
             label: date.bind(),
         }),
     dropdown: Widget.Calendar(),

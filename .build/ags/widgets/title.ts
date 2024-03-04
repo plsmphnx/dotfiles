@@ -19,7 +19,7 @@ export default (monitor: number) =>
             child: Widget.Label({ class_name: 'dim', label: Icons.Title.Size }),
         }),
         Widget.Label({
-            class_name: 'icars',
+            class_name: 'target',
             label: hyprland.active.client.bind('title'),
             max_width_chars: 64,
             truncate: 'end',

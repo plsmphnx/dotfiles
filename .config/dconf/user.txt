@@ -2,8 +2,9 @@
 tray-enabled=false
 
 [org/gnome/desktop/interface]
-cursor-theme='graphite-dark'
+color-scheme='prefer-dark'
+cursor-theme='Vimix-white-cursors'
 font-antialiasing='rgba'
 font-name='Noto Sans Mono'
 gtk-theme='Graphite-Dark-compact'
-icon-theme='Tela-grey-dark'
+icon-theme='Tela-black-dark'

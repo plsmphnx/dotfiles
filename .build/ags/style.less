@@ -31,7 +31,7 @@ window {
     }
 }
 
-.icars {
+.target {
     border-radius: @radius;
     border-style: solid;
     border-width: 0 @border;
@@ -40,7 +40,7 @@ window {
 }
 
 .float {
-    .icars();
+    .target();
     background-color: @bg;
     margin: @margin;
     padding: @margin;
@@ -88,15 +88,37 @@ window {
             border-left: @border solid @c3;
         }
     }
-    .icon {
-        font-size: 250%;
-        min-width: 0.8em + (0.8 * @margin);
-        min-height: 0.8em + (0.8 * @margin);
+}
+
+.icon {
+    font-size: 250%;
+    min-width: 0.8em + (0.8 * @margin);
+    min-height: 0.8em + (0.8 * @margin);
+    border-radius: @radius;
+    margin-right: (0.4 * @margin);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.launcher {
+    > * {
+        .float();
+    }
+    > scrolledwindow {
+        min-width: (2 * @width);
+        min-height: @width;
+        padding: 0;
+        > box {
+            padding: @margin;
+        }
+    }
+    button {
         border-radius: @radius;
-        margin-right: (0.4 * @margin);
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
+        padding: 0 (@margin / 2);
+        &:hover {
+            background-color: @c3;
+        }
     }
 }
 
@@ -127,13 +149,15 @@ menu {
 trough {
     border-radius: 0.5em;
     border: @border solid @c3;
+}
+scale.horizontal trough {
     padding: 0 0.5em;
     margin: 0 @margin;
 }
 
 slider {
     border-radius: 0.5em;
-    background-color: @c9;
+    background-color: @c6;
     min-height: 1em;
     min-width: 1em;
     &:hover {
