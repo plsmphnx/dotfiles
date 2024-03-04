@@ -27,14 +27,17 @@ function player(p: MprisPlayer) {
         label: p.bind('track_title'),
     });
 
-    const appIcon = Widget.Icon({
-        hexpand: true,
-        hpack: 'end',
-        vpack: 'start',
-        tooltip_text: p.identity || '',
-        icon: p
-            .bind('entry')
-            .as(entry => (Utils.lookUpIcon(entry) ? entry : FALLBACK_ICON)),
+    const appIcon = Widget.EventBox({
+        child: Widget.Icon({
+            hexpand: true,
+            hpack: 'end',
+            vpack: 'start',
+            tooltip_text: p.identity || '',
+            icon: p
+                .bind('entry')
+                .as(entry => (Utils.lookUpIcon(entry) ? entry : FALLBACK_ICON)),
+        }),
+        on_secondary_click: () => p.close(),
     });
 
     const artist = Widget.Label({
@@ -63,7 +66,7 @@ function player(p: MprisPlayer) {
         on_change: ({ value }) => (p.position = value * p.length),
         setup: self => {
             const update = () => {
-                self.value = p.position / p.length;
+                self.value = p.length > 0 ? p.position / p.length : 0;
                 self.visible = p.length > 0;
             };
             self.hook(p, update, 'position');
@@ -137,10 +140,14 @@ export default Toggle({
     }),
     reveal: players.as(p => p.length > 0),
     on_secondary_click: () => {
-        for (const p of mpris.players) {
-            if (p.play_back_status === 'Playing') {
-                p.playPause();
-            }
+        const playing = mpris.players.filter(
+            p => p.play_back_status === 'Playing',
+        );
+        for (const p of playing) {
+            p.playPause();
+        }
+        if (playing.length === 0 && mpris.players.length === 1) {
+            mpris.players[0].play();
         }
     },
 }).Button;
