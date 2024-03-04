@@ -81,6 +81,7 @@ export default {
         Pause: '\u{f03e4}',
         Prev: '\u{f04ae}',
         Next: '\u{f04ad}',
+        Paused: '\u{f075b}',
     },
 
     Power: {

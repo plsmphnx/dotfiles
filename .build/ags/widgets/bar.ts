@@ -4,7 +4,6 @@ import Mpris from './mpris.js';
 import Network from './network.js';
 import Notifications from './notifications.js';
 import Power from './power.js';
-import Submap from './submap.js';
 import SysTray from './systray.js';
 import Title from './title.js';
 import Volume from './volume.js';
@@ -22,7 +21,7 @@ const Status = () =>
     );
 
 const Left = (monitor: number) =>
-    Widget.Box({ hpack: 'start' }, Workspaces(monitor), Submap());
+    Widget.Box({ hpack: 'start' }, Workspaces(monitor));
 
 const Center = (monitor: number) =>
     Widget.Box({ hpack: 'center' }, Title(monitor));

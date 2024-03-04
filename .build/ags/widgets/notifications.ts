@@ -113,6 +113,11 @@ const toggle = Toggle({
         children: all.as(p => p.map(notificationPopup)),
     }),
     reveal: all.as(p => p.length > 0),
+    on_secondary_click: () => {
+        for (const n of notifications.notifications) {
+            n.close();
+        }
+    },
 });
 
 export default toggle.Button;

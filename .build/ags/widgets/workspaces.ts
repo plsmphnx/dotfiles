@@ -1,5 +1,6 @@
 import type { Client } from 'service/hyprland';
 import type { Button } from 'widgets/button';
+import type { Label } from 'widgets/label';
 import Icons from '../lib/icons.js';
 
 const hyprland = await Service.import('hyprland');
@@ -7,6 +8,9 @@ const hyprland = await Service.import('hyprland');
 const workspaces = hyprland.bind('workspaces');
 const clients = hyprland.bind('clients');
 const activeWorkspaceId = hyprland.active.workspace.bind('id');
+
+const submap = Variable('');
+hyprland.connect('submap', (_, s) => (submap.value = s || ''));
 
 let icons: [string, string][];
 const iconFile = `${Utils.HOME}/.local/share/ux/icons.txt`;
@@ -35,24 +39,31 @@ function sort(a: Client, b: Client) {
 }
 
 const labels = clients.as(cls => {
-    const c: { [id: number]: Client[] } = {};
+    const workspace: { [id: number]: Client[] } = {};
+    const pinned: { [id: number]: Client[] } = {};
     for (const cl of cls) {
         if (cl.workspace.id > 0 && cl.pid > 0) {
-            c[cl.workspace.id] = c[cl.workspace.id] || [];
-            c[cl.workspace.id].push(cl);
+            const id = cl.pinned ? cl.monitor : cl.workspace.id;
+            const g = cl.pinned ? pinned : workspace;
+            g[id] = g[id] || [];
+            g[id].push(cl);
         }
     }
-    const l: { [id: string]: string } = {};
-    for (const [k, v] of Object.entries(c)) {
-        l[k] = v.sort(sort).map(icon).join(' ');
+    const w: { [id: string]: string } = {};
+    const p: { [id: string]: string } = {};
+    for (const [k, v] of Object.entries(workspace)) {
+        w[k] = v.sort(sort).map(icon).join(' ');
     }
-    return l;
+    for (const [k, v] of Object.entries(pinned)) {
+        p[k] = v.sort(sort).map(icon).join(' ');
+    }
+    return { w, p };
 });
 
 function button(w: number) {
     return Widget.Button({
         on_clicked: () => hyprland.messageAsync(`dispatch workspace ${w}`),
-        child: Widget.Label({ label: labels.as(l => l[w] || '') }),
+        child: Widget.Label({ label: labels.as(l => l.w[w] || '') }),
         class_name: activeWorkspaceId.as(a =>
             a === w ? 'target focused' : 'target',
         ),
@@ -61,6 +72,21 @@ function button(w: number) {
 
 export default (monitor: number) => {
     let prev: { [w: number]: Button<any, any> } = {};
+
+    const status = Widget.Box({
+        class_name: 'dim status',
+        children: Utils.merge([labels, submap.bind()], (l, s) => {
+            const parts: Label<any>[] = [];
+            if (l.p[monitor]) {
+                parts.push(Widget.Label(l.p[monitor]));
+            }
+            if (s) {
+                parts.push(Widget.Label(s));
+            }
+            return parts;
+        }),
+    });
+
     return Widget.Box({
         class_name: 'workspaces',
         children: workspaces.as(ws => {
@@ -70,7 +96,7 @@ export default (monitor: number) => {
                 .sort((a, b) => a.id - b.id)
                 .map(w => (next[w.id] = prev[w.id] || button(w.id)));
             prev = next;
-            return buttons;
+            return [...buttons, status];
         }),
     });
 };

@@ -115,12 +115,32 @@ function player(p: MprisPlayer) {
     );
 }
 
+const paused = Variable(false);
+Utils.merge([players], ps =>
+    Utils.merge(
+        ps.map(p => p.bind('play_back_status')),
+        (...status) => (paused.value = status.every(s => s !== 'Playing')),
+    ),
+);
+
 export default Toggle({
     name: 'mpris',
-    status: () => Widget.Label(Icons.Mpris.Icon),
+    status: () =>
+        Widget.Label({
+            label: paused
+                .bind()
+                .as(p => (p ? Icons.Mpris.Paused : Icons.Mpris.Icon)),
+        }),
     dropdown: Widget.Box({
         vertical: true,
         children: players.as(p => p.map(player)),
     }),
     reveal: players.as(p => p.length > 0),
+    on_secondary_click: () => {
+        for (const p of mpris.players) {
+            if (p.play_back_status === 'Playing') {
+                p.playPause();
+            }
+        }
+    },
 }).Button;
