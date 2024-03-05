@@ -1,12 +1,12 @@
 .background {
-    border-radius: 0;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-list, notebook {
-    background-color: transparent;
+button, entry, frame, menu, tooltip {
+    border-radius: 8px;
 }
 
-.titlebar {
-    box-shadow: none;
+tab {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
