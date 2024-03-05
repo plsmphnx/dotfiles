@@ -8,7 +8,7 @@
 @bg: rgba(0, 0, 0, 0.4);
 
 @border: 2px;
-@radius: 8px;
+@radius: 4px;
 @margin: 0.5em;
 
 @icon: 2em + (2 * @margin);
@@ -33,7 +33,7 @@ window {
 }
 
 .target {
-    border-radius: @radius;
+    border-radius: (2 * @radius);
     border-style: solid;
     border-width: 0 @border;
     border-color: @c6;
