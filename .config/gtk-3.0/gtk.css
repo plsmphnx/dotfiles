@@ -6,13 +6,24 @@ list, notebook {
     background-color: transparent;
 }
 
-button, check, entry, frame, spinbutton, toolbar, .frame, .popup {
+border, button, check, entry, frame, spinbutton, toolbar, .frame, .popup {
     border-radius: 4px;
 }
 
-tab {
+.top tab, .left tab {
     border-top-left-radius: 4px;
+}
+
+.top tab, .right tab {
     border-top-right-radius: 4px;
+}
+
+.bottom tab, .left tab {
+    border-bottom-left-radius: 4px;
+}
+
+.bottom tab, .right tab {
+    border-bottom-right-radius: 4px;
 }
 
 header button, .flat {
