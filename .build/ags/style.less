@@ -11,6 +11,7 @@
 @radius: 8px;
 @margin: 0.5em;
 
+@icon: 2em + (2 * @margin);
 @width: 48 * @margin;
 
 * {
@@ -92,8 +93,8 @@ window {
 
 .icon {
     font-size: 250%;
-    min-width: 0.8em + (0.8 * @margin);
-    min-height: 0.8em + (0.8 * @margin);
+    min-width: (0.4 * @icon);
+    min-height: (0.4 * @icon);
     border-radius: @radius;
     margin-right: (0.4 * @margin);
     background-position: center;
@@ -109,16 +110,21 @@ window {
         min-width: (2 * @width);
         min-height: @width;
         padding: 0;
-        > box {
-            padding: @margin;
-        }
     }
     button {
         border-radius: @radius;
-        padding: 0 (@margin / 2);
+        padding: 0 @margin;
+        min-height: (@icon * 0.75);
         &:hover {
             background-color: @c3;
         }
+    }
+    .actions {
+        color: @c3;
+        padding-left: @margin;
+    }
+    label:first-child {
+        padding-left: (@icon + @margin);
     }
 }
 

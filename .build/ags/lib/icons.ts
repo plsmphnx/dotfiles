@@ -92,4 +92,9 @@ export default {
         Sleep: '\u{f0904}',
         Lock: '\u{f033e}',
     },
+
+    Launcher: {
+        More: '\u{f035c}',
+        Less: '\u{f039f}',
+    },
 };

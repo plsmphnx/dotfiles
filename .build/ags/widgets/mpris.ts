@@ -27,17 +27,14 @@ function player(p: MprisPlayer) {
         label: p.bind('track_title'),
     });
 
-    const appIcon = Widget.EventBox({
-        child: Widget.Icon({
-            hexpand: true,
-            hpack: 'end',
-            vpack: 'start',
-            tooltip_text: p.identity || '',
-            icon: p
-                .bind('entry')
-                .as(entry => (Utils.lookUpIcon(entry) ? entry : FALLBACK_ICON)),
-        }),
-        on_secondary_click: () => p.close(),
+    const appIcon = Widget.Icon({
+        hexpand: true,
+        hpack: 'end',
+        vpack: 'start',
+        tooltip_text: p.identity || '',
+        icon: p
+            .bind('entry')
+            .as(entry => (Utils.lookUpIcon(entry) ? entry : FALLBACK_ICON)),
     });
 
     const artist = Widget.Label({

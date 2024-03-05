@@ -1,14 +1,17 @@
 import type { Application } from 'service/applications';
 import type { BoxProps } from 'widgets/box';
+import Icons from '../lib/icons.js';
+import Reset from '../lib/reset.js';
 
 const applications = await Service.import('applications');
 const list = applications.bind('list');
+const visible = Variable(false);
 
 const WINDOW_NAME = 'launcher';
 
 const item = (app: Application) => {
-    const show = Variable(false);
     const list = app.app.list_actions();
+    const show = list.length > 0 ? Reset(visible.bind()) : undefined;
 
     const info = [
         Widget.Icon({
@@ -22,29 +25,30 @@ const item = (app: Application) => {
             truncate: 'end',
         }),
     ];
-    if (list.length > 0) {
+    if (show) {
         info.push(
             Widget.Label({
-                class_name: 'dim',
-                label: ' +',
+                class_name: 'actions',
+                label: show
+                    .bind()
+                    .as(s => (s ? Icons.Launcher.Less : Icons.Launcher.More)),
                 xalign: 0,
                 vpack: 'center',
             }),
         );
     }
 
-    const children: BoxProps['children'] = [
-        Widget.Button({
-            on_primary_click: () => {
-                App.closeWindow(WINDOW_NAME);
-                app.launch();
-            },
-            on_secondary_click: () => (show.value = !show.value),
-            child: Widget.Box({ children: info }),
-        }),
-    ];
+    const primary = Widget.Button({
+        on_primary_click: () => {
+            App.closeWindow(WINDOW_NAME);
+            app.launch();
+        },
+        child: Widget.Box({ children: info }),
+    });
+    const children: BoxProps['children'] = [primary];
 
-    if (list.length > 0) {
+    if (show) {
+        primary.on_secondary_click = () => (show.value = !show.value);
         const actions = list.map(a =>
             Widget.Button({
                 on_primary_click: () => {
@@ -75,6 +79,10 @@ const item = (app: Application) => {
     }).bind('visible', entry, 'text', txt => app.match(txt || ''));
 };
 
+function sort(a: Application, b: Application) {
+    return b.frequency - a.frequency || a.name.localeCompare(b.name);
+}
+
 const entry = Widget.Entry({
     hexpand: true,
     on_accept: self => {
@@ -95,13 +103,18 @@ const launcher = Widget.Box({
             hscroll: 'never',
             child: Widget.Box({
                 vertical: true,
-                children: list.as(apps => apps.map(item)),
+                children: list.as(apps => apps.sort(sort).map(item)),
             }),
         }),
     ],
     setup: self =>
-        self.hook(App, (_, windowName, visible) => {
-            if (windowName === WINDOW_NAME && visible) {
+        self.hook(App, (_, name, v) => {
+            if (name !== WINDOW_NAME) {
+                return;
+            }
+
+            visible.value = v;
+            if (v) {
                 entry.text = '';
                 entry.grab_focus();
             }
