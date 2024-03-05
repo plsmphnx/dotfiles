@@ -70,7 +70,7 @@ function button(w: number) {
     });
 }
 
-export default (monitor: number) => {
+export default (monitor: string) => {
     let prev: { [w: number]: Button<any, any> } = {};
 
     const status = Widget.Box({
@@ -92,7 +92,7 @@ export default (monitor: number) => {
         children: workspaces.as(ws => {
             const next: { [w: number]: Button<any, any> } = {};
             const buttons = ws
-                .filter(w => w.id > 0 && w.monitorID === monitor)
+                .filter(w => w.id > 0 && w.monitor === monitor)
                 .sort((a, b) => a.id - b.id)
                 .map(w => (next[w.id] = prev[w.id] || button(w.id)));
             prev = next;

@@ -2,14 +2,13 @@ import Icons from '../lib/icons.js';
 
 const hyprland = await Service.import('hyprland');
 
-const activeClientMonitor = Utils.merge(
-    [hyprland.active.client.bind('address'), hyprland.bind('clients')],
-    (a, cs) => cs.find(c => c.address === a)?.monitor ?? -1,
-);
+const activeClientMonitor = hyprland.active.client
+    .bind('address')
+    .as(a => hyprland.getMonitor(hyprland.getClient(a)?.monitor ?? -1)?.name);
 
-export default (monitor: number) =>
+export default (monitor: string) =>
     Widget.Box(
-        { visible: activeClientMonitor.as(id => id === monitor) },
+        { visible: activeClientMonitor.as(m => m === monitor) },
         Widget.Button({
             class_name: 'status',
             on_primary_click: () =>

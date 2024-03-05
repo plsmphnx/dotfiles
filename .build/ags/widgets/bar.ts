@@ -9,7 +9,10 @@ import Title from './title.js';
 import Volume from './volume.js';
 import Workspaces from './workspaces.js';
 
-const Status = () =>
+const hyprland = await Service.import('hyprland');
+const monitors = hyprland.bind('monitors');
+
+const status = () =>
     Widget.Box(
         { class_name: 'status' },
         SysTray(),
@@ -20,25 +23,32 @@ const Status = () =>
         Notifications(),
     );
 
-const Left = (monitor: number) =>
+const left = (monitor: string) =>
     Widget.Box({ hpack: 'start' }, Workspaces(monitor));
 
-const Center = (monitor: number) =>
+const center = (monitor: string) =>
     Widget.Box({ hpack: 'center' }, Title(monitor));
 
-const Right = (monitor: number) =>
-    Widget.Box({ hpack: 'end' }, Status(), Clock(), Power());
+const right = (monitor: string) =>
+    Widget.Box({ hpack: 'end' }, status(), Clock(), Power());
 
-export default (monitor: number) =>
+const bar = (monitor: string) =>
     Widget.Window({
         name: `bar-${monitor}`,
-        monitor,
+        monitor: monitors.as(ms => ms.findIndex(m => monitor === m.name)),
         anchor: ['top', 'left', 'right'],
         margins: [0, 0, 2, 0],
         exclusivity: 'exclusive',
         child: Widget.CenterBox({
-            start_widget: Left(monitor),
-            center_widget: Center(monitor),
-            end_widget: Right(monitor),
+            start_widget: left(monitor),
+            center_widget: center(monitor),
+            end_widget: right(monitor),
         }),
     });
+
+hyprland.connect('monitor-added', (_, name) => App.addWindow(bar(name)));
+hyprland.connect('monitor-removed', (_, name) =>
+    App.removeWindow(`bar-${name}`),
+);
+
+export default () => hyprland.monitors.map(m => bar(m.name));

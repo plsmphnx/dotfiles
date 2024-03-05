@@ -5,6 +5,7 @@ import Reset from '../lib/reset.js';
 
 const applications = await Service.import('applications');
 const list = applications.bind('list');
+const frequents = applications.bind('frequents');
 const visible = Variable(false);
 
 const WINDOW_NAME = 'launcher';
@@ -76,11 +77,20 @@ const item = (app: Application) => {
     return Widget.Box({
         vertical: true,
         children,
+        attribute: { app },
     }).bind('visible', entry, 'text', txt => app.match(txt || ''));
 };
 
-function sort(a: Application, b: Application) {
-    return b.frequency - a.frequency || a.name.localeCompare(b.name);
+const apps = list.as(apps => apps.map(item));
+
+function sort(
+    a: { attribute: { app: Application } },
+    b: { attribute: { app: Application } },
+) {
+    return (
+        b.attribute.app.frequency - a.attribute.app.frequency ||
+        a.attribute.app.name.localeCompare(b.attribute.app.name)
+    );
 }
 
 const entry = Widget.Entry({
@@ -103,7 +113,9 @@ const launcher = Widget.Box({
             hscroll: 'never',
             child: Widget.Box({
                 vertical: true,
-                children: list.as(apps => apps.sort(sort).map(item)),
+                children: Utils.merge([apps, frequents], (a, f) =>
+                    a.sort(sort),
+                ),
             }),
         }),
     ],
