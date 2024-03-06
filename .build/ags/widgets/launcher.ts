@@ -1,18 +1,14 @@
 import type { Application } from 'service/applications';
 import type { BoxProps } from 'widgets/box';
 import Icons from '../lib/icons.js';
-import Reset from '../lib/reset.js';
 
-const applications = await Service.import('applications');
-const list = applications.bind('list');
-const frequents = applications.bind('frequents');
-const visible = Variable(false);
+const { query } = await Service.import('applications');
 
 const WINDOW_NAME = 'launcher';
 
 const item = (app: Application) => {
     const list = app.app.list_actions();
-    const show = list.length > 0 ? Reset(visible.bind()) : undefined;
+    const show = list.length > 0 ? Variable(false) : undefined;
 
     const info = [
         Widget.Icon({
@@ -77,26 +73,17 @@ const item = (app: Application) => {
     return Widget.Box({
         vertical: true,
         children,
-        attribute: { app },
     }).bind('visible', entry, 'text', txt => app.match(txt || ''));
 };
 
-const apps = list.as(apps => apps.map(item));
-
-function sort(
-    a: { attribute: { app: Application } },
-    b: { attribute: { app: Application } },
-) {
-    return (
-        b.attribute.app.frequency - a.attribute.app.frequency ||
-        a.attribute.app.name.localeCompare(b.attribute.app.name)
-    );
+function sort(a: Application, b: Application) {
+    return b.frequency - a.frequency || a.name.localeCompare(b.name);
 }
 
 const entry = Widget.Entry({
     hexpand: true,
     on_accept: self => {
-        const app = applications.query(self.text || '')[0];
+        const app = query(self.text || '')[0];
         if (app) {
             App.closeWindow(WINDOW_NAME);
             app.launch();
@@ -104,29 +91,25 @@ const entry = Widget.Entry({
     },
 });
 
+const apps = Variable<Application[]>([]);
+
+const scroll = Widget.Scrollable({
+    hscroll: 'never',
+    child: Widget.Box({
+        vertical: true,
+        children: apps.bind().as(a => a.sort(sort).map(item)),
+    }),
+});
+
 const launcher = Widget.Box({
     class_name: 'launcher',
     vertical: true,
-    children: [
-        entry,
-        Widget.Scrollable({
-            hscroll: 'never',
-            child: Widget.Box({
-                vertical: true,
-                children: Utils.merge([apps, frequents], (a, f) =>
-                    a.sort(sort),
-                ),
-            }),
-        }),
-    ],
+    children: [entry, scroll],
     setup: self =>
-        self.hook(App, (_, name, v) => {
-            if (name !== WINDOW_NAME) {
-                return;
-            }
-
-            visible.value = v;
-            if (v) {
+        self.hook(App, (_, name, visible) => {
+            if (name === WINDOW_NAME && visible) {
+                scroll.set_vadjustment(null);
+                apps.value = query('');
                 entry.text = '';
                 entry.grab_focus();
             }

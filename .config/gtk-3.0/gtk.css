@@ -2,7 +2,7 @@ window.background, messagedialog.background {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-list, notebook {
+list, notebook, treeview {
     background-color: transparent;
 }
 

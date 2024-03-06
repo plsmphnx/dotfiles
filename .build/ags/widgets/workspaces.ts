@@ -39,11 +39,13 @@ function sort(a: Client, b: Client) {
 }
 
 const labels = clients.as(cls => {
-    const workspace: { [id: number]: Client[] } = {};
-    const pinned: { [id: number]: Client[] } = {};
+    const workspace: { [id: PropertyKey]: Client[] } = {};
+    const pinned: { [id: PropertyKey]: Client[] } = {};
     for (const cl of cls) {
         if (cl.workspace.id > 0 && cl.pid > 0) {
-            const id = cl.pinned ? cl.monitor : cl.workspace.id;
+            const id = cl.pinned
+                ? hyprland.getMonitor(cl.monitor)?.name || ''
+                : cl.workspace.id;
             const g = cl.pinned ? pinned : workspace;
             g[id] = g[id] || [];
             g[id].push(cl);
