@@ -4,7 +4,8 @@ const network = await Service.import('network');
 
 export default () =>
     Widget.Button({
-        on_clicked: () => Utils.execAsync('nm-connection-editor'),
+        on_primary_click: () => Utils.execAsync('iwgtk'),
+        on_secondary_click: () => Utils.execAsync('nm-connection-editor'),
         child: Widget.Label().hook(network, self => {
             switch (network.primary) {
                 case 'wifi':

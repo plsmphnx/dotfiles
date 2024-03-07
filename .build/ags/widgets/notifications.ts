@@ -102,12 +102,7 @@ Dropdown({
 
 const toggle = Toggle({
     name: 'notifications',
-    status: () =>
-        Widget.Label({
-            label: toggle.Reveal.bind().as(o =>
-                o ? Icons.Notifications.Open : Icons.Notifications.Icon,
-            ),
-        }),
+    status: () => Widget.Label(Icons.Notifications.Icon),
     dropdown: Widget.Box({
         vertical: true,
         children: all.as(p => p.map(notificationPopup)),

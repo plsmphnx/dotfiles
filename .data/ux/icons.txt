@@ -5,6 +5,7 @@ luakit                  f059f
 lite-xl                 f0169
 mpv                     f0567
 zathura                 f0219
+iwgtk                   f05a9
 nm-connection-editor    f0c9d
 pavucontrol             0f028
 pcmanfm                 f0770
@@ -18,6 +19,7 @@ firefox                 f0239
 gimp                    f11e3
 mcpelauncher            f0373
 pithos                  f03db
+qemu                    f0379
 steam                   0f1b6
 
 teams.microsoft.com     f02bb

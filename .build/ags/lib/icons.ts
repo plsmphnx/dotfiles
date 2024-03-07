@@ -72,7 +72,6 @@ export default {
 
     Notifications: {
         Icon: '\u{f035c}',
-        Open: '\u{f039f}',
     },
 
     Mpris: {
@@ -94,7 +93,7 @@ export default {
     },
 
     Launcher: {
-        More: '\u{f035c}',
-        Less: '\u{f039f}',
+        More: '\u{f0142}',
+        Less: '\u{f0140}',
     },
 };

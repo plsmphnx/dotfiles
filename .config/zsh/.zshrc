@@ -15,7 +15,7 @@ source $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh
 HISTFILE=$ZSH_STATE_DIR/history
 HISTSIZE=1000
 SAVEHIST=1000
-setopt appendhistory histignoredups histreduceblanks histverify
+setopt appendhistory histignoredups histreduceblanks histverify nosharehistory
 
 # color aliases
 alias diff="diff --color=auto"
