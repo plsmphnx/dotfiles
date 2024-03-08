@@ -1,12 +1,13 @@
+import Audio from './audio.js';
 import Battery from './battery.js';
+import Bluetooth from './bluetooth.js';
 import Clock from './clock.js';
 import Mpris from './mpris.js';
 import Network from './network.js';
 import Notifications from './notifications.js';
 import Power from './power.js';
-import SysTray from './systray.js';
 import Title from './title.js';
-import Volume from './volume.js';
+import Tray from './tray.js';
 import Workspaces from './workspaces.js';
 
 const hyprland = await Service.import('hyprland');
@@ -15,9 +16,10 @@ const monitors = hyprland.bind('monitors');
 const status = () =>
     Widget.Box(
         { class_name: 'status' },
-        SysTray(),
+        Tray(),
         Mpris(),
-        Volume(),
+        ...Audio(),
+        Bluetooth(),
         Network(),
         Battery(),
         Notifications(),

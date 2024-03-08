@@ -1,4 +1,5 @@
 import type { MprisPlayer } from 'service/mpris';
+
 import Icons from '../lib/icons.js';
 import Toggle from '../lib/toggle.js';
 

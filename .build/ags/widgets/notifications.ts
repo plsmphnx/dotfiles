@@ -1,5 +1,6 @@
 import type { Notification } from 'service/notifications';
 import type { Label } from 'widgets/label';
+
 import Dropdown from '../lib/dropdown.js';
 import Icons from '../lib/icons.js';
 import Toggle from '../lib/toggle.js';

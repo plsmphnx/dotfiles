@@ -115,9 +115,12 @@ window {
         border-radius: @radius;
         padding: 0 @margin;
         min-height: (@icon * 0.75);
-        &:hover {
+        &:focus {
             background-color: @c3;
         }
+    }
+    entry:focus + * button:hover {
+        background-color: @c3;
     }
     .actions {
         color: @c3;

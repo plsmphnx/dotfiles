@@ -39,15 +39,20 @@ export default {
         ),
     },
 
-    Audio: {
-        Speaker: {
-            Off: '\u{f0581}',
-            On: select('\u{f057f}', '\u{f0580}', '\u{f057e}'),
-        },
-        Microphone: {
-            Off: '\u{f036d}',
-            On: select('\u{f036c}'),
-        },
+    Speaker: {
+        Off: '\u{f0e08}',
+        On: select('\u{f057f}', '\u{f0580}', '\u{f057e}'),
+    },
+
+    Microphone: {
+        Off: '\u{f036d}',
+        On: select('\u{f036c}'),
+    },
+
+    Bluetooth: {
+        Off: '\u{f00b2}',
+        On: '\u{f00af}',
+        Connected: '\u{f00b1}',
     },
 
     Network: {

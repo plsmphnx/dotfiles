@@ -1,6 +1,7 @@
 import type { Client } from 'service/hyprland';
 import type { Button } from 'widgets/button';
 import type { Label } from 'widgets/label';
+
 import Icons from '../lib/icons.js';
 
 const hyprland = await Service.import('hyprland');

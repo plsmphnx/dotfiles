@@ -1,5 +1,7 @@
 import type { Application } from 'service/applications';
 import type { BoxProps } from 'widgets/box';
+import type { Button } from 'widgets/button';
+
 import Icons from '../lib/icons.js';
 
 const { query } = await Service.import('applications');
@@ -35,32 +37,50 @@ const item = (app: Application) => {
         );
     }
 
+    const launch = () => {
+        App.closeWindow(WINDOW_NAME);
+        app.launch();
+    };
+    const hover = (self: Button<any, any>) =>
+        !entry.is_focus && self.grab_focus();
     const primary = Widget.Button({
-        on_primary_click: () => {
-            App.closeWindow(WINDOW_NAME);
-            app.launch();
-        },
+        on_primary_click: launch,
+        on_hover: hover,
         child: Widget.Box({ children: info }),
     });
+    primary.keybind('Return', launch);
     const children: BoxProps['children'] = [primary];
 
     if (show) {
-        primary.on_secondary_click = () => (show.value = !show.value);
-        const actions = list.map(a =>
-            Widget.Button({
-                on_primary_click: () => {
-                    App.closeWindow(WINDOW_NAME);
-                    app.app.launch_action(a, null);
-                },
-                on_secondary_click: () => (show.value = !show.value),
+        const open = () => (primary.grab_focus(), (show.value = true));
+        const close = () => (primary.grab_focus(), (show.value = false));
+        const toggle = () => (primary.grab_focus(), (show.value = !show.value));
+
+        primary.keybind('Right', open);
+        primary.keybind('Left', close);
+        primary.on_secondary_click = toggle;
+
+        const actions = list.map(a => {
+            const action = () => {
+                App.closeWindow(WINDOW_NAME);
+                app.app.launch_action(a, null);
+            };
+            const secondary = Widget.Button({
+                on_primary_click: action,
+                on_secondary_click: close,
+                on_hover: hover,
                 child: Widget.Label({
                     label: app.app.get_action_name(a) || a,
                     xalign: 0,
                     vpack: 'center',
                     truncate: 'end',
                 }),
-            }),
-        );
+            });
+            secondary.keybind('Return', action);
+            secondary.keybind('Left', close);
+            return secondary;
+        });
+
         children.push(
             Widget.Revealer({
                 transition: 'slide_down',
@@ -95,6 +115,7 @@ const apps = Variable<Application[]>([]);
 
 const scroll = Widget.Scrollable({
     hscroll: 'never',
+    vscroll: 'external',
     child: Widget.Box({
         vertical: true,
         children: apps.bind().as(a => a.sort(sort).map(item)),
@@ -105,21 +126,18 @@ const launcher = Widget.Box({
     class_name: 'launcher',
     vertical: true,
     children: [entry, scroll],
-    setup: self =>
-        self.hook(App, (_, name, visible) => {
-            if (name === WINDOW_NAME && visible) {
-                scroll.set_vadjustment(null);
-                apps.value = query('');
-                entry.text = '';
-                entry.grab_focus();
-            }
-        }),
+}).hook(App, (_, name, visible) => {
+    if (name === WINDOW_NAME && visible) {
+        scroll.set_vadjustment(null);
+        apps.value = query('');
+        entry.text = '';
+        entry.grab_focus();
+    }
 });
 
 export default Widget.Window({
     name: WINDOW_NAME,
-    setup: self => self.keybind('Escape', () => App.closeWindow(WINDOW_NAME)),
     visible: false,
     keymode: 'exclusive',
     child: launcher,
-});
+}).keybind('Escape', () => App.closeWindow(WINDOW_NAME));
