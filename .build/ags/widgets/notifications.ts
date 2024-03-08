@@ -92,15 +92,6 @@ function notificationPopup(n: Notification) {
     });
 }
 
-Dropdown({
-    name: 'notification-popups',
-    child: Widget.Box({
-        vertical: true,
-        children: popups.as(p => p.map(notificationPopup)),
-    }),
-    reveal: popups.as(p => p.length > 0),
-});
-
 const toggle = Toggle({
     name: 'notifications',
     status: () => Widget.Label(Icons.Notifications.Icon),
@@ -114,6 +105,19 @@ const toggle = Toggle({
             n.close();
         }
     },
+});
+
+Dropdown({
+    name: 'notification-popups',
+    monitor: toggle.Monitor,
+    reveal: Utils.merge(
+        [popups, toggle.Reveal.bind()],
+        (p, r) => p.length > 0 && !r,
+    ),
+    child: Widget.Box({
+        vertical: true,
+        children: popups.as(p => p.map(notificationPopup)),
+    }),
 });
 
 export default toggle.Button;

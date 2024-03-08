@@ -1,23 +1,20 @@
 import type { Binding } from 'service';
 import type { RevealerProps } from 'widgets/revealer';
-
-const hyprland = await Service.import('hyprland');
-const activeMonitor = Utils.merge(
-    [hyprland.active.monitor.bind('name'), hyprland.bind('monitors')],
-    (name, monitors) => monitors.findIndex(m => name === m.name),
-);
+import type { WindowProps } from 'widgets/window';
 
 export interface Props {
     name: string;
+    monitor?: WindowProps['monitor'];
     reveal: Binding<any, any, boolean>;
     child: RevealerProps['child'];
 }
 
-export default ({ name, reveal, child }: Props) =>
+export default ({ name, reveal, monitor, child }: Props) =>
     Widget.Window({
-        name,
-        monitor: activeMonitor,
+        name: `${name}-dropdown`,
+        monitor,
         anchor: ['top', 'right'],
+        layer: 'overlay',
         child: Widget.Box(
             { css: 'padding: 1px' },
             Widget.Revealer({

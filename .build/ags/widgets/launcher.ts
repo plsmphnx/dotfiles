@@ -2,7 +2,9 @@ import type { Application } from 'service/applications';
 import type { BoxProps } from 'widgets/box';
 import type { Button } from 'widgets/button';
 
+import Closer from '../lib/closer.js';
 import Icons from '../lib/icons.js';
+import { scrollIntoView } from '../lib/util.js';
 
 const { query } = await Service.import('applications');
 
@@ -49,6 +51,7 @@ const item = (app: Application) => {
         child: Widget.Box({ children: info }),
     });
     primary.keybind('Return', launch);
+    primary.on('focus-in-event', focus);
     const children: BoxProps['children'] = [primary];
 
     if (show) {
@@ -78,6 +81,7 @@ const item = (app: Application) => {
             });
             secondary.keybind('Return', action);
             secondary.keybind('Left', close);
+            secondary.on('focus-in-event', focus);
             return secondary;
         });
 
@@ -121,13 +125,19 @@ const scroll = Widget.Scrollable({
         children: apps.bind().as(a => a.sort(sort).map(item)),
     }),
 });
+const focus = scrollIntoView.bind(scroll);
+
+const visible = Variable(false);
 
 const launcher = Widget.Box({
     class_name: 'launcher',
     vertical: true,
     children: [entry, scroll],
-}).hook(App, (_, name, visible) => {
-    if (name === WINDOW_NAME && visible) {
+}).hook(App, (_, name, v) => {
+    if (name !== WINDOW_NAME) return;
+
+    visible.value = v;
+    if (v) {
         scroll.set_vadjustment(null);
         apps.value = query('');
         entry.text = '';
@@ -135,9 +145,16 @@ const launcher = Widget.Box({
     }
 });
 
+Closer({
+    name: `${WINDOW_NAME}-closer`,
+    reveal: visible.bind(),
+    close: () => App.closeWindow(WINDOW_NAME),
+});
+
 export default Widget.Window({
     name: WINDOW_NAME,
     visible: false,
     keymode: 'exclusive',
+    layer: 'overlay',
     child: launcher,
 }).keybind('Escape', () => App.closeWindow(WINDOW_NAME));
