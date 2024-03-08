@@ -68,15 +68,23 @@ function notificationPopup(n: Notification) {
     const defaultAction = n.actions.find(({ id }) => id === 'default');
     const customActions = n.actions.filter(({ id }) => id !== 'default');
 
-    const actions = Widget.Box({
-        children: customActions.map(({ id, label }) =>
-            Widget.Button({
-                on_clicked: () => n.invoke(id),
-                hexpand: true,
-                child: Widget.Label(label),
+    const hovered = Variable(false);
+    const actions =
+        customActions.length > 0 &&
+        Widget.Revealer({
+            reveal_child: hovered.bind(),
+            transition: 'slide_down',
+            child: Widget.Box({
+                class_name: 'actions',
+                children: customActions.map(({ id, label }) =>
+                    Widget.Button({
+                        on_clicked: () => n.invoke(id),
+                        hexpand: true,
+                        child: Widget.Label(label),
+                    }),
+                ),
             }),
-        ),
-    });
+        });
 
     const text = Widget.Box({ vertical: true, children: [title, body] });
     const info = Widget.Box({ children: icon ? [icon, text] : [text] });
@@ -84,10 +92,11 @@ function notificationPopup(n: Notification) {
     return Widget.EventBox({
         on_primary_click: () => defaultAction && n.invoke(defaultAction.id),
         on_secondary_click: () => n.close(),
+        on_hover: () => ((hovered.value = true), false),
         child: Widget.Box({
             class_name: `action ${n.urgency}`,
             vertical: true,
-            children: customActions.length > 0 ? [info, actions] : [info],
+            children: actions ? [info, actions] : [info],
         }),
     });
 }

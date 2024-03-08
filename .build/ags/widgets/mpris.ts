@@ -112,7 +112,7 @@ function player(p: MprisPlayer) {
                 Widget.Box([positionLabel, positionSlider, lengthLabel]),
             ),
         ]),
-        Widget.Box([prev, play, next]),
+        Widget.Box({ class_name: 'actions' }, prev, play, next),
     );
 }
 

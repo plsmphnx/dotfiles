@@ -76,17 +76,17 @@ window {
     .subtitle {
         font-style: italic;
     }
-    > :not(:first-child) {
+    .actions {
         margin-top: @margin;
         border-top: @border solid @c3;
         padding-top: @margin;
-    }
-    button {
-        &:not(:hover) label {
-            .dim();
-        }
-        &:not(:first-child) {
-            border-left: @border solid @c3;
+        button {
+            &:not(:hover) label {
+                .dim();
+            }
+            &:not(:first-child) {
+                border-left: @border solid @c3;
+            }
         }
     }
 }

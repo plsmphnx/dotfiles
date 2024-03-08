@@ -8,11 +8,12 @@ export interface Props {
     close: () => any;
 }
 
-export default ({ name, reveal, monitor, close }: Props) =>
-    Widget.Window({
+export default ({ name, reveal, monitor, close }: Props) => {
+    const closer = Widget.Window({
         name: `${name}-closer`,
         monitor,
         anchor: ['top', 'right', 'bottom', 'left'],
+        keymode: 'none',
         child: Widget.EventBox({
             hexpand: true,
             vexpand: true,
@@ -23,3 +24,6 @@ export default ({ name, reveal, monitor, close }: Props) =>
         }),
         visible: reveal,
     });
+    closer.set_keep_above(true);
+    return closer;
+};
