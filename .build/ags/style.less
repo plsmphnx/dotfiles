@@ -82,7 +82,7 @@ window {
         padding-top: @margin;
         button {
             &:not(:hover) label {
-                .dim();
+                color: @c6;
             }
             &:not(:first-child) {
                 border-left: @border solid @c3;
@@ -139,7 +139,7 @@ tooltip {
     .float();
     @{item} {
         &:not(:hover) label {
-            .dim();
+            color: @c6;
         }
         &:not(:first-child) {
             margin-top: (@margin / 2);
@@ -171,5 +171,19 @@ slider {
     min-width: 1em;
     &:hover {
         background-color: @cc;
+    }
+}
+
+.calendar {
+    .float();
+    calendar {
+        color: @c6;
+        padding: (0.5 * @margin);
+        .header, .highlight, :selected {
+            color: @cc;
+        }
+        :indeterminate {
+            color: @c3;
+        }
     }
 }

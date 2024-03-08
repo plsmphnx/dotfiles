@@ -16,5 +16,8 @@ export default Toggle({
             class_name: 'target',
             label: date.bind(),
         }),
-    dropdown: Widget.Calendar(),
+    dropdown: Widget.Box({
+        class_name: 'calendar',
+        child: Widget.Calendar(),
+    }),
 }).Button;
