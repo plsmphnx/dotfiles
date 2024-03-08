@@ -1,9 +1,6 @@
-@c0: transparent;
-@c3: rgba(255, 255, 255, 0.2);
-@c6: rgba(255, 255, 255, 0.4);
-@c9: rgba(255, 255, 255, 0.6);
-@cc: rgba(255, 255, 255, 0.8);
-@cf: white;
+@shd: rgba(255, 255, 255, 0.2);
+@dim: rgba(255, 255, 255, 0.4);
+@txt: rgba(255, 255, 255, 0.8);
 
 @bg: rgba(0, 0, 0, 0.4);
 
@@ -12,23 +9,26 @@
 @margin: 0.5em;
 
 @icon: 2em + (2 * @margin);
-@width: 48 * @margin;
+@popup: 8 * @icon;
+
+@font: 'Noto Sans Mono';
+@symbols: 'Symbols Nerd Font Mono';
 
 * {
     all: unset;
 }
 
 window {
-    font-family: 'Noto Sans Mono', 'Symbols Nerd Font Mono';
+    font-family: @font, @symbols;
     font-size: 14px;
-    color: @cc;
+    color: @txt;
 }
 
 .status {
-    padding-right: @margin;
+    padding: 0 (@margin / 2);
     image,
     label {
-        padding-left: @margin;
+        padding: 0 (@margin / 2);
     }
 }
 
@@ -36,7 +36,7 @@ window {
     border-radius: (2 * @radius);
     border-style: solid;
     border-width: 0 @border;
-    border-color: @c6;
+    border-color: @dim;
     padding: 0 @margin;
 }
 
@@ -50,26 +50,26 @@ window {
 .workspaces {
     padding: 0 (@border / 2);
     label {
-        font: 125% 'Symbols Nerd Font Mono';
+        font: 125% @symbols;
     }
     button {
         margin: 0 (-@border / 2);
         &:not(.focused) {
-            border-color: @c0;
+            border-color: transparent;
         }
         &:hover {
-            border-color: @c9;
+            border-color: @txt;
         }
     }
 }
 
 .dim {
-    color: @c6;
+    color: @dim;
 }
 
 .action {
     .float();
-    min-width: @width;
+    min-width: @popup;
     .title {
         font-weight: bold;
     }
@@ -78,14 +78,14 @@ window {
     }
     .actions {
         margin-top: @margin;
-        border-top: @border solid @c3;
+        border-top: @border solid @shd;
         padding-top: @margin;
         button {
-            &:not(:hover) label {
-                color: @c6;
+            &:not(:hover) {
+                color: @dim;
             }
             &:not(:first-child) {
-                border-left: @border solid @c3;
+                border-left: @border solid @shd;
             }
         }
     }
@@ -107,8 +107,8 @@ window {
         .float();
     }
     > scrolledwindow {
-        min-width: (2 * @width);
-        min-height: @width;
+        min-width: (2 * @popup);
+        min-height: @popup;
         padding: 0;
     }
     button {
@@ -116,14 +116,14 @@ window {
         padding: 0 @margin;
         min-height: (@icon * 0.75);
         &:focus {
-            background-color: @c3;
+            background-color: @shd;
         }
     }
     entry:focus + * button:hover {
-        background-color: @c3;
+        background-color: @shd;
     }
     .actions {
-        color: @c3;
+        color: @shd;
         padding-left: @margin;
     }
     label:first-child {
@@ -138,8 +138,8 @@ tooltip {
 .menu(@item) {
     .float();
     @{item} {
-        &:not(:hover) label {
-            color: @c6;
+        &:not(:hover) {
+            color: @dim;
         }
         &:not(:first-child) {
             margin-top: (@margin / 2);
@@ -157,7 +157,7 @@ menu {
 
 trough {
     border-radius: 0.5em;
-    border: @border solid @c3;
+    border: @border solid @shd;
 }
 scale.horizontal trough {
     padding: 0 0.5em;
@@ -166,24 +166,24 @@ scale.horizontal trough {
 
 slider {
     border-radius: 0.5em;
-    background-color: @c6;
+    background-color: @dim;
     min-height: 1em;
     min-width: 1em;
     &:hover {
-        background-color: @cc;
+        background-color: @txt;
     }
 }
 
 .calendar {
     .float();
     calendar {
-        color: @c6;
+        color: @dim;
         padding: (0.5 * @margin);
         .header, .highlight, :selected {
-            color: @cc;
+            color: @txt;
         }
         :indeterminate {
-            color: @c3;
+            color: @shd;
         }
     }
 }
