@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env -S nix shell github:hyprwm/hyprcursor --command /bin/sh
 source=Vimix-cursors
 output=Vimix-white-hyprcursors
 
@@ -28,7 +28,9 @@ for cursor in "$src/config"/*.cursor; do
     echo "hotspot_y = $(awk "BEGIN { print $y/64 }")" >> "$meta"
 
     sed -n "/$name/s/ .*//p" $src/cursorList | while read line ; do
-        echo "define_override = $line" >> "$meta"
+        if [ ! -e "$src/config/$line.cursor" ]; then
+            echo "define_override = $line" >> "$meta"
+        fi
     done
 
     grep '^24' "$cursor" | while read line ; do
@@ -38,3 +40,7 @@ for cursor in "$src/config"/*.cursor; do
         echo "define_size = 24, $f.svg${t:+", $t"}" >> "$meta"
     done
 done
+
+hyprcursor-util -c "$output"
+rm -rf ~/.local/share/icons/"$output"
+mv "theme_Vimix Cursors - White" ~/.local/share/icons/"$output"
