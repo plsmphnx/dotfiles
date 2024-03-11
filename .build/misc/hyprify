@@ -24,8 +24,8 @@ for cursor in "$src/config"/*.cursor; do
     first=$(grep -m1 '^24' "$cursor")
     x=$(echo "$first" | sed -E "s/$fmt/\1/")
     y=$(echo "$first" | sed -E "s/$fmt/\2/")
-    echo "hotspot_x = $(awk "BEGIN { print $x/32 }")" >> "$meta"
-    echo "hotspot_y = $(awk "BEGIN { print $y/32 }")" >> "$meta"
+    echo "hotspot_x = $(awk "BEGIN { print $x/64 }")" >> "$meta"
+    echo "hotspot_y = $(awk "BEGIN { print $y/64 }")" >> "$meta"
 
     sed -n "/$name/s/ .*//p" $src/cursorList | while read line ; do
         echo "define_override = $line" >> "$meta"
