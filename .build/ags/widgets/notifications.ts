@@ -104,10 +104,11 @@ function notificationPopup(n: Notification) {
 const toggle = Toggle({
     name: 'notifications',
     status: () => Widget.Label(Icons.Notifications.Icon),
-    dropdown: Widget.Box({
-        vertical: true,
-        children: all.as(p => p.map(notificationPopup)),
-    }),
+    dropdown: () =>
+        Widget.Box({
+            vertical: true,
+            children: all.as(p => p.map(notificationPopup)),
+        }),
     reveal: all.as(p => p.length > 0),
     on_secondary_click: () => {
         for (const n of notifications.notifications) {
@@ -123,10 +124,11 @@ Dropdown({
         [popups, toggle.Reveal.bind()],
         (p, r) => p.length > 0 && !r,
     ),
-    child: Widget.Box({
-        vertical: true,
-        children: popups.as(p => p.map(notificationPopup)),
-    }),
+    child: () =>
+        Widget.Box({
+            vertical: true,
+            children: popups.as(p => p.map(notificationPopup)),
+        }),
 });
 
 export default toggle.Button;

@@ -132,10 +132,11 @@ export default Toggle({
                 .bind()
                 .as(p => (p ? Icons.Mpris.Paused : Icons.Mpris.Icon)),
         }),
-    dropdown: Widget.Box({
-        vertical: true,
-        children: players.as(p => p.map(player)),
-    }),
+    dropdown: () =>
+        Widget.Box({
+            vertical: true,
+            children: players.as(p => p.map(player)),
+        }),
     reveal: players.as(p => p.length > 0),
     on_secondary_click: () => {
         const playing = mpris.players.filter(

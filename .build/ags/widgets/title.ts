@@ -18,7 +18,9 @@ export default (monitor: string) =>
             on_primary_click: () =>
                 hyprland.messageAsync('dispatch movetoworkspace empty'),
             on_secondary_click: () =>
-                hyprland.messageAsync('dispatch togglefloating'),
+                hyprland.messageAsync(
+                    '[[BATCH]] dispatch togglefloating; dispatch pin',
+                ),
             child: Widget.Label({ class_name: 'dim', label: Icons.Title.Size }),
         }),
         Widget.Label({

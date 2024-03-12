@@ -1,5 +1,5 @@
-import type { Scrollable } from 'widgets/scrollable';
 import type Gtk from 'gi://Gtk?version=3.0';
+import type { Scrollable } from 'widgets/scrollable';
 
 export function scrollIntoView(this: Scrollable<any, any>, widget: Gtk.Widget) {
     const m = this.get_style_context().get_margin(this.get_state_flags());

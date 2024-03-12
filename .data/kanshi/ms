@@ -4,6 +4,6 @@ profile {
 
 profile {
     output eDP-1 enable scale 2 position 0,618
-    output DP-7 enable scale 1.25 position 1267,298
-    output DP-5 enable scale 1.25 position 3315,0 transform 90
+    output "Dell Inc. DELL U2719D 8QCLRS2" enable scale 1.25 position 1267,298
+    output "Dell Inc. DELL U2719D 6SCLRS2" enable scale 1.25 position 3315,0 transform 90
 }
