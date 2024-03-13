@@ -19,7 +19,7 @@ export default (monitor: string) =>
                 hyprland.messageAsync('dispatch movetoworkspace empty'),
             on_secondary_click: () =>
                 hyprland.messageAsync(
-                    '[[BATCH]] dispatch togglefloating; dispatch pin',
+                    '[[BATCH]] dispatch togglefloating ; dispatch pin',
                 ),
             child: Widget.Label({ class_name: 'dim', label: Icons.Title.Size }),
         }),

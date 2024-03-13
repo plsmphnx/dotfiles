@@ -1,7 +1,11 @@
 const hyprland = await Service.import('hyprland');
 
-function exec(move: boolean, to: number) {
-    hyprland.messageAsync(`dispatch ${move ? 'moveto' : ''}workspace ${to}`);
+async function exec(to: number, target?: string) {
+    let cmd = `dispatch ${target === '' ? 'moveto' : ''}workspace ${to}`;
+    if (target) {
+        cmd = `[[BATCH]] ${cmd} ; dispatch execr ${target}`;
+    }
+    await hyprland.messageAsync(cmd);
 }
 
 function status() {
@@ -14,19 +18,22 @@ function status() {
     };
 }
 
-function prev(move: boolean = false) {
+async function prev(target?: string) {
     const { active, monitor } = status();
-    exec(move, monitor.reverse().find(w => w.id < active)?.id || active - 1);
+    const to = monitor.reverse().find(w => w.id < active)?.id || active - 1;
+    await exec(to, target);
 }
 
-function next(move: boolean = false) {
+async function next(target?: string) {
     const { active, monitor } = status();
-    exec(move, monitor.find(w => w.id > active)?.id || active + 1);
+    const to = monitor.find(w => w.id > active)?.id || active + 1;
+    await exec(to, target);
 }
 
-function empty(move: boolean = false) {
+async function empty(target?: string) {
     const { monitor } = status();
-    exec(move, monitor[monitor.length - 1].id + 1);
+    const to = monitor[monitor.length - 1].id + 1;
+    await exec(to, target);
 }
 
 export default { prev, next, empty };
