@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Microsoft Excel
+Exec=/run/current-system/sw/bin/microsoft-edge --app=https://excel.office.com
+StartupNotify=true
+Terminal=false
+Icon=ms-excel
+Type=Application

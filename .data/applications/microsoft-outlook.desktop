@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Microsoft Outlook
+Exec=/run/current-system/sw/bin/microsoft-edge --app=https://outlook.office.com
+StartupNotify=true
+Terminal=false
+Icon=ms-outlook
+Type=Application
