@@ -15,8 +15,7 @@ export default (monitor: string) =>
         { visible: activeClientMonitor.as(m => m === monitor) },
         Widget.Button({
             class_name: 'status',
-            on_primary_click: () =>
-                hyprland.messageAsync('dispatch movetoworkspace empty'),
+            on_primary_click: () => Utils.execAsync('hyprnome -me'),
             on_secondary_click: () =>
                 hyprland.messageAsync(
                     '[[BATCH]] dispatch togglefloating ; dispatch pin',
