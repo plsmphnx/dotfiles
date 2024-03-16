@@ -6,7 +6,8 @@ import Closer from '../lib/closer.js';
 import Icons from '../lib/icons.js';
 import { scrollIntoView } from '../lib/util.js';
 
-const { query } = await Service.import('applications');
+const applications = await Service.import('applications');
+const list = applications.bind('list');
 
 const WINDOW_NAME = 'launcher';
 
@@ -107,7 +108,7 @@ function sort(a: Application, b: Application) {
 const entry = Widget.Entry({
     hexpand: true,
     on_accept: self => {
-        const app = query(self.text || '')[0];
+        const app = applications.query(self.text || '')[0];
         if (app) {
             App.closeWindow(WINDOW_NAME);
             app.launch();
@@ -115,14 +116,12 @@ const entry = Widget.Entry({
     },
 });
 
-const apps = Variable<Application[]>([]);
-
 const scroll = Widget.Scrollable({
     hscroll: 'never',
     vscroll: 'external',
     child: Widget.Box({
         vertical: true,
-        children: apps.bind().as(a => a.sort(sort).map(item)),
+        children: list.as(a => a.sort(sort).map(item)),
     }),
 });
 const focus = scrollIntoView.bind(scroll);
@@ -138,8 +137,8 @@ const launcher = Widget.Box({
 
     visible.value = v;
     if (v) {
+        applications.reload();
         scroll.set_vadjustment(null);
-        apps.value = query('');
         entry.text = '';
         entry.grab_focus();
     }

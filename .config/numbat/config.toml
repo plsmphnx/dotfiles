@@ -1,5 +1,0 @@
-intro-banner = "off"
-pretty-print = "never"
-
-[exchange-rates]
-fetching-policy = "never"
