@@ -10,6 +10,7 @@ nm-connection-editor    f0c9d
 pavucontrol             0f028
 pcmanfm                 f0770
 l3afpad                 f09ee
+qalc                    f00ec
 
 blender                 f00ab
 chrome                  0e743
