@@ -1,2 +1,3 @@
-.zcompdump
-user.txt-lock
+.build/ags/types
+.config/Kvantum/Fluent-grey
+.config/zsh/.zcompdump

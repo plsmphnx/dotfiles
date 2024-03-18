@@ -1,16 +1,17 @@
 blueberry               f00af
-foot                    0f489
-imv                     0f03e
-luakit                  f059f
-lite-xl                 f0169
-mpv                     f0567
-zathura                 f0219
 iwgtk                   f05a9
 nm-connection-editor    f0c9d
 pavucontrol             0f028
-pcmanfm                 f0770
+
+foot                    0f489
+imv                     0f03e
 l3afpad                 f09ee
+lite-xl                 f0169
+luakit                  f059f
+mpv                     f0567
+pcmanfm                 f0770
 qalc                    f00ec
+zathura                 f0219
 
 blender                 f00ab
 chrome                  0e743
