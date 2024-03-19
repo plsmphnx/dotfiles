@@ -1,3 +1,5 @@
+import type { Variable } from 'variable';
+
 import Closer from './closer.js';
 import Dropdown, { Props as DropdownProps } from './dropdown.js';
 import Reset from './reset.js';
@@ -12,8 +14,8 @@ export const activeMonitor = Utils.merge(
 export interface Props
     extends Omit<StatusProps, 'name' | 'child'>,
         Omit<DropdownProps, 'reveal' | 'child'> {
-    status: () => StatusProps['child'];
-    dropdown: DropdownProps['child'];
+    status: (reveal: Variable<boolean>) => StatusProps['child'];
+    dropdown: (reveal: Variable<boolean>) => ReturnType<DropdownProps['child']>;
 }
 
 export default ({ name, reveal, status, dropdown, ...rest }: Props) => {
@@ -25,10 +27,10 @@ export default ({ name, reveal, status, dropdown, ...rest }: Props) => {
             Status({
                 ...rest,
                 on_clicked: () => (Reveal.value = !Reveal.value),
-                child: status(),
+                child: status(Reveal),
                 reveal,
             }),
-        Window: Dropdown({ ...window, child: dropdown }),
+        Window: Dropdown({ ...window, child: () => dropdown(Reveal) }),
         Closer: Closer({ ...window, close: () => (Reveal.value = false) }),
         Monitor: activeMonitor,
     };

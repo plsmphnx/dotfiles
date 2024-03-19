@@ -16,9 +16,15 @@ export default Toggle({
             class_name: 'target',
             label: date.bind(),
         }),
-    dropdown: () =>
-        Widget.Box({
-            class_name: 'calendar',
-            child: Widget.Calendar(),
-        }),
+    dropdown: reveal => {
+        const child = Widget.Calendar();
+        Utils.merge([reveal.bind()], r => {
+            if (r) {
+                const now = new Date();
+                child.select_day(now.getDate());
+                child.select_month(now.getMonth(), now.getFullYear());
+            }
+        });
+        return Widget.Box({ class_name: 'calendar', child });
+    },
 }).Button;
