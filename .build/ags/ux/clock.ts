@@ -1,3 +1,4 @@
+import Target from '../lib/target.js';
 import Toggle from '../lib/toggle.js';
 
 function time() {
@@ -12,8 +13,7 @@ const date = Variable('', { poll: [1000, time] });
 export default Toggle({
     name: 'clock',
     status: () =>
-        Widget.Label({
-            class_name: 'target',
+        Target.Label({
             label: date.bind(),
         }),
     dropdown: reveal => {
@@ -25,6 +25,6 @@ export default Toggle({
                 child.select_month(now.getMonth(), now.getFullYear());
             }
         });
-        return Widget.Box({ class_name: 'calendar', child });
+        return Target.Box({ class_name: 'calendar', child });
     },
 }).Button;

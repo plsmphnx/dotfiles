@@ -3,6 +3,7 @@ import type { Button } from 'widgets/button';
 import type { Label } from 'widgets/label';
 
 import Icons from '../lib/icons.js';
+import Target from '../lib/target.js';
 
 const hyprland = await Service.import('hyprland');
 
@@ -64,11 +65,11 @@ const labels = clients.as(cls => {
 });
 
 function button(w: number) {
-    return Widget.Button({
+    return Target.Button({
         on_clicked: () => hyprland.messageAsync(`dispatch workspace ${w}`),
         child: Widget.Label({ label: labels.as(l => l.w[w] || '') }),
         class_name: activeWorkspaceId.as(a =>
-            a === w ? 'target focused' : 'target',
+            a === w ? 'target' : 'unfocused target',
         ),
     });
 }

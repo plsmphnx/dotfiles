@@ -1,4 +1,5 @@
 import Icons from '../lib/icons.js';
+import Target from '../lib/target.js';
 
 const hyprland = await Service.import('hyprland');
 
@@ -22,8 +23,7 @@ export default (monitor: string) =>
                 ),
             child: Widget.Label({ class_name: 'dim', label: Icons.Title.Size }),
         }),
-        Widget.Label({
-            class_name: 'target',
+        Target.Label({
             label: hyprland.active.client.bind('title'),
             max_width_chars: 64,
             truncate: 'end',

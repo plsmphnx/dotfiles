@@ -1,5 +1,6 @@
 import Icons from '../lib/icons.js';
 import Toggle from '../lib/toggle.js';
+import Target from '../lib/target.js';
 
 const COMMANDS = {
     Shutdown: 'systemctl poweroff',
@@ -14,7 +15,7 @@ const toggle = Toggle({
     status: () => Widget.Label(Icons.Power.Icon),
     class_name: 'status',
     dropdown: () =>
-        Widget.Box({
+        Target.Box({
             class_name: 'menu',
             vertical: true,
             children: Object.entries(COMMANDS).map(([name, cmd]) =>

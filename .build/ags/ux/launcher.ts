@@ -4,6 +4,7 @@ import type { Button } from 'widgets/button';
 
 import Closer from '../lib/closer.js';
 import Icons from '../lib/icons.js';
+import Target from '../lib/target.js';
 import { scrollIntoView } from '../lib/util.js';
 
 const applications = await Service.import('applications');
@@ -105,7 +106,7 @@ function sort(a: Application, b: Application) {
     return b.frequency - a.frequency || a.name.localeCompare(b.name);
 }
 
-const entry = Widget.Entry({
+const entry = Target.Entry({
     hexpand: true,
     on_accept: self => {
         const app = applications.query(self.text || '')[0];
@@ -116,7 +117,7 @@ const entry = Widget.Entry({
     },
 });
 
-const scroll = Widget.Scrollable({
+const scroll = Target.Scrollable({
     hscroll: 'never',
     vscroll: 'external',
     child: Widget.Box({

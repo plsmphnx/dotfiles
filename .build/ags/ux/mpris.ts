@@ -1,6 +1,7 @@
 import type { MprisPlayer } from 'service/mpris';
 
 import Icons from '../lib/icons.js';
+import Target from '../lib/target.js';
 import Toggle from '../lib/toggle.js';
 
 const mpris = await Service.import('mpris');
@@ -101,7 +102,7 @@ function player(p: MprisPlayer) {
         child: Widget.Label(Icons.Mpris.Next),
     });
 
-    return Widget.Box(
+    return Target.Box(
         { class_name: 'action', vertical: true },
         Widget.Box([
             img,

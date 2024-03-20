@@ -3,6 +3,7 @@ import type { Label } from 'widgets/label';
 
 import Dropdown from '../lib/dropdown.js';
 import Icons from '../lib/icons.js';
+import Target from '../lib/target.js';
 import Toggle from '../lib/toggle.js';
 
 const notifications = await Service.import('notifications');
@@ -93,7 +94,7 @@ function notificationPopup(n: Notification) {
         on_primary_click: () => defaultAction && n.invoke(defaultAction.id),
         on_secondary_click: () => n.close(),
         on_hover: () => ((hovered.value = true), false),
-        child: Widget.Box({
+        child: Target.Box({
             class_name: `action ${n.urgency}`,
             vertical: true,
             children: actions ? [info, actions] : [info],
