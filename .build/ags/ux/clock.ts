@@ -11,11 +11,8 @@ const date = Variable('', { poll: [1000, time] });
 
 export default Toggle({
     name: 'clock',
-    status: () =>
-        Widget.Label({
-            class_name: 'target',
-            label: date.bind(),
-        }),
+    class_name: 'target',
+    status: () => Widget.Label({ label: date.bind() }),
     dropdown: reveal => {
         const child = Widget.Calendar();
         Utils.merge([reveal.bind()], r => {

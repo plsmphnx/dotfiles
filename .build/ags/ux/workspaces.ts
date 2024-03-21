@@ -68,7 +68,7 @@ function button(w: number) {
         on_clicked: () => hyprland.messageAsync(`dispatch workspace ${w}`),
         child: Widget.Label({ label: labels.as(l => l.w[w] || '') }),
         class_name: activeWorkspaceId.as(a =>
-            a === w ? 'target focused' : 'target',
+            a === w ? 'target' : 'unfocused target',
         ),
     });
 }

@@ -70,11 +70,6 @@ export default {
         },
     },
 
-    Title: {
-        Exit: '\xd7',
-        Size: '\x2b',
-    },
-
     Notifications: {
         Icon: '\u{f035c}',
     },

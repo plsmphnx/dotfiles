@@ -40,6 +40,10 @@ window {
     padding: 0 @margin;
 }
 
+button.target:hover {
+    border-color: @txt;
+}
+
 .float {
     .target();
     background-color: @bg;
@@ -54,11 +58,8 @@ window {
     }
     button {
         margin: 0 (-@border / 2);
-        &:not(.focused) {
+        &.unfocused:not(:hover) {
             border-color: transparent;
-        }
-        &:hover {
-            border-color: @txt;
         }
     }
 }
