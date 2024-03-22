@@ -1,0 +1,20 @@
+profile {
+    output eDP-1 disable
+    output "HP Inc. HP 25x CNK0222MF8" enable
+}
+
+profile {
+    output eDP-1 disable
+    output "HP Inc. HP 25x CNK0222MF8" disable
+    output "LG Electronics LG PROJECTOR 0x01010101" enable
+}
+
+profile {
+    output eDP-1 disable
+    output "LG Electronics LG PROJECTOR 0x01010101" enable
+}
+
+profile {
+    output eDP-1 enable scale 2
+    output * enable
+}
