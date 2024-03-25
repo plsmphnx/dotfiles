@@ -1,0 +1,7 @@
+[Context]
+filesystems=!xdg-videos;!xdg-pictures
+
+[Session Bus Policy]
+com.canonical.AppMenu.Registrar=none
+com.canonical.indicator.application=none
+com.canonical.Unity=none
