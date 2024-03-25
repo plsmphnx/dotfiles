@@ -1,4 +1,5 @@
 [Context]
+sockets=session-bus
 filesystems=!xdg-videos;!xdg-pictures
 
 [Session Bus Policy]

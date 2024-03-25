@@ -1,2 +1,6 @@
 [Context]
-sockets=wayland
+sockets=!session-bus;!system-bus;wayland;
+filesystems=!home;!host;!host-etc;!host-os;
+
+[Session Bus Policy]
+org.freedesktop.Flatpak=none
