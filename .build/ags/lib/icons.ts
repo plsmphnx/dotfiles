@@ -6,6 +6,8 @@ function select(...icons: string[]) {
 }
 
 export default {
+    Space: '\u{f1050}',
+
     Workspaces: {
         Fallback: '\u{0f2d0}',
     },

@@ -11,6 +11,7 @@ const clients = hyprland.bind('clients');
 const activeWorkspaceId = hyprland.active.workspace.bind('id');
 
 const submap = Variable('');
+const sub = submap.bind();
 hyprland.connect('submap', (_, s) => (submap.value = s || ''));
 
 let icons: [string, string][];
@@ -78,16 +79,20 @@ export default (monitor: string) => {
 
     const status = Widget.Box({
         class_name: 'dim status',
-        children: Utils.merge([labels, submap.bind()], (l, s) => {
-            const parts: Label<any>[] = [];
-            if (l.p[monitor]) {
-                parts.push(Widget.Label(l.p[monitor]));
-            }
-            if (s) {
-                parts.push(Widget.Label(s));
-            }
-            return parts;
-        }),
+        children: [
+            Widget.Revealer({
+                transition: 'slide_right',
+                transition_duration: 500,
+                child: Widget.Label({
+                    label: labels.as(l => l.p[monitor] || ''),
+                }),
+                reveal_child: labels.as(l => !!l.p[monitor]),
+            }),
+            Widget.Label({
+                class_name: sub.as(s => (s ? '' : 'hidden')),
+                label: sub.as(s => s || Icons.Space),
+            }),
+        ],
     });
 
     return Widget.Box({

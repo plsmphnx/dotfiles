@@ -18,7 +18,6 @@ export default (monitor: string) =>
         visible: activeClientMonitor.as(m => m === monitor),
         child: Widget.Label({
             label: hyprland.active.client.bind('title'),
-            max_width_chars: 64,
             truncate: 'end',
         }),
     });

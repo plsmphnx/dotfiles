@@ -10,12 +10,15 @@ import Title from './title.js';
 import Tray from './tray.js';
 import Workspaces from './workspaces.js';
 
+import Icons from '../lib/icons.js';
+
 const hyprland = await Service.import('hyprland');
 const monitors = hyprland.bind('monitors');
 
 const status = () =>
     Widget.Box(
         { class_name: 'status' },
+        Widget.Label({ class_name: 'hidden', label: Icons.Space }),
         Tray(),
         Mpris(),
         ...Audio(),
