@@ -42,9 +42,9 @@ const bar = (monitor: string) =>
         name: `bar-${monitor}`,
         monitor: monitors.as(ms => ms.findIndex(m => monitor === m.name)),
         anchor: ['top', 'left', 'right'],
-        margins: [0, 0, 2, 0],
         exclusivity: 'exclusive',
         child: Widget.CenterBox({
+            class_name: 'bar',
             start_widget: left(monitor),
             center_widget: center(monitor),
             end_widget: right(monitor),
