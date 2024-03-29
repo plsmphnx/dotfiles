@@ -1,6 +1,8 @@
 [Context]
-sockets=!session-bus;!system-bus;wayland;
-filesystems=!home;!host;!host-etc;!host-os;
+shared=!ipc
+sockets=!gpg-agent;!pcsc;!ssh-auth;!system-bus;!session-bus;!fallback-x11;wayland;!x11
+features=!devel
+filesystems=!home;!host-etc;!host-os;!host
 
 [Session Bus Policy]
 org.freedesktop.Flatpak=none
