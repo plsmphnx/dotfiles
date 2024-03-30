@@ -1,0 +1,2 @@
+#!/bin/sh
+ouch d -d "$(dirname "$1")" "$1"
