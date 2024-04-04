@@ -19,6 +19,7 @@ code                    f0a1e
 discord                 f066f
 firefox                 f0239
 gimp                    f11e3
+heroic                  f18be
 mcpelauncher            f0373
 pithos                  f03db
 qemu                    f0379

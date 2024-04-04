@@ -1,5 +1,4 @@
 import Audio from './audio.js';
-import Battery from './battery.js';
 import Bluetooth from './bluetooth.js';
 import Clock from './clock.js';
 import Mpris from './mpris.js';
@@ -24,7 +23,6 @@ const status = () =>
         ...Audio(),
         Bluetooth(),
         Network(),
-        Battery(),
         Notifications(),
     );
 
