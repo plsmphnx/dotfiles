@@ -18,12 +18,12 @@ const status = () =>
     Widget.Box(
         { class_name: 'status' },
         Widget.Label({ class_name: 'hidden', label: Icons.Space }),
+        Notifications(),
         Tray(),
         Mpris(),
         ...Audio(),
         Bluetooth(),
         Network(),
-        Notifications(),
     );
 
 const left = (monitor: string) =>
