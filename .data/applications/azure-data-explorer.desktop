@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Azure Data Explorer
+Exec=flatpak run com.microsoft.Edge --app=https://dataexplorer.azure.com
+StartupNotify=true
+Terminal=false
+Icon=microsoft-edge
+Type=Application
