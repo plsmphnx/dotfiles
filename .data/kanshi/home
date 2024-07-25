@@ -14,7 +14,7 @@ profile {
     output "LG Electronics LG PROJECTOR 0x01010101" enable
 }
 
-profile {
+profile all {
     output eDP-1 enable scale 2
     output * enable
 }
