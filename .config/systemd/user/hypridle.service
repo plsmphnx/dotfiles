@@ -1,0 +1,11 @@
+[Unit]
+Description=Hyprland's idle daemon
+Documentation=https://github.com/hyprwm/hypridle
+PartOf=hyprland-session.target
+
+[Service]
+ExecStart=/run/current-system/sw/bin/hypridle
+Restart=on-failure
+
+[Install]
+WantedBy=hyprland-session.target

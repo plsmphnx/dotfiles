@@ -1,3 +1,4 @@
 .build/ags/types
 .config/Kvantum/Fluent-grey
+.config/systemd/**/*.wants
 .config/zsh/.zcompdump
