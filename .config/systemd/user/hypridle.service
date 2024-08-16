@@ -6,6 +6,7 @@ PartOf=hyprland-session.target
 [Service]
 ExecStart=/run/current-system/sw/bin/hypridle
 Restart=on-failure
+Slice=session.slice
 
 [Install]
 WantedBy=hyprland-session.target

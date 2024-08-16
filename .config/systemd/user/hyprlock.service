@@ -1,9 +1,0 @@
-[Unit]
-Description=Hyprland's GPU-accelerated screen locking utility
-Documentation=https://github.com/hyprwm/hyprlock
-
-[Service]
-ExecStart=/run/current-system/sw/bin/hyprlock
-
-[Install]
-WantedBy=hyprland-session.target
