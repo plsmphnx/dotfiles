@@ -1,0 +1,9 @@
+profile {
+    output eDP-1 enable scale 2 transform 270
+}
+
+profile {
+    output eDP-1 enable scale 2 position 0,1050 transform 270
+    output "Dell Inc. DELL U2719D 8QCLRS2" enable scale 1.25 position 640,298
+    output "Dell Inc. DELL U2719D 6SCLRS2" enable scale 1.25 position 2688,0 transform 90
+}
