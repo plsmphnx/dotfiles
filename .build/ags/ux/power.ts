@@ -23,7 +23,7 @@ const tooltip_text = Utils.merge(
 const COMMANDS = {
     Shutdown: 'systemctl poweroff',
     Restart: 'systemctl reboot',
-    Logout: 'hyprctl dispatch exit',
+    Logout: 'loginctl lock-session && hyprctl dispatch exit',
     Sleep: 'systemctl suspend-then-hibernate',
     Lock: 'loginctl lock-session',
 };
