@@ -1,4 +1,4 @@
 [Context]
 shared=ipc
 sockets=x11
-filesystems=!~/.steam;!xdg-run/app/com.discordapp.Discord;!xdg-desktop;!xdg-documents;!~/.local/share/lutris;!/media;!/run/media;!~/.var/app/com.valvesoftware.Steam;!/mnt;!~/.steam/steam;!~/.local/share/applications
+filesystems=!xdg-run/app/com.discordapp.Discord;!xdg-desktop;!xdg-documents;!/media;!/run/media;!/mnt
