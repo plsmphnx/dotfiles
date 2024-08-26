@@ -1,0 +1,57 @@
+#!/bin/sh
+case $1 in
+    build)
+        cat | podman build -t intune-box -f - <<END
+FROM mcr.microsoft.com/openjdk/jdk:11-ubuntu
+RUN apt update && apt install -y intune-portal; exit 0
+RUN touch /tmp/systemctl && chmod +x /tmp/systemctl
+RUN PATH="/tmp:\$PATH" dpkg --configure intune-portal
+RUN apt clean
+RUN sed -i \\
+    's/retry=3/minlen=12 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1/' \\
+    /etc/pam.d/common-password
+CMD [ "/sbin/init" ]
+END
+        ;;
+    start)
+        ROOT=$XDG_STATE_HOME/intune-box
+        DBUS=${DBUS_SESSION_BUS_ADDRESS#*=}
+        X11=/tmp/.X11-unix/X0
+        VAR=/var/lib/microsoft-identity-device-broker
+        STATE=.local/state/microsoft-identity-broker
+        mkdir -p "$ROOT/var" "$ROOT/home/$STATE"
+        podman rm --force intune-box
+        podman run --detach \
+            --userns keep-id \
+            --user root:root \
+            --network host \
+            --mount "type=bind,src=$DBUS,dst=$DBUS" \
+            --env DBUS_SESSION_BUS_ADDRESS \
+            --mount "type=bind,src=$X11,dst=$X11" \
+            --env DISPLAY \
+            --mount "type=bind,src=$ROOT/home,dst=$HOME" \
+            --mount "type=bind,src=$ROOT/var,dst=$VAR" \
+            --name intune-box \
+            intune-box
+        podman exec --tty \
+            --user root:root \
+            intune-box \
+            chown "$USER:$USER" "$(dirname "$DBUS")"
+        podman exec --detach \
+            --user "$(id -u):$(id -g)" \
+            --env HOME \
+            --env STATE_DIRECTORY="$HOME/$STATE" \
+            intune-box \
+            /opt/microsoft/identity-broker/bin/microsoft-identity-broker
+        ;;
+    stop)
+        podman rm --force intune-box
+        ;;
+    run)
+        podman exec --tty --interactive \
+            --user "$(id -u):$(id -g)" \
+            --env HOME \
+            intune-box \
+            ${2:-intune-portal}
+        ;;
+esac
