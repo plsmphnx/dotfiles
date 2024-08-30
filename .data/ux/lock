@@ -1,2 +1,5 @@
 #!/bin/sh
+systemctl --user start hyprland@lock.target
 quickshell -c lock
+hyprctl dispatch exit
+systemctl --user stop hyprland@lock.target

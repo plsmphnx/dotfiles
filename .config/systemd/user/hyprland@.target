@@ -4,4 +4,3 @@ BindsTo=graphical-session.target
 Description=Hyprland compositor session
 Documentation=man:systemd.special(7)
 Wants=graphical-session-pre.target
-
