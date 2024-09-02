@@ -2,3 +2,4 @@
 shared=ipc
 sockets=x11
 filesystems=!xdg-run/app/com.discordapp.Discord;!xdg-desktop;!xdg-documents;!/media;!/run/media;!/mnt
+unset-environment=SDL_VIDEODRIVER
