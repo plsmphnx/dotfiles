@@ -1,3 +1,3 @@
-if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 4 ]; then
+if [ "$(tty)" = "/dev/tty4" ]; then
     exec systemd-cat -t steamos gamescope-session
 fi
