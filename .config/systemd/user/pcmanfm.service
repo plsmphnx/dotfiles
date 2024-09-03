@@ -1,7 +1,7 @@
 [Unit]
 Description=Extremely fast and lightweight file manager
 Documentation=https://github.com/lxde/pcmanfm
-PartOf=hyprland@desk.target
+BindsTo=hyprland@desk.target
 
 [Service]
 ExecStart=/run/current-system/sw/bin/pcmanfm -d
