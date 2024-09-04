@@ -16,18 +16,18 @@ ShellRoot {
   Process {
     id: desktop
     command: ["sudo", "chvt", "3"]
-    onExited: exit.running = true
+    onExited: Qt.quit()
   }
 
   Process {
     id: steamos
     command: ["sudo", "chvt", "4"]
-    onExited: exit.running = true
+    onExited: Qt.quit()
   }
 
   Process {
-    id: exit
-    command: ["hyprctl", "dispatch", "exit"]
+    id: ready
+    command: ["systemd-notify", "--ready"]
   }
 
   FloatingWindow {
@@ -64,4 +64,6 @@ ShellRoot {
       cursorShape: Qt.BlankCursor
     }
   }
+
+  Component.onCompleted: ready.running = true
 }

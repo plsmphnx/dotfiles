@@ -1,0 +1,5 @@
+[Service]
+Type=notify
+NotifyAccess=all
+ExecStart=/run/current-system/sw/bin/quickshell -c lock
+ExecStartPost=-/run/current-system/sw/bin/systemctl --user stop lock

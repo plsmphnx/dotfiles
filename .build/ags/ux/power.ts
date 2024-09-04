@@ -23,9 +23,9 @@ const tooltip_text = Utils.merge(
 const COMMANDS = {
     Shutdown: 'systemctl poweroff',
     Restart: 'systemctl reboot',
-    Logout: 'loginctl lock-session && hyprctl dispatch exit',
+    Logout: 'systemctl --user start --wait lock && hyprctl dispatch exit',
     Sleep: 'systemctl suspend-then-hibernate',
-    Lock: 'loginctl lock-session',
+    Lock: 'systemctl --user start --wait lock',
 };
 
 const toggle = Toggle({

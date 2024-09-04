@@ -1,0 +1,10 @@
+[Unit]
+Before=sleep.target
+
+[Service]
+ExecCondition=/bin/sh -c '! systemctl --user is-active --quiet locker'
+ExecStartPre=/run/wrappers/bin/sudo /run/current-system/sw/bin/chvt 1
+ExecStart=/run/current-system/sw/bin/sleep 5
+
+[Install]
+WantedBy=sleep.target
