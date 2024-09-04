@@ -1,3 +1,0 @@
-#!/bin/sh
-quickshell -c lock
-hyprctl dispatch exit

@@ -16,13 +16,18 @@ ShellRoot {
   Process {
     id: desktop
     command: ["sudo", "chvt", "3"]
-    onExited: Qt.quit()
+    onExited: exit.running = true
   }
 
   Process {
     id: steamos
     command: ["sudo", "chvt", "4"]
-    onExited: Qt.quit()
+    onExited: exit.running = true
+  }
+
+  Process {
+    id: exit
+    command: ["hyprctl", "dispatch", "exit"]
   }
 
   FloatingWindow {
