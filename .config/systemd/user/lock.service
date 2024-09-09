@@ -6,7 +6,7 @@ Type=oneshot
 ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
 ExecCondition=sh -c '! systemctl --user is-active --quiet hyprlock'
 ExecStartPre=sudo chvt 1
-ExecStart=sleep 5
+ExecStart=-sleep 5
 
 [Install]
 WantedBy=lock.target
