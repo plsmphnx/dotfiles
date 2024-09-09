@@ -1,3 +1,3 @@
 if [ "$(tty)" = "/dev/tty4" ]; then
-    exec systemd-cat -t steamos gamescope-session
+    exec exec-vt 4 systemd-cat -t steamos gamescope-session
 fi

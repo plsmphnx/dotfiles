@@ -1,0 +1,8 @@
+[Unit]
+Conflicts=lock.service
+
+[Service]
+Type=oneshot
+ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
+ExecStart=hyprlock
+ExecStartPost=sudo chvt 3

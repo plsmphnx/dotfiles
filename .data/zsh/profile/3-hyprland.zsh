@@ -1,4 +1,4 @@
 if [ "$(tty)" = "/dev/tty3" ]; then
-    exec systemd-cat -t hyprland hyprland \
-        -c "$XDG_CONFIG_HOME/hypr/land/desk.conf"
+    exec exec-vt 3 systemd-cat -t desktop hyprland \
+        -c "$XDG_CONFIG_HOME/hypr/hyprland/desk.conf"
 fi
