@@ -1,1 +1,1 @@
-case "$(tty)" in *tty*) vlock;; esac
+case $(tty) in *tty*) vlock;; esac
