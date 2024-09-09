@@ -1,4 +1,4 @@
 nix run --no-write-lock-file github:plsmphnx/hyprmks \
-    ~/.config/hypr/land/desk.conf > ~/.local/share/hypr/mks.conf
+    ~/.config/hypr/hyprland/desk.conf > ~/.local/share/hypr/mks.conf
 hyprctl reload
 kanshictl reload
