@@ -4,7 +4,7 @@ Before=lock.target
 [Service]
 Type=oneshot
 ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
-ExecCondition=sh -c '! systemctl --user is-active --quiet hyprlock'
+ExecCondition=sh -c '! pgrep hyprlock'
 ExecStartPre=sudo chvt 1
 ExecStart=-sleep 5
 
