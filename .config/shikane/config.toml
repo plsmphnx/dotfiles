@@ -1,0 +1,29 @@
+[[profile]]
+name = "surface"
+
+    [[profile.output]]
+    enable = true
+    search = ["m=LQ150P1JX51", "s=0x001223A0"]
+    scale = 2.0
+
+[[profile]]
+name = "surface-ms"
+
+    [[profile.output]]
+    enable = true
+    search = ["m=LQ150P1JX51", "s=0x001223A0"]
+    position = "0,618"
+    scale = 2.0
+
+    [[profile.output]]
+    search = ["m=DELL U2719D", "s=8QCLRS2"]
+    enable = true
+    position = "1267,298"
+    scale = 1.25
+
+    [[profile.output]]
+    enable = true
+    search = ["m=DELL U2719D", "s=6SCLRS2"]
+    position = "3315,0"
+    scale = 1.25
+    transform = "90"
