@@ -1,4 +1,12 @@
+[Unit]
+OnSuccess=unlock.target
+BindsTo=lock.target
+Before=lock.target
+
 [Service]
 EnvironmentFile=%t/hyprlock.env
 ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
-ExecStart=exec-after hyprlock & sudo chvt 3
+ExecStart=hyprlock
+KillSignal=SIGUSR1
+Restart=on-failure
+RestartSec=0

@@ -1,0 +1,10 @@
+[Unit]
+After=unlock.target
+
+[Service]
+Type=oneshot
+ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
+ExecStart=sudo chvt 3
+
+[Install]
+WantedBy=unlock.target
