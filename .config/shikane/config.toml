@@ -31,43 +31,43 @@ name = "surface-ms"
 [[profile]]
 name = "blade"
 
-  [[profile.output]]
-  search = ["m=0x4143" ]
-  enable = true
+    [[profile.output]]
+    search = ["m=0x4143" ]
+    enable = true
 
 [[profile]]
 name = "blade-home"
 
-  [[profile.output]]
-  search = ["m=0x4143" ]
-  enable = false
+    [[profile.output]]
+    search = ["m=0x4143" ]
+    enable = false
 
-  [[profile.output]]
-  search = ["m=HP 25x", "s=CNK0222MF8"]
-  enable = true
+    [[profile.output]]
+    search = ["m=HP 25x", "s=CNK0222MF8"]
+    enable = true
 
 [[profile]]
 name = "blade-home-wall"
 
-  [[profile.output]]
-  search = ["m=0x4143" ]
-  enable = false
+    [[profile.output]]
+    search = ["m=0x4143" ]
+    enable = false
 
-  [[profile.output]]
-  search = ["m=HP 25x", "s=CNK0222MF8"]
-  enable = false
+    [[profile.output]]
+    search = ["m=HP 25x", "s=CNK0222MF8"]
+    enable = false
 
-  [[profile.output]]
-  search = ["m=LG PROJECTOR", "s=0x01010101"]
-  enable = true
+    [[profile.output]]
+    search = ["m=LG PROJECTOR", "s=0x01010101"]
+    enable = true
 
 [[profile]]
 name = "blade-wall"
 
-   [[profile.output]]
-   search = ["m=0x4143" ]
-   enable = false
+    [[profile.output]]
+    search = ["m=0x4143" ]
+    enable = false
 
-   [[profile.output]]
-   search = ["m=LG PROJECTOR", "s=0x01010101"]
-   enable = true
+    [[profile.output]]
+    search = ["m=LG PROJECTOR", "s=0x01010101"]
+    enable = true
