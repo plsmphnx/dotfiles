@@ -2,28 +2,72 @@
 name = "surface"
 
     [[profile.output]]
-    enable = true
     search = ["m=LQ150P1JX51", "s=0x001223A0"]
+    enable = true
     scale = 2.0
 
 [[profile]]
 name = "surface-ms"
 
     [[profile.output]]
-    enable = true
     search = ["m=LQ150P1JX51", "s=0x001223A0"]
-    position = "0,618"
+    enable = true
     scale = 2.0
+    position = "0,618"
 
     [[profile.output]]
     search = ["m=DELL U2719D", "s=8QCLRS2"]
     enable = true
-    position = "1267,298"
     scale = 1.25
+    position = "1267,298"
 
     [[profile.output]]
-    enable = true
     search = ["m=DELL U2719D", "s=6SCLRS2"]
-    position = "3315,0"
+    enable = true
     scale = 1.25
+    position = "3315,0"
     transform = "90"
+
+[[profile]]
+name = "blade"
+
+  [[profile.output]]
+  search = ["m=0x4143" ]
+  enable = true
+
+[[profile]]
+name = "blade-home"
+
+  [[profile.output]]
+  search = ["m=0x4143" ]
+  enable = false
+
+  [[profile.output]]
+  search = ["m=HP 25x", "s=CNK0222MF8"]
+  enable = true
+
+[[profile]]
+name = "blade-home-wall"
+
+  [[profile.output]]
+  search = ["m=0x4143" ]
+  enable = false
+
+  [[profile.output]]
+  search = ["m=HP 25x", "s=CNK0222MF8"]
+  enable = false
+
+  [[profile.output]]
+  search = ["m=LG PROJECTOR", "s=0x01010101"]
+  enable = true
+
+[[profile]]
+name = "blade-wall"
+
+   [[profile.output]]
+   search = ["m=0x4143" ]
+   enable = false
+
+   [[profile.output]]
+   search = ["m=LG PROJECTOR", "s=0x01010101"]
+   enable = true
