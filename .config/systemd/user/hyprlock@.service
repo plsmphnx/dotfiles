@@ -1,9 +1,0 @@
-[Unit]
-Conflicts=lock.service
-
-[Service]
-Type=oneshot
-Environment=WAYLAND_DISPLAY=wayland-%i
-ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
-ExecStart=hyprlock
-ExecStartPost=sudo chvt 3

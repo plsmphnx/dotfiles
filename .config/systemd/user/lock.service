@@ -1,12 +1,12 @@
 [Unit]
 Before=lock.target
+Wants=hyprlock.service
+After=hyprlock.service
 
 [Service]
 Type=oneshot
 ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
-ExecCondition=sh -c '! pgrep hyprlock'
-ExecStartPre=sudo chvt 1
-ExecStart=-sleep 5
+ExecStart=sudo chvt 1
 
 [Install]
 WantedBy=lock.target
