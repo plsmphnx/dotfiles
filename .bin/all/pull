@@ -2,8 +2,7 @@
 MODE="$1"
 FILE="$2"
 shift 2
-if [ -d "$FILE" ]
-then
+if [ -d "$FILE" ]; then
     SRC="$FILE"
 else
     SRC="server:$FILE"

@@ -12,7 +12,7 @@ case $1 in
         aptitude search "(!~poptional !~pextra !~i | (~poptional | ~pextra) ~i) !~slibs !~v $FILTER"
         ;;
     circular)
-        check packages all | sed -nr 's/^i .? ([^ ]+).*$/\1/p' | while read pkg; do
+        check packages all | sed -En 's/^i .? ([^ ]+).*$/\1/p' | while read pkg; do
             rdepends --installed --recurse $pkg | grep -q " $pkg$" && echo $pkg
         done
         ;;

@@ -1,1 +1,1 @@
-case $(tty) in *tty*) vlock;; esac
+tty | grep -q tty && vlock
