@@ -1,5 +1,0 @@
-#!/bin/sh
-nix run --no-write-lock-file github:plsmphnx/hyprmks \
-    ~/.config/hypr/hyprland/desk.conf > ~/.local/share/hypr/mks.conf
-hyprctl reload
-shikanectl reload
