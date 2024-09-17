@@ -71,3 +71,35 @@ name = "blade-wall"
     [[profile.output]]
     search = ["m=LG PROJECTOR", "s=0x01010101"]
     enable = true
+
+[[profile]]
+name = "deck"
+
+    [[profile.output]]
+    search = ["m=ANX7530 U", "s=0x00000001"]
+    enable = true
+    scale = 2.0
+    transform = "270"
+
+[[profile]]
+name = "deck-ms"
+
+    [[profile.output]]
+    search = ["m=ANX7530 U", "s=0x00000001"]
+    enable = true
+    scale = 2.0
+    position = "0,1050"
+    transform = "270"
+
+    [[profile.output]]
+    search = ["m=DELL U2719D", "s=8QCLRS2"]
+    enable = true
+    scale = 1.25
+    position = "640,298"
+
+    [[profile.output]]
+    search = ["m=DELL U2719D", "s=6SCLRS2"]
+    enable = true
+    scale = 1.25
+    position = "2688,0"
+    transform = "90"
