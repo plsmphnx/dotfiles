@@ -1,5 +1,5 @@
 [Context]
-filesystems=!~/.steam;!xdg-config/kdeglobals;!xdg-run/app/com.discordapp.Discord;!~/.var/app/com.valvesoftware.Steam;!xdg-data/Steam;~/Games:create
+filesystems=!xdg-config/kdeglobals;!xdg-run/app/com.discordapp.Discord;~/Games:create
 
 [Session Bus Policy]
 com.canonical.AppMenu.Registrar=none
