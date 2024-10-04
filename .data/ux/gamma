@@ -1,0 +1,2 @@
+#!/bin/sh
+busctl --user set-property rs.wl-gammarelay /outputs/DP_9 rs.wl.gammarelay Gamma d 1.25

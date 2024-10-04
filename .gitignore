@@ -1,4 +1,7 @@
 .build/ags/types
+.config/gtk-3.0/bookmarks
 .config/Kvantum/Fluent-grey
+.config/lite-xl/*
+!.config/lite-xl/init.lua
 .config/systemd/**/*.wants
 .config/zsh/.zcompdump
