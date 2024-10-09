@@ -17,6 +17,8 @@ checkout = git clone 'https://github.com/microsoft/onnxruntime'
 checkout = git clone 'https://github.com/rhasspy/piper'
 [clone/ai/piper-phonemize]
 checkout = git clone 'https://github.com/rhasspy/piper-phonemize'
+[clone/ai/stable-diffusion-cpp]
+checkout = git clone 'https://github.com/leejet/stable-diffusion.cpp' stable-diffusion-cpp
 
 [clone/core/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
@@ -60,6 +62,8 @@ checkout = git clone 'https://github.com/beyond-all-reason/Beyond-All-Reason' be
 checkout = git clone 'https://github.com/a327ex/BYTEPATH' bytepath
 [clone/game/citadel]
 checkout = git clone 'https://github.com/davewx7/citadel'
+[clone/game/duelyst]
+checkout = git clone 'https://github.com/open-duelyst/duelyst'
 [clone/game/endless-sky/endless-sky]
 checkout = git clone 'https://github.com/endless-sky/endless-sky'
 [clone/game/endless-sky/endless-sky-editor]
