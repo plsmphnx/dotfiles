@@ -1,0 +1,6 @@
+[Service]
+Type=dbus
+BusName=rs.wl-gammarelay
+ExecSearchPath=/run/current-system/sw/bin:%D/ux
+ExecStart=wl-gammarelay-rs
+ExecStartPost=gamma
