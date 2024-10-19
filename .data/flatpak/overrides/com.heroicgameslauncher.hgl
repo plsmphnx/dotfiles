@@ -1,5 +1,5 @@
 [Context]
 shared=ipc
 sockets=x11
-filesystems=!xdg-run/app/com.discordapp.Discord;!xdg-desktop;!xdg-documents;!/media;!/run/media;!/mnt;~/Games:create
+filesystems=!xdg-desktop;!xdg-documents;!xdg-run/app/com.discordapp.Discord;~/Games:create
 unset-environment=SDL_VIDEODRIVER
