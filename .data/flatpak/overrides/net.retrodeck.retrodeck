@@ -1,4 +1,6 @@
 [Context]
+shared=ipc
+sockets=x11
 filesystems=!xdg-config/kdeglobals;!xdg-run/app/com.discordapp.Discord;~/Games:create
 
 [Session Bus Policy]
