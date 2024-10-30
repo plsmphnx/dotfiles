@@ -88,18 +88,68 @@ name = "deck-ms"
     search = ["m=ANX7530 U", "s=0x00000001"]
     enable = true
     scale = 2.0
-    position = "0,1050"
+    position = "704,1450"
     transform = "270"
 
     [[profile.output]]
     search = ["m=DELL U2719D", "s=8QCLRS2"]
     enable = true
     scale = 1.25
-    position = "640,298"
+    position = "0,298"
 
     [[profile.output]]
     search = ["m=DELL U2719D", "s=6SCLRS2"]
     enable = true
     scale = 1.25
-    position = "2688,0"
+    position = "2048,0"
     transform = "90"
+
+[[profile]]
+name = "deck-ms-remote"
+
+    [[profile.output]]
+    search = ["m=ANX7530 U", "s=0x00000001"]
+    enable = true
+    scale = 2.0
+    position = "1971,1450"
+    transform = "270"
+
+    [[profile.output]]
+    search = ["m=DELL U2719D", "s=8QCLRS2"]
+    enable = true
+    scale = 1.25
+    position = "1267,298"
+
+    [[profile.output]]
+    search = ["m=DELL U2719D", "s=6SCLRS2"]
+    enable = true
+    scale = 1.25
+    position = "3315,0"
+    transform = "90"
+
+    [[profile.output]]
+    search = ["n=clecompt-dev"]
+    enable = true
+    scale = 2.0
+    position = "0,618"
+
+[[profile]]
+name = "deck-ms-remote-lock"
+
+    [[profile.output]]
+    search = ["m=ANX7530 U", "s=0x00000001"]
+    enable = false
+
+    [[profile.output]]
+    search = ["m=DELL U2719D", "s=8QCLRS2"]
+    enable = false
+
+    [[profile.output]]
+    search = ["m=DELL U2719D", "s=6SCLRS2"]
+    enable = false
+
+    [[profile.output]]
+    search = ["n=clecompt-dev"]
+    enable = true
+    scale = 2.0
+
