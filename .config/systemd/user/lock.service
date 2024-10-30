@@ -1,13 +1,11 @@
 [Unit]
-BindsTo=lock.target
+UpheldBy=lock.target
 Before=lock.target
 OnSuccess=unlock.target
 
 [Service]
-EnvironmentFile=%t/lock.env
-ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
+ExecSearchPath=/run/current-system/sw/bin
 ExecStart=hyprlock
-ExecStartPost=sudo chvt 1
 KillSignal=SIGUSR1
 Restart=on-failure
 RestartSec=0

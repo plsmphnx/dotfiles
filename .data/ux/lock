@@ -1,3 +1,0 @@
-#!/bin/sh
-echo WAYLAND_DISPLAY=$WAYLAND_DISPLAY > $XDG_RUNTIME_DIR/lock.env
-exec systemctl --user start lock
