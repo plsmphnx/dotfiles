@@ -30,8 +30,6 @@ checkout = git clone 'git://git.musl-libc.org/musl'
 checkout = git clone 'https://github.com/antirez/rax'
 [clone/core/sds]
 checkout = git clone 'https://github.com/antirez/sds'
-[clone/core/sel4]
-checkout = git clone 'https://github.com/seL4/seL4' sel4
 [clone/core/stb]
 checkout = git clone 'https://github.com/nothings/stb'
 [clone/core/toybox]
@@ -111,17 +109,6 @@ update = git -c 'http.sslVerify=false' pull
 [clone/language/zig]
 checkout = git clone 'https://github.com/ziglang/zig'
 
-[clone/sandbox/bubblewrap]
-checkout = git clone 'https://github.com/containers/bubblewrap'
-[clone/sandbox/composefs]
-checkout = git clone 'https://github.com/containers/composefs'
-[clone/sandbox/crun]
-checkout = git clone 'https://github.com/containers/crun'
-[clone/sandbox/flatpak]
-checkout = git clone 'https://github.com/flatpak/flatpak'
-[clone/sandbox/ostree]
-checkout = git clone 'https://github.com/ostreedev/ostree'
-
 [clone/renderer/cycles]
 checkout = git clone 'https://projects.blender.org/blender/cycles'
 [clone/renderer/filament]
@@ -139,6 +126,26 @@ checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage' open-sh
 checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
 [clone/rpg/fate-srd-content]
 checkout = git clone 'https://github.com/amazingrando/fate-srd-content'
+
+[clone/sandbox/bubblewrap]
+checkout = git clone 'https://github.com/containers/bubblewrap'
+[clone/sandbox/composefs]
+checkout = git clone 'https://github.com/containers/composefs'
+[clone/sandbox/crun]
+checkout = git clone 'https://github.com/containers/crun'
+[clone/sandbox/flatpak]
+checkout = git clone 'https://github.com/flatpak/flatpak'
+[clone/sandbox/ostree]
+checkout = git clone 'https://github.com/ostreedev/ostree'
+
+[clone/security/monocypher]
+checkout = git clone 'https://github.com/LoupVaillant/Monocypher' monocypher
+[clone/security/sel4]
+checkout = git clone 'https://github.com/seL4/seL4' sel4
+[clone/security/simplex-chat]
+checkout = git clone 'https://github.com/simplex-chat/simplex-chat'
+[clone/security/simplexmq]
+checkout = git clone 'https://github.com/simplex-chat/simplexmq'
 
 [clone/text/asciidoctor]
 checkout = git clone 'https://github.com/asciidoctor/asciidoctor'

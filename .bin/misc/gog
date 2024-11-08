@@ -1,0 +1,13 @@
+#!/bin/sh
+ARGS="--platform w --no-subdirectories --game ^($(find -type d | tr -d '\n' | sed 's_\.\./__;s_\./_|_g'))$ --include i --size-only"
+case $1 in
+  pull)
+    lgogdownloader $ARGS --download
+    ;;
+  clean)
+    lgogdownloader $ARGS --check-orphans --delete-orphans
+    ;;
+  check)
+    lgogdownloader $ARGS --status | grep -v ^OK
+    ;;
+esac
