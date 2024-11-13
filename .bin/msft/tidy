@@ -1,5 +1,5 @@
 #!/bin/sh
-go work sync
+find -name go.sum -exec rm {} \;
 find -name go.mod | while IFS= read -r f; do (
   cd "$(dirname "$f")"
   go mod tidy
