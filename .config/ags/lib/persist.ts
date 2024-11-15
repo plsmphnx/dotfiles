@@ -1,8 +1,8 @@
-import type { Widget } from 'widgets/widget';
+import { bind, Variable } from 'astal';
 
-export default <T extends Widget<any>>(create: () => T) => {
+export default <T extends Widget>(create: () => T) => {
     const widget = Variable<T>(undefined as any);
-    const build = () => (widget.value = create().on('destroy', build));
+    const build = () => widget.set(create().on('destroy', build));
     build();
-    return widget.bind();
+    return bind(widget);
 };

@@ -1,4 +1,4 @@
-import type { Binding } from 'astal';
+import { type Binding } from 'astal';
 import { Variable } from 'astal';
 
 export default (reset?: Binding<boolean>) => {

@@ -1,5 +1,5 @@
 import Astal from 'gi://Astal';
-import type { Binding } from 'astal';
+import { type Binding } from 'astal';
 import { Widget } from 'astal/gtk3';
 
 import Persist from './persist.js';
@@ -16,11 +16,7 @@ export default ({ name, reveal, monitor, close }: Props) => {
         const closer = new Widget.Window({
             name: `${name}-closer`,
             monitor,
-            anchor:
-                Astal.WindowAnchor.TOP |
-                Astal.WindowAnchor.BOTTOM |
-                Astal.WindowAnchor.LEFT |
-                Astal.WindowAnchor.RIGHT,
+            anchor: TOP | RIGHT | LEFT | BOTTOM,
             keymode: Astal.Keymode.NONE,
             child: new Widget.EventBox({
                 hexpand: true,

@@ -1,15 +1,15 @@
-import type { Binding } from 'service';
-import type { ButtonProps } from 'widgets/button';
+import { type Binding } from 'astal';
+import { Widget } from 'astal/gtk3';
 
-export interface Props extends ButtonProps {
-    reveal?: Binding<any, any, boolean>;
+export interface Props extends Widget.ButtonProps {
+    reveal?: Binding<boolean>;
 }
 
 export default ({ reveal, ...rest }: Props) => {
-    const button = Widget.Button(rest);
+    const button = new Widget.Button(rest);
     return reveal
-        ? Widget.Revealer({
-              transition: 'slide_left',
+        ? new Widget.Revealer({
+              transition_type: SLIDE_LEFT,
               transition_duration: 500,
               child: button,
               reveal_child: reveal,
