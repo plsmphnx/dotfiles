@@ -1,4 +1,8 @@
+import { bind, Variable } from 'astal';
+import { Widget } from 'astal/gtk3';
+
 import Toggle from '../lib/toggle.js';
+import { Calendar } from '../lib/widgets.js';
 
 function time() {
     return new Date().toLocaleString(undefined, {
@@ -7,21 +11,22 @@ function time() {
     });
 }
 
-const date = Variable('', { poll: [1000, time] });
+const date = Variable('');
+setInterval(() => date.set(time()), 1000);
 
 export default Toggle({
     name: 'clock',
-    class_name: 'target',
-    status: () => Widget.Label({ label: date.bind() }),
+    className: 'target',
+    status: () => new Widget.Label({ label: bind(date) }),
     dropdown: reveal => {
-        const child = Widget.Calendar();
-        Utils.merge([reveal.bind()], r => {
+        const child = new Calendar();
+        bind(reveal).subscribe(r => {
             if (r) {
                 const now = new Date();
                 child.select_day(now.getDate());
                 child.select_month(now.getMonth(), now.getFullYear());
             }
         });
-        return Widget.Box({ class_name: 'calendar', child });
+        return new Widget.Box({ className: 'calendar', child });
     },
 }).Button;

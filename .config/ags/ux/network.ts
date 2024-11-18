@@ -1,12 +1,14 @@
-import Icons from '../lib/icons.js';
+import { execAsync } from 'astal';
+import { Widget } from 'astal/gtk3';
 
-const network = await Service.import('network');
+import Icons from '../lib/icons.js';
+import { network } from '../lib/services.js';
 
 export default () =>
-    Widget.Button({
-        on_primary_click: () => Utils.execAsync('iwgtk'),
-        on_secondary_click: () => Utils.execAsync('nm-connection-editor'),
-        child: Widget.Label().hook(network, self => {
+    new Widget.Button({
+        on_primary_click: () => execAsync('iwgtk'),
+        on_secondary_click: () => execAsync('nm-connection-editor'),
+        child: new Widget.Label().hook(network, self => {
             switch (network.primary) {
                 case 'wifi':
                     if (network.wifi.enabled) {

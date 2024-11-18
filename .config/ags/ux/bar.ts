@@ -1,3 +1,6 @@
+import { bind } from 'astal';
+import { Astal, Widget } from 'astal/gtk3';
+
 import Audio from './audio.js';
 import Bluetooth from './bluetooth.js';
 import Clock from './clock.js';
@@ -10,14 +13,14 @@ import Tray from './tray.js';
 import Workspaces from './workspaces.js';
 
 import Icons from '../lib/icons.js';
+import { hyprland } from '../lib/services.js';
 
-const hyprland = await Service.import('hyprland');
-const monitors = hyprland.bind('monitors');
+const monitors = bind(hyprland, 'monitors');
 
 const status = () =>
-    Widget.Box(
-        { class_name: 'status' },
-        Widget.Label({ class_name: 'hidden', label: Icons.Space }),
+    new Widget.Box(
+        { className: 'status' },
+        new Widget.Label({ className: 'hidden', label: Icons.Space }),
         Notifications(),
         Tray(),
         Mpris(),
@@ -27,22 +30,25 @@ const status = () =>
     );
 
 const left = (monitor: string) =>
-    Widget.Box({ hpack: 'start' }, Workspaces(monitor));
+    new Widget.Box({ hpack: 'start' }, Workspaces(monitor));
 
 const center = (monitor: string) =>
-    Widget.Box({ hpack: 'center' }, Title(monitor));
+    new Widget.Box({ hpack: 'center' }, Title(monitor));
 
 const right = (monitor: string) =>
-    Widget.Box({ hpack: 'end' }, status(), Clock(), Power());
+    new Widget.Box({ hpack: 'end' }, status(), Clock(), Power());
 
 const bar = (monitor: string) =>
-    Widget.Window({
+    new Widget.Window({
         name: `bar-${monitor}`,
         monitor: monitors.as(ms => ms.findIndex(m => monitor === m.name)),
-        anchor: ['top', 'left', 'right'],
-        exclusivity: 'exclusive',
-        child: Widget.CenterBox({
-            class_name: 'bar',
+        anchor:
+            Astal.WindowAnchor.TOP |
+            Astal.WindowAnchor.RIGHT |
+            Astal.WindowAnchor.LEFT,
+        exclusivity: Astal.Exclusivity.EXCLUSIVE,
+        child: new Widget.CenterBox({
+            className: 'bar',
             start_widget: left(monitor),
             center_widget: center(monitor),
             end_widget: right(monitor),

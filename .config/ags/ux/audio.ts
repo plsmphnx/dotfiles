@@ -1,19 +1,18 @@
-import type { Binding } from 'service';
-import type { Stream } from 'service/audio';
+import { bind, type Binding, execAsync } from 'astal';
+import { Widget } from 'astal/gtk3';
 
 import Icons from '../lib/icons.js';
+import { wp, Wp } from '../lib/services.js'
 import Status from '../lib/status.js';
-
-const audio = await Service.import('audio');
 
 const status = (
     icons: { Off: string; On: (volume: number) => string },
-    stream: Stream,
-    clients?: Binding<any, any, Stream[]>,
+    stream: Wp.Endpoint,
+    clients?: Binding<Wp.Endpoint[]>,
 ) =>
     Status({
-        on_clicked: () => Utils.execAsync('pavucontrol'),
-        child: Widget.Label().hook(stream, self => {
+        on_clicked: () => execAsync('pavucontrol'),
+        child: new Widget.Label().hook(stream, self => {
             self.label =
                 stream.stream?.is_muted || stream.volume === 0
                     ? icons.Off
@@ -23,6 +22,10 @@ const status = (
     });
 
 export default () => [
-    status(Icons.Speaker, audio.speaker),
-    status(Icons.Microphone, audio.microphone, audio.bind('recorders')),
+    status(Icons.Speaker, wp.audio.default_speaker),
+    status(
+        Icons.Microphone,
+        wp.audio.default_microphone,
+        bind(wp.audio, 'recorders'),
+    ),
 ];

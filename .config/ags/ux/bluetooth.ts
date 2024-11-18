@@ -1,19 +1,24 @@
-import Icons from '../lib/icons.js';
+import { bind, execAsync, Variable } from 'astal';
+import { Widget } from 'astal/gtk3';
 
-const bluetooth = await Service.import('bluetooth');
-const enabled = bluetooth.bind('enabled');
-const connected = bluetooth.bind('connected_devices');
+import Icons from '../lib/icons.js';
+import { bluetooth } from '../lib/services.js';
+
+const powered = bind(bluetooth, 'is_powered');
+const connected = bind(bluetooth, 'is_connected');
 
 export default () =>
-    Widget.Button({
-        on_clicked: () => Utils.execAsync('blueberry'),
-        child: Widget.Label({
-            label: Utils.merge([enabled, connected], (e, c) =>
-                e
-                    ? c.length > 0
-                        ? Icons.Bluetooth.Connected
-                        : Icons.Bluetooth.On
-                    : Icons.Bluetooth.Off,
+    new Widget.Button({
+        on_clicked: () => execAsync('blueberry'),
+        child: new Widget.Label({
+            label: bind(
+                Variable.derive([powered, connected], (p, c) =>
+                    p
+                        ? c
+                            ? Icons.Bluetooth.Connected
+                            : Icons.Bluetooth.On
+                        : Icons.Bluetooth.Off,
+                ),
             ),
         }),
     });

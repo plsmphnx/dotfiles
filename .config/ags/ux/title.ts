@@ -1,23 +1,24 @@
-import Icons from '../lib/icons.js';
+import { bind, execAsync, Variable } from 'astal';
+import { Widget } from 'astal/gtk3';
 
-const hyprland = await Service.import('hyprland');
+import { hyprland } from '../lib/services';
 
-const activeClientMonitor = Utils.merge(
-    [hyprland.active.client.bind('address'), hyprland.bind('clients')],
-    (address, clients) =>
-        hyprland.getMonitor(
-            clients.find(c => c.address === address)?.monitor ?? -1,
-        )?.name,
+const focusedClientMonitor = bind(
+    Variable.derive(
+        [bind(hyprland.focused_client, 'address'), bind(hyprland, 'clients')],
+        (address, clients) =>
+            clients.find(c => c.address === address)?.monitor?.name,
+    ),
 );
 
 export default (monitor: string) =>
-    Widget.Button({
-        class_name: 'target',
-        on_primary_click: () => Utils.execAsync('hyprnome -me'),
-        on_secondary_click: () => hyprland.messageAsync('dispatch killactive'),
-        visible: activeClientMonitor.as(m => m === monitor),
-        child: Widget.Label({
-            label: hyprland.active.client.bind('title'),
-            truncate: 'end',
+    new Widget.Button({
+        className: 'target',
+        on_primary_click: () => execAsync('hyprnome -me'),
+        on_secondary_click: () => hyprland.message_async('dispatch killactive'),
+        visible: focusedClientMonitor.as(m => m === monitor),
+        child: new Widget.Label({
+            label: bind(hyprland.focused_client, 'title'),
+            truncate: true,
         }),
     });

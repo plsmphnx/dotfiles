@@ -1,5 +1,4 @@
-import type Gtk from 'gi://Gtk';
-import { Widget } from 'astal/gtk3';
+import { Gtk, Widget } from 'astal/gtk3';
 
 export function scrollIntoView(this: Widget.Scrollable, widget: Gtk.Widget) {
     const m = this.get_style_context().get_margin(this.get_state_flags());

@@ -1,14 +1,17 @@
-const systemtray = await Service.import('systemtray');
+import { bind } from 'astal';
+import { Widget } from 'astal/gtk3';
+
+import { tray } from '../lib/services';
 
 export default () =>
-    Widget.Box({
-        children: systemtray.bind('items').as(items =>
+    new Widget.Box({
+        children: bind(tray, 'items').as(items =>
             items.map(item =>
-                Widget.Button({
-                    child: Widget.Icon({ icon: item.bind('icon') }),
+                new Widget.Button({
+                    child: new Widget.Icon({ icon: bind(item, 'icon_name') }),
                     on_primary_click: (_, event) => item.activate(event),
                     on_secondary_click: (_, event) => item.openMenu(event),
-                    tooltip_markup: item.bind('tooltip_markup'),
+                    tooltip_markup: bind(item, 'tooltip_markup'),
                 }),
             ),
         ),
