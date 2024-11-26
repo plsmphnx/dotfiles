@@ -1,13 +1,27 @@
 #!/bin/sh
-ARGS="--platform w --no-subdirectories --game ^($(find -type d | tr -d '\n' | sed 's_\.\./__;s_\./_|_g'))$ --include i --size-only"
+GAME=${2:-$(find -type d | tr -d '\n' | sed 's_\.\./__;s_\./_|_g')}
+gog() {
+    lgogdownloader \
+        --platform w \
+        --no-subdirectories \
+        --game "^($GAME)$" \
+        --include i \
+        "$@"
+}
 case $1 in
   pull)
-    lgogdownloader $ARGS --download
+    gog --download
     ;;
   clean)
-    lgogdownloader $ARGS --check-orphans --delete-orphans
+    gog --check-orphans --delete-orphans
     ;;
   check)
-    lgogdownloader $ARGS --status | grep -v ^OK
+    gog --status --size-only | grep -v ^OK
+    ;;
+  verify)
+    gog --status | grep -v ^OK
+    ;;
+  repair)
+    gog --repair --download
     ;;
 esac
