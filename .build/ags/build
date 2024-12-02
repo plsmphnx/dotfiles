@@ -1,7 +1,0 @@
-#!/bin/sh
-ags -q
-ln -sf $(dirname $(realpath $(which ags)))/../share/com.github.Aylur.ags/types
-rm -rf ~/.config/ags
-nix run nixpkgs#nodePackages.prettier -- -w '**/*.ts'
-nix run nixpkgs#typescript -- --outDir ~/.config/ags
-nix run nixpkgs#lessc style.less > ~/.config/ags/style.css
