@@ -1,13 +1,6 @@
-[Unit]
-After=unlock.target
-Conflicts=lock.target
-
 [Service]
 Type=dbus
 BusName=rs.wl-gammarelay
 ExecSearchPath=/run/current-system/sw/bin:%D/ux
 ExecStart=wl-gammarelay-rs
 ExecStartPost=gamma
-
-[Install]
-WantedBy=unlock.target
