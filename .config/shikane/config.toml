@@ -86,7 +86,7 @@ name = "deck-ms"
 
     [[profile.output]]
     search = ["m=ANX7530 U", "s=0x00000001"]
-    enable = true
+    enable = false
     scale = 2.0
     position = "704,1450"
     transform = "270"
@@ -126,7 +126,7 @@ name = "deck-ms-remote"
 
     [[profile.output]]
     search = ["m=ANX7530 U", "s=0x00000001"]
-    enable = true
+    enable = false
     scale = 2.0
     position = "1971,1450"
     transform = "270"
