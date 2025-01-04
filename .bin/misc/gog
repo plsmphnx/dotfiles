@@ -10,7 +10,7 @@ gog() {
 }
 case $1 in
   pull)
-    gog --download
+    gog --download --size-only
     ;;
   clean)
     gog --check-orphans --delete-orphans
@@ -22,6 +22,6 @@ case $1 in
     gog --status | grep -v ^OK
     ;;
   repair)
-    gog --repair --download
+    gog --download --repair
     ;;
 esac
