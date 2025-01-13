@@ -1,0 +1,13 @@
+#!/bin/sh
+systemctl --user import-environment \
+    DISPLAY \
+    WAYLAND_DISPLAY \
+    HYPRLAND_CMD \
+    HYPRLAND_INSTANCE_SIGNATURE \
+    XDG_CURRENT_DESKTOP
+
+loginctl lock-session
+
+shell &
+shikane &
+pcmanfm -d &
