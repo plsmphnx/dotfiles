@@ -1,3 +1,0 @@
-#!/bin/sh
-hyprmks ~/.config/hypr/hyprland.conf > ~/.local/share/hypr/mks.conf
-shikanectl reload
