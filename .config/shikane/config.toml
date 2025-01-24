@@ -145,7 +145,7 @@ name = "deck-ms-remote"
     transform = "90"
 
     [[profile.output]]
-    search = ["n=clecompt-dev"]
+    search = ["n=clecompt-surface"]
     enable = true
     scale = 2.0
     position = "0,618"
@@ -166,7 +166,7 @@ name = "deck-ms-remote-lock"
     enable = false
 
     [[profile.output]]
-    search = ["n=clecompt-dev"]
+    search = ["n=clecompt-surface"]
     enable = true
     scale = 2.0
 
