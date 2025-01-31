@@ -1,5 +1,5 @@
 [Service]
-ExecSearchPath=/run/current-system/sw/bin:%h/.nix-profile/bin
+ExecSearchPath=/run/current-system/sw/bin
 ExecStartPre=hyprctl output create headless %i
-ExecStart=wayvnc -o %i
+ExecStart=wayvnc -g -f 60 -o %i
 ExecStopPost=hyprctl output remove %i
