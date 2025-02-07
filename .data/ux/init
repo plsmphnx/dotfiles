@@ -10,4 +10,5 @@ loginctl lock-session
 
 shell &
 shikane &
+hypridle &
 pcmanfm -d &
