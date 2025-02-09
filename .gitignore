@@ -3,5 +3,7 @@
 .config/Kvantum/Fluent-grey
 .config/lite-xl/*
 !.config/lite-xl/init.lua
+.config/systemd/**/*.requires
+.config/systemd/**/*.upholds
 .config/systemd/**/*.wants
 .config/zsh/.zcompdump
