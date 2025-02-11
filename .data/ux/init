@@ -9,6 +9,5 @@ systemctl --user import-environment \
 loginctl lock-session
 
 shell &
-shikane &
 hypridle &
 pcmanfm -d &
