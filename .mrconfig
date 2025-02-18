@@ -6,6 +6,9 @@ git_gc =
     git gc "$@"
 git_prune =
     git remote prune origin
+git_clean =
+    git reset origin --hard
+    git clean -xdf
 
 [clone/ai/ggml]
 checkout = git clone 'https://github.com/ggerganov/ggml'
@@ -108,6 +111,21 @@ checkout = git -c 'http.sslVerify=false' clone 'https://cm-gitlab.stanford.edu/b
 update = git -c 'http.sslVerify=false' pull
 [clone/language/zig]
 checkout = git clone 'https://github.com/ziglang/zig'
+
+[clone/personal/dotfiles]
+checkout = git clone 'https://github.com/plsmphnx/dotfiles'
+[clone/personal/exec-util]
+checkout = git clone 'https://github.com/plsmphnx/exec-util'
+[clone/personal/hyprjump]
+checkout = git clone 'https://github.com/plsmphnx/hyprjump'
+[clone/personal/hyprmks]
+checkout = git clone 'https://github.com/plsmphnx/hyprmks'
+[clone/personal/nixcfg]
+checkout = git clone 'https://github.com/plsmphnx/nixcfg'
+[clone/personal/redact-pdf]
+checkout = git clone 'https://github.com/plsmphnx/redact-pdf'
+[clone/personal/shell]
+checkout = git clone 'https://github.com/plsmphnx/shell'
 
 [clone/renderer/cycles]
 checkout = git clone 'https://projects.blender.org/blender/cycles'
