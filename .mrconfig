@@ -6,9 +6,6 @@ git_gc =
     git gc "$@"
 git_prune =
     git remote prune origin
-git_clean =
-    git reset origin --hard
-    git clean -xdf
 
 [clone/ai/ggml]
 checkout = git clone 'https://github.com/ggerganov/ggml'
