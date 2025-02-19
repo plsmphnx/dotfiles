@@ -32,8 +32,10 @@ checkout = git clone 'https://github.com/antirez/rax'
 checkout = git clone 'https://github.com/antirez/sds'
 [clone/core/stb]
 checkout = git clone 'https://github.com/nothings/stb'
+[clone/core/tinycc]
+checkout = git clone 'git://repo.or.cz/tinycc'
 [clone/core/toybox]
-checkout = git clone 'https://github.com/landley/toybox'
+checkout = git clone 'https://landley.net/toybox/git' toybox
 
 [clone/engine/cairo]
 checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo.git'
