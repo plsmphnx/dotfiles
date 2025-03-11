@@ -1,0 +1,6 @@
+#!/bin/sh
+sleep 1
+hyprctl dispatch dpms off
+sleep 30
+hyprctl dispatch dpms on
+sleep 1
