@@ -1,7 +1,7 @@
 blueberry               f00af
 iwgtk                   f05a9
 nm-connection-editor    f0c9d
-pavucontrol             0f028
+pwvucontrol             0f028
 
 foot                    0f489
 imv                     0f03e
