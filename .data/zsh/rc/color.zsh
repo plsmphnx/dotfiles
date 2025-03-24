@@ -5,4 +5,4 @@ alias ls="ls --color -C"
 [[ -s "/usr/share/grc/grc.zsh" ]] && source /usr/share/grc/grc.zsh
 
 man() { command man "$@" | bat -pl man ;}
-help() { "$1" --help | bat -pl help ;}
+help() { "$@" --help | bat -pl help ;}
