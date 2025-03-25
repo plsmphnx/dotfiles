@@ -1,0 +1,17 @@
+#!/bin/sh
+find -name go.mod | while IFS= read -r f; do (
+  cd "$(dirname "$f")"
+  case "$1" in
+    tidy)
+      rm go.sum
+      go mod tidy
+      ;;
+    update)
+      rm go.sum
+      go get -u
+      ;;
+    modernize)
+      go run golang.org/x/tools/gopls/internal/analysis/modernize/cmd/modernize@latest -${2:-test} ./...
+      ;;
+  esac
+); done

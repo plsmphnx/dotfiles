@@ -1,6 +1,0 @@
-#!/bin/sh
-find -name go.sum -exec rm {} \;
-find -name go.mod | while IFS= read -r f; do (
-  cd "$(dirname "$f")"
-  go mod tidy
-); done
