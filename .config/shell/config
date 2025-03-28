@@ -1,0 +1,49 @@
+[style]
+font  = Noto Sans Mono
+round = 4
+
+[border]
+size  = 2
+image = border.svg; highlight.svg
+slice = 9
+
+[icons]
+blueberry               = f00af
+iwgtk                   = f05a9
+nm-connection-editor    = f0c9d
+pwvucontrol             = 0f028
+
+foot                    = 0f489
+imv                     = 0f03e
+l3afpad                 = f09ee
+lite-xl                 = f0169
+luakit                  = f059f
+mpv                     = f0567
+pcmanfm                 = f0770
+qalc                    = f00ec
+zathura                 = f0219
+
+blender                 = f00ab
+chrome                  = 0e743
+code                    = f0a1e
+discord                 = f066f
+firefox                 = f0239
+gimp                    = f11e3
+heroic                  = f18be
+mcpelauncher            = f0373
+pithos                  = f03db
+qemu                    = f0379
+steam                   = 0f1b6
+
+libreoffice-calc        = 0f378
+libreoffice-draw        = 0f379
+libreoffice-impress     = 0f37a
+libreoffice-math        = 0f37b
+libreoffice-writer      = 0f37c
+
+teams.microsoft.com     = f02bb
+outlook.office.com      = f0d22
+word.office.com         = f1392
+excel.office.com        = f138f
+dataexplorer.azure.com  = f0805
+microsoft-edge          = f01e9
