@@ -5,7 +5,7 @@ round = 4
 [border]
 size  = 2
 image = border.svg; highlight.svg
-slice = 9
+slice = 8
 
 [icons]
 blueberry               = f00af
