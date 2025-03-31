@@ -1,11 +1,13 @@
 [style]
-font  = Noto Sans Mono
-round = 4
+border-image = border.svg; highlight.svg
+border-slice = 8
+gap          = 2
 
-[border]
-size  = 2
-image = border.svg; highlight.svg
-slice = 8
+[utils]
+speaker    = pwvucontrol
+microphone = pwvucontrol
+bluetooth  = blueberry
+network    = iwgtk; nm-connection-editor
 
 [icons]
 blueberry               = f00af
