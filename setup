@@ -25,6 +25,10 @@ setup_data() (setup_dir $XDG_DATA_HOME
     link_data tmux "theme.conf"
 )
 
+setup_dconf() (
+    dconf load / < $SCRIPT/.build/dconf/user.txt
+)
+
 setup_ssh() (setup_dir .ssh
     ln -sf $SCRIPT/.ssh/config
 )
@@ -46,6 +50,9 @@ case $1 in
         ;;
     data)
         setup_data
+        ;;
+    dconf)
+        setup_dconf
         ;;
     ssh)
         setup_ssh

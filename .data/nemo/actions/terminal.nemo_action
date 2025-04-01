@@ -1,0 +1,7 @@
+[Nemo Action]
+Name=Open in Terminal
+Comment=Open this folder in a terminal window
+Exec=foot -D %F
+Selection=none
+Extensions=dir
+Dependencies=foot

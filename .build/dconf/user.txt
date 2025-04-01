@@ -8,3 +8,23 @@ font-antialiasing='rgba'
 font-name='Noto Sans Mono'
 gtk-theme='Fluent-round-grey-Dark-compact'
 icon-theme='Fluent-grey-dark'
+
+[org/nemo/icon-view]
+default-zoom-level='small'
+
+[org/nemo/preferences]
+close-device-view-on-device-eject=true
+confirm-move-to-trash=true
+ignore-view-metadata=true
+quick-renames-with-pause-in-between=true
+show-bookmarks-in-to-menus=false
+
+[org/nemo/preferences/menu-config]
+background-menu-open-as-root=false
+background-menu-open-in-terminal=false
+desktop-menu-customize=false
+iconview-menu-organize-by-name=false
+selection-menu-favorite=false
+selection-menu-open-as-root=false
+selection-menu-open-in-terminal=false
+selection-menu-pin=false

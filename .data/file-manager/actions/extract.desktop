@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Action
-Profiles=archive
-Name=Extract
-
-[X-Action-Profile archive]
-MimeTypes=application/zip;application/x-compressed-tar;application/x-7z-compressed
-Exec=ouch d %f
