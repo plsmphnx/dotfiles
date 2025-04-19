@@ -3,7 +3,8 @@ tray-enabled=false
 
 [org/gnome/desktop/interface]
 color-scheme='prefer-dark'
-cursor-theme='Vimix-white-cursors'
+cursor-size=32
+cursor-theme='vimix-cursors'
 font-antialiasing='rgba'
 font-name='Noto Sans Mono'
 gtk-theme='Fluent-round-grey-Dark-compact'
