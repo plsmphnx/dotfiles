@@ -23,6 +23,10 @@ alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 alias less="less -R"
 
+# convenience aliases
+alias dir="ls -lah"
+alias del="trash put"
+
 # keybinds
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
