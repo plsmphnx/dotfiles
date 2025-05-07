@@ -91,6 +91,8 @@ checkout = git clone 'https://github.com/wesnoth/wesnoth'
 
 [clone/language/icon]
 checkout = git clone 'https://github.com/gtownsend/icon'
+[clone/language/jaq]
+checkout = git clone 'https://github.com/01mf02/jaq'
 [clone/language/jimtcl]
 checkout = git clone 'https://github.com/msteveb/jimtcl'
 [clone/language/koka]
@@ -125,6 +127,8 @@ checkout = git clone 'https://github.com/plsmphnx/nixcfg'
 checkout = git clone 'https://github.com/plsmphnx/redact-pdf'
 [clone/personal/shell]
 checkout = git clone 'https://github.com/plsmphnx/shell'
+[clone/personal/theme]
+checkout = git clone 'https://github.com/plsmphnx/theme'
 
 [clone/renderer/cycles]
 checkout = git clone 'https://projects.blender.org/blender/cycles'
