@@ -7,10 +7,16 @@
   outputs = { nixpkgs, nixos-hardware, clecompt, ... } @ inputs: {
     nixosConfigurations.system-name = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
+      specialArgs = {
+        inherit inputs;
+        user = "clecompt";
+        host = "system-name";
+      };
       modules = [
-        clecompt.nixosModules.core
+        ./hardware-configuration.nix
         nixos-hardware.nixosModules.hardware-module
+        clecompt.nixosModules.core
+        clecompt.nixosModules.login
         ./local.nix
       ];
     };

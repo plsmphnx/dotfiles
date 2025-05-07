@@ -1,0 +1,11 @@
+#!/bin/sh
+case $1 in
+    on)
+        TAB="keyword bindl ,tab,execr,sudo chvt 3"
+        hyprctl --batch "$TAB"
+        ;;
+    off)
+        TAB="keyword unbind ,tab"
+        hyprctl --batch "$TAB"
+        ;;
+esac
