@@ -25,10 +25,15 @@ alias less="less -R"
 
 # safety aliases
 alias rm="rm -i"
+alias sudo="sudo "
 
 # convenience aliases
 alias dir="ls -lah"
 alias del="gio trash"
+
+# user aliases
+alias systemctl="systemctl --user"
+alias flatpak="flatpak --user"
 
 # keybinds
 bindkey "^[[H" beginning-of-line
