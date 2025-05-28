@@ -4,10 +4,8 @@ Before=sleep.target
 
 [Service]
 Type=oneshot
-#RemainAfterExit=true
 ExecSearchPath=/run/wrappers/bin:/run/current-system/sw/bin
 ExecStart=sudo chvt 2
-#ExecStop=sudo chvt 1
 
 [Install]
 WantedBy=sleep.target

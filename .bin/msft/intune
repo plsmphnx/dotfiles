@@ -20,7 +20,7 @@ END
         VAR=/var/lib/microsoft-identity-device-broker
         STATE=.local/state/microsoft-identity-broker
         mkdir -p "$ROOT/var" "$ROOT/home/$STATE"
-        podman rm --force intune
+        podman rm --force --ignore --time 0 intune
         podman run --detach \
             --userns keep-id \
             --user root:root \
@@ -45,7 +45,7 @@ END
             /opt/microsoft/identity-broker/bin/microsoft-identity-broker
         ;;
     stop)
-        podman rm --force intune
+        podman rm --force --ignore --time 0 intune
         ;;
     run)
         podman exec --tty --interactive \

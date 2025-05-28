@@ -1,9 +1,16 @@
 #!/bin/sh
-disabled() {
-    hyprctl monitors all -j | jaq -e '.[] | select(.name == "eDP-1") | .disabled'
-}
-
-if disabled; then
+if $(case $1 in
+    on)
+        true
+        ;;
+    off)
+        false
+        ;;
+    *)
+        hyprctl monitors all -j |\
+            jaq -e '.[] | select(.name == "eDP-1") | .disabled'
+        ;;
+esac); then
     hyprctl reload
 else
     hyprctl keyword monitor eDP-1,disable
