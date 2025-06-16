@@ -20,20 +20,19 @@ setopt appendhistory histignoredups histreduceblanks histverify nosharehistory
 # color aliases
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
-alias ls="ls --color=auto"
 alias less="less -R"
+alias ls="ls --color=auto"
 
 # safety aliases
 alias rm="rm -i"
 alias sudo="sudo "
 
 # convenience aliases
-alias dir="ls -lah"
 alias del="gio trash"
-
-# user aliases
-alias systemctl="systemctl --user"
-alias flatpak="flatpak --user"
+alias dev="nix develop --no-write-lock-file --inputs-from /etc/nixos --command zsh"
+alias dir="ls -lah"
+alias sys="systemctl --system"
+alias usr="systemctl --user"
 
 # keybinds
 bindkey "^[[H" beginning-of-line
