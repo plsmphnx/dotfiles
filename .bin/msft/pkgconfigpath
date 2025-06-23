@@ -1,4 +1,0 @@
-#!/bin/sh
-echo "export PKG_CONFIG_PATH=$(
-    find /nix/store -name '*.pc' | xargs -- dirname | sort -u | paste -sd ":" -
-)"

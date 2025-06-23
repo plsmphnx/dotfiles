@@ -1,2 +1,0 @@
-#!/bin/sh
-dpkg-query -S "$(readlink -f "$(command -v "$1")")"

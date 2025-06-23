@@ -1,7 +1,0 @@
-#!/bin/sh
-TEMP=$(mktemp)
-RD(){ rdepends "$1" | grep '^  ' | sed 's/  //' | sort; }
-RD "$1" > "$TEMP"; shift
-for A in "$@"; do echo "$(RD "$A" | comm -12 "$TEMP" -)" > "$TEMP"; done
-cat "$TEMP"
-rm "$TEMP"

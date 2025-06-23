@@ -1,9 +1,5 @@
-.build/ags/types
-.config/gtk-3.0/bookmarks
-.config/Kvantum/Fluent-grey
-.config/lite-xl/*
-!.config/lite-xl/init.lua
-.config/systemd/**/*.requires
-.config/systemd/**/*.upholds
-.config/systemd/**/*.wants
-.config/zsh/.zcompdump
+config/all/zsh/.zcompdump
+config/ux/gtk-3.0/bookmarks
+config/ux/Kvantum/Fluent-grey
+config/ux/lite-xl/*
+!config/ux/lite-xl/init.lua

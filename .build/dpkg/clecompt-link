@@ -1,7 +1,0 @@
-Section: misc
-Priority: optional
-Standards-Version: 3.9.2
-
-Package: clecompt-link
-Depends: certbot, ddclient, fail2ban, fcgiwrap, libnet-server-perl, nginx-extras, ssh, sslh, whois
-Description: server base infrastructure

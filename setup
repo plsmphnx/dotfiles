@@ -1,15 +1,33 @@
 #!/bin/sh
 SCRIPT=$(cd "$(dirname "$0")" && pwd)
-. $SCRIPT/.zshenv
+. $SCRIPT/config/env/all/*
 
 setup_dir() { mkdir -p $1 && cd $1; }
 
+link_all() {
+    [ -d $SCRIPT/$1 ] && for FILE in $SCRIPT/$1/*; do ln -sf $FILE; done
+}
+
 link_bin() (
-    for BIN in $SCRIPT/.bin/$1/*; do ln -sf $BIN; done
+    link_all bin/$1
+)
+
+link_config() (
+    link_all config/$1
+    (setup_dir environment.d
+        link_all config/env/$1
+    )
+    (setup_dir systemd/user
+        link_all config/svc/$1
+    )
 )
 
 link_data() (setup_dir $1
-    for DATA in $2; do ln -sf $SCRIPT/.data/$1/$DATA; done
+    for DATA in $2; do ln -sf $SCRIPT/data/$1/$DATA; done
+)
+
+link_data_dir() (
+    ln -sf $SCRIPT/data/$1
 )
 
 setup_bin() (setup_dir $XDG_BIN_HOME
@@ -17,20 +35,29 @@ setup_bin() (setup_dir $XDG_BIN_HOME
 )
 
 setup_config() (setup_dir $XDG_CONFIG_HOME
-    for CONFIG in $SCRIPT/.config/*; do ln -sf $CONFIG; done
+    for CONFIG in ${1:-all}; do link_config $CONFIG; done
 )
 
 setup_data() (setup_dir $XDG_DATA_HOME
-    git clone https://github.com/scopatz/nanorc nano
-    link_data tmux "theme.conf"
+    case $1 in *all*|"")
+        git clone https://github.com/scopatz/nanorc nano
+        link_data tmux "theme.conf"
+    ;; esac
+    case $1 in *ux*)
+        link_data flatpak "overrides"
+        link_data hypr "monitor.conf"
+        link_data_dir nemo
+        link_data_dir ux
+        link_data zsh/profile "1-hyprland.zsh 9-vlock.zsh"
+    ;; esac
 )
 
 setup_dconf() (
-    dconf load / < $SCRIPT/.build/dconf/user.txt
+    dconf load / < $SCRIPT/build/dconf/user.txt
 )
 
-setup_ssh() (setup_dir .ssh
-    ln -sf $SCRIPT/.ssh/config
+setup_ssh() (setup_dir $HOME/.ssh
+    ln -sf $SCRIPT/ssh/config
 )
 
 setup_zsh() {
@@ -38,7 +65,7 @@ setup_zsh() {
         link_data zsh/rc "color.zsh highlight.zsh prompt.zsh title-path.zsh"
     )
     ln -sf $SCRIPT/.zshenv
-    chsh -s /bin/zsh
+    [ -f /bin/zsh ] && chsh -s /bin/zsh
 }
 
 case $1 in
@@ -46,10 +73,10 @@ case $1 in
         setup_bin "$2"
         ;;
     config)
-        setup_config
+        setup_config "$2"
         ;;
     data)
-        setup_data
+        setup_data "$2"
         ;;
     dconf)
         setup_dconf
@@ -64,6 +91,14 @@ case $1 in
         setup_bin
         setup_config
         setup_data
+        setup_ssh
+        setup_zsh
+        ;;
+    ux)
+        setup_bin "all git ux"
+        setup_config "all ux"
+        setup_data "all ux"
+        setup_dconf
         setup_ssh
         setup_zsh
         ;;

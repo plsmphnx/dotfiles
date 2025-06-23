@@ -2,7 +2,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    clecompt.url = "github:plsmphnx/nixcfg";
+    clecompt = {
+      url = "github:plsmphnx/nixcfg";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { nixpkgs, nixos-hardware, clecompt, ... } @ inputs: {
     nixosConfigurations.system-name = nixpkgs.lib.nixosSystem {
