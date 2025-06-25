@@ -1,0 +1,11 @@
+[Unit]
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecSearchPath=/run/current-system/sw/bin
+ExecStart=shell
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

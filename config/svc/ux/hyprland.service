@@ -1,0 +1,11 @@
+[Unit]
+PropagatesStopTo=graphical-session.target
+After=graphical-session-pre.target
+BindsTo=graphical-session.target
+Before=graphical-session.target
+
+[Service]
+Type=notify
+ExecSearchPath=/run/current-system/sw/bin
+ExecStart=Hyprland
+Slice=session.slice
