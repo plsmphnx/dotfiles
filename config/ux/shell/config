@@ -3,10 +3,12 @@ border-image = border.svg; highlight.svg
 border-slice = 8
 
 [utils]
-speaker    = pwvucontrol
-microphone = pwvucontrol
-bluetooth  = blueberry
-network    = iwgtk; nm-connection-editor
+speaker    = execr pwvucontrol
+microphone = execr pwvucontrol
+bluetooth  = execr blueberry
+network    = execr iwgtk; execr nm-connection-editor
+title      = execr hyprjump movetoworkspace free; killactive
+launcher   = execr app2unit {entry}; execr app2unit {entry}:{action}
 
 [icons]
 blueberry               = f00af
