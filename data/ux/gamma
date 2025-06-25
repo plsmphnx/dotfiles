@@ -1,5 +1,5 @@
 #!/bin/sh
 JQ='.[] | select(.model == "HP 25x").name'
 OUTPUT=$(hyprctl -j -i 0 monitors | jaq -r "$JQ" | tr - _)
-busctl --user set-property \
+exec busctl --user set-property \
     rs.wl-gammarelay /outputs/$OUTPUT rs.wl.gammarelay Gamma d 1.25

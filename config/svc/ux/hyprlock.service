@@ -9,6 +9,7 @@ OnSuccess=unlock.target
 ExecSearchPath=/run/current-system/sw/bin
 ExecStart=hyprlock
 KillSignal=SIGUSR1
+Slice=session.slice
 
 [Install]
 UpheldBy=lock.target

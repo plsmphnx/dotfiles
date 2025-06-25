@@ -6,6 +6,7 @@ After=graphical-session.target
 ExecSearchPath=/run/current-system/sw/bin
 ExecStart=hypridle
 Restart=on-failure
+Slice=session.slice
 
 [Install]
 WantedBy=graphical-session.target

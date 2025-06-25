@@ -1,4 +1,4 @@
 #!/bin/sh
 echo '#!/bin/sh' > "$1"
 chmod +x "$1"
-"$EDITOR" "$1"
+exec "$EDITOR" "$1"

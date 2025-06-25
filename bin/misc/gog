@@ -1,7 +1,7 @@
 #!/bin/sh
 GAME=${2:-$(find -type d | tr -d '\n' | sed 's_\.\./__;s_\./_|_g')}
 gog() {
-    lgogdownloader \
+    exec lgogdownloader \
         --platform w \
         --no-subdirectories \
         --game "^($GAME)$" \
@@ -9,19 +9,19 @@ gog() {
         "$@"
 }
 case $1 in
-  pull)
-    gog --download --size-only
-    ;;
-  clean)
-    gog --check-orphans --delete-orphans
-    ;;
-  check)
-    gog --status --size-only | grep -v ^OK
-    ;;
-  verify)
-    gog --status | grep -v ^OK
-    ;;
-  repair)
-    gog --download --repair
-    ;;
+    pull)
+        gog --download --size-only
+        ;;
+    clean)
+        gog --check-orphans --delete-orphans
+        ;;
+    check)
+        gog --status --size-only | grep -v ^OK
+        ;;
+    verify)
+        gog --status | grep -v ^OK
+        ;;
+    repair)
+        gog --download --repair
+        ;;
 esac

@@ -53,7 +53,7 @@ setup_data() (setup_dir $XDG_DATA_HOME
 )
 
 setup_dconf() (
-    dconf load / < $SCRIPT/build/dconf/user.txt
+    dconf load / < $SCRIPT/build/dconf/user.conf
 )
 
 setup_ssh() (setup_dir $HOME/.ssh
