@@ -5,4 +5,3 @@ ExecStartPre=intune start
 ExecStart=ra-multiplex server
 ExecStopPost=-intune stop
 ExecStopPost=-cycle-edp1 on
-Environment="SSH_AUTH_SOCK=/run/user/1000/keyring/ssh"
