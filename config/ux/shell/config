@@ -3,12 +3,14 @@ border-image = border.svg; highlight.svg
 border-slice = 8
 
 [utils]
-speaker    = execr pwvucontrol
-microphone = execr pwvucontrol
-bluetooth  = execr blueberry
-network    = execr iwgtk; execr nm-connection-editor
-title      = execr hyprjump movetoworkspace free; killactive
-launcher   = execr app2unit {entry}; execr app2unit {entry}:{action}
+$exec = app2unit -t service
+
+speaker    = $exec com.saivert.pwvucontrol.desktop
+microphone = $exec com.saivert.pwvucontrol.desktop
+bluetooth  = $exec blueberry.desktop
+network    = $exec iwgtk.desktop; $exec nm-connection-editor.desktop
+title      = hyprjump movetoworkspace free; hyprctl dispatch killactive
+launcher   = $exec {entry}; $exec {entry}:{action}
 
 [icons]
 blueberry               = f00af
