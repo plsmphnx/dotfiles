@@ -10,12 +10,12 @@ fi
 ARGS=". -avz --delete $@"
 case $MODE in
     time)
-        exec rsync "$SRC/" $ARGS
+        rsync "$SRC/" $ARGS
         ;;
     size)
-        exec rsync "$SRC/" $ARGS --size-only
+        rsync "$SRC/" $ARGS --size-only
         ;;
     hash)
-        exec rsync "$SRC/" $ARGS --checksum
+        rsync "$SRC/" $ARGS --checksum
         ;;
 esac

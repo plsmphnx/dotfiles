@@ -1,7 +1,7 @@
 #!/bin/sh
 GAME=${2:-$(find -type d | tr -d '\n' | sed 's_\.\./__;s_\./_|_g')}
 gog() {
-    exec lgogdownloader \
+    lgogdownloader \
         --platform w \
         --no-subdirectories \
         --game "^($GAME)$" \

@@ -18,8 +18,7 @@ pwvucontrol             = 0f028
 
 foot                    = 0f489
 imv                     = 0f03e
-l3afpad                 = f09ee
-lite-xl                 = f0169
+lite                    = f0169
 luakit                  = f059f
 mpv                     = f0567
 nemo                    = f0770

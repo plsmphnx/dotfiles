@@ -1,2 +1,2 @@
 #!/bin/sh
-exec lite-xl "$@" &
+app2unit org.lite_xl.lite_xl.desktop "$@"
