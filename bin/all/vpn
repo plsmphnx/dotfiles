@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$1" = "up" ]; then
+    tailscale "$@" --login-server https://vpn.clecompt.net
+else
+    tailscale "$@"
+fi

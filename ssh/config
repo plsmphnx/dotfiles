@@ -1,9 +1,7 @@
 Host home
-  Hostname clecompt.net
-  Port 443
+  Hostname server.vpn
   RequestTTY yes
   RemoteCommand tmux -u new -As ssh
 
 Host server
-  Hostname clecompt.net
-  Port 443
+  Hostname server.vpn
