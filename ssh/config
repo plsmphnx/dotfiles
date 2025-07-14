@@ -1,7 +1,4 @@
 Host home
-  Hostname server.vpn
+  Hostname server
   RequestTTY yes
   RemoteCommand tmux -u new -As ssh
-
-Host server
-  Hostname server.vpn
