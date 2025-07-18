@@ -1,5 +1,5 @@
 [Service]
 ExecSearchPath=/run/current-system/sw/bin
 ExecStartPre=hyprctl output create headless %i
-ExecStart=wayvnc -g -f 60 -o %i
+ExecStart=sh -c "exec wayvnc -g -o %i $(tailscale ip | head -1)"
 ExecStopPost=hyprctl output remove %i

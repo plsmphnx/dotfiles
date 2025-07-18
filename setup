@@ -57,14 +57,14 @@ setup_dconf() (
 )
 
 setup_ssh() (setup_dir $HOME/.ssh
-    ln -sf $SCRIPT/ssh/config
+    ln -sf $SCRIPT/config/home/ssh/config
 )
 
 setup_zsh() {
     (setup_dir $XDG_DATA_HOME
         link_data zsh/rc "color.zsh highlight.zsh prompt.zsh title-path.zsh"
     )
-    ln -sf $SCRIPT/.zshenv
+    ln -sf $SCRIPT/config/home/zshenv .zshenv
     [ -f /bin/zsh ] && chsh -s /bin/zsh
 }
 
