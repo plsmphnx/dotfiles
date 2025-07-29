@@ -11,19 +11,9 @@ git_prune =
 checkout = git clone 'https://github.com/ggerganov/ggml'
 [clone/ai/llama-cpp]
 checkout = git clone 'https://github.com/ggerganov/llama.cpp' llama-cpp
-[clone/ai/onnxruntime]
-checkout = git clone 'https://github.com/microsoft/onnxruntime'
-[clone/ai/piper]
-checkout = git clone 'https://github.com/rhasspy/piper'
-[clone/ai/piper-phonemize]
-checkout = git clone 'https://github.com/rhasspy/piper-phonemize'
 [clone/ai/stable-diffusion-cpp]
 checkout = git clone 'https://github.com/leejet/stable-diffusion.cpp' stable-diffusion-cpp
 
-[clone/core/amoeba]
-checkout = git clone 'https://github.com/starwing/amoeba'
-[clone/core/layout]
-checkout = git clone 'https://github.com/randrew/layout'
 [clone/core/musl]
 checkout = git clone 'git://git.musl-libc.org/musl'
 [clone/core/rax]
@@ -113,6 +103,13 @@ update = git -c 'http.sslVerify=false' pull
 [clone/language/zig]
 checkout = git clone 'https://github.com/ziglang/zig'
 
+[clone/layout/amoeba]
+checkout = git clone 'https://github.com/starwing/amoeba'
+[clone/layout/clay]
+checkout = git clone 'https://github.com/nicbarker/clay'
+[clone/layout/layout]
+checkout = git clone 'https://github.com/randrew/layout'
+
 [clone/personal/dotfiles]
 checkout = git clone 'https://github.com/plsmphnx/dotfiles'
 [clone/personal/exec-util]
@@ -148,6 +145,8 @@ checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-con
 [clone/rpg/fate-srd-content]
 checkout = git clone 'https://github.com/amazingrando/fate-srd-content'
 
+[clone/sandbox/bootc]
+checkout = git clone 'https://github.com/bootc-dev/bootc'
 [clone/sandbox/bubblewrap]
 checkout = git clone 'https://github.com/containers/bubblewrap'
 [clone/sandbox/composefs]
