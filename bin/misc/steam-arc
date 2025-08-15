@@ -1,0 +1,10 @@
+#!/bin/sh
+DIR=$(echo "$3" | tr '[:upper:]' '[:lower:]')
+steamcmd \
+    +@sSteamCmdForcePlatformType windows \
+    +force_install_dir "$PWD/$DIR" \
+    +login "$1" \
+    +app_update "$2" \
+    +quit
+arc "$DIR"
+rm -rf "$DIR"
