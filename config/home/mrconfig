@@ -37,12 +37,6 @@ checkout = git clone 'https://gitlab.com/drummyfish/small3dlib.git'
 checkout = git clone 'https://gitlab.com/drummyfish/tinyphysicsengine.git'
 [clone/engine/godot]
 checkout = git clone 'https://github.com/godotengine/godot'
-[clone/engine/o3de]
-checkout = git clone 'https://github.com/o3de/o3de'
-[clone/engine/orx]
-checkout = git clone 'https://github.com/orx/orx'
-[clone/engine/raylib]
-checkout = git clone 'https://github.com/raysan5/raylib'
 [clone/engine/sdl]
 checkout = git clone 'https://github.com/libsdl-org/SDL' sdl
 
@@ -98,8 +92,7 @@ checkout = git clone 'https://github.com/odin-lang/Odin' odin
 [clone/language/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
 [clone/language/s7]
-checkout = git -c 'http.sslVerify=false' clone 'https://cm-gitlab.stanford.edu/bil/s7.git'
-update = git -c 'http.sslVerify=false' pull
+checkout = git clone 'https://cm-gitlab.stanford.edu/bil/s7.git'
 [clone/language/zig]
 checkout = git clone 'https://github.com/ziglang/zig'
 
@@ -133,12 +126,6 @@ checkout = git clone 'https://projects.blender.org/blender/cycles'
 checkout = git clone 'https://github.com/google/filament'
 [clone/renderer/lux-core]
 checkout = git clone 'https://github.com/LuxCoreRender/LuxCore' lux-core
-[clone/renderer/material-x]
-checkout = git clone 'https://github.com/materialx/MaterialX' material-x
-[clone/renderer/mdl-sdk]
-checkout = git clone 'https://github.com/NVIDIA/MDL-SDK' mdl-sdk
-[clone/renderer/open-shading-language]
-checkout = git clone 'https://github.com/imageworks/OpenShadingLanguage' open-shading-language
 
 [clone/rpg/blades-in-the-dark-srd-content]
 checkout = git clone 'https://github.com/amazingrando/blades-in-the-dark-srd-content'
@@ -169,8 +156,6 @@ checkout = git clone 'https://github.com/simplex-chat/simplexmq'
 
 [clone/text/asciidoctor]
 checkout = git clone 'https://github.com/asciidoctor/asciidoctor'
-[clone/text/file-icon-vectors]
-checkout = git clone 'https://github.com/dmhendricks/file-icon-vectors'
 [clone/text/harfbuzz]
 checkout = git clone 'https://github.com/harfbuzz/harfbuzz'
 [clone/text/heirloom-doctools]
