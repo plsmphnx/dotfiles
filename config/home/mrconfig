@@ -8,11 +8,15 @@ git_prune =
     git remote prune origin
 
 [clone/ai/ggml]
-checkout = git clone 'https://github.com/ggerganov/ggml'
+checkout = git clone 'https://github.com/ggml-org/ggml'
 [clone/ai/llama-cpp]
-checkout = git clone 'https://github.com/ggerganov/llama.cpp' llama-cpp
+checkout = git clone 'https://github.com/ggml-org/llama.cpp' llama-cpp
 [clone/ai/stable-diffusion-cpp]
 checkout = git clone 'https://github.com/leejet/stable-diffusion.cpp' stable-diffusion-cpp
+[clone/ai/tts-cpp]
+checkout = git clone 'https://github.com/mmwillet/TTS.cpp' tts-cpp
+[clone/ai/whisper-cpp]
+checkout = git clone 'https://github.com/ggml-org/whisper.cpp' whisper-cpp
 
 [clone/core/musl]
 checkout = git clone 'git://git.musl-libc.org/musl'
