@@ -1,0 +1,3 @@
+#!/bin/sh
+PATH="$(printenv PATH | sed 's/:\.[^:]*//g')" \
+    find -name .git -type d -execdir pwd \; -execdir git "$@" \;
