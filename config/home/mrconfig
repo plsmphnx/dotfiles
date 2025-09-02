@@ -9,6 +9,8 @@ git_prune =
 
 [clone/ai/ggml]
 checkout = git clone 'https://github.com/ggml-org/ggml'
+[clone/ai/kobold-cpp]
+checkout = git clone 'https://github.com/LostRuins/koboldcpp' kobold-cpp
 [clone/ai/llama-cpp]
 checkout = git clone 'https://github.com/ggml-org/llama.cpp' llama-cpp
 [clone/ai/stable-diffusion-cpp]
@@ -44,6 +46,8 @@ checkout = git clone 'https://github.com/godotengine/godot'
 [clone/engine/sdl]
 checkout = git clone 'https://github.com/libsdl-org/SDL' sdl
 
+[clone/game/0ad]
+checkout = git clone 'https://gitea.wildfiregames.com/0ad/0ad'
 [clone/game/beyond-all-reason]
 checkout = git clone 'https://github.com/beyond-all-reason/Beyond-All-Reason' beyond-all-reason
 [clone/game/bytepath]
@@ -58,6 +62,8 @@ checkout = git clone 'https://github.com/endless-sky/endless-sky'
 checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
 [clone/game/endless-sky/endless-sky-high-dpi]
 checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
+[clone/game/freeorion]
+checkout = git clone 'https://github.com/freeorion/freeorion'
 [clone/game/megamek/megamek]
 checkout = git clone 'https://github.com/MegaMek/megamek'
 [clone/game/megamek/megameklab]
@@ -66,6 +72,8 @@ checkout = git clone 'https://github.com/MegaMek/megameklab'
 checkout = git clone 'https://github.com/MegaMek/mekhq'
 [clone/game/megazeux]
 checkout = git clone 'https://github.com/AliceLR/megazeux'
+[clone/game/mindustry]
+checkout = git clone 'https://github.com/Anuken/Mindustry' mindustry
 [clone/game/minetest/minetest]
 checkout = git clone 'https://github.com/minetest/minetest'
 [clone/game/minetest/minetest-game]
