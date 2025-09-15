@@ -3,3 +3,6 @@ shared=ipc
 sockets=x11
 filesystems=!xdg-desktop;!xdg-documents;!xdg-run/app/com.discordapp.Discord;~/Games:create
 unset-environment=SDL_VIDEODRIVER
+
+[Environment]
+WINEDLLOVERRIDES=lsteamclient=d
