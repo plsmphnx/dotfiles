@@ -119,10 +119,8 @@ checkout = git clone 'https://github.com/randrew/layout'
 checkout = git clone 'https://github.com/plsmphnx/dotfiles'
 [clone/personal/exec-util]
 checkout = git clone 'https://github.com/plsmphnx/exec-util'
-[clone/personal/hyprjump]
-checkout = git clone 'https://github.com/plsmphnx/hyprjump'
-[clone/personal/hyprmks]
-checkout = git clone 'https://github.com/plsmphnx/hyprmks'
+[clone/personal/hypr]
+checkout = git clone 'https://github.com/plsmphnx/hypr'
 [clone/personal/nixcfg]
 checkout = git clone 'https://github.com/plsmphnx/nixcfg'
 [clone/personal/redact-pdf]
