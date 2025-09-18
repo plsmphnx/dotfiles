@@ -1,4 +1,0 @@
-#!/bin/sh
-hyprkeys ~/.config/hypr/hyprland.conf > ~/.local/share/hypr/mks.conf
-hyprctl reload config-only
-shell reload
