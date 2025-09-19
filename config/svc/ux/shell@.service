@@ -1,0 +1,8 @@
+[Unit]
+Requires=shell.service
+After=shell.service
+
+[Service]
+Type=oneshot
+ExecSearchPath=/run/current-system/sw/bin
+ExecStart=shell %I
