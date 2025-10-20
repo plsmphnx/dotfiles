@@ -1,5 +1,8 @@
 config/all/zsh/.zcompdump
 config/ux/gtk-3.0/bookmarks
 config/ux/Kvantum/Fluent-grey
-config/ux/lite-xl/*
-!config/ux/lite-xl/init.lua
+config/ux/pragtical/*
+!config/ux/pragtical/user_settings.lua
+!config/ux/pragtical/plugins
+config/ux/pragtical/plugins/*
+!config/ux/pragtical/plugins/file.lua

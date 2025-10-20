@@ -1,2 +1,2 @@
 #!/bin/sh
-app2unit -t service org.lite_xl.lite_xl.desktop "$@"
+app2unit -t service dev.pragtical.Pragtical.desktop "$@"

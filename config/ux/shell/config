@@ -20,10 +20,10 @@ pwvucontrol             = 0f028
 
 foot                    = 0f489
 imv                     = 0f03e
-lite                    = f0169
 luakit                  = f059f
 mpv                     = f0567
 nemo                    = f0770
+pragtical               = f0169
 qalc                    = f00ec
 zathura                 = f0219
 
