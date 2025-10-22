@@ -1,3 +1,2 @@
 [Service]
-ExecSearchPath=/run/current-system/sw/bin
-ExecStart=mr up
+ExecStart=/bin/mr up

@@ -6,6 +6,5 @@ Before=graphical-session.target
 
 [Service]
 Type=notify
-ExecSearchPath=/run/current-system/sw/bin
-ExecStart=Hyprland
+ExecStart=/bin/Hyprland
 Slice=session.slice

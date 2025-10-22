@@ -3,8 +3,7 @@ PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]
-ExecSearchPath=/run/current-system/sw/bin
-ExecStart=hypridle
+ExecStart=/bin/hypridle
 Restart=on-failure
 Slice=session.slice
 

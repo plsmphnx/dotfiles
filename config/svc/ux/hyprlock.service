@@ -6,8 +6,7 @@ Before=lock.target
 OnSuccess=unlock.target
 
 [Service]
-ExecSearchPath=/run/current-system/sw/bin
-ExecStart=hyprlock
+ExecStart=/bin/hyprlock
 KillSignal=SIGUSR1
 Slice=session.slice
 

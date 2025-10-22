@@ -1,7 +1,6 @@
 [Service]
-ExecSearchPath=/run/current-system/sw/bin:%h/.nix-profile/bin:%D/ux:%h/.local/bin
-ExecStartPre=cycle-edp1 off
-ExecStartPre=intune start
-ExecStart=ra-multiplex server
-ExecStopPost=-intune stop
-ExecStopPost=-cycle-edp1 on
+ExecStartPre=%D/ux/cycle-edp1 off
+ExecStartPre=%h/.local/bin/intune start
+ExecStart=%h/.nix-profile/bin/ra-multiplex server
+ExecStopPost=-%h/.local/bin/intune stop
+ExecStopPost=-%D/ux/cycle-edp1 on

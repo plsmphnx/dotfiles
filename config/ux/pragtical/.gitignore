@@ -4,4 +4,4 @@
 !plugins
 plugins/*
 !plugins/file.lua
-
+!plugins/init_dir.lua

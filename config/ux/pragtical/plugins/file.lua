@@ -9,7 +9,8 @@ end
 config.plugins.file.only = true
 
 for i = 2, #ARGS do
-    if system.get_file_info(ARGS[i]).type == "dir" then
+    local info = system.get_file_info(ARGS[i]) or {}
+    if info.type == "dir" then
         config.plugins.file.only = false
         break
     end

@@ -1,5 +1,4 @@
 local config  = require "core.config"
-local plugins = config.plugins
 local style   = require "core.style"
 
 style.code_font = renderer.font.load(
@@ -9,34 +8,34 @@ style.code_font = renderer.font.load(
 
 config.indent_size = 4
 
-plugins.drawwhitespace = {
+config.plugins.drawwhitespace = {
     enabled = true,
     show_leading = false,
     show_middle = false
 }
 
-plugins.findfile = {
+config.plugins.findfile = {
     show_recent = false
 }
 
-plugins.ipc = {
+config.plugins.ipc = {
     single_instance = false
 }
 
-plugins.linewrapping = {
+config.plugins.linewrapping = {
     mode = "word"
 }
 
-plugins.treeview = {
+config.plugins.treeview = {
     show_hidden = true
 }
 
-if plugins.file.only then
-    plugins.lineguide = {
+if config.plugins.file.only then
+    config.plugins.lineguide = {
         enabled = false
     }
 else
-    plugins.lineguide = {
+    config.plugins.lineguide = {
         enabled = true,
         rulers = { 80, 120 },
         width = 1

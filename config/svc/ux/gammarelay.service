@@ -5,9 +5,8 @@ After=graphical-session.target
 [Service]
 Type=dbus
 BusName=rs.wl-gammarelay
-ExecSearchPath=/run/current-system/sw/bin:%D/ux
-ExecStart=wl-gammarelay-rs
-ExecStartPost=gamma
+ExecStart=/bin/wl-gammarelay-rs
+ExecStartPost=%D/ux/gamma
 
 [Install]
 WantedBy=graphical-session.target
