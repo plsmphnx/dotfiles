@@ -26,11 +26,15 @@ config.plugins.linewrapping = {
     mode = "word"
 }
 
+config.plugins.scratchpad = {
+    arg_dir = system.getcwd()
+};
+
 config.plugins.treeview = {
     show_hidden = true
 }
 
-if config.plugins.file.only then
+if config.plugins.scratchpad.file_only then
     config.plugins.lineguide = {
         enabled = false
     }

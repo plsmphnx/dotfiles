@@ -3,5 +3,5 @@
 
 !plugins
 plugins/*
-!plugins/file.lua
+!plugins/scratchpad.lua
 !plugins/init_dir.lua
