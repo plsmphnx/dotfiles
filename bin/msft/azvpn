@@ -1,2 +1,0 @@
-#!/bin/sh
-app2unit -t service -- microsoft-azurevpnclient
