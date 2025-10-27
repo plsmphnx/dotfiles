@@ -11,7 +11,11 @@ if config.plugins.scratchpad then
 
     config.plugins.scratchpad.file_only = true
     for i = 2, #ARGS do
-        local info = system.get_file_info(arg_dir .. ARGS[i]) or {}
+        local path = ARGS[i]
+        if path ~= system.absolute_path(path) then
+            path = arg_dir .. PATHSEP .. ARGS[i]
+        end
+        local info = system.get_file_info(path) or {}
         if info.type == "dir" then
             config.plugins.scratchpad.file_only = false
             break
