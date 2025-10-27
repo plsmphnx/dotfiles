@@ -4,4 +4,3 @@
 !plugins
 plugins/*
 !plugins/scratchpad.lua
-!plugins/init_dir.lua
