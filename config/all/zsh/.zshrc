@@ -12,7 +12,7 @@ zstyle ':zcomet:compinit' dump-file $ZSH_CACHE_DIR/compdump
 source $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh
 
 # history
-HISTFILE=$ZSH_STATE_DIR/history
+HISTFILE=$XDG_STATE_HOME/history
 HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory histignoredups histreduceblanks histverify nosharehistory

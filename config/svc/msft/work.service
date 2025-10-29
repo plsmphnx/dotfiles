@@ -1,6 +1,0 @@
-[Service]
-ExecStartPre=%D/ux/cycle-edp1 off
-ExecStartPre=%h/.local/bin/intune start
-ExecStart=%h/.nix-profile/bin/ra-multiplex server
-ExecStopPost=-%h/.local/bin/intune stop
-ExecStopPost=-%D/ux/cycle-edp1 on
