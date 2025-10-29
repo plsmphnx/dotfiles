@@ -26,6 +26,10 @@ config.plugins.linewrapping = {
     mode = "word"
 }
 
+config.plugins.lsp = {
+    symbolstree_visibility = "hide"
+}
+
 config.plugins.scratchpad = {
     arg_dir = system.getcwd()
 };
@@ -46,18 +50,22 @@ else
     }
 end
 
-local lsp_servers = {
-    gopls = {},
-    rust_analyzer = { command = { "ra-multiplex" } },
-    tsserver = {}
-}
-local ok, lspconfig = pcall(require, "plugins.lsp.config")
+local ok, lsp = pcall(require, "plugins.lsp.config")
 if ok then
-    local lsputil = require "plugins.lsp.util"
-    for s, c in pairs(lsp_servers) do
-        local cmd = c.command or lspconfig[s].get_options().command
-        if lsputil.command_exists(cmd[1]) then
-            lspconfig[s].setup(c)
+    local util = require "plugins.lsp.util"
+    local function check(cmd)
+        cmd = type(cmd) == "string" and { cmd } or cmd or {}
+        for _, c in ipairs(cmd) do
+            if util.command_exists(c) then
+                return true
+            end
+        end
+    end
+
+    for _, lang in pairs(lsp) do
+        local command = lang.get_options().command or {}
+        if check(command[1]) then
+            lang.setup()
         end
     end
 end

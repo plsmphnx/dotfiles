@@ -1,5 +1,5 @@
 [Unit]
-Requires=shell.service
+Requisite=shell.service
 After=shell.service
 
 [Service]
