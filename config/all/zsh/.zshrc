@@ -1,10 +1,6 @@
-# cache and state
+# plugin manager
 ZSH_CACHE_DIR=$XDG_CACHE_HOME/zsh
 mkdir -p $ZSH_CACHE_DIR
-ZSH_STATE_DIR=$XDG_STATE_HOME/zsh
-mkdir -p $ZSH_STATE_DIR
-
-# plugin manager
 zstyle ':zcomet:*' home-dir $ZSH_CACHE_DIR/zcomet
 zstyle ':zcomet:compinit' dump-file $ZSH_CACHE_DIR/compdump
 [[ -f $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh ]] || \
