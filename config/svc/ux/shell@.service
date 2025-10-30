@@ -1,7 +1,0 @@
-[Unit]
-Requisite=shell.service
-After=shell.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/shell %I

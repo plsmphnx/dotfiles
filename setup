@@ -64,7 +64,7 @@ setup_zsh() {
     (setup_dir $XDG_DATA_HOME
         link_data zsh/rc "color.zsh highlight.zsh prompt.zsh title-path.zsh"
     )
-    ln -sf $SCRIPT/config/home/zshenv .zshenv
+    ln -sf $SCRIPT/config/home/zshenv $HOME/.zshenv
     [ -f /bin/zsh ] && chsh -s /bin/zsh
 }
 
