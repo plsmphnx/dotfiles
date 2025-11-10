@@ -1,0 +1,7 @@
+[Nemo Action]
+Name=Open in Editor
+Comment=Open this folder in an editor window
+Exec=app2unit -- pragtical %F
+Selection=none
+Extensions=dir
+Dependencies=pragtical
