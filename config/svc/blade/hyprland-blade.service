@@ -1,0 +1,10 @@
+[Unit]
+After=graphical-session-pre.target
+Before=hyprland.service
+
+[Service]
+Type=oneshot
+ExecStart=%D/ux/blade
+
+[Install]
+WantedBy=hyprland.service
