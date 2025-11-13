@@ -3,7 +3,7 @@ if [[ -v CARGO_HOME ]]; then
 fi
 
 if [[ -v DOTNET_CLI_HOME ]]; then
-    path+=("$DOTNET_CLI_HOME/tools")
+    path+=("$DOTNET_CLI_HOME/.dotnet/tools")
 
     if [[ -n "$commands[dotnet]" ]]; then
         export DOTNET_ROOT=$(dirname $(realpath "$commands[dotnet]"))
