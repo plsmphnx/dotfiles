@@ -1,0 +1,15 @@
+#!/bin/sh
+if [ -f "$2" ]; then
+    M=$(file -Lb --mime-type "$2")
+    E=$(file -Lb --mime-encoding "$2")
+    ! [ "$E" = "utf-8" -o "$E" = "us-ascii" ]
+    I=$?
+    mosquitto_pub -t "$1" -f "$2" \
+        -D publish content-type "$M" \
+        -D publish payload-format-indicator "$I"
+else
+    M=$(echo "$2" | file -b --mime-type -)
+    mosquitto_pub -t "$1" -m "$2" \
+        -D publish content-type "$M" \
+        -D publish payload-format-indicator 1
+fi
