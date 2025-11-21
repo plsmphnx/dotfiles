@@ -8,5 +8,8 @@ Before=graphical-session.target
 Type=notify
 ExecStart=/bin/Hyprland
 Restart=always
-RestartSec=5
+RestartSec=10
 Slice=session.slice
+
+[Install]
+RequiredBy=graphical-session.target
