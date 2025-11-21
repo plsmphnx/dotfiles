@@ -8,6 +8,7 @@ OnSuccess=unlock.target
 [Service]
 ExecStart=/bin/hyprlock
 KillSignal=SIGUSR1
+Restart=on-failure
 Slice=session.slice
 
 [Install]

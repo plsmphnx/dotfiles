@@ -1,0 +1,3 @@
+[Context]
+filesystems=~/Games/Bottles
+unset-environment=SDL_VIDEODRIVER

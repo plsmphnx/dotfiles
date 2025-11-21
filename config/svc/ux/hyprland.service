@@ -7,4 +7,6 @@ Before=graphical-session.target
 [Service]
 Type=notify
 ExecStart=/bin/Hyprland
+Restart=always
+RestartSec=5
 Slice=session.slice

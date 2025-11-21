@@ -1,6 +1,0 @@
-#!/bin/sh
-INTEL=$(readlink -f /dev/user/intel)
-NVIDIA=$(readlink -f /dev/user/nvidia)
-systemctl --user set-environment    \
-    AQ_DRM_DEVICES=$NVIDIA:$INTEL   \
-    MESA_VK_DEVICE_SELECT=10de:249c \
