@@ -1,0 +1,3 @@
+#!/bin/sh
+find -name core -type f -exec sh -c "file {} | grep -q 'core file'" \;\
+    -exec "$1" {} \; 2>/dev/null
