@@ -3,8 +3,8 @@ ZSH_CACHE_DIR=$XDG_CACHE_HOME/zsh
 mkdir -p $ZSH_CACHE_DIR
 zstyle ':zcomet:*' home-dir $ZSH_CACHE_DIR/zcomet
 zstyle ':zcomet:compinit' dump-file $ZSH_CACHE_DIR/compdump
-[[ -f $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh ]] || \
-    git clone https://github.com/agkozak/zcomet.git $ZSH_CACHE_DIR/zcomet/bin
+[[ -f $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh ]] \
+||  git clone https://github.com/agkozak/zcomet.git $ZSH_CACHE_DIR/zcomet/bin
 source $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh
 
 # history
