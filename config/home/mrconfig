@@ -64,6 +64,10 @@ checkout = git clone 'https://github.com/endless-sky/endless-sky-editor'
 checkout = git clone 'https://github.com/endless-sky/endless-sky-high-dpi'
 [clone/game/freeorion]
 checkout = git clone 'https://github.com/freeorion/freeorion'
+[clone/game/luanti/luanti]
+checkout = git clone 'https://github.com/luanti-org/luanti'
+[clone/game/luanti/minetest-game]
+checkout = git clone 'https://github.com/luanti-org/minetest_game' minetest-game
 [clone/game/megamek/megamek]
 checkout = git clone 'https://github.com/MegaMek/megamek'
 [clone/game/megamek/megameklab]
@@ -74,10 +78,6 @@ checkout = git clone 'https://github.com/MegaMek/mekhq'
 checkout = git clone 'https://github.com/AliceLR/megazeux'
 [clone/game/mindustry]
 checkout = git clone 'https://github.com/Anuken/Mindustry' mindustry
-[clone/game/minetest/minetest]
-checkout = git clone 'https://github.com/minetest/minetest'
-[clone/game/minetest/minetest-game]
-checkout = git clone 'https://github.com/minetest/minetest_game' minetest-game
 [clone/game/tanks-of-freedom]
 checkout = git clone 'https://github.com/w84death/Tanks-of-Freedom' tanks-of-freedom
 [clone/game/tic-80]
@@ -106,7 +106,7 @@ checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
 [clone/language/s7]
 checkout = git clone 'https://cm-gitlab.stanford.edu/bil/s7.git'
 [clone/language/zig]
-checkout = git clone 'https://github.com/ziglang/zig'
+checkout = git clone 'https://codeberg.org/ziglang/zig'
 
 [clone/layout/amoeba]
 checkout = git clone 'https://github.com/starwing/amoeba'
