@@ -7,11 +7,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { nixpkgs, nixos-hardware, clecompt, ... } @ inputs: {
+  outputs = { nixpkgs, nixos-hardware, clecompt, ... } @ flakes: {
     nixosConfigurations.system-name = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
-        inherit inputs;
+        inherit flakes;
         user = "clecompt";
         host = "system-name";
       };
