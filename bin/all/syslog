@@ -1,0 +1,2 @@
+#!/bin/sh
+journalctl "$@" | exec bat -l syslog
