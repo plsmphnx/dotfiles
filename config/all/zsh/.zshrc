@@ -25,7 +25,6 @@ alias sudo="sudo "
 
 # convenience aliases
 alias del="gio trash"
-alias dev="nix develop --no-write-lock-file --inputs-from /etc/nixos --command zsh"
 alias dir="ls -lah"
 alias sys="systemctl --system"
 alias usr="systemctl --user"
