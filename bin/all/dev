@@ -1,0 +1,2 @@
+#!/bin/sh
+exec nix develop "$@" --no-write-lock-file --inputs-from /etc/nixos --command zsh

@@ -1,7 +1,9 @@
+[Unit]
+Conflicts=sleep.target
+Before=sleep.target
+
 [Service]
 Type=oneshot
 RemainAfterExit=true
 ExecStart=%D/ux/cycle-edp1 off
-ExecStart=%h/.local/bin/intune start
-ExecStop=%h/.local/bin/intune stop
 ExecStop=%D/ux/cycle-edp1 on
