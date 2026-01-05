@@ -1,6 +1,4 @@
 #!/bin/sh
-hyprctl dispatch exec "[float; center; size 640 144] \
-    app2unit -- foot -T Calculator -a qalc -D ~ \
-        -o 'font=Iosevka CEL:size=24' \
-        -o 'shell=qalc -defaults -s \"vspace off\" -s \"autocalc on\"' \
+hyprctl dispatch exec "[float; center; size 640 144]
+    app2unit -- foot -c ~/.config/foot/calc.ini
 "
