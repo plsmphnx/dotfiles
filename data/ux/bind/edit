@@ -1,0 +1,4 @@
+#!/bin/sh
+hyprctl dispatch exec "[float; center; size monitor_w/2 monitor_h/2] \
+    app2unit -- pragtical \
+"

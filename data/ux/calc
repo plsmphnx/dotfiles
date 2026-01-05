@@ -1,4 +1,0 @@
-#!/bin/sh
-exec foot -T Calculator -a qalc -W 32x4 -D ~ \
-    -o 'font=Iosevka CEL:size=24' \
-    -o 'shell=qalc -defaults -s "vspace off" -s "autocalc on"'
