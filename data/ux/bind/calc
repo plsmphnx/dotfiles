@@ -1,4 +1,4 @@
 #!/bin/sh
-hyprctl dispatch exec "[float; center; size 640 144]
+hyprctl dispatch exec "[float; pin; center; size 640 144]
     app2unit -- foot -c ~/.config/foot/calc.ini
 "
