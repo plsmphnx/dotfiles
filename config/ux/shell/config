@@ -1,6 +1,7 @@
 [style]
 border-image = border.svg; highlight.svg
 border-slice = 8
+gap = 2
 
 [utils]
 $exec = app2unit -t service
