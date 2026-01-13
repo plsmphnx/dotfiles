@@ -1,4 +1,6 @@
-unalias ls
+alias diff="diff --color=auto"
+alias grep="grep --color=auto"
+alias less="less -R"
 alias ls="ls --color -C"
 
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
@@ -6,3 +8,6 @@ alias ls="ls --color -C"
 
 man() { command man "$@" | bat -pl man ;}
 help() { "$@" --help | bat -pl help ;}
+journalctl() { command journalctl "$@" | bat -pl syslog ;}
+
+compdef help=exec

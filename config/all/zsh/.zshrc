@@ -13,12 +13,6 @@ HISTSIZE=1000
 SAVEHIST=1000
 setopt appendhistory histignoredups histreduceblanks histverify nosharehistory
 
-# color aliases
-alias diff="diff --color=auto"
-alias grep="grep --color=auto"
-alias less="less -R"
-alias ls="ls --color=auto"
-
 # safety aliases
 alias rm="rm -i"
 alias sudo="sudo "
@@ -36,14 +30,14 @@ bindkey "^[[F" end-of-line
 # right prompt
 ZLE_RPROMPT_INDENT=0
 
-# unique paths
-typeset -U path PATH
-
 # local config
 for rc in $XDG_DATA_HOME/zsh/rc/*.zsh(N); source $rc
 
 # local paths
 path+=($XDG_BIN_HOME .)
+
+# unique paths
+typeset -U path PATH
 
 # core plugins
 zcomet load zsh-users/zsh-completions
