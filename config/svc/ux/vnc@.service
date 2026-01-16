@@ -1,4 +1,11 @@
+[Unit]
+Conflicts=sleep.target
+Before=sleep.target
+
 [Service]
+Type=notify
+NotifyAccess=all
 ExecStartPre=/bin/hyprctl output create headless %i
-ExecStart=/bin/sh -c "exec wayvnc -g -o %i $(tailscale ip | head -1)"
+ExecStart=%D/ux/vnc %i
+ExecStopPost=/bin/rm -f %t/wayvncctl
 ExecStopPost=/bin/hyprctl output remove %i

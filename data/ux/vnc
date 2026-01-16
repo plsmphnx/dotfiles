@@ -1,0 +1,10 @@
+#!/bin/sh
+systemd-cat wayvnc -go $1 $(tailscale ip -1) &5
+wayvncctl -wj event-receive | while IFS= read -r e; do
+    case $(echo "$e" | jq -r .method) in
+        wayvnc-startup) systemd-notify --ready ;;
+        client-disconnected) wayvncctl wayvnc-exit; break ;;
+        wayvnc-shutdown) break ;;
+    esac
+done
+wait

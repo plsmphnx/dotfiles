@@ -7,7 +7,7 @@ alias ls="ls --color -C"
 [[ -s "/usr/share/grc/grc.zsh" ]] && source /usr/share/grc/grc.zsh
 
 man() { command man "$@" | bat -pl man ;}
-help() { "$@" --help | bat -pl help ;}
+help() { "$@" --help 2>&1 | bat -pl help ;}
 journalctl() { command journalctl "$@" | bat -pl syslog ;}
 
 compdef help=exec
