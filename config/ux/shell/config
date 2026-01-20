@@ -9,13 +9,13 @@ $exec = app2unit -t service
 speaker    = $exec com.saivert.pwvucontrol.desktop
 microphone = $exec com.saivert.pwvucontrol.desktop
 bluetooth  = $exec blueberry.desktop
-network    = $exec iwgtk.desktop; $exec nm-connection-editor.desktop
+network    = $exec nmgui.desktop; $exec nm-connection-editor.desktop
 title      = hyprjump movetoworkspace free; hyprctl dispatch killactive
 launcher   = $exec {entry}; $exec {entry}:{action}
 
 [icons]
 blueberry               = f00af
-iwgtk                   = f05a9
+network                 = f05a9
 nm-connection-editor    = f0c9d
 pwvucontrol             = 0f028
 
