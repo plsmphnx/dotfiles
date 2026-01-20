@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Microsoft Outlook
-Exec=flatpak run com.microsoft.Edge --app=https://outlook.office.com
+Exec=flatpak run com.microsoft.Edge --app=https://outlook.cloud.microsoft
 StartupNotify=true
 Terminal=false
 Icon=ms-outlook

@@ -51,11 +51,10 @@ libreoffice-impress     = 0f37a
 libreoffice-math        = 0f37b
 libreoffice-writer      = 0f37c
 
-teams.microsoft.com     = f02bb
-outlook.office.com      = f0d22
-word.office.com         = f1392
-excel.office.com        = f138f
-dataexplorer.azure.com  = f0805
+teams.cloud.microsoft   = f02bb
+outlook.cloud.microsoft = f0d22
+word.cloud.microsoft    = f1392
+excel.cloud.microsoft   = f138f
 microsoft-edge          = f01e9
 
 azurevpn                = f09bb
