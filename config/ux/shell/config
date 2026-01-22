@@ -1,6 +1,7 @@
 [style]
 border-image = border.svg; highlight.svg
 border-slice = 8
+shadow-alpha = 0.16
 gap = 2
 
 [utils]

@@ -1,6 +1,13 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
-  <g stroke="white" fill="transparent" stroke-width="2" stroke-linecap="round" opacity="0.4">
-    <path d="M 6 21 a 5 5 0 0 1 -5 -5 l 0 -10 a 5 5 0 0 1  5 -5" />
-    <path d="M 16 1 a 5 5 0 0 1  5  5 l 0  10 a 5 5 0 0 1 -5  5" />
+  <g fill="transparent" stroke-width="2" stroke-linecap="round" opacity="0.4">
+    <path stroke="black" opacity="0.4" d="
+      M 6 21 a 5 5 0 0 1 -5 -5 l 0 -10 a 5 5 0 0 1  5 -5
+      l 10 0 a 5 5 0 0 1  5  5 l 0  10 a 5 5 0 0 1 -5  5
+      z
+    " />
+    <path stroke="white" d="
+      M 6 21 a 5 5 0 0 1 -5 -5 l 0 -10 a 5 5 0 0 1  5 -5
+      m 10 0 a 5 5 0 0 1  5  5 l 0  10 a 5 5 0 0 1 -5  5
+    " />
   </g>
 </svg>
