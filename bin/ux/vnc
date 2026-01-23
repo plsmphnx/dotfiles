@@ -1,8 +1,6 @@
 #!/bin/sh
 set -e
 ssh $1 "systemctl --user start vnc@$(
-    tailscale status --peers=false --json \
-    |   jq -r .Self.DNSName \
-    |   cut --delimiter . --fields 1
+    tailscale status --peers=false --json | jq -r .Self.DNSName | cut -d . -f 1
 )"
-exec wlvncc -snq 9 $1
+app2unit -t service -- wlvncc -snq 9 $1
