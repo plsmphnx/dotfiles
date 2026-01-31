@@ -22,7 +22,7 @@ pwvucontrol             = 0f028
 
 foot                    = 0f489
 imv                     = 0f03e
-luakit                  = f059f
+min                     = f059f
 mpv                     = f0567
 nemo                    = f0770
 portal                  = f0349
