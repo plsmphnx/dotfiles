@@ -50,6 +50,8 @@ else
     }
 end
 
+pcall(dofile, USERDIR .. "/local.lua")
+
 local ok, lsp = pcall(require, "plugins.lsp.config")
 if ok then
     local util = require "plugins.lsp.util"
