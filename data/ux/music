@@ -1,0 +1,3 @@
+#!/bin/sh
+exec mpv --audio-display=no --no-terminal --shuffle \
+    "$(find ~/Music -path "*/$1" -print -quit)"

@@ -1,0 +1,2 @@
+[Service]
+ExecStart=%D/ux/music %I
