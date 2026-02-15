@@ -1,5 +1,5 @@
-local config  = require "core.config"
-local style   = require "core.style"
+local config = require "core.config"
+local style  = require "core.style"
 
 style.code_font = renderer.font.load(
     HOME .. "/.local/share/fonts/iosevka-clecompt/iosevka-clecompt-medium.ttf",
@@ -30,15 +30,11 @@ config.plugins.lsp = {
     symbolstree_visibility = "hide"
 }
 
-config.plugins.scratchpad = {
-    arg_dir = system.getcwd()
-};
-
 config.plugins.treeview = {
     show_hidden = true
 }
 
-if config.plugins.scratchpad.file_only then
+if config.plugins.scratchpad then
     config.plugins.lineguide = {
         enabled = false
     }
