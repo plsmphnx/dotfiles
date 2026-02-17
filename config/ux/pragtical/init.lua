@@ -22,6 +22,12 @@ config.plugins.ipc = {
     single_instance = false
 }
 
+config.plugins.lineguide = {
+    enabled = true,
+    rulers = { 80, 120 },
+    width = 1
+}
+
 config.plugins.linewrapping = {
     mode = "word"
 }
@@ -33,18 +39,6 @@ config.plugins.lsp = {
 config.plugins.treeview = {
     show_hidden = true
 }
-
-if config.plugins.scratchpad then
-    config.plugins.lineguide = {
-        enabled = false
-    }
-else
-    config.plugins.lineguide = {
-        enabled = true,
-        rulers = { 80, 120 },
-        width = 1
-    }
-end
 
 pcall(dofile, USERDIR .. "/local.lua")
 
