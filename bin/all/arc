@@ -3,5 +3,5 @@ DIR="$(pwd)"
 TGT="$1"
 shift
 cd "$TGT"
-tar "$@" -chf - * | xz -9 - > "$DIR/${TGT##*/}.tar.xz"
+tar "$@" -chf - * | xz -v9 - > "$DIR/${TGT##*/}.tar.xz"
 cd "$DIR"
