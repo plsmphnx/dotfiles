@@ -1,6 +1,5 @@
 [Context]
 sockets=x11
-filesystems=!xdg-videos;!xdg-pictures
 
 [Environment]
 TZ=America/Los_Angeles

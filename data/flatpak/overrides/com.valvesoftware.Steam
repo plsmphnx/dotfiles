@@ -1,4 +1,4 @@
 [Context]
 shared=ipc
 sockets=x11
-filesystems=!xdg-music;!xdg-pictures;!xdg-run/app/com.discordapp.Discord;~/Games:create;/run/media
+filesystems=~/Games:create;/run/media

@@ -1,7 +1,7 @@
 [Context]
 shared=ipc
 sockets=x11
-filesystems=!xdg-config/kdeglobals;!xdg-run/app/com.discordapp.Discord;~/Games:create
+filesystems=~/Games:create
 
 [Session Bus Policy]
 org.freedesktop.login1.Manager=none

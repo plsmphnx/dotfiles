@@ -2,7 +2,7 @@
 shared=!ipc
 sockets=!gpg-agent;!pcsc;!ssh-auth;!system-bus;!session-bus;!fallback-x11;wayland;!x11
 features=!devel
-filesystems=!home;!host-etc;!host-os;!host
+filesystems=!home;!host-etc;!host-os;!host;!xdg-desktop;!xdg-documents;!xdg-music;!xdg-pictures;!xdg-videos;!xdg-run/app/com.discordapp.Discord;!~/.local/share/applications
 
 [Session Bus Policy]
 org.freedesktop.Flatpak=none
