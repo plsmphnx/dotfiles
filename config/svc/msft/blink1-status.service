@@ -1,0 +1,10 @@
+[Unit]
+BindsTo=blink1.target
+After=blink1.target
+
+[Service]
+Type=simple
+ExecStart=/bin/blink1-status 30
+
+[Install]
+WantedBy=blink1.target
