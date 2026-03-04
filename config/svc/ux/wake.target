@@ -1,0 +1,6 @@
+[Unit]
+Conflicts=sleep.target
+Before=sleep.target
+
+[Install]
+WantedBy=default.target
