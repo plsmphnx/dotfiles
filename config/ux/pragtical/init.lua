@@ -40,6 +40,8 @@ config.plugins.treeview = {
     show_hidden = true
 }
 
+config.plugins.workspace = false
+
 pcall(dofile, USERDIR .. "/local.lua")
 
 local ok, lsp = pcall(require, "plugins.lsp.config")
