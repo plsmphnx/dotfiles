@@ -1,2 +1,5 @@
 [Context]
-filesystems=home;/nix/store
+filesystems=xdg-documents;/nix/store;~/.nix-profile
+
+[Environment]
+PATH=/app/bin:/usr/bin:/home/clecompt/.nix-profile/bin
