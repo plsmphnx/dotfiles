@@ -7,4 +7,4 @@ PropagatesStopTo=intune.service
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=true
+ExecStart=/bin/true
