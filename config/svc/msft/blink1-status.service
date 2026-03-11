@@ -1,13 +1,10 @@
 [Unit]
-Requisite=blink1.target
 BindsTo=blink1.target
 After=blink1.target
-Conflicts=sleep.target
-Before=sleep.target
 
 [Service]
 Type=simple
 ExecStart=/bin/blink1-status 30
 
 [Install]
-WantedBy=blink1.target wake.target
+WantedBy=blink1.target

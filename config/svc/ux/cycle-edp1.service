@@ -1,10 +1,9 @@
 [Unit]
 Conflicts=sleep.target
 Before=sleep.target
-Wants=cycle-edp1.service intune.service
-PropagatesStopTo=intune.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=true
+ExecStart=%D/ux/cycle-edp1 off
+ExecStop=%D/ux/cycle-edp1 on
