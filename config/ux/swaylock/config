@@ -1,23 +1,29 @@
 daemonize
+color=000000
 
 indicator-radius=128
 indicator-thickness=16
 
-color=000000
 inside-color=000000
 inside-clear-color=000000
 inside-ver-color=000000
-inside-wrong-color=000000
-text-color=000000
-text-clear-color=000000
-text-ver-color=000000
-text-wrong-color=000000
+inside-wrong-color=111111
 
-bs-hl-color=cccccc
-key-hl-color=cccccc
-separator-color=666666
+text-color=00000000
+text-clear-color=00000000
+text-ver-color=00000000
+text-wrong-color=00000000
 
-ring-color=333333
-ring-clear-color=333333
-ring-ver-color=666666
-ring-wrong-color=999999
+bs-hl-color=444444
+key-hl-color=444444
+separator-color=333333
+
+ring-color=222222
+ring-clear-color=222222
+ring-ver-color=444444
+ring-wrong-color=222222
+
+line-color=111111
+line-clear-color=111111
+line-ver-color=111111
+line-wrong-color=111111
