@@ -6,7 +6,8 @@ Before=lock.target
 OnSuccess=unlock.target
 
 [Service]
-ExecStart=/bin/hyprlock
+Type=forking
+ExecStart=/bin/swaylock
 KillSignal=SIGUSR1
 Restart=on-failure
 Slice=session.slice
