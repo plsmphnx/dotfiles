@@ -1,0 +1,11 @@
+[Unit]
+After=lock.target
+Before=sleep.target
+Requisite=hyprland.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/hyprctl reload
+
+[Install]
+WantedBy=sleep.target

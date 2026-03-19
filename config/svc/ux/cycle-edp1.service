@@ -1,9 +1,0 @@
-[Unit]
-Conflicts=sleep.target
-Before=sleep.target
-
-[Service]
-Type=oneshot
-RemainAfterExit=true
-ExecStart=%D/ux/cycle-edp1 off
-ExecStop=%D/ux/cycle-edp1 on

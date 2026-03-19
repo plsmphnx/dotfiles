@@ -1,0 +1,2 @@
+timeout 600 "hyprctl dispatch dpms off"
+timeout 900 "loginctl lock-session"
