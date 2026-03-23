@@ -1,25 +1,63 @@
 #!/bin/sh
+yubikey() {
+    udevadm info --tree --no-pager $(
+        ykman -ldebug list 2>&1 | sed -n "s_.*='\(/dev/.*\)'.*_\1_p"
+    ) | awk -F '=' '/DEVNAME/ { print "--device " $2 }'
+}
+
 case $1 in
     build)
-        podman build -t intune -f - <<END
-FROM mcr.microsoft.com/openjdk/jdk:11-ubuntu
-RUN apt update && apt install -y intune-portal; exit 0
+        REPO=https://packages.microsoft.com
+        BASE=24.04
+        PCSC=/home/ubuntu/.pki/nssdb
+        podman build -t intune -f - << END
+FROM ubuntu:$BASE
+
+# Setup Microsoft repositories
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt update && apt install -y curl gpg
+RUN curl "$REPO/keys/microsoft.asc" \
+    | gpg --dearmor > /usr/share/keyrings/microsoft-prod.gpg
+RUN curl "$REPO/config/ubuntu/$BASE/prod.list" \
+    > /etc/apt/sources.list.d/microsoft-prod.list
+RUN curl "$REPO/config/ubuntu/$BASE/insiders-fast.list" \
+    > /etc/apt/sources.list.d/microsoft-insiders-fast.list
+RUN apt purge --autoremove -y curl gpg
+RUN apt update && apt upgrade --autoremove --purge -y
+
+# Install Intune
+RUN apt install -y microsoft-identity-broker
+RUN apt install -y intune-portal; exit 0
 RUN touch /tmp/systemctl && chmod +x /tmp/systemctl
 RUN PATH="/tmp:\$PATH" dpkg --configure intune-portal
+
+# Additional dependencies
+RUN apt install -y libnss3-tools opensc yubikey-manager
+
+# Prepare environment
 RUN apt clean
-RUN sed -i \\
-    's/retry=3/minlen=12 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1/' \\
+RUN sed -i \
+    's/retry=3/minlen=12 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1/' \
     /etc/pam.d/common-password
+RUN echo "PCSCD_ARGS=--disable-polkit" > /etc/default/pcscd
+RUN su ubuntu -c "mkdir -p $PCSC && chmod -R 700 $PCSC && \
+    modutil -force -dbdir sql:$PCSC -add OpenSC \
+        -libfile /usr/lib/x86_64-linux-gnu/pkcs11/opensc-pkcs11.so"
+ENV WEBKIT_DISABLE_DMABUF_RENDERER 1
+
 CMD [ "/sbin/init" ]
 END
         ;;
     start)
         ROOT=$XDG_STATE_HOME/intune
         DBUS=${DBUS_SESSION_BUS_ADDRESS#*=}
+        PCSC=/run/pcscd
         X11=/tmp/.X11-unix/X$(echo $DISPLAY | cut -c2-)
-        VAR=/var/lib/microsoft-identity-device-broker
-        STATE=.local/state/microsoft-identity-broker
-        mkdir -p "$ROOT/var" "$ROOT/home/$STATE"
+        CONF=/home/ubuntu/.config
+        DATA=/home/ubuntu/.local/share
+        CERT=/etc/microsoft/identity-broker/certs
+        PRIV=/etc/microsoft/identity-broker/private
+        mkdir -p "$ROOT/conf" "$ROOT/data" "$ROOT/cert" "$ROOT/priv"
         podman rm --force --ignore --time 0 intune
         podman run --detach \
             --userns keep-id \
@@ -27,31 +65,57 @@ END
             --network host \
             --mount "type=bind,src=$DBUS,dst=$DBUS" \
             --env DBUS_SESSION_BUS_ADDRESS \
+            --mount "type=bind,src=$PCSC,dst=$PCSC" \
             --mount "type=bind,src=$X11,dst=$X11" \
             --env DISPLAY \
-            --mount "type=bind,src=$ROOT/home,dst=$HOME" \
-            --mount "type=bind,src=$ROOT/var,dst=$VAR" \
+            --mount "type=bind,src=$ROOT/conf,dst=$CONF" \
+            --mount "type=bind,src=$ROOT/data,dst=$DATA" \
+            --mount "type=bind,src=$ROOT/cert,dst=$CERT" \
+            --mount "type=bind,src=$ROOT/priv,dst=$PRIV" \
+            $(yubikey) \
             --name intune \
             intune
-        podman exec --tty \
+        podman exec --interactive \
             --user root:root \
             intune \
-            chown "$USER:$USER" "$(dirname "$DBUS")"
-        podman exec --detach \
-            --user "$(id -u):$(id -g)" \
-            --env HOME \
-            --env STATE_DIRECTORY="$HOME/$STATE" \
-            intune \
-            /opt/microsoft/identity-broker/bin/microsoft-identity-broker
+            sh -- << END
+chown root:root $CERT $PRIV
+chown ubuntu:ubuntu "$(dirname "$DBUS")" /home/ubuntu/.local
+END
         ;;
     stop)
         podman rm --force --ignore --time 0 intune
         ;;
     run)
         podman exec --tty --interactive \
-            --user "$(id -u):$(id -g)" \
-            --env HOME \
+            --user ubuntu:ubuntu \
             intune \
-            ${2:-intune-portal}
+            intune-portal
+        ;;
+    ib)
+        podman exec --tty --interactive \
+            --user ubuntu:ubuntu \
+            intune \
+            /opt/microsoft/identity-broker/bin/microsoft-identity-broker
+        ;;
+    db)
+        podman exec --tty --interactive \
+            --user root:root \
+            intune \
+            systemctl start microsoft-identity-device-broker
+        ;;
+    user)
+        shift
+        podman exec --tty --interactive \
+            --user ubuntu:ubuntu \
+            intune \
+            $@
+        ;;
+    root)
+        shift
+        podman exec --tty --interactive \
+            --user root:root \
+            intune \
+            $@
         ;;
 esac
