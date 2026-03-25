@@ -6,7 +6,7 @@ yubikey() {
 }
 
 case $1 in
-    build)
+    install)
         REPO=https://packages.microsoft.com
         BASE=24.04
         PCSC=/home/ubuntu/.pki/nssdb
@@ -47,6 +47,14 @@ ENV WEBKIT_DISABLE_DMABUF_RENDERER 1
 
 CMD [ "/sbin/init" ]
 END
+        DBUS=$XDG_DATA_HOME/dbus-1/services
+        mkdir -p $DBUS
+        cat > $DBUS/com.microsoft.identity.broker1.service << END
+[D-BUS Service]
+Name=com.microsoft.identity.broker1
+Exec=$0 broker
+END
+        systemctl --user reload dbus-broker
         ;;
     start)
         ROOT=$XDG_STATE_HOME/intune
@@ -57,7 +65,7 @@ END
         DATA=/home/ubuntu/.local/share
         CERT=/etc/microsoft/identity-broker/certs
         PRIV=/etc/microsoft/identity-broker/private
-        mkdir -p "$ROOT/conf" "$ROOT/data" "$ROOT/cert" "$ROOT/priv"
+        mkdir -p $ROOT/conf $ROOT/data $ROOT/cert $ROOT/priv
         podman rm --force --ignore --time 0 intune
         podman run --detach \
             --userns keep-id \
@@ -75,47 +83,28 @@ END
             $(yubikey) \
             --name intune \
             intune
-        podman exec --interactive \
-            --user root:root \
-            intune \
-            sh -- << END
+        podman exec -i intune sh -- << END
 chown root:root $CERT $PRIV
-chown ubuntu:ubuntu "$(dirname "$DBUS")" /home/ubuntu/.local
+chown ubuntu:ubuntu $(dirname $DBUS) /home/ubuntu/.local
 END
         ;;
     stop)
-        podman rm --force --ignore --time 0 intune
+        podman rm -fit 0 intune
         ;;
-    run)
-        podman exec --tty --interactive \
-            --user ubuntu:ubuntu \
-            intune \
+    portal)
+        exec $0 user \
             intune-portal
         ;;
-    ib)
-        podman exec --tty --interactive \
-            --user ubuntu:ubuntu \
-            intune \
+    broker)
+        exec $0 user \
             /opt/microsoft/identity-broker/bin/microsoft-identity-broker
-        ;;
-    db)
-        podman exec --tty --interactive \
-            --user root:root \
-            intune \
-            systemctl start microsoft-identity-device-broker
         ;;
     user)
         shift
-        podman exec --tty --interactive \
-            --user ubuntu:ubuntu \
-            intune \
-            $@
+        exec podman exec -itu ubuntu:ubuntu intune $@
         ;;
     root)
         shift
-        podman exec --tty --interactive \
-            --user root:root \
-            intune \
-            $@
+        exec podman exec -itu root:root intune $@
         ;;
 esac
