@@ -1,6 +1,5 @@
 [Unit]
-After=lock.target
-Before=sleep.target
+Before=lock.service
 Requisite=hyprland.service
 
 [Service]
