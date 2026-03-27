@@ -1,0 +1,11 @@
+[Unit]
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=/bin/inhibridge
+Restart=on-failure
+Slice=session.slice
+
+[Install]
+WantedBy=graphical-session.target

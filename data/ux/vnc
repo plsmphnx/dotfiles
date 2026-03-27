@@ -1,5 +1,6 @@
 #!/bin/sh
-systemd-cat wayvnc -go $1 $(tailscale ip -1) &
+systemd-cat systemd-inhibit --what=idle \
+    wayvnc -go $1 $(tailscale ip -1) &
 loginctl unlock-session
 wayvncctl -wj event-receive | while IFS= read -r e; do
     case $(echo "$e" | jq -r .method) in
