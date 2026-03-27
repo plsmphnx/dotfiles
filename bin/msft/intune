@@ -22,20 +22,16 @@ RUN curl "$REPO/config/ubuntu/$BASE/prod.list" \
     > /etc/apt/sources.list.d/microsoft-prod.list
 RUN curl "$REPO/config/ubuntu/$BASE/insiders-fast.list" \
     > /etc/apt/sources.list.d/microsoft-insiders-fast.list
-RUN apt purge --autoremove -y curl gpg
 RUN apt update && apt upgrade --autoremove --purge -y
 
-# Install Intune
+# Install Intune and dependencies
 RUN apt install -y microsoft-identity-broker
-RUN apt install -y intune-portal; exit 0
+RUN apt install -y --no-install-recommends intune-portal; exit 0
 RUN touch /tmp/systemctl && chmod +x /tmp/systemctl
 RUN PATH="/tmp:\$PATH" dpkg --configure intune-portal
-
-# Additional dependencies
-RUN apt install -y libnss3-tools opensc yubikey-manager
+RUN apt install -y libnss3-tools opensc
 
 # Prepare environment
-RUN apt clean
 RUN sed -i \
     's/retry=3/minlen=12 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1/' \
     /etc/pam.d/common-password
@@ -44,6 +40,9 @@ RUN su ubuntu -c "mkdir -p $PCSC && chmod -R 700 $PCSC && \
     modutil -force -dbdir sql:$PCSC -add OpenSC \
         -libfile /usr/lib/x86_64-linux-gnu/pkcs11/opensc-pkcs11.so"
 ENV WEBKIT_DISABLE_DMABUF_RENDERER 1
+
+# Cleanup
+RUN apt purge --autoremove -y curl gpg libnss3-tools && apt clean
 
 CMD [ "/sbin/init" ]
 END
@@ -93,7 +92,7 @@ END
         ;;
     portal)
         exec $0 user \
-            intune-portal
+            /opt/microsoft/intune/bin/intune-portal
         ;;
     broker)
         exec $0 user \
