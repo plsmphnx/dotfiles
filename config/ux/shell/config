@@ -11,7 +11,7 @@ speaker    = $exec com.saivert.pwvucontrol.desktop
 microphone = $exec com.saivert.pwvucontrol.desktop
 bluetooth  = $exec com.ezratweaver.AdwBluetooth.desktop
 network    = $exec nmgui.desktop; $exec nm-connection-editor.desktop
-title      = hyprjump movetoworkspace free; hyprctl dispatch killactive
+title      = hyprctl eval 'jump { free = true, hl.dsp.window.move }'; hyprctl dispatch 'hl.dsp.window.close()'
 launcher   = $exec {entry}; $exec {entry}:{action}
 
 [icons]

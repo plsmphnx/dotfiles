@@ -7,4 +7,4 @@ PropagatesStopTo=intune.service
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=%D/ux/cycle-edp1 off
+ExecStart=hyprctl eval 'monitor.disable "eDP-1"'
