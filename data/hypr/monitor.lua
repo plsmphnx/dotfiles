@@ -13,7 +13,7 @@ local fake = {
 }
 
 for _, mon in ipairs(real) do
-    monitor.register {
+    monitor.add {
         output = "desc:" .. mon[1],
         mode = "preferred",
         position = mon[2] .. "x" .. mon[3],
@@ -23,7 +23,7 @@ for _, mon in ipairs(real) do
 end
 
 for _, mon in ipairs(fake) do
-    monitor.register {
+    monitor.add {
         output = mon[1],
         mode = mon[2] .. "x" .. mon[3] .. "@30",
         position = "auto",
