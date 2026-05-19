@@ -124,14 +124,14 @@ local function exec_util(script) return exec_raw(util .. "/" .. script) end
 
 bind("SUPER+mouse:272",  window.drag(), { mouse = true })
 bind("SUPER+mouse:273",  window.resize(), { mouse = true })
-bind("SUPER+mouse_down", jump { prev = true, used = true })
-bind("SUPER+mouse_up",   jump { next = true, used = true })
+bind("SUPER+mouse_down", jump.prev.used())
+bind("SUPER+mouse_up",   jump.next.used())
 
 bind("SUPER+SHIFT+mouse:272", window.drag(), { mouse = true })
 bind("SUPER+SHIFT+mouse:272", float_pin, { release = true })
 bind("SUPER+SHIFT+mouse:273", window.fullscreen(), { release = true })
-bind("SUPER+mouse_down",      jump { prev = true, window.move })
-bind("SUPER+mouse_up",        jump { next = true, window.move })
+bind("SUPER+mouse_down",      jump.prev(window.move))
+bind("SUPER+mouse_up",        jump.next(window.move))
 
 bind("SUPER+backslash", exec_util "term")
 bind("SUPER+return",    exec_util "apps")
@@ -148,24 +148,24 @@ bind("SUPER+right", focus { direction = "r" }, { repeating = true })
 bind("SUPER+up",    focus { direction = "u" }, { repeating = true })
 bind("SUPER+down",  focus { direction = "d" }, { repeating = true })
 
-bind("SUPER+bracketleft",  jump { prev = true }, { repeating = true })
-bind("SUPER+bracketright", jump { next = true }, { repeating = true })
-bind("SUPER+tab",          jump { free = true })
+bind("SUPER+bracketleft",  jump.prev(), { repeating = true })
+bind("SUPER+bracketright", jump.next(), { repeating = true })
+bind("SUPER+tab",          jump.free())
 bind("SUPER+equal",        window.fullscreen())
 bind("SUPER+apostrophe",   window.float())
 bind("SUPER+apostrophe",   window.pin())
 
-bind("SUPER+SHIFT+backslash", jump { free = true, function(args) return exec_cmd(util .. "/term", args) end })
-bind("SUPER+SHIFT+return",    jump { free = true, exec_util "apps", focus })
+bind("SUPER+SHIFT+backslash", jump.free(function(args) return exec_cmd(util .. "/term", args) end))
+bind("SUPER+SHIFT+return",    jump.free(exec_util "apps"))
 
 bind("SUPER+SHIFT+left",  window.move { direction = "l" }, { repeating = true })
 bind("SUPER+SHIFT+right", window.move { direction = "r" }, { repeating = true })
 bind("SUPER+SHIFT+up",    window.move { direction = "u" }, { repeating = true })
 bind("SUPER+SHIFT+down",  window.move { direction = "d" }, { repeating = true })
 
-bind("SUPER+SHIFT+bracketleft",  jump { prev = true, window.move }, { repeating = true })
-bind("SUPER+SHIFT+bracketright", jump { next = true, window.move }, { repeating = true })
-bind("SUPER+SHIFT+tab",          jump { free = true, window.move })
+bind("SUPER+SHIFT+bracketleft",  jump.prev(window.move), { repeating = true })
+bind("SUPER+SHIFT+bracketright", jump.next(window.move), { repeating = true })
+bind("SUPER+SHIFT+tab",          jump.free(window.move))
 
 bind("SUPER+ALT+tab",       exec_raw "~/.local/share/ux/cycle-dpms", { locked = true })
 bind("SUPER+ALT+backspace", function() monitor.toggle "eDP-1" end, { locked = true })
@@ -176,7 +176,7 @@ bind("SUPER+ALT+right", focus { monitor = "r" }, { repeating = true })
 bind("SUPER+ALT+up",    focus { monitor = "u" }, { repeating = true })
 bind("SUPER+ALT+down",  focus { monitor = "d" }, { repeating = true })
 
-hl.monitor { output = "", mode = "preferred", position = "auto", scale = 1 }
+hl.monitor { output = "", mode = "preferred", position = "auto", scale = "auto" }
 
 --on("config.reloaded", function ()
 --    exec_cmd(
@@ -187,7 +187,7 @@ hl.monitor { output = "", mode = "preferred", position = "auto", scale = 1 }
 --    )
 --end)
 
-dofile(os.getenv("XDG_DATA_HOME") .. "/hypr/monitor.lua")
-dofile(os.getenv("XDG_DATA_HOME") .. "/hypr/edge.lua")
+local handle = io.popen("ls " .. os.getenv("XDG_DATA_HOME") .. "/hypr/*.lua")
+if handle then for file in handle:lines() do dofile(file) end handle:close() end
 
 dofile "/usr/share/shell/hyprland.lua"

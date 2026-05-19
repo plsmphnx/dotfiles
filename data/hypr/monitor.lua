@@ -17,7 +17,7 @@ for _, mon in ipairs(real) do
         output = "desc:" .. mon[1],
         mode = "preferred",
         position = mon[2] .. "x" .. mon[3],
-        scale = mon[4] or 1,
+        scale = mon[4] or "auto",
         transform = mon[5] or 0,
     }
 end
@@ -27,7 +27,7 @@ for _, mon in ipairs(fake) do
         output = mon[1],
         mode = mon[2] .. "x" .. mon[3] .. "@30",
         position = "auto",
-        scale = mon[4] or 1,
+        scale = mon[4] or "auto",
         transform = mon[5] or 0,
     }
 end
