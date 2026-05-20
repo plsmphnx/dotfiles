@@ -5,10 +5,10 @@ local function jump(next, free, cmds)
 
   local active
   local monitor = {}
-  for i, this in ipairs(workspaces) do
-    if this.monitor == active_monitor then
+  for i, workspace in ipairs(workspaces) do
+    if workspace.monitor == active_monitor then
       monitor[#monitor + 1] = i
-      if this == active_monitor.active_workspace then
+      if workspace == active_monitor.active_workspace then
         active = #monitor
       end
     end
@@ -51,7 +51,7 @@ end
 local function call(next, free, obj)
   return setmetatable(obj or {}, {
     __call = function(_, ...)
-      local cmds = {...}
+      local cmds = table.pack(...)
       local focus = true
       for _, cmd in ipairs(cmds) do
         if type(cmd) == "function" then focus = false end

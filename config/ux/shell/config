@@ -15,7 +15,7 @@ network    = $exec nmgui.desktop; $exec nm-connection-editor.desktop
 title      = $hypr 'jump.free(window.move)'; $hypr 'window.close()'
 launcher   = $exec {entry}; $exec {entry}:{action}
 
-[alias]
+[modes]
 SUPER       = f0142
 SUPER+SHIFT = f013e
 SUPER+ALT   = f0379

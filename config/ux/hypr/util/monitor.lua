@@ -2,7 +2,7 @@ local by_name = {}
 local by_desc = {}
 
 local base = 0
-local size = 27
+local SIZE = 27
 
 local function parse(output)
   if output:sub(1, 5) == "desc:" then
@@ -18,15 +18,15 @@ local function add(spec)
   hl.monitor(spec)
 
   workspace_rule {
-    workspace = "r[" .. (base + 1) .. "-" .. (base + (1 << size)) .. "]",
+    workspace = "r[" .. (base + 1) .. "-" .. (base + (1 << SIZE)) .. "]",
     monitor = spec.output,
   }
   workspace_rule {
-    workspace = tostring(base + (1 << (size - 1))),
+    workspace = tostring(base + (1 << SIZE - 1)),
     monitor = spec.output,
     default = true,
   }
-  base = base + (1 << size)
+  base = base + (1 << SIZE)
 end
 
 hl.on("monitor.added", function(monitor)
