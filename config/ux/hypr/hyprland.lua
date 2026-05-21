@@ -2,7 +2,7 @@ for k, v in pairs(hl) do _G[k] = v end
 for k, v in pairs(dsp) do _G[k] = v end
 
 jump = require "util.jump"
-binds = require "util.binds"
+bind = require "util.bind"
 monitor = require "util.monitor"
 
 local ct = "rgba(00000000)"
@@ -97,80 +97,71 @@ window_rule {
   pin = true,
 }
 
-local function exec_util(script) return exec_raw(util .. "/" .. script) end
+bind.super {
+  left  = { focus { direction = "l" }, repeating = true },
+  right = { focus { direction = "r" }, repeating = true },
+  up    = { focus { direction = "u" }, repeating = true },
+  down  = { focus { direction = "d" }, repeating = true },
 
-local function float_pin()
-  dispatch(window.float())
-  dispatch(window.pin())
-end
+  bracketleft  = { jump.prev(), repeating = true },
+  bracketright = { jump.next(), repeating = true },
+  tab          = { jump.free() },
+  equal        = { window.fullscreen() },
+  apostrophe   = { window.float(), window.pin() },
 
-binds {
-  SUPER = {
-    left  = { focus { direction = "l" }, repeating = true },
-    right = { focus { direction = "r" }, repeating = true },
-    up    = { focus { direction = "u" }, repeating = true },
-    down  = { focus { direction = "d" }, repeating = true },
+  escape = { window.close() },
+  pause  = { submap "keylock" },
 
-    bracketleft  = { jump.prev(), repeating = true },
-    bracketright = { jump.next(), repeating = true },
-    tab          =   jump.free(),
-    equal        =   window.fullscreen(),
-    apostrophe   = { window.float(), window.pin() },
+  ["mouse:272"] = { window.drag(),   mouse = true },
+  ["mouse:273"] = { window.resize(), mouse = true },
+  mouse_down    = { jump.prev.used() },
+  mouse_up      = { jump.next.used() },
 
-    escape = window.close(),
+  backslash  = { util .. "/term" },
+  ["return"] = { util .. "/apps" },
+  l          = { "loginctl lock-session" },
+  r          = { "hyprctl reload" },
+  s          = { util .. "/edit" },
+  c          = { util .. "/calc" },
 
-    ["mouse:272"] = { window.drag(),   mouse = true },
-    ["mouse:273"] = { window.resize(), mouse = true },
-    mouse_down    = jump.prev.used(),
-    mouse_up      = jump.next.used(),
+  print = { "grimblast copy area" },
+}
 
-    backslash  = util .. "/term",
-    ["return"] = util .. "/apps",
-    l          = "loginctl lock-session",
-    r          = "hyprctl reload",
-    s          = util .. "/edit",
-    c          = util .. "/calc",
+bind.super.shift {
+  left  = { window.move { direction = "l" }, repeating = true },
+  right = { window.move { direction = "r" }, repeating = true },
+  up    = { window.move { direction = "u" }, repeating = true },
+  down  = { window.move { direction = "d" }, repeating = true },
 
-    print = "grimblast copy area",
+  bracketleft  = { jump.prev(window.move), repeating = true },
+  bracketright = { jump.next(window.move), repeating = true },
+  tab          = { jump.free(window.move) },
 
-    SHIFT = {
-      left  = { window.move { direction = "l" }, repeating = true },
-      right = { window.move { direction = "r" }, repeating = true },
-      up    = { window.move { direction = "u" }, repeating = true },
-      down  = { window.move { direction = "d" }, repeating = true },
+  ["mouse:272"] = { window.float(), window.pin(), release = true },
+  ["mouse:273"] = { window.fullscreen(),          release = true },
+  mouse_down    = { jump.prev(window.move) },
+  mouse_up      = { jump.next(window.move) },
 
-      bracketleft  = { jump.prev(window.move), repeating = true },
-      bracketright = { jump.next(window.move), repeating = true },
-      tab          =   jump.free(window.move),
+  backslash  = { jump.free(function(args) return exec_cmd(util .. "/term", args) end) },
+  ["return"] = { jump.free(exec_raw(util .. "/apps")) },
 
-      ["mouse:272"] = { window.drag(), mouse = true },
-      ["mouse:272"] = { window.float(), window.pin(), release = true },
-      ["mouse:273"] = { window.fullscreen(), release = true },
-      mouse_down    = jump.prev(window.move),
-      mouse_up      = jump.next(window.move),
+  print = { "grimblast save" },
+}
 
-      backslash  = jump.free(function(args) return exec_cmd(util .. "/term", args) end),
-      ["return"] = jump.free(exec_raw(util .. "/apps")),
+bind.super.alt {
+  left  = { focus { monitor = "l" }, repeating = true },
+  right = { focus { monitor = "r" }, repeating = true },
+  up    = { focus { monitor = "u" }, repeating = true },
+  down  = { focus { monitor = "d" }, repeating = true },
 
-      print = "grimblast save",
-    },
+  tab       = { "~/.local/share/ux/cycle-dpms",        locked = true },
+  backspace = { function() monitor.toggle "eDP-1" end, locked = true },
+  delete    = { exit(),                                locked = true },
 
-    ALT = {
-      left  = { focus { monitor = "l" }, repeating = true },
-      right = { focus { monitor = "r" }, repeating = true },
-      up    = { focus { monitor = "u" }, repeating = true },
-      down  = { focus { monitor = "d" }, repeating = true },
+  print = { "grimblast copy output" },
+}
 
-      tab       = { "~/.local/share/ux/cycle-dpms",        locked = true },
-      backspace = { function() monitor.toggle "eDP-1" end, locked = true },
-      delete    = { exit(),                                locked = true },
-
-      print = "grimblast copy output",
-    },
-  },
-
-  print = "grimblast copy active",
-
+bind {
   XF86MonBrightnessDown = { "brightnessctl set 5%-",                locked = true, repeating = true },
   XF86MonBrightnessUp   = { "brightnessctl set +5%",                locked = true, repeating = true },
   XF86AudioLowerVolume  = { "wpctl set-volume @DEFAULT_SINK@ 5%-",  locked = true, repeating = true },
@@ -180,11 +171,15 @@ binds {
   XF86AudioPrev         = { "playerctl previous",                   locked = true },
   XF86AudioNext         = { "playerctl next",                       locked = true },
   XF86AudioStop         = { "playerctl stop",                       locked = true },
+
+  print = { "grimblast copy active" },
 }
 
-hl.monitor { output = "", mode = "preferred", position = "auto", scale = "auto" }
+define_submap("keylock", function() bind { pause = { submap "reset" } } end)
 
-local handle = io.popen("ls " .. os.getenv("XDG_DATA_HOME") .. "/hypr/*.lua")
+monitor.enable ""
+
+local handle = io.popen("ls " .. os.getenv "XDG_DATA_HOME" .. "/hypr/*.lua")
 if handle then for file in handle:lines() do dofile(file) end handle:close() end
 
 dofile "/usr/share/hypr/shell.lua"

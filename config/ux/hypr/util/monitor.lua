@@ -39,7 +39,13 @@ end)
 
 local function enable(output)
   local out, tbl = parse(output)
-  hl.monitor(tbl[out] or { output = output, disabled = false })
+  hl.monitor(tbl[out] or {
+    output = output,
+    mode = "preferred",
+    position = "auto",
+    scale = "auto",
+    disabled = false,
+  })
 end
 
 local function disable(output)
