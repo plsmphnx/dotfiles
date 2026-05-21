@@ -1,4 +1,5 @@
 #!/bin/sh
-hyprctl dispatch exec "[float; pin; center; size monitor_w/3 monitor_h/3]
-    app2unit -- pragtical
-"
+hyprctl eval 'hl.exec_cmd(
+    "app2unit -- pragtical",
+    { float = true, pin = true, center = true, size = { "monitor_w/3", "monitor_h/3" } }
+)'

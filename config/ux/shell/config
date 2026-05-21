@@ -6,13 +6,21 @@ gaps = 0 0 2
 
 [utils]
 $exec = app2unit -t service
+$hypr = hyprctl dispatch
 
 speaker    = $exec com.saivert.pwvucontrol.desktop
 microphone = $exec com.saivert.pwvucontrol.desktop
 bluetooth  = $exec com.ezratweaver.AdwBluetooth.desktop
 network    = $exec nmgui.desktop; $exec nm-connection-editor.desktop
-title      = hyprjump movetoworkspace free; hyprctl dispatch killactive
+title      = $hypr 'jump.free(window.move)'; $hypr 'window.close()'
 launcher   = $exec {entry}; $exec {entry}:{action}
+
+[modes]
+SUPER       = f0142
+SUPER+SHIFT = f013e
+SUPER+ALT   = f0379
+background  = f05b0
+keylock     = 0f00d
 
 [icons]
 bluetooth               = f00af
