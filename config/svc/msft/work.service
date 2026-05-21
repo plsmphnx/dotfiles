@@ -7,4 +7,4 @@ PropagatesStopTo=intune.service
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=/bin/hyprctl eval 'monitor.disable "eDP-1"'
+ExecStart=/bin/hyprctl eval 'view.disable "eDP-1"'

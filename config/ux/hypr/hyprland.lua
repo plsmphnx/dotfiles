@@ -1,9 +1,9 @@
 for k, v in pairs(hl) do _G[k] = v end
 for k, v in pairs(dsp) do _G[k] = v end
 
-jump = require "util.jump"
 bind = require "util.bind"
-monitor = require "util.monitor"
+jump = require "util.jump"
+view = require "util.view"
 
 local ct = "rgba(00000000)"
 local cs = "rgba(00000033)"
@@ -109,8 +109,9 @@ bind.super {
   equal        = { window.fullscreen() },
   apostrophe   = { window.float(), window.pin() },
 
-  escape = { window.close() },
-  pause  = { submap "keylock" },
+  escape    = { window.close() },
+  pause     = { submap "keylock" },
+  backspace = { window.move { workspace = "special:background", follow = false } },
 
   ["mouse:272"] = { window.drag(),   mouse = true },
   ["mouse:273"] = { window.resize(), mouse = true },
@@ -137,6 +138,8 @@ bind.super.shift {
   bracketright = { jump.next(window.move), repeating = true },
   tab          = { jump.free(window.move) },
 
+  backspace = { workspace.toggle_special "background", submap "background" },
+
   ["mouse:272"] = { window.float(), window.pin(), release = true },
   ["mouse:273"] = { window.fullscreen(),          release = true },
   mouse_down    = { jump.prev(window.move) },
@@ -154,9 +157,9 @@ bind.super.alt {
   up    = { focus { monitor = "u" }, repeating = true },
   down  = { focus { monitor = "d" }, repeating = true },
 
-  tab       = { "~/.local/share/ux/cycle-dpms",        locked = true },
-  backspace = { function() monitor.toggle "eDP-1" end, locked = true },
-  delete    = { exit(),                                locked = true },
+  tab       = { "~/.local/share/ux/cycle-dpms",     locked = true },
+  backspace = { function() view.toggle "eDP-1" end, locked = true },
+  delete    = { exit(),                             locked = true },
 
   print = { "grimblast copy output" },
 }
@@ -175,9 +178,24 @@ bind {
   print = { "grimblast copy active" },
 }
 
-define_submap("keylock", function() bind { pause = { submap "reset" } } end)
+workspace_rule { workspace = "special:background", gaps_in = 32, gaps_out = 32 }
 
-monitor.enable ""
+define_submap("keylock", function() bind { pause = { submap "reset" } } end)
+define_submap("background", function() bind {
+  escape        = { workspace.toggle_special "background", submap "reset" },
+  backspace     = { workspace.toggle_special "background", submap "reset" },
+  ["mouse:273"] = { workspace.toggle_special "background", submap "reset", release = true },
+
+  ["return"]    = { window.move { workspace = "e+0" }, submap "reset" },
+  ["mouse:272"] = { window.move { workspace = "e+0" }, submap "reset" },
+
+  left  = { window.move { direction = "l" }, repeating = true },
+  right = { window.move { direction = "r" }, repeating = true },
+  up    = { window.move { direction = "u" }, repeating = true },
+  down  = { window.move { direction = "d" }, repeating = true },
+} end)
+
+view.enable ""
 
 local handle = io.popen("ls " .. os.getenv "XDG_DATA_HOME" .. "/hypr/*.lua")
 if handle then for file in handle:lines() do dofile(file) end handle:close() end

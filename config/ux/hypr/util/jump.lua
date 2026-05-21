@@ -51,7 +51,7 @@ end
 local function call(next, free, obj)
   return setmetatable(obj or {}, {
     __call = function(_, ...)
-      local cmds = table.pack(...)
+      local cmds = {...}
       local focus = true
       for _, cmd in ipairs(cmds) do
         if type(cmd) == "function" then focus = false end
