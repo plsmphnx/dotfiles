@@ -25,63 +25,58 @@ local function bind_exit(k, v)
   bind(k, d)
 end
 
-local function call(mods)
-  return setmetatable({}, {
-    __call = function(_, binds)
-      for _, v in pairs(binds) do for i, d in ipairs(v) do
-        if type(d) == "string" then v[i] = hl.dsp.exec_raw(d) end
-      end end
-
-      local sub = table.concat(mods, "+")
-
-      for i = 0, #mods do
-        local group = { table.unpack(mods, 1, i) }
-        local active = { table.unpack(mods, i + 1) }
-
-        local build = function(binder)
-          local i = #active + 1
-
-          for _, mod in ipairs(active) do
-            for _, key in ipairs(MODS[mod]) do
-              hl.bind(
-                table.concat(active, "+") .. "+" .. key,
-                hl.dsp.submap(sub),
-                { release = true }
-              )
-            end
-          end
-
-          for k, v in pairs(binds) do
-            active[i] = k
-            binder(table.concat(active, "+"), v)
-          end
-        end
-
-        if #group == 0 then build(bind) else
-          hl.define_submap(table.concat(group, "+"), function()
-            build(bind_exit)
-          end)
-        end
-      end
-
-      if sub ~= "" then
-        hl.define_submap(sub, function()
-          hl.bind("catchall", hl.dsp.submap("reset"))
-        end)
-      end
-    end,
-
-    __index = function(self, key)
-      local child = rawget(self, key)
-      if not child then
-        local next = { table.unpack(mods) }
-        next[#mods + 1] = key:upper()
-        child = call(next)
-        rawset(self, key, child)
-      end
-      return child
-    end,
-  })
+local function keys(mods, key)
+  if mods and mods ~= "" then return mods .. "+" .. key else return key end
 end
 
-return call {}
+return setmetatable({ next = {} }, {
+  __call = function(self, binds)
+    for _, v in pairs(binds) do
+      for i, d in ipairs(v) do
+        if type(d) == "string" then v[i] = hl.dsp.exec_raw(d) end
+      end
+    end
+
+    local sub = rawget(self, "sub")
+    local mods = {}
+    local target = self
+    while target do
+      local s = rawget(target, "sub")
+      local m = keys(table.concat(mods, "+"), "")
+      local build = function(binder)
+        for k, v in pairs(binds) do binder(m .. k, v) end
+
+        for _, mod in ipairs(mods) do
+          for _, key in ipairs(MODS[mod]) do
+            hl.bind(m .. key, hl.dsp.submap(sub), { release = true })
+          end
+        end
+      end
+
+      if s then hl.define_submap(s, function()
+        build(bind_exit)
+      end) else build(bind) end
+
+      table.insert(mods, 1, rawget(target, "mod"))
+      target = rawget(target, "prev")
+    end
+  end,
+
+  __index = function(self, key)
+    local next = rawget(self, "next")
+    local val = next[key]
+    if not val then
+      local mod = key:upper()
+      local sub = keys(rawget(self, "sub"), mod)
+      hl.define_submap(sub, function()
+        hl.bind("catchall", hl.dsp.submap "reset", { release = true })
+      end)
+      val = setmetatable(
+        { mod = mod, sub = sub, prev = self, next = {} },
+        getmetatable(self)
+      )
+      next[key] = val
+    end
+    return val
+  end,
+})
