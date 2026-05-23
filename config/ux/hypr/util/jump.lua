@@ -1,4 +1,4 @@
-local function jump(next, free, cmds)
+local function jump(self)
   local active_monitor = hl.get_active_monitor()
   local workspaces = hl.get_workspaces()
   table.sort(workspaces, function(a, b) return a.id < b.id end)
@@ -15,32 +15,32 @@ local function jump(next, free, cmds)
   end
 
   local id
-  if next then
-    if active == #monitor or free == 1 then
-      local i = monitor[#monitor]
-      id = workspaces[i].id
-      if free ~= -1 and workspaces[i].windows ~= 0 then
-        while i <= #workspaces and workspaces[i].id == id do
-          i = i + 1
-          id = id + 1
-        end
-      end
-    else id = workspaces[monitor[active + 1]].id end
-  else
-    if active == 1 or free == 1 then
+  if self.prev then
+    if active == 1 or self.free then
       local i = monitor[1]
       id = workspaces[i].id
-      if free ~= -1 and workspaces[i].windows ~= 0 then
+      if not self.used and workspaces[i].windows ~= 0 then
         while i > 0 and workspaces[i].id == id do
           i = i - 1
           id = id - 1
         end
       end
     else id = workspaces[monitor[active - 1]].id end
+  else
+    if active == #monitor or self.free then
+      local i = monitor[#monitor]
+      id = workspaces[i].id
+      if not self.used and workspaces[i].windows ~= 0 then
+        while i <= #workspaces and workspaces[i].id == id do
+          i = i + 1
+          id = id + 1
+        end
+      end
+    else id = workspaces[monitor[active + 1]].id end
   end
   local workspace = tostring(math.max(1, math.min(2147483647, id)))
 
-  for _, cmd in ipairs(cmds) do
+  for _, cmd in ipairs(self) do
     if type(cmd) == "function" then
       local dispatcher = cmd { workspace = workspace }
       if dispatcher then hl.dispatch(dispatcher) end
@@ -48,23 +48,20 @@ local function jump(next, free, cmds)
   end
 end
 
-local function call(next, free, obj)
-  return setmetatable(obj or {}, {
-    __call = function(_, ...)
-      local cmds = {...}
-      local focus = true
-      for _, cmd in ipairs(cmds) do
-        if type(cmd) == "function" then focus = false end
-      end
-      if focus then table.insert(cmds, 1, hl.dsp.focus) end
-      return function() jump(next, free, cmds) end
+return setmetatable({}, {
+  __call = function(self, ...)
+    local cmds = {...}
+    local focus = true
+    for _, cmd in ipairs(cmds) do
+      if type(cmd) == "function" then focus = false end
     end
-  })
-end
-
-return call(true, 0, {
-  next = call(true,  0, { free = call(true,  1), used = call(true,  -1) }),
-  prev = call(false, 0, { free = call(false, 1), used = call(false, -1) }),
-  free = call(true,  1, { next = call(true,  1), prev = call(false,  1) }),
-  used = call(true, -1, { next = call(true, -1), prev = call(false, -1) }),
+    if focus then table.insert(cmds, 1, hl.dsp.focus) end
+    for k, v in pairs(self) do cmds[k] = v end
+    return function() jump(cmds) end
+  end,
+  __index = function(self, key)
+    local next = setmetatable({ [key] = true }, getmetatable(self))
+    for k, v in pairs(self) do next[k] = v end
+    return next
+  end,
 })
