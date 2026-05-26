@@ -1,37 +1,34 @@
+local SPEC = { next = 0, prev = 1, free = 2, used = 4 }
+
 local function jump(spec, cmds)
-  local active_monitor = hl.get_active_monitor()
-  local workspaces = hl.get_workspaces()
+  local current, workspaces = hl.get_active_monitor(), hl.get_workspaces()
+  local last = #workspaces
   table.sort(workspaces, function(a, b) return a.id < b.id end)
 
-  local monitor, active = {}
+  local monitor, active, count = {}, nil, 0
   for i, workspace in ipairs(workspaces) do
-    if workspace.monitor == active_monitor then
-      monitor[#monitor + 1] = i
-      if workspace == active_monitor.active_workspace then
-        active = #monitor
-      end
+    if workspace.monitor == current then
+      count = count + 1
+      monitor[count] = i
+      if workspace == current.active_workspace then active = count end
     end
   end
 
   local id
-  if spec.prev then
-    if active == 1 or spec.free then
+  if spec & SPEC.prev > 0 then
+    if active == 1 or spec & SPEC.free > 0 then
       local i = monitor[1]
       id = workspaces[i].id
-      if not spec.used and workspaces[i].windows ~= 0 then
-        while i > 0 and workspaces[i].id == id do
-          i, id = i - 1, id - 1
-        end
+      if spec & SPEC.used == 0 and workspaces[i].windows ~= 0 then
+        while i > 0 and workspaces[i].id == id do i, id = i - 1, id - 1 end
       end
     else id = workspaces[monitor[active - 1]].id end
   else
-    if active == #monitor or spec.free then
-      local i = monitor[#monitor]
+    if active == count or spec & SPEC.free > 0 then
+      local i = monitor[count]
       id = workspaces[i].id
-      if not spec.used and workspaces[i].windows ~= 0 then
-        while i <= #workspaces and workspaces[i].id == id do
-          i, id = i + 1, id + 1
-        end
+      if spec & SPEC.used == 0 and workspaces[i].windows ~= 0 then
+        while i <= last and workspaces[i].id == id do i, id = i + 1, id + 1 end
       end
     else id = workspaces[monitor[active + 1]].id end
   end
@@ -50,15 +47,15 @@ function default(cmds)
   return table.insert(cmds, 1, hl.dsp.focus) or cmds
 end
 
-return setmetatable({ _ = {} }, {
+return setmetatable({ _ = 0 }, {
   __call = function(self, ...)
     local spec, cmds = self._, default {...}
     return function() jump(spec, cmds) end
   end,
   __index = function(self, key)
-    local val = setmetatable({ _ = { [key] = true } }, getmetatable(self))
-    for k in pairs(self._) do val._[k] = true end
-    self[key] = val
-    return val
+    self[key] = SPEC[key] and setmetatable({
+      _ = self._ | SPEC[key],
+    }, getmetatable(self))
+    return rawget(self, key)
   end,
 })

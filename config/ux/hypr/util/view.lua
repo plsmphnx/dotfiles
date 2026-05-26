@@ -1,13 +1,7 @@
-local by_name = {}
-local by_desc = {}
-
-local base = 0
-local SIZE = 27
+local SIZE, base, by_name, by_desc = 27, 0, {}, {}
 
 local function parse(output)
-  if output:sub(1, 5) == "desc:" then
-    return output:sub(6, #output), by_desc
-  end
+  if output:sub(1, 5) == "desc:" then return output:sub(6), by_desc end
   return output, by_name
 end
 
