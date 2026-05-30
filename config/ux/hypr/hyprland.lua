@@ -97,6 +97,29 @@ window_rule {
   pin = true,
 }
 
+function expand()
+  local current = get_active_window()
+  if current then
+    if current.floating then
+      dispatch(window.float { action = "unset" })
+    elseif current.fullscreen == 0 then
+      dispatch(window.fullscreen { action = "set" })
+    end
+  end
+end
+
+function contract()
+  local current = get_active_window()
+  if current then
+    if current.fullscreen > 0 then
+      dispatch(window.fullscreen { action = "unset" })
+    elseif not current.floating then
+      dispatch(window.float { action = "set" })
+      dispatch(window.pin())
+    end
+  end
+end
+
 bind.super {
   left  = { focus { direction = "l" }, repeating = true },
   right = { focus { direction = "r" }, repeating = true },
@@ -106,8 +129,8 @@ bind.super {
   bracketleft  = { jump.prev(), repeating = true },
   bracketright = { jump.next(), repeating = true },
   tab          = { jump.free() },
-  equal        = { window.fullscreen() },
-  apostrophe   = { window.float(), window.pin() },
+  equal        = { expand },
+  apostrophe   = { contract },
 
   escape    = { window.close() },
   pause     = { submap "keylock" },
@@ -140,8 +163,6 @@ bind.super.shift {
 
   backspace = { workspace.toggle_special "background", submap "background" },
 
-  ["mouse:272"] = { window.float(), window.pin(), release = true },
-  ["mouse:273"] = { window.fullscreen(),          release = true },
   mouse_down    = { jump.prev(window.move) },
   mouse_up      = { jump.next(window.move) },
 

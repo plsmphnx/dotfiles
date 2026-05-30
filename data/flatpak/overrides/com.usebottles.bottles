@@ -1,3 +1,6 @@
 [Context]
-filesystems=~/Games:create
+shared=ipc
+sockets=x11
+features=devel
+filesystems=~/Games:create;/run/media:ro;~/.var/app/com.valvesoftware.Steam
 unset-environment=SDL_VIDEODRIVER

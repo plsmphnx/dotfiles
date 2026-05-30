@@ -19,7 +19,7 @@ local function jump(spec, cmds)
     if active == 1 or spec & SPEC.free > 0 then
       local i = monitor[1]
       id = workspaces[i].id
-      if spec & SPEC.used == 0 and workspaces[i].windows ~= 0 then
+      if spec & SPEC.used == 0 and workspaces[i].windows > 0 then
         while i > 0 and workspaces[i].id == id do i, id = i - 1, id - 1 end
       end
     else id = workspaces[monitor[active - 1]].id end
@@ -27,7 +27,7 @@ local function jump(spec, cmds)
     if active == count or spec & SPEC.free > 0 then
       local i = monitor[count]
       id = workspaces[i].id
-      if spec & SPEC.used == 0 and workspaces[i].windows ~= 0 then
+      if spec & SPEC.used == 0 and workspaces[i].windows > 0 then
         while i <= last and workspaces[i].id == id do i, id = i + 1, id + 1 end
       end
     else id = workspaces[monitor[active + 1]].id end
