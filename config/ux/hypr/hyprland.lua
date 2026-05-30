@@ -163,8 +163,8 @@ bind.super.shift {
 
   backspace = { workspace.toggle_special "background", submap "background" },
 
-  mouse_down    = { jump.prev(window.move) },
-  mouse_up      = { jump.next(window.move) },
+  mouse_down = { jump.prev(window.move) },
+  mouse_up   = { jump.next(window.move) },
 
   backslash  = { jump.free(function(args) return exec_cmd(util .. "/term", args) end) },
   ["return"] = { jump.free(exec_raw(util .. "/apps")) },
@@ -200,15 +200,22 @@ bind {
 }
 
 workspace_rule { workspace = "special:background", gaps_in = 32, gaps_out = 32 }
+local bg_exit = { function()
+  local current = get_active_special_workspace()
+  if current and current.name == "special:background" then
+    dispatch(workspace.toggle_special "background")
+  end
+end, submap "reset" }
+local bg_free = { window.move { workspace = "e+0" }, table.unpack(bg_exit) }
 
 define_submap("keylock", function() bind { pause = { submap "reset" } } end)
 define_submap("background", function() bind {
-  escape        = { workspace.toggle_special "background", submap "reset" },
-  backspace     = { workspace.toggle_special "background", submap "reset" },
-  ["mouse:273"] = { workspace.toggle_special "background", submap "reset", release = true },
+  escape        = bg_exit,
+  backspace     = bg_exit,
+  ["mouse:273"] = bg_exit,
 
-  ["return"]    = { window.move { workspace = "e+0" }, submap "reset" },
-  ["mouse:272"] = { window.move { workspace = "e+0" }, submap "reset" },
+  ["return"]    = bg_free,
+  ["mouse:272"] = { non_consuming = true, release = true, table.unpack(bg_free) },
 
   left  = { window.move { direction = "l" }, repeating = true },
   right = { window.move { direction = "r" }, repeating = true },
