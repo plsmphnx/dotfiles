@@ -45,7 +45,7 @@ setup_data() (setup_dir $XDG_DATA_HOME
     ;; esac
     case $1 in *ux*)
         link_data flatpak "overrides"
-        link_data hypr "monitor.conf"
+        link_data hypr "monitor.lua"
         link_data_dir nemo
         link_data_dir ux
         link_data zsh/profile "1-hyprland.zsh 9-vlock.zsh"

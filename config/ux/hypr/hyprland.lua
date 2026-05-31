@@ -5,11 +5,10 @@ bind = require "util.bind"
 jump = require "util.jump"
 view = require "util.view"
 
-local ct = "rgba(00000000)"
-local cs = "rgba(00000033)"
-local ch = "rgba(ffffff66)"
+local ct, cs, ch = "rgba(00000000)", "rgba(00000033)", "rgba(ffffff66)"
 
-local util = "~/.local/share/ux/bind"
+local data = os.getenv "XDG_DATA_HOME"
+local util = data .. "/ux/bind/"
 
 for _, c in ipairs {
   "com.network.manager",
@@ -30,7 +29,7 @@ config {
     border_size = 2,
     col = {
       active_border = { colors = { ch, ct, ct, ct, ct, ct, ct, ct, ch } },
-      inactive_border = cs,
+      inactive_border = ct,
     },
     no_focus_fallback = true,
   },
@@ -126,9 +125,9 @@ bind.super {
   up    = { focus { direction = "u" }, repeating = true },
   down  = { focus { direction = "d" }, repeating = true },
 
-  bracketleft  = { jump.prev(), repeating = true },
-  bracketright = { jump.next(), repeating = true },
-  tab          = { jump.free() },
+  bracketleft  = { jump.prev(focus), repeating = true },
+  bracketright = { jump.next(focus), repeating = true },
+  tab          = { jump.free(focus) },
   equal        = { expand },
   apostrophe   = { contract },
 
@@ -138,15 +137,15 @@ bind.super {
 
   ["mouse:272"] = { window.drag(),   mouse = true },
   ["mouse:273"] = { window.resize(), mouse = true },
-  mouse_down    = { jump.prev.used() },
-  mouse_up      = { jump.next.used() },
+  mouse_down    = { jump.prev.used(focus) },
+  mouse_up      = { jump.next.used(focus) },
 
-  backslash  = { util .. "/term" },
-  ["return"] = { util .. "/apps" },
+  backslash  = { util .. "term" },
+  ["return"] = { util .. "apps" },
   l          = { "loginctl lock-session" },
   r          = { "hyprctl reload" },
-  s          = { util .. "/edit" },
-  c          = { util .. "/calc" },
+  s          = { util .. "edit" },
+  c          = { util .. "calc" },
 
   print = { "grimblast copy area" },
 }
@@ -166,8 +165,8 @@ bind.super.shift {
   mouse_down = { jump.prev(window.move) },
   mouse_up   = { jump.next(window.move) },
 
-  backslash  = { jump.free(function(args) return exec_cmd(util .. "/term", args) end) },
-  ["return"] = { jump.free(exec_raw(util .. "/apps")) },
+  backslash  = { jump.free(function(args) return exec_cmd(util .. "term", args) end) },
+  ["return"] = { jump.free(focus, exec_raw(util .. "apps")) },
 
   print = { "grimblast save" },
 }
@@ -178,7 +177,7 @@ bind.super.alt {
   up    = { focus { monitor = "u" }, repeating = true },
   down  = { focus { monitor = "d" }, repeating = true },
 
-  tab       = { "~/.local/share/ux/cycle-dpms",     locked = true },
+  tab       = { data .. "/ux/cycle-dpms",           locked = true },
   backspace = { function() view.toggle "eDP-1" end, locked = true },
   delete    = { exit(),                             locked = true },
 
@@ -208,8 +207,8 @@ local bg_exit = { function()
 end, submap "reset" }
 local bg_free = { window.move { workspace = "e+0" }, table.unpack(bg_exit) }
 
-define_submap("keylock", function() bind { pause = { submap "reset" } } end)
-define_submap("background", function() bind {
+bind "keylock" { pause = { submap "reset" } }
+bind "background" {
   escape        = bg_exit,
   backspace     = bg_exit,
   ["mouse:273"] = bg_exit,
@@ -221,11 +220,11 @@ define_submap("background", function() bind {
   right = { window.move { direction = "r" }, repeating = true },
   up    = { window.move { direction = "u" }, repeating = true },
   down  = { window.move { direction = "d" }, repeating = true },
-} end)
+}
 
-view.enable ""
+view.add ""
 
-local handle = io.popen("ls " .. os.getenv "XDG_DATA_HOME" .. "/hypr/*.lua")
+local handle = io.popen("ls " .. data .. "/hypr/*.lua")
 if handle then for file in handle:lines() do dofile(file) end handle:close() end
 
 dofile "/usr/share/hypr/shell.lua"

@@ -40,16 +40,9 @@ local function jump(spec, cmds)
   end
 end
 
-function default(cmds)
-  for _, cmd in ipairs(cmds) do
-    if type(cmd) == "function" then return cmds end
-  end
-  return table.insert(cmds, 1, hl.dsp.focus) or cmds
-end
-
 return setmetatable({ _ = 0 }, {
   __call = function(self, ...)
-    local spec, cmds = self._, default {...}
+    local spec, cmds = self._, {...}
     return function() jump(spec, cmds) end
   end,
   __index = function(self, key)

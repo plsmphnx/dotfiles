@@ -1,11 +1,16 @@
 local SIZE, base, by_name, by_desc = 27, 0, {}, {}
 
-local function parse(output)
-  if output:sub(1, 5) == "desc:" then return output:sub(6), by_desc end
-  return output, by_name
+local function parse(id)
+  if id:sub(1, 5) == "desc:" then return id:sub(6), by_desc end
+  return id, by_name
+end
+
+local function default(id)
+  return { output = id, mode = "preferred", position = "auto", scale = "auto" }
 end
 
 local function add(spec)
+  if type(spec) == "string" then spec = default(spec) end
   local out, tbl = parse(spec.output)
   tbl[out] = spec
 
@@ -31,23 +36,17 @@ hl.on("monitor.added", function(monitor)
   end
 end)
 
-local function enable(output)
-  local out, tbl = parse(output)
-  hl.monitor(tbl[out] or {
-    output = output,
-    mode = "preferred",
-    position = "auto",
-    scale = "auto",
-    disabled = false,
-  })
+local function enable(id)
+  local out, tbl = parse(id)
+  hl.monitor(tbl[out] or default(id))
 end
 
-local function disable(output)
-  hl.monitor { output = output, disabled = true }
+local function disable(id)
+  hl.monitor { output = id, disabled = true }
 end
 
-local function toggle(output)
-  if hl.get_monitor(output) then disable(output) else enable(output) end
+local function toggle(id)
+  if hl.get_monitor(id) then disable(id) else enable(id) end
 end
 
 return { add = add, enable = enable, disable = disable, toggle = toggle }
