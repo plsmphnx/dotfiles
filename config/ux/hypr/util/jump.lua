@@ -1,6 +1,4 @@
-local SPEC = { next = 0, prev = 1, free = 2, used = 4 }
-
-local function jump(spec, cmds)
+local function jump(spec)
   local current, workspaces = hl.get_active_monitor(), hl.get_workspaces()
   local last = #workspaces
   table.sort(workspaces, function(a, b) return a.id < b.id end)
@@ -15,40 +13,41 @@ local function jump(spec, cmds)
   end
 
   local id
-  if spec & SPEC.prev > 0 then
-    if active == 1 or spec & SPEC.free > 0 then
+  if spec.prev then
+    if active == 1 or spec.free then
       local i = monitor[1]
       id = workspaces[i].id
-      if spec & SPEC.used == 0 and workspaces[i].windows > 0 then
+      if not spec.used and workspaces[i].windows > 0 then
         while i > 0 and workspaces[i].id == id do i, id = i - 1, id - 1 end
       end
     else id = workspaces[monitor[active - 1]].id end
   else
-    if active == count or spec & SPEC.free > 0 then
+    if active == count or spec.free then
       local i = monitor[count]
       id = workspaces[i].id
-      if spec & SPEC.used == 0 and workspaces[i].windows > 0 then
+      if not spec.used and workspaces[i].windows > 0 then
         while i <= last and workspaces[i].id == id do i, id = i + 1, id + 1 end
       end
     else id = workspaces[monitor[active + 1]].id end
   end
   local workspace = tostring(math.max(1, math.min(2147483647, id)))
 
-  for _, cmd in ipairs(cmds) do
+  for _, cmd in ipairs(spec) do
     if type(cmd) == "function" then cmd = cmd { workspace = workspace } end
     if cmd then hl.dispatch(cmd) end
   end
 end
 
-return setmetatable({ _ = 0 }, {
+return setmetatable({}, {
+  __bor = function(a, b)
+    for k, v in pairs(b) do if v == true then a[k] = true end end return a
+  end,
   __call = function(self, ...)
-    local spec, cmds = self._, {...}
-    return function() jump(spec, cmds) end
+    local spec = {...} | self
+    return function() jump(spec) end
   end,
   __index = function(self, key)
-    self[key] = SPEC[key] and setmetatable({
-      _ = self._ | SPEC[key],
-    }, getmetatable(self))
+    self[key] = setmetatable({ [key] = true } | self, getmetatable(self))
     return rawget(self, key)
   end,
 })
