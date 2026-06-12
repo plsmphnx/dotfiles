@@ -21,12 +21,18 @@ local function bind(k, v)
   end
 end
 
-local function bind_exit(to)
+local function exit(self) return hl.dsp.submap(self.__ or "reset") end
+
+local function bind_exit(self)
   return function(k, v)
     local d = { table.unpack(v) }
-    d[#d + 1] = hl.dsp.submap(to)
+    d[#d + 1] = exit(self)
     bind(k, d)
   end
+end
+
+local function submap(self, c)
+  if self.__ then hl.define_submap(self.__, c) else c() end
 end
 
 return setmetatable({ _ = false, __ = false }, {
@@ -41,45 +47,59 @@ return setmetatable({ _ = false, __ = false }, {
       end
     end
 
-    local mods, list, target = "", {}, self
-    while true do
-      local build = function(binder)
-        for k, v in pairs(binds) do binder(mods .. k, v) end
-
-        for _, mod in ipairs(list) do
-          for _, key in ipairs(MODS[mod]) do
-            hl.bind(mods .. key, hl.dsp.submap(self._.sub), { release = true })
-          end
-        end
-      end
-
-      if target._ then
-        local with_exit = bind_exit(target.__ or "reset")
-        hl.define_submap(target._.sub, function() build(with_exit) end)
-        mods = mods .. target._.mod .. "+"
-        list[#list + 1] = target._.mod
-        target = target._.prev
-      elseif target.__ then
-        hl.define_submap(target.__, function() build(bind) end)
-        break
-      else
-        build(bind)
-        break
-      end
+    local mods, target = "", self
+    local build = function(binder)
+      for k, v in pairs(binds) do binder(mods .. k, v) end
     end
+
+    while target._ do
+      local with_exit = bind_exit(target)
+      hl.define_submap(target._.sub, function() build(with_exit) end)
+      mods = mods .. target._.mod .. "+"
+      target = target._.prev
+    end
+    submap(target, function() build(bind) end)
   end,
 
   __index = function(self, key)
     local mod = key:upper()
     local sub = self._ and self._.sub .. "+" .. mod or mod
     if self.__ then sub = self.__ .. " " .. sub end
-    local out = self.__ or "reset"
-    hl.define_submap(sub, function()
-      hl.bind("catchall", hl.dsp.submap(out), { release = true })
-    end)
-    self[key] = setmetatable({
+    local next = setmetatable({
       _ = { mod = mod, sub = sub, prev = self }, __ = self.__,
     }, getmetatable(self))
-    return rawget(self, key)
+    self[key] = next
+
+    hl.define_submap(sub, function()
+      hl.bind("catchall", exit(next), { release = true, non_consuming = true })
+
+      local target = next
+      while target._ do
+        local mod = target._.mod
+        for _, key in ipairs(MODS[mod]) do
+          hl.bind(mod .. "+" .. key, exit(next), { release = true })
+        end
+        target = target._.prev
+      end
+    end)
+
+    local mods, list, target = "", {}, next
+    local build = function()
+      for _, mod in ipairs(list) do
+        for _, key in ipairs(MODS[mod]) do
+          hl.bind(mods .. key, hl.dsp.submap(next._.sub), { release = true })
+        end
+      end
+    end
+
+    while target._ do
+      hl.define_submap(target._.sub, build)
+      mods = mods .. target._.mod .. "+"
+      list[#list + 1] = target._.mod
+      target = target._.prev
+    end
+    submap(target, build)
+
+    return next
   end,
 })
