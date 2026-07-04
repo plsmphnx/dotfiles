@@ -3,6 +3,7 @@ GAME=${2:-$(find -type d | tr -d '\n' | sed 's_\.\./__;s_\./_|_g')}
 gog() {
     lgogdownloader \
         --platform w \
+        --no-platform-detection \
         --no-subdirectories \
         --game "^($GAME)$" \
         --include i \

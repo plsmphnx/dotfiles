@@ -22,6 +22,8 @@ checkout = git clone 'https://github.com/ggml-org/whisper.cpp' whisper-cpp
 
 [clone/core/musl]
 checkout = git clone 'git://git.musl-libc.org/musl'
+[clone/core/nixpkgs]
+checkout = git clone 'https://github.com/nixos/nixpkgs'
 [clone/core/rax]
 checkout = git clone 'https://github.com/antirez/rax'
 [clone/core/sds]
@@ -93,6 +95,8 @@ checkout = git clone 'https://github.com/01mf02/jaq'
 checkout = git clone 'https://github.com/msteveb/jimtcl'
 [clone/language/koka]
 checkout = git clone 'https://github.com/koka-lang/koka'
+[clone/language/lobster]
+checkout = git clone 'https://github.com/aardappel/lobster'
 [clone/language/lua]
 checkout = git clone 'https://github.com/lua/lua'
 [clone/language/mruby]
