@@ -5,6 +5,3 @@ filesystems=~/Games:create
 
 [System Bus Policy]
 org.freedesktop.NetworkManager=talk
-
-[Environment]
-PROTON_ENABLE_WAYLAND=1
