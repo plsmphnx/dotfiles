@@ -1,3 +1,0 @@
-#!/bin/sh
-exec app2unit -t service -- gamescope --steam -- \
-    flatpak run com.valvesoftware.Steam -nobigpicture
