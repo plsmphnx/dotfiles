@@ -7,18 +7,16 @@ git_gc =
 git_prune =
     git remote prune origin
 
+[clone/ai/audio]
+checkout = git clone 'https://github.com/0xShug0/audio.cpp' audio
 [clone/ai/ggml]
 checkout = git clone 'https://github.com/ggml-org/ggml'
-[clone/ai/kobold-cpp]
-checkout = git clone 'https://github.com/LostRuins/koboldcpp' kobold-cpp
-[clone/ai/llama-cpp]
-checkout = git clone 'https://github.com/ggml-org/llama.cpp' llama-cpp
-[clone/ai/stable-diffusion-cpp]
-checkout = git clone 'https://github.com/leejet/stable-diffusion.cpp' stable-diffusion-cpp
-[clone/ai/tts-cpp]
-checkout = git clone 'https://github.com/mmwillet/TTS.cpp' tts-cpp
-[clone/ai/whisper-cpp]
-checkout = git clone 'https://github.com/ggml-org/whisper.cpp' whisper-cpp
+[clone/ai/kobold]
+checkout = git clone 'https://github.com/LostRuins/koboldcpp' kobold
+[clone/ai/llama]
+checkout = git clone 'https://github.com/ggml-org/llama.cpp' llama
+[clone/ai/stable-diffusion]
+checkout = git clone 'https://github.com/leejet/stable-diffusion.cpp' stable-diffusion
 
 [clone/core/musl]
 checkout = git clone 'git://git.musl-libc.org/musl'
@@ -123,8 +121,6 @@ checkout = git clone 'https://github.com/randrew/layout'
 checkout = git clone 'https://github.com/plsmphnx/dotfiles'
 [clone/personal/exec-util]
 checkout = git clone 'https://github.com/plsmphnx/exec-util'
-[clone/personal/hypr]
-checkout = git clone 'https://github.com/plsmphnx/hypr'
 [clone/personal/nixcfg]
 checkout = git clone 'https://github.com/plsmphnx/nixcfg'
 [clone/personal/redact-pdf]
