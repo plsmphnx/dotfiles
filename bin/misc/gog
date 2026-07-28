@@ -1,28 +1,34 @@
 #!/bin/sh
-GAME=${2:-$(find -type d | tr -d '\n' | sed 's_\.\./__;s_\./_|_g')}
+CMD=$1
+shift
+GAME=$(export IFS='|'; echo "$*")
+GAME=${GAME:-$(find -type d | tr -d '\n' | sed 's_\.\./__;s_\./_|_g')}
 gog() {
     lgogdownloader \
         --platform w \
         --no-platform-detection \
         --no-subdirectories \
-        --game "^($GAME)$" \
         --include i \
         "$@"
 }
-case $1 in
+gg() { gog --game "^($GAME)$" "$@"; }
+case $CMD in
+    list)
+        gog --list
+        ;;
     pull)
-        gog --download --size-only
+        gg --download --size-only
         ;;
     clean)
-        gog --check-orphans --delete-orphans
+        gg --check-orphans --delete-orphans
         ;;
     check)
-        gog --status --size-only | grep -v ^OK
+        gg --status --size-only | grep -v ^OK
         ;;
     verify)
-        gog --status | grep -v ^OK
+        gg --status | grep -v ^OK
         ;;
     repair)
-        gog --download --repair
+        gg --download --repair
         ;;
 esac
