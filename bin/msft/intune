@@ -4,7 +4,11 @@ yubikey() {
         ykman -ldebug list 2>&1 | sed -n "s_.*='\(/dev/.*\)'.*_\1_p"
     ) | awk -F '=' '/DEVNAME/ { print "--device " $2 }'
 }
-
+crypt() {
+    echo --mount "type=bind,src=/dev/mapper,dst=/dev/mapper,ro=true"
+    find /dev/mapper -type l | xargs realpath \
+    | awk '{ print "--device " $1 ":" $1 ":r" }'
+}
 case $1 in
     install)
         REPO=https://packages.microsoft.com
@@ -80,6 +84,7 @@ END
             --mount "type=bind,src=$ROOT/cert,dst=$CERT" \
             --mount "type=bind,src=$ROOT/priv,dst=$PRIV" \
             $(yubikey) \
+            $(crypt) \
             --name intune \
             intune
         podman exec -i intune sh -- << END
