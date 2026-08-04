@@ -1,20 +1,40 @@
 #!/bin/sh
+set -e
+
 yubikey() {
     udevadm info --tree --no-pager $(
         ykman -ldebug list 2>&1 | sed -n "s_.*='\(/dev/.*\)'.*_\1_p"
     ) | awk -F '=' '/DEVNAME/ { print "--device " $2 }'
 }
+
 crypt() {
     echo --mount "type=bind,src=/dev/mapper,dst=/dev/mapper,ro=true"
     find /dev/mapper -type l | xargs realpath \
     | awk '{ print "--device " $1 ":" $1 ":r" }'
 }
+
+ROOT=$XDG_STATE_HOME/intune
+CONF=/home/ubuntu/.config
+DATA=/home/ubuntu/.local/share
+CERT=/etc/microsoft/identity-broker/certs
+PRIV=/etc/microsoft/identity-broker/private
+SBDB=$DATA/sb.db
+
 case $1 in
     install)
+        TEMP="$(mktemp -d)"
+        cat > "$TEMP/mokutil" << END
+#!/bin/sh
+case \$1 in
+  --sb-state) echo "SecureBoot enabled" ;;
+  --db) cat $SBDB ;;
+esac
+END
+
         REPO=https://packages.microsoft.com
         BASE=24.04
         PCSC=/home/ubuntu/.pki/nssdb
-        podman build -t intune -f - << END
+        podman build -t intune -f - "$TEMP" << END
 FROM ubuntu:$BASE
 
 # Setup Microsoft repositories
@@ -44,12 +64,16 @@ RUN su ubuntu -c "mkdir -p $PCSC && chmod -R 700 $PCSC && \
     modutil -force -dbdir sql:$PCSC -add OpenSC \
         -libfile /usr/lib/x86_64-linux-gnu/pkcs11/opensc-pkcs11.so"
 ENV WEBKIT_DISABLE_DMABUF_RENDERER 1
+COPY mokutil /bin
+RUN chmod a+rx /bin/mokutil
 
 # Cleanup
 RUN apt purge --autoremove -y curl gpg libnss3-tools && apt clean
 
 CMD [ "/sbin/init" ]
 END
+        rm -rf "$TEMP"
+
         DBUS=$XDG_DATA_HOME/dbus-1/services
         mkdir -p $DBUS
         cat > $DBUS/com.microsoft.identity.broker1.service << END
@@ -59,17 +83,14 @@ Exec=$0 broker
 END
         systemctl --user reload dbus-broker
         ;;
+
     start)
-        ROOT=$XDG_STATE_HOME/intune
         DBUS=${DBUS_SESSION_BUS_ADDRESS#*=}
         PCSC=/run/pcscd
         X11=/tmp/.X11-unix/X$(echo $DISPLAY | cut -c2-)
-        CONF=/home/ubuntu/.config
-        DATA=/home/ubuntu/.local/share
-        CERT=/etc/microsoft/identity-broker/certs
-        PRIV=/etc/microsoft/identity-broker/private
-        mkdir -p $ROOT/conf $ROOT/data $ROOT/cert $ROOT/priv
         podman rm --force --ignore --time 0 intune
+        mkdir -p $ROOT/conf $ROOT/data $ROOT/cert $ROOT/priv
+        mokutil --db > $ROOT/data/sb.db
         podman run --detach \
             --userns keep-id \
             --user root:root \
@@ -92,21 +113,26 @@ chown root:root $CERT $PRIV
 chown ubuntu:ubuntu $(dirname $DBUS) /home/ubuntu/.local
 END
         ;;
+
     stop)
         podman rm -fit 0 intune
         ;;
+
     portal)
         exec $0 user \
             /opt/microsoft/intune/bin/intune-portal
         ;;
+
     broker)
         exec $0 user \
             /opt/microsoft/identity-broker/bin/microsoft-identity-broker
         ;;
+
     user)
         shift
         exec podman exec -itu ubuntu:ubuntu intune $@
         ;;
+
     root)
         shift
         exec podman exec -itu root:root intune $@
