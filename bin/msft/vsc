@@ -1,2 +1,6 @@
 #!/bin/sh
-app2unit -t service code.desktop -- "$@"
+if [ -z "$1" ]; then
+    app2unit -t service code.desktop -- "$(git rev-parse --show-toplevel)"
+else
+    app2unit -t service code.desktop -- "$@"
+fi
