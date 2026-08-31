@@ -1,9 +1,9 @@
 [user]
     name = Carl LeCompte
     email = 43455988+plsmphnx@users.noreply.github.com
-[credential]
-    helper = store --file=$XDG_STATE_HOME/git/credentials
 [color]
     ui = true
 [pull]
     rebase = false
+[url "git@github-plsmphnx:"]
+    insteadOf = https://github.com/

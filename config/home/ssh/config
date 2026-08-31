@@ -1,4 +1,10 @@
 Host home
-  Hostname server
-  RequestTTY yes
-  RemoteCommand tmux -u new -As ssh
+    Hostname server
+    RequestTTY yes
+    RemoteCommand tmux -u new -As ssh
+
+Host github-plsmphnx
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_plsmphnx
+    IdentitiesOnly yes
