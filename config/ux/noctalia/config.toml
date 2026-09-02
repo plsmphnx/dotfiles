@@ -1,0 +1,161 @@
+[bar.default]
+start = [ "group:taskbar" ]
+center = [ "group:active_window" ]
+end = [ "notifications", "tray", "media", "volume", "privacy", "bluetooth", "network", "group:clock", "battery", "padding" ]
+
+capsule_thickness = 1
+margin_ends = 0
+margin_opposite_edge = 2
+padding = 0
+thickness = 26
+radius = 0
+shadow = false
+widget_spacing = 4
+
+    [[bar.default.capsule_group]]
+    id = "taskbar"
+    members = [ "left-bracket", "taskbar", "right-bracket" ]
+    fill = "surface"
+    padding = 0
+    widget_spacing = 0
+
+    [[bar.default.capsule_group]]
+    id = "active_window"
+    members = [ "left-bracket", "active_window", "right-bracket" ]
+    fill = "surface"
+    padding = 0
+    widget_spacing = 0
+
+    [[bar.default.capsule_group]]
+    id = "clock"
+    members = [ "left-bracket", "clock", "right-bracket" ]
+    fill = "surface"
+    padding = 0
+    widget_spacing = 0
+
+[calendar]
+enabled = false
+
+[control_center]
+sidebar_section = "none"
+
+    [control_center.calendar]
+    show_events_card = false
+
+    [[control_center.shortcuts]]
+    type = "wifi"
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "audio"
+
+    [[control_center.shortcuts]]
+    type = "mic_mute"
+
+[desktop_widgets]
+enabled = false
+
+[notification]
+border = false
+show_actions = false
+
+[osd]
+border = false
+position = "bottom_center"
+
+    [osd.kinds]
+    media = false
+
+[shell]
+app_icon_color = "on_surface"
+app_icon_colorize = true
+font_family = "Noto Sans Mono"
+offline_mode = true
+time_format = "{:%I:%M %p}"
+
+    [shell.launcher]
+    categories = false
+    show_app_origin_indicator = false
+
+    [shell.panel]
+    borders = false
+    open_near_click_control_center = true
+    open_near_click_session = true
+
+    [shell.session]
+    show_shortcuts = false
+
+[system.monitor]
+enabled = false
+
+[theme]
+pure_black_dark = true
+
+[wallpaper]
+enabled = false
+
+[weather]
+enabled = false
+
+[widget.active_window]
+display = "text_only"
+max_length = 800
+min_length = 0
+
+    [widget.active_window.actions]
+    left = "exec hyprctl dispatch 'jump.free(window.move)'"
+    right = "exec hyprctl dispatch 'window.close()'"
+
+[widget.battery]
+show_label = false
+
+    [widget.battery.actions]
+    left = "panel-toggle session"
+    right = "panel-toggle control-center power"
+
+[widget.clock]
+format = "{:%I:%M %p}"
+
+[widget.media]
+album_art_only = true
+hide_when_no_media = true
+
+[widget.network]
+show_label = false
+
+[widget.privacy]
+active_color = "on_surface"
+hide_inactive = true
+
+[widget.taskbar]
+icon_scale = 1.25
+inactive_opacity = 0.75
+group_by_workspace = true
+hide_empty_workspaces = true
+show_active_indicator = false
+show_workspace_label = false
+workspace_group_capsule = false
+
+[widget.volume]
+mute_color = "on_surface"
+show_label = false
+
+[widget.left-bracket]
+type = "text"
+text = "⟮"
+color = "outline"
+font_scale = 1.75
+interactive = false
+
+[widget.right-bracket]
+type = "text"
+text = "⟯"
+color = "outline"
+font_scale = 1.75
+interactive = false
+
+[widget.padding]
+type = "spacer"
+length = 4
