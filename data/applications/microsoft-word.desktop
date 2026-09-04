@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Microsoft Word
 Exec=flatpak run com.microsoft.Edge --app=https://word.cloud.microsoft
+StartupWMClass=msedge-word.cloud.microsoft__-Default
 StartupNotify=true
 Terminal=false
 Icon=ms-word

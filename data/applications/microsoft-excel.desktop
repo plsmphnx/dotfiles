@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Microsoft Excel
 Exec=flatpak run com.microsoft.Edge --app=https://excel.cloud.microsoft
+StartupWMClass=msedge-excel.cloud.microsoft__-Default
 StartupNotify=true
 Terminal=false
 Icon=ms-excel

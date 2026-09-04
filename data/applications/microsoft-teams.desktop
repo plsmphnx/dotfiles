@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Microsoft Teams
 Exec=flatpak run com.microsoft.Edge --app=https://teams.cloud.microsoft
+StartupWMClass=msedge-teams.cloud.microsoft__-Default
 StartupNotify=true
 Terminal=false
 Icon=teams
