@@ -32,6 +32,8 @@ checkout = git clone 'https://github.com/nothings/stb'
 checkout = git clone 'git://repo.or.cz/tinycc'
 [clone/core/toybox]
 checkout = git clone 'https://landley.net/toybox/git' toybox
+[clone/core/zstd]
+checkout = git clone 'https://github.com/Facebook/zstd'
 
 [clone/engine/cairo]
 checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo.git'
@@ -93,8 +95,6 @@ checkout = git clone 'https://github.com/01mf02/jaq'
 checkout = git clone 'https://github.com/msteveb/jimtcl'
 [clone/language/koka]
 checkout = git clone 'https://github.com/koka-lang/koka'
-[clone/language/lobster]
-checkout = git clone 'https://github.com/aardappel/lobster'
 [clone/language/lua]
 checkout = git clone 'https://github.com/lua/lua'
 [clone/language/mruby]
