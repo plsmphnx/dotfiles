@@ -37,12 +37,6 @@ checkout = git clone 'https://github.com/Facebook/zstd'
 
 [clone/engine/cairo]
 checkout = git clone 'https://gitlab.freedesktop.org/cairo/cairo.git'
-[clone/engine/drummyfish/raycastlib]
-checkout = git clone 'https://gitlab.com/drummyfish/raycastlib.git'
-[clone/engine/drummyfish/small3dlib]
-checkout = git clone 'https://gitlab.com/drummyfish/small3dlib.git'
-[clone/engine/drummyfish/tinyphysicsengine]
-checkout = git clone 'https://gitlab.com/drummyfish/tinyphysicsengine.git'
 [clone/engine/godot]
 checkout = git clone 'https://github.com/godotengine/godot'
 [clone/engine/sdl]
@@ -97,12 +91,8 @@ checkout = git clone 'https://github.com/msteveb/jimtcl'
 checkout = git clone 'https://github.com/koka-lang/koka'
 [clone/language/lua]
 checkout = git clone 'https://github.com/lua/lua'
-[clone/language/mruby]
-checkout = git clone 'https://github.com/mruby/mruby'
 [clone/language/nim]
 checkout = git clone 'https://github.com/nim-lang/Nim' nim
-[clone/language/odin]
-checkout = git clone 'https://github.com/odin-lang/Odin' odin
 [clone/language/panda-smalltalk]
 checkout = git clone 'https://github.com/vgeddes/panda-smalltalk'
 [clone/language/s7]
