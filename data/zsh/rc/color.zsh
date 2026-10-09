@@ -1,10 +1,9 @@
-alias diff="diff --color=auto"
-alias grep="grep --color=auto"
-alias less="less -R"
-alias ls="ls --color -C"
+eval "$(rgrc --aliases --except diff,grep,journalctl,ls)"
 
-[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
-[[ -s "/usr/share/grc/grc.zsh" ]] && source /usr/share/grc/grc.zsh
+alias diff="diff --color"
+alias grep="grep --color"
+alias less="less -R"
+alias ls="rgrc ls --color -C"
 
 man() { command man "$@" | bat -pl man ;}
 help() { "$@" --help 2>&1 | bat -pl help ;}
