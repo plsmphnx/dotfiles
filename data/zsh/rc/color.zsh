@@ -10,3 +10,4 @@ help() { "$@" --help 2>&1 | bat -pl help ;}
 journalctl() { command journalctl "$@" | bat -pl syslog ;}
 
 compdef help=exec
+compdef rgrc=exec
