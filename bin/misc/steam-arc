@@ -1,10 +1,20 @@
 #!/bin/sh
-DIR=$(echo "$3" | tr '[:upper:]' '[:lower:]')
+
+BUILDID=$(steamcmd \
+    +login anonymous \
+    +app_info_print $2 \
+    +quit \
+    2>/dev/null \
+| awk '
+    /"public"/ { public=1 }
+    public && /"buildid"/ { print substr($2, 2, length($2) - 2); public=0 }
+')
+
 steamcmd \
     +@sSteamCmdForcePlatformType windows \
-    +force_install_dir "$PWD/$DIR" \
+    +force_install_dir "$PWD/$3" \
     +login "$1" \
     +app_update "$2" \
     +quit
-arc "$DIR"
-rm -rf "$DIR"
+tar -c -I zstdmt -f $3.$2_$BUILDID.tar.zst -C $3 .
+rm -rf "$3"
