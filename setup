@@ -40,7 +40,6 @@ setup_config() (setup_dir $XDG_CONFIG_HOME
 
 setup_data() (setup_dir $XDG_DATA_HOME
     case $1 in *all*|"")
-        git clone https://github.com/scopatz/nanorc nano
         link_data tmux "theme.conf"
     ;; esac
     case $1 in *ux*)

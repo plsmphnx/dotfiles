@@ -1,12 +1,3 @@
-# plugin manager
-ZSH_CACHE_DIR=$XDG_CACHE_HOME/zsh
-mkdir -p $ZSH_CACHE_DIR
-zstyle ':zcomet:*' home-dir $ZSH_CACHE_DIR/zcomet
-zstyle ':zcomet:compinit' dump-file $ZSH_CACHE_DIR/compdump
-[[ -f $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh ]] \
-||  git clone https://github.com/agkozak/zcomet.git $ZSH_CACHE_DIR/zcomet/bin
-source $ZSH_CACHE_DIR/zcomet/bin/zcomet.zsh
-
 # history
 HISTFILE=$XDG_STATE_HOME/history
 HISTSIZE=1000
@@ -40,6 +31,5 @@ path+=($XDG_BIN_HOME .)
 typeset -U path PATH
 
 # core plugins
-zcomet load zsh-users/zsh-completions
-zcomet compinit
-zcomet load zsh-users/zsh-syntax-highlighting
+compinit
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

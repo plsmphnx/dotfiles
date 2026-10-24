@@ -14,5 +14,3 @@ set errorcolor      red
 set keycolor        cyan
 set numbercolor     gray
 set scrollercolor   gray
-
-include "~/.local/share/nano/*.nanorc"

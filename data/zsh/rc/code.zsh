@@ -17,5 +17,4 @@ fi
 
 if [[ -v NPM_CONFIG_PREFIX ]]; then
     path+=(./node_modules/.bin "$NPM_CONFIG_PREFIX/bin")
-    zcomet load lukechilds/zsh-better-npm-completion
 fi
