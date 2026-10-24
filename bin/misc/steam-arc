@@ -1,10 +1,39 @@
 #!/bin/sh
-DIR=$(echo "$3" | tr '[:upper:]' '[:lower:]')
+set -e
+
+if [ -f "$2" ]; then
+    FILE=$(basename "$2")
+    NAME=$(echo $FILE | cut -d. -f1)
+    APPID=$(echo $FILE | cut -d. -f2)
+    PREV=$(echo $FILE | cut -d. -f3)
+    DIR="$(dirname "$2")/$NAME"
+else
+    NAME=$3
+    APPID=$2
+    DIR="$(pwd)/$NAME"
+fi
+
+BUILDID=$(steamcmd \
+    +login anonymous \
+    +app_info_print $APPID \
+    +quit \
+    2>/dev/null \
+| awk '
+    /"public"/ { public=1 }
+    public && /"buildid"/ { print substr($2, 2, length($2) - 2); public=0 }
+')
+if [ $PREV = $BUILDID ] && [ -z $3 ]; then exit; fi
+
+mkdir -p "$DIR"
+if [ -f "$2" ]; then tar -x -I zstdmt -C "$DIR" -f "$2"; fi
+
 steamcmd \
     +@sSteamCmdForcePlatformType windows \
-    +force_install_dir "$PWD/$DIR" \
+    +force_install_dir "$DIR" \
     +login "$1" \
-    +app_update "$2" \
+    +app_update "$APPID" validate \
     +quit
-arc "$DIR"
+tar -c -I zstdmt -C "$DIR" -f $NAME.$APPID.$BUILDID.tar.zst .
+
 rm -rf "$DIR"
+if [ -n $PREV ] && [ $PREV != $BUILDID ]; then rm "$2"; fi

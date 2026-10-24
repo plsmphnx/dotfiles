@@ -1,0 +1,4 @@
+#!/bin/sh
+podman run -it --rm --network host -e BROWSER=echo \
+    -v ~/.local/state/az:/root/.azure \
+    mcr.microsoft.com/azure-cli:latest az "$@"
