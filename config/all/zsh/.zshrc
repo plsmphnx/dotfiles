@@ -1,3 +1,11 @@
+[[ -s /etc/zinputrc ]] && source /etc/zinputrc
+(( $+commands[hostname] )) && export HOST=$(hostname --fqdn)
+autoload -Uz add-zsh-hook compinit && compinit
+
+# plugins
+: ${ZSH_CACHE_DIR:=$XDG_CACHE_HOME/zsh}
+: ${ZSH_PLUGIN_DIR:=/usr/share}
+
 # history
 HISTFILE=$XDG_STATE_HOME/history
 HISTSIZE=1000
@@ -31,5 +39,4 @@ path+=($XDG_BIN_HOME .)
 typeset -U path PATH
 
 # core plugins
-compinit
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_PLUGIN_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

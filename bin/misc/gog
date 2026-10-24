@@ -11,7 +11,7 @@ gog() {
         --include i \
         "$@"
 }
-gg() { gog --game "^($GAME)$" "$@"; }
+gg() { gog --game "^($GAME)$" "$@" ;}
 case $CMD in
     list)
         gog --list

@@ -1,4 +1,4 @@
-setopt PROMPT_SUBST
+setopt promptsubst
 prompt_dirname() {
     FULL=$(print -nP %~)
     NAME=$(dirname "$FULL")
