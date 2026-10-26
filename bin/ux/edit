@@ -1,2 +1,2 @@
 #!/bin/sh
-app2unit -t service dev.pragtical.Pragtical.desktop "$@"
+app2unit -t service -- foot -c ~/.config/foot/edit.ini --override=shell="ttt $@"

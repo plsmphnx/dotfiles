@@ -1,7 +1,6 @@
 [Nemo Action]
 Name=Open in Editor
 Comment=Open this folder in an editor window
-Exec=app2unit -- pragtical %F
+Exec=sh -c "exec $XDG_BIN_HOME/edit %F"
 Selection=none
 Extensions=dir
-Dependencies=pragtical

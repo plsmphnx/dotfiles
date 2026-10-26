@@ -1,6 +1,0 @@
-*
-!init.lua
-
-!plugins
-plugins/*
-!plugins/scratchpad.lua

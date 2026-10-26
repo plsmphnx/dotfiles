@@ -6,4 +6,4 @@
 [pull]
     rebase = false
 [url "git@github-plsmphnx:"]
-    insteadOf = https://github.com/
+    pushInsteadOf = https://github.com/

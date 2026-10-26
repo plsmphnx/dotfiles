@@ -1,0 +1,14 @@
+{
+  "editor": {
+    "grammars": [
+      {
+        "path": "grammars/nim.json",
+        "fileTypes": [
+          "nim",
+          "nims",
+          "nimble"
+        ]
+      }
+    ]
+  }
+}

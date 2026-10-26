@@ -1,0 +1,5 @@
+#!/bin/sh
+HERE="$(dirname "$(realpath "$0")")"
+FILE="$HERE/../settings.json"
+[ ! -f "$FILE" ] && echo '{}' > "$FILE"
+jq --argjson settings "$(cat "$HERE/$1.json")" -i '. * $settings' "$FILE"

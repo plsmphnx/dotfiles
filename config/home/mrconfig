@@ -172,3 +172,5 @@ checkout = git clone 'https://github.com/google/material-design-icons'
 checkout = git clone 'git://git.ghostscript.com/mupdf'
 [clone/text/sile]
 checkout = git clone 'https://github.com/sile-typesetter/sile'
+[clone/text/ttt]
+checkout = git clone 'https://github.com/eugenioenko/ttt'
