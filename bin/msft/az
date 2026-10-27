@@ -1,4 +1,6 @@
 #!/bin/sh
-podman run -it --rm --network host -e BROWSER=echo \
+podman run -i --rm --network host -e BROWSER=echo \
     -v ~/.local/state/az:/root/.azure \
+    -v $KUBECONFIG:/root/.kube/config \
+    -v $KUBECACHEDIR:/root/.kube/cache \
     mcr.microsoft.com/azure-cli:latest az "$@"
