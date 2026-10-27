@@ -3,6 +3,7 @@ podman run -i --rm --network host -e BROWSER=echo \
     -v $XDG_STATE_HOME/az:/root/.azure \
     -v ${KUBECONFIG:-~/.kube/config}:/root/.kube/config \
     -v ${KUBECACHEDIR:-~/.kube/cache}:/root/.kube/cache \
+    $([ -t 0 ] && echo -t) \
     $(for ARG in "$@"; do
         [ -e "$ARG" ] && echo -v $(realpath $ARG):$(realpath $ARG)
     done) \

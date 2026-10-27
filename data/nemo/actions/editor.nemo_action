@@ -1,6 +1,7 @@
 [Nemo Action]
 Name=Open in Editor
-Comment=Open this folder in an editor window
+Comment=Open selection in an editor window
 Exec=sh -c "exec $XDG_BIN_HOME/edit %F"
-Selection=none
-Extensions=dir
+Selection=any
+Extensions=any
+Quote=single

@@ -22,8 +22,9 @@ for _, c in ipairs {
   "wlvncc",
 } do window_rule { match = { class = c }, fullscreen = true } end
 
+local foot = { calc = true, edit = true, term = true }
 on("window.fullscreen", function(w)
-  if w.class == "edit" then
+  if foot[w.class] then
     dispatch(window.fullscreen_state { internal = -1, client = 0, window = w })
   end
 end)

@@ -28,14 +28,14 @@ network                 = f05a9
 nm-connection-editor    = f0c9d
 pwvucontrol             = 0f028
 
+calc                    = f00ec
 edit                    = f0169
-foot                    = 0f489
 imv                     = 0f03e
 min                     = f059f
 mpv                     = f0567
 nemo                    = f0770
 portal                  = f0349
-qalc                    = f00ec
+term                    = 0f489
 wlvncc                  = f08b9
 zathura                 = f0219
 
