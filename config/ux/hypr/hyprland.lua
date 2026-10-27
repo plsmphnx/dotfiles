@@ -22,6 +22,12 @@ for _, c in ipairs {
   "wlvncc",
 } do window_rule { match = { class = c }, fullscreen = true } end
 
+on("window.fullscreen", function(w)
+  if w.class == "edit" then
+    dispatch(window.fullscreen_state { internal = -1, client = 0, window = w })
+  end
+end)
+
 config {
   general = {
     gaps_in = -1,

@@ -1,6 +1,9 @@
 #!/bin/sh
 podman run -i --rm --network host -e BROWSER=echo \
-    -v ~/.local/state/az:/root/.azure \
-    -v $KUBECONFIG:/root/.kube/config \
-    -v $KUBECACHEDIR:/root/.kube/cache \
+    -v $XDG_STATE_HOME/az:/root/.azure \
+    -v ${KUBECONFIG:-~/.kube/config}:/root/.kube/config \
+    -v ${KUBECACHEDIR:-~/.kube/cache}:/root/.kube/cache \
+    $(for ARG in "$@"; do
+        [ -e "$ARG" ] && echo -v $(realpath $ARG):$(realpath $ARG)
+    done) \
     mcr.microsoft.com/azure-cli:latest az "$@"

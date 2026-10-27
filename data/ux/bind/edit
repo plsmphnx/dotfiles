@@ -1,5 +1,5 @@
 #!/bin/sh
 hyprctl eval 'hl.exec_cmd(
-    "app2unit -- foot -c ~/.config/foot/edit.ini --override=shell='\''nano -/0'\''",
+    "app2unit -- foot -c ~/.config/foot/edit.ini --override=shell='\''nano -R/0'\''",
     { float = true, pin = true, center = true, size = { "monitor_w/3", "monitor_h/3" } }
 )'
