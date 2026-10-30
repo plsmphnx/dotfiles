@@ -1,0 +1,5 @@
+source $VIMRUNTIME/evim.vim
+source $VIMRUNTIME/mswin.vim
+set nobackup
+set nowritebackup
+set number
