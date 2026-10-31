@@ -1,65 +1,30 @@
+for _, g in ipairs {'g', 'opt'} do
+    for k, v in pairs(require(g)) do vim[g][k] = v end
+end
+
+local custom = vim.api.nvim_create_augroup('CustomCommands', { clear = true })
+
+local editbuf = { [''] = true, prompt = true, terminal = true }
 vim.api.nvim_create_autocmd('BufEnter', {
+    group = custom,
     pattern = '*',
-    callback = function()
-        vim.cmd(vim.bo.buftype == '' and 'startinsert' or 'stopinsert')
-    end,
+    callback = function() vim.schedule(function()
+        vim.cmd(editbuf[vim.bo.buftype] and 'startinsert' or 'stopinsert')
+    end) end
 })
 
-for k, v in pairs {
-    mouse = 'a',
-    number = true,
-    termguicolors = true,
-    fillchars = { eob = ' ' },
-    cmdheight = 0,
+for k, v in pairs(require 'keymap') do vim.keymap.set(
+    {'i', 'n', 'v'}, k,
+    type(v) == 'string' and '<Cmd>' .. v .. '<CR>' or v
+) end
 
-    backup = false,
-    writebackup = false,
+require('vim._core.ui2').enable()
+require('nvim-tree').setup {
+    git = { ignore = false },
+    hijack_cursor = true,
+    update_focused_file = { enable = true },
+}
+require('nvchad')
+require('base46').load_all_highlights()
 
-    selection = 'exclusive',
-    selectmode = 'mouse,key',
-    keymodel = 'startsel,stopsel',
-    virtualedit = 'onemore',
-    whichwrap = '<,>,[,]',
-
-    expandtab = true,
-    shiftwidth = 4,
-    tabstop = 4,
-    softtabstop = 4,
-} do vim.opt[k] = v end
-
-for k, v in pairs {
-    ['<C-X>'] = 'normal! "+x',
-    ['<C-C>'] = 'normal! "+y',
-    ['<C-V>'] = 'normal! "+gP',
-    ['<C-Z>'] = 'undo',
-    ['<C-Y>'] = 'redo',
-    ['<C-A>'] = 'normal! ggVG',
-    ['<C-S>'] = 'update',
-    ['<C-Q>'] = 'quitall',
-} do vim.keymap.set({'i', 'n', 'v'}, k, "<Cmd>" .. v .. "<CR>") end
-
-local vline = '\226\148\130'
-
-for k, v in pairs {
-    bufferline = {
-        options = {
-            offsets = { { filetype = 'NvimTree', separator = true } },
-        },
-    },
-    lualine = {
-        extensions = { 'nvim-tree' },
-        options = {
-            section_separators = { left = '', right = '' },
-            component_separators = { left = vline, right = vline },
-        },
-    },
-    hover = {},
-    ['nvim-tree'] = {
-        update_focused_file = { enable = true },
-        renderer = { root_folder_label = false },
-    },
-} do require(k).setup(v) end
-
-vim.g.clipboard = 'osc52'
-vim.o.mousemoveevent = true
-vim.cmd.colorscheme 'vscode'
+pcall(require, 'local')
