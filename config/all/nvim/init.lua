@@ -1,10 +1,16 @@
-vim.cmd('startinsert')
+vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = '*',
+    callback = function()
+        vim.cmd(vim.bo.buftype == '' and 'startinsert' or 'stopinsert')
+    end,
+})
 
 for k, v in pairs {
     mouse = 'a',
     number = true,
     termguicolors = true,
     fillchars = { eob = ' ' },
+    cmdheight = 0,
 
     backup = false,
     writebackup = false,
@@ -13,6 +19,7 @@ for k, v in pairs {
     selectmode = 'mouse,key',
     keymodel = 'startsel,stopsel',
     virtualedit = 'onemore',
+    whichwrap = '<,>,[,]',
 
     expandtab = true,
     shiftwidth = 4,
@@ -31,9 +38,28 @@ for k, v in pairs {
     ['<C-Q>'] = 'quitall',
 } do vim.keymap.set({'i', 'n', 'v'}, k, "<Cmd>" .. v .. "<CR>") end
 
+local vline = '\226\148\130'
+
+for k, v in pairs {
+    bufferline = {
+        options = {
+            offsets = { { filetype = 'NvimTree', separator = true } },
+        },
+    },
+    lualine = {
+        extensions = { 'nvim-tree' },
+        options = {
+            section_separators = { left = '', right = '' },
+            component_separators = { left = vline, right = vline },
+        },
+    },
+    hover = {},
+    ['nvim-tree'] = {
+        update_focused_file = { enable = true },
+        renderer = { root_folder_label = false },
+    },
+} do require(k).setup(v) end
+
 vim.g.clipboard = 'osc52'
-
-require('nvim-tree').setup {}
-require('vscode').setup { transparent = true }
-
+vim.o.mousemoveevent = true
 vim.cmd.colorscheme 'vscode'
