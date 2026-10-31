@@ -1,2 +1,2 @@
 #!/bin/sh
-app2unit -t service -- foot -c ~/.config/foot/edit.ini --override=shell="ttt $@"
+app2unit -t service -- foot -c ~/.config/foot/edit.ini --override=shell="nvim $@"

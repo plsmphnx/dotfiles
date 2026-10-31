@@ -1,8 +1,0 @@
-#!/bin/sh
-HERE="$(dirname "$(realpath "$0")")"
-DIR="$HERE/../grammars"
-mkdir -p "$DIR"
-rm -f "$DIR/nim.json"
-wget -O "$DIR/nim.json" \
-    https://raw.githubusercontent.com/nim-lang/vscode-nim/refs/heads/main/syntaxes/nim.json
-"$HERE/apply" nim
