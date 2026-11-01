@@ -1,4 +1,4 @@
-for _, g in ipairs {'g', 'opt'} do
+for _, g in ipairs { 'g', 'opt' } do
     for k, v in pairs(require(g)) do vim[g][k] = v end
 end
 
@@ -14,17 +14,45 @@ vim.api.nvim_create_autocmd('BufEnter', {
 })
 
 for k, v in pairs(require 'keymap') do vim.keymap.set(
-    {'i', 'n', 'v'}, k,
-    type(v) == 'string' and '<Cmd>' .. v .. '<CR>' or v
+    { 'i', 'n', 'v' }, k,
+    type(v) == 'string' and '<Cmd>' .. v .. '<CR>' or v,
+    { silent = true }
 ) end
 
 require('vim._core.ui2').enable()
+require('nvchad')
+require('snacks').setup {
+    bigfile = { enabled = true },
+    indent = {
+        enabled = true,
+        animate = { enabled = false },
+        hl = 'IblChar',
+        scope = { hl = 'IblScopeChar' },
+    },
+    picker = {
+        enabled = true,
+        layout = { preset = 'ivy' },
+    },
+    quickfile = { enabled = true },
+    scroll = { enabled = true },
+    words = { enabled = true },
+}
+
+if vim.fn.isdirectory(vim.g.base46_cache) == 0 then
+    require('base46').compile()
+end
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+    dofile(vim.g.base46_cache .. v)
+end
+
 require('nvim-tree').setup {
     git = { ignore = false },
     hijack_cursor = true,
     update_focused_file = { enable = true },
 }
-require('nvchad')
-require('base46').load_all_highlights()
+
+vim.schedule(function()
+    vim.api.nvim_create_augroup('ReloadNvChad', { clear = true })
+end)
 
 pcall(require, 'local')

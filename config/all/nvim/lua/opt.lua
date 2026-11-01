@@ -6,6 +6,7 @@ return {
     termguicolors = true,
     fillchars = { eob = ' ' },
     cmdheight = 0,
+    winborder = 'single',
 
     backup = false,
     writebackup = false,
