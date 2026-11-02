@@ -1,11 +1,13 @@
 return {
     mouse = 'a',
     mousemoveevent = true,
-    
+
     number = true,
     termguicolors = true,
     fillchars = { eob = ' ' },
     cmdheight = 0,
+
+    pumborder = 'rounded',
     winborder = 'single',
 
     backup = false,

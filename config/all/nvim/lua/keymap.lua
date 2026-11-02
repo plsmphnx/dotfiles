@@ -1,5 +1,5 @@
-local hover_timer = nil
-local debounce_ms = 1000
+--local hover_timer = nil
+--local debounce_ms = 1000
 
 return {
     ['<C-X>'] = 'normal! "+x',
@@ -10,13 +10,8 @@ return {
     ['<C-A>'] = 'normal! ggVG',
     ['<C-S>'] = 'update',
     ['<C-Q>'] = 'quitall',
-    ['<RightMouse>'] = function()
-        require('menu.utils').delete_old_menus()
-        require('menu').open(vim.bo[
-            vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
-        ].ft == 'NvimTree' and 'nvimtree' or 'default', { mouse = true })
-    end,
-    --[[['<MouseMove>'] = function()
+    --[[
+    ['<MouseMove>'] = function()
         if hover_timer then
             hover_timer:stop()
             hover_timer:close()
@@ -31,7 +26,8 @@ return {
                 relative = 'mouse',
             } end
         end))
-    end,]]
+    end,
+    ]]
     ['<C-F>'] = function() Snacks.picker.lines() end,
     ['<C-S-F>'] = function() Snacks.picker.grep() end,
 }
