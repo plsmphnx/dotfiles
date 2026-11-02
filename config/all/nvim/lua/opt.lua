@@ -1,5 +1,6 @@
 return {
     mouse = 'a',
+    mousemodel = 'popup_setpos',
     mousemoveevent = true,
 
     number = true,

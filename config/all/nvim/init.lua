@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 })
 
 require('vim._core.ui2').enable()
+require('menu')
 require('plugins')
 
 for k, v in pairs(require 'keymap') do

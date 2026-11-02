@@ -21,33 +21,36 @@ for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
     dofile(vim.g.base46_cache .. v)
 end
 
-local function menu(opts)
-    local options = {}
-    for _, o in ipairs(opts) do options[#options + 1] = o[1] end
-    vim.ui.select(options, {}, function(choice)
-        for _, o in ipairs(opts) do if choice == o[1] then o[2]() end end
-    end)
+local function tree_cmd(cmd)
+    return '<Cmd>lua require("nvim-tree.api").' .. cmd .. '()<CR>'
 end
+require('menu').filetype['NvimTree'] = function() return {
+    { 'a', '\u{f0214} Create', tree_cmd 'fs.create' },
+    { 'a', '-1-', '<Nop>' },
+    { 'a', '\u{f01d8} Copy Path', tree_cmd 'fs.copy.absolute_path' },
+    { 'a', '-2-', '<Nop>' },
+    { 'a', '\u{f0455} Rename', tree_cmd 'fs.rename' },
+    { 'a', '\u{f01b4} Delete', tree_cmd 'fs.remove' },
+} end
 
 require('nvim-tree').setup {
     git = { ignore = false },
     hijack_cursor = true,
     update_focused_file = { enable = true },
-    on_attach = function(bufnr)
+    actions = { open_file = { resize_window = false } },
+    on_attach = function(buffer)
         local api = require('nvim-tree.api')
-        api.config.mappings.default_on_attach(bufnr)
-        vim.keymap.set({ 'i', 'n', 'v' }, '<RightMouse>', function() menu {
-            { 'Create', api.fs.create },
-            { 'Delete', api.fs.remove },
-            { 'Rename', api.fs.rename },
-            { 'Copy Path', api.fs.copy.absolute_path },
-        } end, { buffer = bufnr, silent = true })
-        vim.keymap.set({ 'i', 'n', 'v' }, '<LeftRelease>',
-            api.node.open.edit,
-            { buffer = bufnr, silent = true })
+        api.map.on_attach.default(buffer)
+        vim.keymap.set({ 'i', 'n', 'v' }, '<LeftRelease>', function()
+            if vim.fn.getmousepos().winid == vim.fn.bufwinid(buffer) then
+                api.node.open.edit()
+            end
+        end, { buffer = buffer, silent = true })
     end
 }
 
+require('guess-indent').setup {}
+
 vim.schedule(function()
-    vim.api.nvim_create_augroup('ReloadNvChad', { clear = true })
+    vim.api.nvim_del_augroup_by_name 'ReloadNvChad'
 end)
