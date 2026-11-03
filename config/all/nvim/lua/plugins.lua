@@ -1,5 +1,3 @@
-require('nvchad')
-
 require('snacks').setup {
     bigfile = { enabled = true },
     indent = {
@@ -13,13 +11,6 @@ require('snacks').setup {
     quickfile = { enabled = true },
     scroll = { enabled = true },
 }
-
-if vim.fn.isdirectory(vim.g.base46_cache) == 0 then
-    require('base46').compile()
-end
-for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
-    dofile(vim.g.base46_cache .. v)
-end
 
 local function tree_cmd(cmd)
     return '<Cmd>lua require("nvim-tree.api").' .. cmd .. '()<CR>'
@@ -51,6 +42,15 @@ require('nvim-tree').setup {
 
 require('guess-indent').setup {}
 
+require('nvchad')
+
 vim.schedule(function()
     vim.api.nvim_del_augroup_by_name 'ReloadNvChad'
 end)
+
+if vim.fn.isdirectory(vim.g.base46_cache) == 0 then
+    require('base46').compile()
+end
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+    dofile(vim.g.base46_cache .. v)
+end

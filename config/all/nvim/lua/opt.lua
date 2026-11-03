@@ -7,6 +7,7 @@ return {
     termguicolors = true,
     fillchars = { eob = ' ' },
     cmdheight = 0,
+    title = true,
 
     pumborder = 'rounded',
     winborder = 'single',
@@ -19,6 +20,7 @@ return {
     keymodel = 'startsel,stopsel',
     virtualedit = 'onemore',
     whichwrap = '<,>,[,]',
+    wrap = false,
 
     expandtab = true,
     shiftwidth = 4,
