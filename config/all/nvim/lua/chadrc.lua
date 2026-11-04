@@ -5,31 +5,35 @@ _G.stl = {
     git = function() Snacks.picker.git_diff { group = true } end
 }
 
-local modules = {}
-for k in pairs(_G.stl) do
-    modules[k] = function()
-        local str = stl[k]()
+local modules = {
+    diagnostics = function()
+        local str = stl.diagnostics()
         if str == '' then return '' end
-        return '%@v:lua.stl.' .. k .. '@' .. str .. '%X'
+        return '%@v:lua.stl.diagnostics@' .. str .. '%X'
+    end,
+    git = function()
+        local str = stl.git()
+        if str == '' then return '' end
+        return '%@v:lua.stl.git@' .. str .. '%X'
+    end,
+    lsp = function()
+        return "%#St_Lsp#" .. stl.lsp():gsub(' LSP ~ ', '')
+    end,
+    cwd = function()
+        if tree.is_visible() then return '' end
+        local name = vim.fn.fnamemodify(vim.uv.cwd(), ':~:t')
+        return '%#St_cwd# \u{f0256} ' .. name .. ' '
     end
-end
-
-modules.lsp = function()
-    return "%#St_Lsp#" .. stl.lsp():gsub('LSP ~ ', '')
-end
-
-modules.cwd = function()
-    if tree.is_visible() then return '' end
-    local name = vim.fn.fnamemodify(vim.uv.cwd(), ':~:t')
-    return '%#St_cwd# \u{f0256} ' .. name .. ' '
-end
+}
 
 return {
     base46 = {
         theme = 'vscode_dark',
         integrations = { 'gitsigns' },
         hl_override = {
-            Pmenu = { bg = 'black' },
+            Normal = { bg = 'NONE' },
+            NormalFloat = { bg = 'NONE' },
+            Pmenu = { bg = 'NONE' },
         },
         hl_add = {
             PmenuBorder = { fg = 'grey' },

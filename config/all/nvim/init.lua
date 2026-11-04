@@ -15,10 +15,12 @@ require('vim._core.ui2').enable()
 require('menu')
 require('plugins')
 
-for k, v in pairs(require 'keymap') do
-    vim.keymap.set({ 'i', 'n', 'v' }, k,
-        type(v) == 'string' and '<Cmd>' .. v .. '<CR>' or v,
-        { silent = true })
+for mode, keys in pairs(require 'keymap') do
+    local modes = {}
+    for m in string.gmatch(mode, '.') do modes[#modes+1] = m end
+    for key, cmd in pairs(keys) do
+        vim.keymap.set(modes, key, cmd, { silent = true })
+    end
 end
 
 pcall(require, 'local')
