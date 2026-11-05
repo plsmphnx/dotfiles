@@ -1,6 +1,5 @@
 return {
     mouse = 'a',
-    mousemodel = 'popup_setpos',
     mousemoveevent = true,
 
     number = true,
@@ -22,8 +21,8 @@ return {
     whichwrap = '<,>,[,]',
     wrap = false,
 
-    expandtab = true,
-    shiftwidth = 4,
     tabstop = 4,
-    softtabstop = 4,
+    expandtab = true,
+    shiftwidth = 0,
+    softtabstop = -1,
 }

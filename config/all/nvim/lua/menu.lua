@@ -9,29 +9,20 @@ local function default(bufnr)
     end
 
     for _, e in ipairs {
-        { 'v', 'Cut',        '"+x'             },
-        { 'v', 'Copy',       '"+y'             },
-        { 'a', 'Paste',      '"+gP'            },
-        { 'v', 'Paste',      '"+P'             },
-        { 'v', 'Delete',     '"_x'             },
-        { 'n', 'Select All', 'ggVG'            },
-        { 'v', 'Select All', 'gg0oG$'          },
-        { 'i', 'Select All', '<C-Home><C-O>VG' },
+        { 'vnore', 'Cut',        '"+x'             },
+        { 'vnore', 'Copy',       '"+y'             },
+        { 'anore', 'Paste',      '"+gP'            },
+        { 'vnore', 'Paste',      '"+P'             },
+        { 'vnore', 'Delete',     '"_x'             },
+        { 'nnore', 'Select All', 'ggVG'            },
+        { 'vnore', 'Select All', 'gg0oG$'          },
+        { 'inore', 'Select All', '<C-Home><C-O>VG' },
     } do entries[#entries + 1] = e end
 
     return entries
 end
 
 local filetype = {}
-
-local function popup(entries)
-    entries = entries or default
-    vim.cmd.aunmenu 'PopUp'
-    for _, e in ipairs(entries) do
-        local label = e[2]:gsub(' ', [[\ ]])
-        vim.cmd(e[1] .. 'noremenu PopUp.' .. label .. ' ' .. e[3])
-    end
-end
 
 vim.api.nvim_del_augroup_by_name 'nvim.popupmenu'
 
@@ -43,9 +34,9 @@ vim.api.nvim_create_autocmd('MenuPopup', {
         vim.cmd.aunmenu 'PopUp'
         for _, e in ipairs(menu(args.buf)) do
             local label = e[2]:gsub(' ', [[\ ]])
-            vim.cmd(e[1] .. 'noremenu PopUp.' .. label .. ' ' .. e[3])
+            vim.cmd(e[1] .. 'menu PopUp.' .. label .. ' ' .. e[3])
         end
     end
 })
 
-return { filetype = filetype }
+return { filetype = filetype, default = default }

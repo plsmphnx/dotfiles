@@ -1,44 +1,56 @@
+for plug, opt in pairs {
+    cmdline = {},
+    icons = { default = { directory = { hl = 'MiniIconsGrey' } } },
+    map = {
+        window = {
+            width = 1,
+            winblend = 100,
+            show_integration_count = false,
+        },
+    },
+    pairs = {},
+    sessions = {
+        directory = vim.fn.stdpath 'state' .. '/session/',
+        file = '',
+    },
+} do require('mini.' .. plug).setup(opt) end
+
+MiniIcons.mock_nvim_web_devicons()
+
 require('snacks').setup {
     bigfile = { enabled = true },
+    explorer = { enabled = true },
     indent = {
         enabled = true,
         animate = { enabled = false },
     },
     picker = {
         enabled = true,
+        hidden = true,
+        ignored = true,
         layout = { preset = 'ivy' },
+        sources = {
+            explorer = { layout = { auto_hide = { "input" } } },
+        },
     },
     quickfile = { enabled = true },
     scroll = { enabled = true },
 }
 
-local function tree_cmd(cmd)
-    return '<Cmd>lua require("nvim-tree.api").' .. cmd .. '()<CR>'
-end
-require('menu').filetype['NvimTree'] = function() return {
-    { 'a', '\u{f0214} Create', tree_cmd 'fs.create' },
-    { 'a', '-1-', '<Nop>' },
-    { 'a', '\u{f01d8} Copy Path', tree_cmd 'fs.copy.absolute_path' },
-    { 'a', '-2-', '<Nop>' },
-    { 'a', '\u{f0455} Rename', tree_cmd 'fs.rename' },
-    { 'a', '\u{f01b4} Delete', tree_cmd 'fs.remove' },
-} end
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'snacks_picker_list',
+    callback = function(args) vim.bo[args.buf].buflisted = false end,
+})
 
-require('nvim-tree').setup {
-    git = { ignore = false },
-    hijack_cursor = true,
-    update_focused_file = { enable = true },
-    actions = { open_file = { resize_window = false } },
-    on_attach = function(buffer)
-        local api = require('nvim-tree.api')
-        api.map.on_attach.default(buffer)
-        vim.keymap.set({ 'i', 'n', 'v' }, '<LeftRelease>', function()
-            if vim.fn.getmousepos().winid == vim.fn.bufwinid(buffer) then
-                api.node.open.edit()
-            end
-        end, { buffer = buffer, silent = true })
-    end
-}
+local menu = require('menu')
+menu.filetype.snacks_picker_list = function(bufnr)
+    return {
+        { 'a', '\u{f0214} Create', 'a' },
+        { 'a', '-1-', '<Nop>' },
+        { 'a', '\u{f0455} Rename', 'r' },
+        { 'a', '\u{f01b4} Delete', 'd' },
+    }
+end
 
 require('guess-indent').setup {}
 
