@@ -15,9 +15,15 @@ local c = require('vscode.colors').get_colors()
 for plugin, config in pairs {
     bufferline = {
         options = {
+            indicator = { style = 'none' },
             separator_style = { '', '' },
-            offsets = { { filetype = 'snacks_layout_box', separator = true } },
+            offsets = { {
+                filetype = 'snacks_layout_box',
+                separator = true,
+                highlight = 'TabLineFill',
+            } },
             hover = { enabled = true, delay = 200, reveal = { 'close' } },
+            always_show_bufferline = false,
         },
     },
     lualine = {
@@ -36,7 +42,21 @@ for plugin, config in pairs {
                      Snacks.picker.diagnostics_buffer()
                 end },
             },
-            lualine_x = { 'filetype' },
+            lualine_x = {
+                'lsp_status',
+                { 'filetype', fmt = function(ft)
+                    return ft == '' and ' ' or ft
+                end, on_click = function()
+                    vim.ui.select(vim.fn.getcompletion('', 'filetype'), {
+                        prompt = 'File Type',
+                        format_item = function(ft)
+                            return MiniIcons.get('filetype', ft) .. ' ' .. ft
+                        end
+                    }, function(choice)
+                        if choice then vim.bo.filetype = choice end
+                    end)
+                end },
+            },
             lualine_y = {},
         },
     },
@@ -46,6 +66,7 @@ for plugin, config in pairs {
         indent = {
             enabled = true,
             animate = { enabled = false },
+            scope = { enabled = true },
         },
         picker = {
             enabled = true,
@@ -53,21 +74,33 @@ for plugin, config in pairs {
             ignored = true,
             layout = { preset = 'ivy_split' },
             layouts = { ivy_split = { layout = { height = 0.25 } } },
-            sources = { explorer = { layout = { auto_hide = { "input" } } } },
+            sources = { explorer = { layout = { auto_hide = { 'input' } } } },
+            win = { input = { keys = {
+                ['<Esc>'] = { 'close', mode = { 'i', 'n', 'v' } },
+            } } },
         },
         quickfile = { enabled = true },
+        scope = { enabled = true },
         scroll = { enabled = true },
+        statuscolumn = {
+            enabled = true,
+            folds = { open = true, git_hl = true },
+        },
     },
     vscode = {
         transparent = true,
         group_overrides = {
-            PmenuBorder = { fg = c.vscGray },
+            PmenuBorder = { fg = c.vscSplitDark },
+
+            TabLine = { bg = 'NONE' },
+            TabLineSel = { bg = 'NONE' },
+            TabLineFill = { bg = 'NONE' },
 
             MiniIconsAzure = { fg = c.vscAccentBlue },
             MiniIconsBlue = { fg = c.vscBlue },
-            MiniIconsCyan = { fg = c.vscCyan },
+            MiniIconsCyan = { fg = c.vscBlueGreen },
             MiniIconsGreen = { fg = c.vscGreen },
-            MiniIconsGrey = { fg = c.vscGrey },
+            MiniIconsGrey = { fg = c.vscGray },
             MiniIconsOrange = { fg = c.vscOrange },
             MiniIconsPurple = { fg = c.vscViolet },
             MiniIconsRed = { fg = c.vscRed },

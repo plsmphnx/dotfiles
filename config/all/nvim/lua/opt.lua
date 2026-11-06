@@ -8,6 +8,7 @@ return {
     colorcolumn = '80,120',
     cmdheight = 0,
     title = true,
+    shortmess = 'aoOWICF',
 
     pumborder = 'rounded',
     winborder = 'single',
@@ -26,6 +27,15 @@ return {
     expandtab = true,
     shiftwidth = 0,
     softtabstop = -1,
+
+    foldmethod = 'expr',
+    foldexpr = 'v:lua.vim.treesitter.foldexpr()',
+    foldtext = '',
+    foldlevel = 99,
+    foldlevelstart = 99,
+
+    spell = true,
+    spelllang = { 'en_us' },
 
     sessionoptions = 'options,skiprtp,tabpages,winsize',
 }

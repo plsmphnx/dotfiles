@@ -34,6 +34,7 @@ return {
         ['<C-F>'] = function() Snacks.picker.lines() end,
         ['<C-S-F>'] = function() Snacks.picker.grep() end,
         ['<C-H>'] = function() Snacks.picker.help() end,
+        ['<C-B>'] = function() Snacks.picker.explorer() end,
         ['<Home>'] = function()
             local col = vim.fn.col '.'
             vim.cmd 'normal! ^'
