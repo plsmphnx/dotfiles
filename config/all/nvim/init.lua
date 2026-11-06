@@ -24,3 +24,20 @@ for mode, keys in pairs(require 'keymap') do
 end
 
 pcall(require, 'local')
+
+--[[
+vim.api.nvim_create_autocmd('VimEnter', {
+    group = vim.api.nvim_create_augroup('SessionActivate', { clear = true }),
+    callback = function()
+        local arg = vim.fn.argv(0)
+        if vim.fn.isdirectory(arg) == 1 then
+            local n = vim.fn.fnamemodify(arg, ':p'):sub(2, -2):gsub('/', '%%')
+            if MiniSessions.detected[n] then
+                MiniSessions.read(n)
+            else
+                MiniSessions.write(n)
+            end
+        end
+    end
+})
+]]

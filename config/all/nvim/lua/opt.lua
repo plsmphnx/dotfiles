@@ -5,6 +5,7 @@ return {
     number = true,
     termguicolors = true,
     fillchars = { eob = ' ' },
+    colorcolumn = '80,120',
     cmdheight = 0,
     title = true,
 
@@ -25,4 +26,6 @@ return {
     expandtab = true,
     shiftwidth = 0,
     softtabstop = -1,
+
+    sessionoptions = 'options,skiprtp,tabpages,winsize',
 }

@@ -29,10 +29,10 @@ vim.api.nvim_del_augroup_by_name 'nvim.popupmenu'
 vim.api.nvim_create_autocmd('MenuPopup', {
     group = vim.api.nvim_create_augroup('MenuPopup', { clear = true }),
     pattern = '*',
-    callback = function(args)
-        local menu = filetype[vim.bo[args.buf].filetype] or default
+    callback = function(event)
+        local menu = filetype[vim.bo[event.buf].filetype] or default
         vim.cmd.aunmenu 'PopUp'
-        for _, e in ipairs(menu(args.buf)) do
+        for _, e in ipairs(menu(event.buf)) do
             local label = e[2]:gsub(' ', [[\ ]])
             vim.cmd(e[1] .. 'menu PopUp.' .. label .. ' ' .. e[3])
         end
