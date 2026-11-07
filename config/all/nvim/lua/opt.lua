@@ -1,27 +1,17 @@
 return {
-    mouse = 'a',
     mousemoveevent = true,
 
-    number = true,
-    termguicolors = true,
-    fillchars = { eob = ' ' },
-    colorcolumn = '80,120',
-    cmdheight = 0,
     title = true,
-    shortmess = 'aoOWICF',
+    cmdheight = 0,
+    colorcolumn = '80,120',
 
     pumborder = 'rounded',
     winborder = 'single',
 
-    backup = false,
-    writebackup = false,
-
     selection = 'exclusive',
     selectmode = 'mouse,key',
     keymodel = 'startsel,stopsel',
-    virtualedit = 'onemore',
     whichwrap = '<,>,[,]',
-    wrap = false,
 
     tabstop = 4,
     expandtab = true,
@@ -37,5 +27,5 @@ return {
     spell = true,
     spelllang = { 'en_us' },
 
-    sessionoptions = 'options,skiprtp,tabpages,winsize',
+    sessionoptions = 'tabpages,winsize',
 }

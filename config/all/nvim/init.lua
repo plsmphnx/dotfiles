@@ -1,6 +1,12 @@
-for _, g in ipairs { 'g', 'opt' } do
-    for k, v in pairs(require(g)) do vim[g][k] = v end
-end
+for k, v in pairs(require'opt') do vim.opt[k] = v end
+
+require'vim._core.ui2'.enable()
+require'menu'
+require'plugins'
+
+vim.opt.shortmess:append'I'
+vim.opt.virtualedit = 'onemore'
+vim.g.clipboard = 'osc52'
 
 local editbuf = { [''] = true, prompt = true, terminal = true }
 vim.api.nvim_create_autocmd('BufEnter', {
@@ -11,11 +17,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end) end
 })
 
-require('vim._core.ui2').enable()
-require('menu')
-require('plugins')
-
-for mode, keys in pairs(require 'keymap') do
+for mode, keys in pairs(require'keymap') do
     local modes = {}
     for m in string.gmatch(mode, '.') do modes[#modes+1] = m end
     for key, cmd in pairs(keys) do

@@ -3,9 +3,9 @@ local function default(bufnr)
 
     if vim.lsp.get_clients { bufnr = bufnr } [1] then
         entries[#entries + 1] = {
-            'a', 'Go to definition', '<Cmd>lua vim.lsp.buf.definition()<CR>'
+            'anore', 'Go to definition', '<Cmd>lua vim.lsp.buf.definition()<CR>'
         }
-        entries[#entries + 1] = { 'a', '-1-', '<Nop>' }
+        entries[#entries + 1] = { 'anore', '-1-', '<Nop>' }
     end
 
     for _, e in ipairs {
@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd('MenuPopup', {
     pattern = '*',
     callback = function(event)
         local menu = filetype[vim.bo[event.buf].filetype] or default
-        vim.cmd.aunmenu 'PopUp'
+        vim.cmd.aunmenu'PopUp'
         for _, e in ipairs(menu(event.buf)) do
             local label = e[2]:gsub(' ', [[\ ]])
             vim.cmd(e[1] .. 'menu PopUp.' .. label .. ' ' .. e[3])
