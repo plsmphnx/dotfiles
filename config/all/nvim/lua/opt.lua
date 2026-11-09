@@ -3,12 +3,18 @@ return {
   cmdheight = 0,
   colorcolumn = '80,120',
   shortmess = vim.opt.shortmess + 'I',
+  confirm = true,
 
   pumborder = 'rounded',
   winborder = 'rounded',
 
-  mousemodel = 'popup_setpos',
+  clipboard = 'unnamedplus',
+  selection = 'exclusive',
+  selectmode = 'mouse,key',
   virtualedit = 'onemore',
+  keymodel = 'startsel,stopsel',
+  backspace = 'indent,eol,start',
+  whichwrap = '<,>,[,]',
 
   expandtab = true,
   tabstop = 4,

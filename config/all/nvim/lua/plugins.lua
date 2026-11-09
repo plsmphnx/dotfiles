@@ -1,6 +1,8 @@
 require 'mini.basics'.setup { mappings = { enable = false } }
 require 'mini.bufremove'.setup {}
 require 'mini.cmdline'.setup {}
+require 'mini.comment'.setup { mappings = { comment_visual = '/' } }
+require 'mini.completion'.setup {}
 require 'mini.diff'.setup { view = {
   style = 'sign',
   signs = { add = '\u{2590}', change = '\u{2590}', delete = '\u{2582}' },
@@ -8,13 +10,26 @@ require 'mini.diff'.setup { view = {
 require 'mini.icons'.setup {
   default = { directory = { hl = 'MiniIconsGrey' } },
 }
-require 'mini.pairs'.setup {}
 require 'mini.sessions'.setup {
   directory = vim.fn.stdpath 'state' .. '/session/',
   file = '',
 }
+require 'mini.surround'.setup {}
 
 MiniIcons.mock_nvim_web_devicons()
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'snacks_picker_input',
+  callback = function() vim.b.minicompletion_disable = true end,
+})
+
+vim.keymap.set('i', '<Tab>', function()
+  return vim.fn.pumvisible() == 1 and '<C-N>' or '<Tab>'
+end, { expr = true })
+
+vim.keymap.set('s', '/', '<C-O>/', { remap = true })
+
+----
 
 require 'bufferline'.setup {
   options = {
@@ -31,7 +46,11 @@ require 'bufferline'.setup {
   },
 }
 
+----
+
 require 'guess-indent'.setup {}
+
+----
 
 require 'snacks'.setup {
   bigfile = { enabled = true },
@@ -42,25 +61,54 @@ require 'snacks'.setup {
     scope = { enabled = true },
   },
   input = { enabled = true },
-  notifier = { enabled = true },
   picker = {
     enabled = true,
     hidden = true,
     ignored = true,
-    layouts = { ivy_split = { layout = { height = 0.25 } } },
+    layout = { preset = 'horizontal' },
+    layouts = {
+      ivy_split = { layout = { height = 0.25 } },
+      horizontal = {
+        layout = {
+          width = 0.9,
+          height = 0.9,
+          box = 'vertical',
+          { win = 'preview', height = 0.5, border = true },
+          {
+            box = 'vertical',
+            border = true,
+            title = '{title} {live}',
+            { win = 'input', height = 1, border = 'bottom' },
+            { win = 'list' },
+          },
+        },
+      }
+    },
     sources = {
       diagnostics_buffer = { layout = 'ivy_split' },
-      explorer = {
-        layout = { auto_hide = { 'input' } },
-        win = { list = { keys = { ['<LeftRelease>'] = 'confirm' } } },
-      },
+      explorer = { layout = { auto_hide = { 'input' } } },
       grep = { layout = 'ivy_split', matcher = { fuzzy = false } },
       lines = { layout = 'ivy_split', matcher = { fuzzy = false } },
       pickers = { layout = 'vscode' },
     },
-    win = { input = { keys = {
-      ['<Esc>'] = { 'close', mode = { 'i', 'n', 'v' } },
-    } } },
+    win = {
+      input = { keys = {
+        ['<Esc>'] = { 'close', mode = { 'i', 'n', 'v' } },
+        ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
+      } },
+      list = { keys = {
+        ['<Esc>'] = { 'close', mode = { 'i', 'n', 'v' } },
+        ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
+        ['<LeftRelease>'] = { 'confirm', mode = { 'i', 'n', 'v' } },
+      } },
+      preview = { keys = {
+        ['<Esc>'] = { 'close', mode = { 'i', 'n', 'v' } },
+        ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
+      } },
+    },
+    actions = {
+      quit = function() vim.cmd 'qa' end,
+    },
   },
   quickfile = { enabled = true },
   scope = { enabled = true },
@@ -88,6 +136,8 @@ vim.diagnostic.config { signs = { text = {
   [vim.diagnostic.severity.HINT]  = '\u{f0336}',
   [vim.diagnostic.severity.INFO]  = '\u{f02fd}',
 } } }
+
+----
 
 require 'lualine'.setup {
   options = {
@@ -168,9 +218,13 @@ require 'lualine'.setup {
   },
 }
 
+----
+
 local c = require 'vscode.colors'.get_colors()
+
 require 'vscode'.setup {
   transparent = true,
+  color_overrides = { vscPopupBack = 'NONE' },
   group_overrides = {
     FloatBorder = { fg = c.vscSplitDark },
     PmenuBorder = { fg = c.vscSplitDark },
@@ -178,7 +232,6 @@ require 'vscode'.setup {
     TabLine = { bg = 'NONE' },
     TabLineSel = { bg = 'NONE' },
     TabLineFill = { bg = 'NONE' },
-    NormalFloat = { bg = 'NONE' },
 
     Added = { fg = c.vscGreen },
     Removed = { fg = c.vscRed },
@@ -195,4 +248,5 @@ require 'vscode'.setup {
     MiniIconsYellow = { fg = c.vscYellow },
   },
 }
+
 vim.cmd.colorscheme 'vscode'
