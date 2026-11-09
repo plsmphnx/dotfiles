@@ -169,7 +169,7 @@ checkout = git clone 'https://github.com/william8000/lout'
 [clone/text/material-design-icons]
 checkout = git clone 'https://github.com/google/material-design-icons'
 [clone/text/mupdf]
-checkout = git clone 'git://git.ghostscript.com/mupdf'
+checkout = git clone 'https://github.com/ArtifexSoftware/mupdf'
 [clone/text/neovim]
 checkout = git clone 'https://github.com/neovim/neovim'
 [clone/text/sile]
