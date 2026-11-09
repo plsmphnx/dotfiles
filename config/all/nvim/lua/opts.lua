@@ -1,20 +1,17 @@
-return {
-  title = true,
+require 'util'.opts {
+  title = not vim.g.present,
+  laststatus = vim.g.present and 0 or 2,
+
   cmdheight = 0,
-  colorcolumn = '80,120',
+  cursorline = vim.g.project ~= nil,
+  colorcolumn = vim.g.project and '80,120' or '',
   shortmess = vim.opt.shortmess + 'I',
   confirm = true,
+  swapfile = false,
 
+  background = 'dark',
   pumborder = 'rounded',
   winborder = 'rounded',
-
-  clipboard = 'unnamedplus',
-  selection = 'exclusive',
-  selectmode = 'mouse,key',
-  virtualedit = 'onemore',
-  keymodel = 'startsel,stopsel',
-  backspace = 'indent,eol,start',
-  whichwrap = '<,>,[,]',
 
   expandtab = true,
   tabstop = 4,
@@ -27,8 +24,8 @@ return {
   foldlevel = 99,
   foldlevelstart = 99,
 
-  spell = true,
+  spell = not vim.g.present,
   spelllang = { 'en_us' },
 
-  sessionoptions = 'tabpages,winsize',
+  completeopt = 'fuzzy,menuone,noselect,nosort',
 }

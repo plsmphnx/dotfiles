@@ -10,22 +10,28 @@ require 'mini.diff'.setup { view = {
 require 'mini.icons'.setup {
   default = { directory = { hl = 'MiniIconsGrey' } },
 }
-require 'mini.sessions'.setup {
-  directory = vim.fn.stdpath 'state' .. '/session/',
-  file = '',
-}
+require 'mini.move'.setup {}
 require 'mini.surround'.setup {}
 
 MiniIcons.mock_nvim_web_devicons()
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'snacks_picker_input',
-  callback = function() vim.b.minicompletion_disable = true end,
+  pattern = 'snacks_*',
+  callback = function() vim.b.minicompletion_disable = true end
 })
 
 vim.keymap.set('i', '<Tab>', function()
   return vim.fn.pumvisible() == 1 and '<C-N>' or '<Tab>'
 end, { expr = true })
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+  group = vim.api.nvim_create_augroup('SnippetSelection', { clear = true }),
+  pattern = '*:[vV\22sS\19]',
+  callback = function()
+    vim.o.selection = vim.snippet and vim.snippet.active()
+        and 'inclusive' or 'exclusive'
+  end
+})
 
 vim.keymap.set('s', '/', '<C-O>/', { remap = true })
 
@@ -60,7 +66,16 @@ require 'snacks'.setup {
     animate = { enabled = false },
     scope = { enabled = true },
   },
-  input = { enabled = true },
+  input = {
+    enabled = true,
+    win = {
+      keys = {
+        i_esc = { '<Esc>', 'cancel', mode = { 'i', 'v' } },
+        a_c_q = { '<C-Q>', 'quit', mode = { 'i', 'n', 'v' } },
+      },
+      actions = { quit = function() vim.cmd 'qa' end },
+    },
+  },
   picker = {
     enabled = true,
     hidden = true,
@@ -93,22 +108,20 @@ require 'snacks'.setup {
     },
     win = {
       input = { keys = {
-        ['<Esc>'] = { 'close', mode = { 'i', 'n', 'v' } },
+        ['<Esc>'] = { 'cancel', mode = { 'i', 'n', 'v' } },
         ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
       } },
       list = { keys = {
-        ['<Esc>'] = { 'close', mode = { 'i', 'n', 'v' } },
+        ['<Esc>'] = { 'cancel', mode = { 'i', 'n', 'v' } },
         ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
         ['<LeftRelease>'] = { 'confirm', mode = { 'i', 'n', 'v' } },
       } },
       preview = { keys = {
-        ['<Esc>'] = { 'close', mode = { 'i', 'n', 'v' } },
+        ['<Esc>'] = { 'cancel', mode = { 'i', 'n', 'v' } },
         ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
       } },
     },
-    actions = {
-      quit = function() vim.cmd 'qa' end,
-    },
+    actions = { quit = function() vim.cmd 'qa' end },
   },
   quickfile = { enabled = true },
   scope = { enabled = true },
@@ -142,7 +155,10 @@ vim.diagnostic.config { signs = { text = {
 require 'lualine'.setup {
   options = {
     disabled_filetypes = { statusline = { 'snacks_layout_box' } },
-    ignore_focus = { 'snacks_picker_list', 'snacks_picker_input' },
+    ignore_focus = function(win)
+      local ft = vim.bo[vim.api.nvim_win_get_buf(win)].filetype
+      return ft:find('snacks_', 1, true) == 1 or ft == 'help'
+    end,
     section_separators = '',
     component_separators = '',
   },

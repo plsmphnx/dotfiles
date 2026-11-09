@@ -2,10 +2,13 @@ local function default(bufnr)
   local entries = {}
 
   if vim.lsp.get_clients { bufnr = bufnr }[1] then
-    entries[#entries + 1] = {
-      'anore', 'Go to definition', '<Cmd>lua vim.lsp.buf.definition()<CR>'
-    }
-    entries[#entries + 1] = { 'anore', '-1-', '<Nop>' }
+    for _, e in ipairs {
+      { 'Info',       '<Cmd>lua vim.lsp.buf.hover()<CR>' },
+      { 'Action',     '<Cmd>lua vim.lsp.buf.code_action()<CR>' },
+      { 'Diagnostic', '<Cmd>lua vim.diagnostic.open_float()<CR>' },
+      { 'Definition', '<Cmd>lua vim.lsp.buf.definition()<CR>' },
+      { '-1-',        '<Nop>' },
+    } do entries[#entries + 1] = { 'anore', e[1], e[2] } end
   end
 
   for _, e in ipairs {

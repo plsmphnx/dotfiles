@@ -1,40 +1,23 @@
+local arg = vim.fn.argv(0)
+if vim.fn.isdirectory(arg) == 1 then
+  vim.g.project = arg
+  vim.api.nvim_set_current_dir(arg)
+end
+
 vim.g.clipboard = 'osc52'
 
 require 'vim._core.ui2'.enable { msg = { targets = 'msg' } }
 require 'menu'
-require 'plugins'
-
-for k, v in pairs(require 'opt') do vim.opt[k] = v end
+require 'plug'
+require 'edit'
+require 'opts'
+require 'keys'
 
 vim.diagnostic.config { update_in_insert = true }
 
-for mode, keys in pairs(require 'keymap') do
-  for key, cmd in pairs(keys) do vim.keymap.set(mode, key, cmd) end
-end
-
-local editbuf = { [''] = true, prompt = true, terminal = true }
-vim.api.nvim_create_autocmd('BufEnter', {
-  group = vim.api.nvim_create_augroup('InsertLock', { clear = true }),
-  callback = vim.schedule_wrap(function()
-    vim.cmd(editbuf[vim.bo.buftype] and 'startinsert' or 'stopinsert')
-  end)
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('StartTreesitter', { clear = true }),
+  callback = function(event) pcall(vim.treesitter.start, event.buf) end
 })
 
 pcall(require, 'local')
-
---[[
-vim.api.nvim_create_autocmd('VimEnter', {
-  group = vim.api.nvim_create_augroup('SessionActivate', { clear = true }),
-  callback = function()
-    local arg = vim.fn.argv(0)
-    if vim.fn.isdirectory(arg) == 1 then
-      local n = vim.fn.fnamemodify(arg, ':p'):sub(2, -2):gsub('/', '%%')
-      if MiniSessions.detected[n] then
-        MiniSessions.read(n)
-      else
-        MiniSessions.write(n)
-      end
-    end
-  end
-})
-]]
