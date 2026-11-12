@@ -73,7 +73,7 @@ require 'snacks'.setup {
         i_esc = { '<Esc>', 'cancel', mode = { 'i', 'v' } },
         a_c_q = { '<C-Q>', 'quit', mode = { 'i', 'n', 'v' } },
       },
-      actions = { quit = function() vim.cmd 'qa' end },
+      actions = { quit = function() vim.cmd 'conf qa' end },
     },
   },
   picker = {
@@ -121,7 +121,7 @@ require 'snacks'.setup {
         ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
       } },
     },
-    actions = { quit = function() vim.cmd 'qa' end },
+    actions = { quit = function() vim.cmd 'conf qa' end },
   },
   quickfile = { enabled = true },
   scope = { enabled = true },

@@ -26,7 +26,7 @@ require 'util'.keys {
         vim.cmd 'update'
       end
     end,
-    c_q = '<Cmd>qa<CR>',
+    c_q = '<Cmd>conf qa<CR>',
     c_s_i = function() vim.lsp.buf.format() end,
     c_f = function() Snacks.picker.lines { pattern = sel() } end,
     c_s_f = function() Snacks.picker.grep { search = sel() } end,

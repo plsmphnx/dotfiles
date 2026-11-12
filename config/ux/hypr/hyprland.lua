@@ -103,7 +103,7 @@ window_rule {
   pin = true,
 }
 
-function expand()
+local function expand()
   local current = get_active_window()
   if current then
     if current.floating then
@@ -114,7 +114,7 @@ function expand()
   end
 end
 
-function contract()
+local function contract()
   local current = get_active_window()
   if current then
     if current.fullscreen > 0 then

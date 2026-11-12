@@ -7,7 +7,6 @@ util.opts {
   keymodel = 'startsel,stopsel',
   backspace = 'indent,eol,start',
   whichwrap = '<,>,[,]',
-  clipboard = 'unnamedplus',
 }
 
 util.keys {
