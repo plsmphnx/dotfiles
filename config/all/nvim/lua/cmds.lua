@@ -2,7 +2,7 @@ local M = {}
 
 M.save = function()
   if vim.api.nvim_buf_get_name(0) == '' then
-    Snacks.input.input({
+    vim.ui.input({
       prompt = 'Save As',
       default = vim.fn.getcwd() .. '/',
     }, function(input)

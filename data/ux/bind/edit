@@ -1,5 +1,7 @@
 #!/bin/sh
+VISUAL=$(systemctl --user show-environment | grep '^VISUAL=' | cut -d'=' -f2-)
+EDITOR=$(systemctl --user show-environment | grep '^EDITOR=' | cut -d'=' -f2-)
 hyprctl eval 'hl.exec_cmd(
-    "app2unit -- foot -c ~/.config/foot/edit.ini --override=shell=nvim",
+    "app2unit -- foot -c ~/.config/foot/edit.ini --override=shell='${VISUAL:-$EDITOR}'",
     { float = true, pin = true, center = true, size = { "monitor_w/3", "monitor_h/3" } }
 )'

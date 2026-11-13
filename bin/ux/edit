@@ -1,2 +1,4 @@
 #!/bin/sh
-app2unit -t service -- foot -c ~/.config/foot/edit.ini --override=shell="nvim $@"
+VISUAL=$(systemctl --user show-environment | grep '^VISUAL=' | cut -d'=' -f2-)
+EDITOR=$(systemctl --user show-environment | grep '^EDITOR=' | cut -d'=' -f2-)
+app2unit -t service -- foot -c ~/.config/foot/edit.ini --override=shell="${VISUAL:-$EDITOR} $@"

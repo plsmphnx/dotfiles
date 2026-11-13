@@ -13,12 +13,21 @@ require 'util'.keys {
   [{ 'i', 'n', 'v' }] = {
     c_s = require 'cmds'.save,
     c_q = require 'cmds'.quit,
-    c_f = function() Snacks.picker.lines { pattern = sel() } end,
-    c_s_f = function() Snacks.picker.grep { search = sel() } end,
+    -- c_f = function() Snacks.picker.lines { pattern = sel() } end,
+    -- c_s_f = function() Snacks.picker.grep { search = sel() } end,
     c_s_i = function() vim.lsp.buf.format() end,
-    c_b = function() Snacks.picker.explorer() end,
-    f1 = function() Snacks.picker.help { pattern = sel() } end,
-    f2 = function() Snacks.picker.pickers() end,
+    c_b = '<Cmd>Neotree toggle reveal=true<CR>',
+    f1 = function() MiniPick.builtin.help() end,
+    f2 = function()
+      local items = vim.tbl_keys(MiniPick.registry)
+      table.sort(items)
+      local picker = MiniPick.start { source = {
+        items = items,
+        name = 'Registry',
+        choose = function() end,
+      } }
+      if picker then MiniPick.registry[picker]() end
+    end,
     f12 = '<C-O><C-]>',
   },
   [{ 'i', 'n' }] = {

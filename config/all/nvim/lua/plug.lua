@@ -1,24 +1,40 @@
-require 'mini.basics'.setup { mappings = { enable = false } }
-require 'mini.bufremove'.setup {}
-require 'mini.cmdline'.setup {}
-require 'mini.comment'.setup { mappings = { comment_visual = '/' } }
-require 'mini.completion'.setup {}
-require 'mini.diff'.setup { view = {
-  style = 'sign',
-  signs = { add = '\u{2590}', change = '\u{2590}', delete = '\u{2582}' },
-} }
-require 'mini.icons'.setup {
-  default = { directory = { hl = 'MiniIconsGrey' } },
-}
-require 'mini.move'.setup {}
-require 'mini.surround'.setup {}
+for plug, conf in pairs {
+  basics = { mappings = { enable = false } },
+  bufremove = {},
+  cmdline = {},
+  comment = { mappings = { comment_visual = '/' } },
+  completion = {},
+  diff = { view = {
+    style = 'sign',
+    signs = { add = '\u{2590}', change = '\u{2590}', delete = '\u{2582}' },
+  } },
+  extra = {},
+  icons = { default = { directory = { hl = 'MiniIconsGrey' } } },
+  indentscope = {
+    draw = { animation = require('mini.indentscope').gen_animation.none() },
+    symbol = '\u{2502}',
+  },
+  input = {},
+  move = {},
+  pick = {
+    window = {
+      config = function()
+        local height = math.floor(0.9 * vim.o.lines)
+        local width = math.floor(0.9 * vim.o.columns)
+        return {
+          anchor = 'NW',
+          height = height,
+          width = width,
+          row = math.floor(0.5 * (vim.o.lines - height - 2)),
+          col = math.floor(0.5 * (vim.o.columns - width - 2)),
+        }
+      end,
+    },
+  },
+  surround = {},
+} do require('mini.' .. plug).setup(conf) end
 
 MiniIcons.mock_nvim_web_devicons()
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'snacks_*',
-  callback = function() vim.b.minicompletion_disable = true end
-})
 
 vim.keymap.set('i', '<Tab>', function()
   return vim.fn.pumvisible() == 1 and '<C-N>' or '<Tab>'
@@ -37,128 +53,14 @@ vim.keymap.set('s', '/', '<C-O>/', { remap = true })
 
 ----
 
-require 'bufferline'.setup {
-  options = {
-    indicator = { style = 'none' },
-    separator_style = { '', '' },
-    offsets = { {
-      filetype = 'snacks_layout_box',
-      separator = true,
-      highlight = 'TabLineFill',
-    } },
-    always_show_bufferline = false,
-    close_command = MiniBufremove.delete,
-    right_mouse_command = MiniBufremove.delete,
-  },
-}
-
-----
-
 require 'guess-indent'.setup {}
-
-----
-
-require 'snacks'.setup {
-  bigfile = { enabled = true },
-  explorer = { enabled = true },
-  indent = {
-    enabled = true,
-    animate = { enabled = false },
-    scope = { enabled = true },
-  },
-  input = {
-    enabled = true,
-    win = {
-      keys = {
-        i_esc = { '<Esc>', 'cancel', mode = { 'i', 'v' } },
-        a_c_q = { '<C-Q>', 'quit', mode = { 'i', 'n', 'v' } },
-      },
-      actions = { quit = require 'cmds'.quit },
-    },
-  },
-  picker = {
-    enabled = true,
-    hidden = true,
-    ignored = true,
-    layout = { preset = 'horizontal' },
-    layouts = {
-      ivy_split = { layout = { height = 0.25 } },
-      horizontal = {
-        layout = {
-          width = 0.9,
-          height = 0.9,
-          box = 'vertical',
-          { win = 'preview', height = 0.5, border = true },
-          {
-            box = 'vertical',
-            border = true,
-            title = '{title} {live}',
-            { win = 'input', height = 1, border = 'bottom' },
-            { win = 'list' },
-          },
-        },
-      }
-    },
-    sources = {
-      diagnostics_buffer = { layout = 'ivy_split' },
-      explorer = { layout = { auto_hide = { 'input' } } },
-      grep = { layout = 'ivy_split', matcher = { fuzzy = false } },
-      lines = { layout = 'ivy_split', matcher = { fuzzy = false } },
-      pickers = { layout = 'vscode' },
-    },
-    win = {
-      input = { keys = {
-        ['<Esc>'] = { 'cancel', mode = { 'i', 'n', 'v' } },
-        ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
-      } },
-      list = { keys = {
-        ['<Esc>'] = { 'cancel', mode = { 'i', 'n', 'v' } },
-        ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
-        ['<LeftRelease>'] = { 'confirm', mode = { 'i', 'n', 'v' } },
-      } },
-      preview = { keys = {
-        ['<Esc>'] = { 'cancel', mode = { 'i', 'n', 'v' } },
-        ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
-      } },
-    },
-    actions = { quit = require 'cmds'.quit },
-  },
-  quickfile = { enabled = true },
-  scope = { enabled = true },
-  scroll = { enabled = true },
-  statuscolumn = {
-    enabled = true,
-    folds = { open = true, git_hl = true },
-  },
-  words = { enabled = true },
-}
-
-local menu = require 'menu'
-menu.filetype.snacks_picker_list = function(bufnr)
-  return {
-    { 'a', '\u{f0214} Create', 'a' },
-    { 'a', '-1-',              '<Nop>' },
-    { 'a', '\u{f0455} Rename', 'r' },
-    { 'a', '\u{f01b4} Delete', 'd' },
-  }
-end
-
-vim.diagnostic.config { signs = { text = {
-  [vim.diagnostic.severity.ERROR] = '\u{f015a}',
-  [vim.diagnostic.severity.WARN]  = '\u{f002a}',
-  [vim.diagnostic.severity.HINT]  = '\u{f0336}',
-  [vim.diagnostic.severity.INFO]  = '\u{f02fd}',
-} } }
 
 ----
 
 require 'lualine'.setup {
   options = {
-    disabled_filetypes = { statusline = { 'snacks_layout_box' } },
-    ignore_focus = function(win)
-      local ft = vim.bo[vim.api.nvim_win_get_buf(win)].filetype
-      return ft:find('snacks_', 1, true) == 1 or ft == 'help'
-    end,
+    disabled_filetypes = { statusline = { 'neo-tree' } },
+    ignore_focus = { 'help', 'minipick', 'neo-tree' },
     section_separators = '',
     component_separators = '',
   },
@@ -166,12 +68,16 @@ require 'lualine'.setup {
     lualine_b = {
       { 'diff',
         padding = { left = 1, right = 0 },
-        on_click = function() Snacks.picker.git_diff { group = true } end,
+        on_click = vim.schedule_wrap(function()
+          MiniExtra.pickers.git_hunks()
+        end),
       },
       { 'diagnostics',
         padding = { left = 1, right = 0 },
         update_in_insert = true,
-        on_click = function() Snacks.picker.diagnostics_buffer() end,
+        on_click = vim.schedule_wrap(function()
+          MiniExtra.pickers.diagnostic { scope = 'current' }
+        end),
       },
     },
     lualine_x = {
@@ -180,39 +86,29 @@ require 'lualine'.setup {
       },
       { function()
         local ico, hl = MiniIcons.get('filetype', vim.bo.filetype)
-        return '%#' .. hl .. '#' .. ico .. ' %#Normal#' .. vim.bo.filetype
+        return '%#' .. hl .. '#' .. ico .. ' %*' .. vim.bo.filetype
       end,
         padding = { left = 0, right = 1 },
-        on_click = function()
-          local items = {}
-          for _, ft in ipairs(vim.fn.getcompletion('', 'filetype')) do
-            items[#items + 1] = { text = ft }
-          end
-          Snacks.picker {
-            title = 'File Type',
-            items = items,
-            layout = 'vscode',
-            format = function(item)
-              return {
-                { MiniIcons.get('filetype', item.text) },
-                { ' ',                                 virtual = true },
-                { item.text,                           'Normal' },
-              }
+        on_click = vim.schedule_wrap(function()
+          MiniPick.start { source = {
+            items = vim.fn.getcompletion('', 'filetype'),
+            name = 'File Type',
+            show = function(buf_id, items, query)
+              MiniPick.default_show(buf_id, vim.tbl_map(function(item)
+                return MiniIcons.get('filetype', item) .. ' ' .. item
+              end, items), query)
             end,
-            confirm = function(picker, item)
-              picker:close()
-              if item then vim.bo.filetype = item.text end
-            end,
-          }
-        end,
+            choose = function(item) vim.bo.filetype = item end,
+          } }
+        end),
       },
       { function()
         local indent = vim.bo.expandtab and vim.bo.tabstop or ''
-        return '%#MiniIconsGrey#\u{f0312} %#Normal#' .. indent
+        return '%#MiniIconsGrey#\u{f0312} %*' .. indent
       end,
         padding = { left = 0, right = 1 },
         on_click = function()
-          Snacks.input.input({
+          vim.ui.input({
             prompt = 'Indentation',
             default = tostring(vim.bo.tabstop),
           }, function(input)
@@ -233,6 +129,38 @@ require 'lualine'.setup {
     lualine_y = {},
   },
 }
+
+vim.diagnostic.config { signs = { text = {
+  [vim.diagnostic.severity.ERROR] = '\u{f015a}',
+  [vim.diagnostic.severity.WARN]  = '\u{f002a}',
+  [vim.diagnostic.severity.HINT]  = '\u{f0336}',
+  [vim.diagnostic.severity.INFO]  = '\u{f02fd}',
+} } }
+
+----
+
+require 'neo-tree'.setup {
+  window = { mappings = { ['<LeftRelease>'] = 'open' } },
+  default_component_configs = {
+    indent = { with_expanders = true, with_markers = false },
+  },
+  source_selector = { statusline = true },
+  filesystem = { filtered_items = { visible = true } },
+}
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'neo-tree',
+  callback = function() vim.b.miniindentscope_disable = true end,
+})
+
+require 'menu'.filetype['neo-tree'] = function()
+  return {
+    { 'a', '\u{f0214} Create', 'a' },
+    { 'a', '-1-',              '<Nop>' },
+    { 'a', '\u{f0455} Rename', 'r' },
+    { 'a', '\u{f01b4} Delete', 'd' },
+  }
+end
 
 ----
 
@@ -262,6 +190,10 @@ require 'vscode'.setup {
     MiniIconsPurple = { fg = c.vscViolet },
     MiniIconsRed = { fg = c.vscRed },
     MiniIconsYellow = { fg = c.vscYellow },
+
+    MiniIndentscopeSymbol = { fg = c.vscSplitDark },
+
+    NeoTreeExpander = { fg = c.vscSplitDark },
   },
 }
 
