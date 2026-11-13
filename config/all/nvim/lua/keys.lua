@@ -11,25 +11,11 @@ end
 
 require 'util'.keys {
   [{ 'i', 'n', 'v' }] = {
-    c_s = function()
-      if vim.api.nvim_buf_get_name(0) == '' then
-        Snacks.input.input({
-          prompt = 'Save As',
-          default = vim.fn.getcwd() .. '/',
-        }, function(input)
-          if input then
-            vim.api.nvim_buf_set_name(0, input)
-            vim.cmd 'update'
-          end
-        end)
-      else
-        vim.cmd 'update'
-      end
-    end,
-    c_q = '<Cmd>conf qa<CR>',
-    c_s_i = function() vim.lsp.buf.format() end,
+    c_s = require 'cmds'.save,
+    c_q = require 'cmds'.quit,
     c_f = function() Snacks.picker.lines { pattern = sel() } end,
     c_s_f = function() Snacks.picker.grep { search = sel() } end,
+    c_s_i = function() vim.lsp.buf.format() end,
     c_b = function() Snacks.picker.explorer() end,
     f1 = function() Snacks.picker.help { pattern = sel() } end,
     f2 = function() Snacks.picker.pickers() end,

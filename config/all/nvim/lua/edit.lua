@@ -12,10 +12,14 @@ util.opts {
 util.keys {
   i = {
     esc = '<C-O>',
-    c_v = '<C-O>"+gP',
+    c_v = '<Cmd>normal! "+gP<CR>',
     c_z = '<Cmd>undo<CR>',
     c_y = '<Cmd>redo<CR>',
     ['2-LeftMouse'] = '<C-O>viw<C-G>',
+    down = '<Cmd>normal! gj<CR>',
+    up = '<Cmd>normal! gk<CR>',
+    s_down = '<C-\\><C-N>lvgj<C-G>',
+    s_up = '<C-\\><C-N>lvgk<C-G>',
   },
   v = {
     bs = '"_d',
@@ -24,12 +28,20 @@ util.keys {
     c_v = '"+P',
     c_z = '<Cmd>undo<CR>',
     c_y = '<Cmd>redo<CR>',
+    down = '<C-\\><C-N>gji',
+    up = '<C-\\><C-N>gki',
+    s_down = 'gj',
+    s_up = 'gk',
   },
   n = {
     esc = 'i',
     c_v = '"+gP',
     c_z = '<Cmd>undo<CR>',
     c_y = '<Cmd>redo<CR>',
+    down = 'gj',
+    up = 'gk',
+    s_down = 'vgj<C-G>',
+    s_up = 'vgk<C-G>',
   },
   s = {
     esc = '<C-O>',
