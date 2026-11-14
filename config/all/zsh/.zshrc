@@ -38,5 +38,9 @@ path+=($XDG_BIN_HOME .)
 # unique paths
 typeset -U path PATH
 
+# fzf
+zstyle ':fzf-tab:*' fzf-flags --color=16 --bind=tab:accept
+source $ZSH_PLUGIN_DIR/fzf-tab/fzf-tab.zsh
+
 # core plugins
 source $ZSH_PLUGIN_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
