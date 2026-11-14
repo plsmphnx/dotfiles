@@ -1,44 +1,44 @@
-local function default(bufnr)
+local M = {}
+
+M.default = function(event)
   local entries = {}
 
-  if vim.lsp.get_clients { bufnr = bufnr }[1] then
-    for _, e in ipairs {
-      { 'Info',       '<Cmd>lua vim.lsp.buf.hover()<CR>' },
-      { 'Action',     '<Cmd>lua vim.lsp.buf.code_action()<CR>' },
-      { 'Diagnostic', '<Cmd>lua vim.diagnostic.open_float()<CR>' },
-      { 'Definition', '<Cmd>lua vim.lsp.buf.definition()<CR>' },
-      { '-1-',        '<Nop>' },
-    } do entries[#entries + 1] = { 'anore', e[1], e[2] } end
+  if vim.lsp.get_clients { bufnr = event.buf }[1] then
+    vim.list_extend(entries, {
+      { 'a', 'Info',       '<Cmd>lua vim.lsp.buf.hover()<CR>' },
+      { 'a', 'Action',     '<Cmd>lua vim.lsp.buf.code_action()<CR>' },
+      { 'a', 'Diagnostic', '<Cmd>lua vim.diagnostic.open_float()<CR>' },
+      { 'a', 'Definition', '<Cmd>lua vim.lsp.buf.definition()<CR>' },
+      { 'a', '-1-',        '<Nop>' },
+    })
   end
 
-  for _, e in ipairs {
-    { 'vnore', 'Cut',        '"+x' },
-    { 'vnore', 'Copy',       '"+y' },
-    { 'anore', 'Paste',      '"+gP' },
-    { 'vnore', 'Paste',      '"+P' },
-    { 'vnore', 'Delete',     '"_x' },
-    { 'nnore', 'Select All', 'ggVG' },
-    { 'vnore', 'Select All', 'gg0oG$' },
-    { 'inore', 'Select All', '<C-Home><C-O>VG' },
-  } do entries[#entries + 1] = e end
+  vim.list_extend(entries, {
+    { 'v', 'Cut',        '"+x' },
+    { 'v', 'Copy',       '"+y' },
+    { 'a', 'Paste',      '"+gP' },
+    { 'v', 'Paste',      '"+P' },
+    { 'v', 'Delete',     '"_x' },
+    { 'n', 'Select All', 'ggVG' },
+    { 'v', 'Select All', 'gg0oG$' },
+    { 'i', 'Select All', '<C-Home><C-O>VG' },
+  })
 
   return entries
 end
-
-local filetype = {}
 
 vim.api.nvim_del_augroup_by_name 'nvim.popupmenu'
 
 vim.api.nvim_create_autocmd('MenuPopup', {
   group = vim.api.nvim_create_augroup('MenuPopup', { clear = true }),
   callback = function(event)
-    local menu = filetype[vim.bo[event.buf].filetype] or default
     vim.cmd.aunmenu 'PopUp'
-    for _, e in ipairs(menu(event.buf)) do
+    for _, e in ipairs((vim.b[event.buf].menu or M.default)(event) or {}) do
       local label = e[2]:gsub(' ', [[\ ]])
-      vim.cmd(e[1] .. 'menu PopUp.' .. label .. ' ' .. e[3])
+      local re = e[4] and '' or 'nore'
+      vim.cmd(e[1] .. re .. 'menu PopUp.' .. label .. ' ' .. e[3])
     end
   end
 })
 
-return { filetype = filetype, default = default }
+return M

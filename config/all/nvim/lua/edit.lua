@@ -1,3 +1,5 @@
+local M = {}
+
 local util = require 'util'
 
 util.opts {
@@ -16,10 +18,6 @@ util.keys {
     c_z = '<Cmd>undo<CR>',
     c_y = '<Cmd>redo<CR>',
     ['2-LeftMouse'] = '<C-O>viw<C-G>',
-    down = '<Cmd>normal! gj<CR>',
-    up = '<Cmd>normal! gk<CR>',
-    s_down = '<C-\\><C-N>lvgj<C-G>',
-    s_up = '<C-\\><C-N>lvgk<C-G>',
   },
   v = {
     bs = '"_d',
@@ -28,20 +26,12 @@ util.keys {
     c_v = '"+P',
     c_z = '<Cmd>undo<CR>',
     c_y = '<Cmd>redo<CR>',
-    down = '<C-\\><C-N>gji',
-    up = '<C-\\><C-N>gki',
-    s_down = 'gj',
-    s_up = 'gk',
   },
   n = {
     esc = 'i',
     c_v = '"+gP',
     c_z = '<Cmd>undo<CR>',
     c_y = '<Cmd>redo<CR>',
-    down = 'gj',
-    up = 'gk',
-    s_down = 'vgj<C-G>',
-    s_up = 'vgk<C-G>',
   },
   s = {
     esc = '<C-O>',
@@ -54,19 +44,36 @@ util.keys {
   },
 }
 
+for mode, cmds in pairs {
+  i = { '<Cmd>normal! @<CR>', '<C-\\><C-N>lv@<C-G>' },
+  n = { '@', 'v@<C-G>' },
+  v = { '<C-\\><C-N>@i', '@' },
+} do
+  for key, map in pairs { Down = { 'gj', '<C-N>' }, Up = { 'gk', '<C-P>' } } do
+    for idx, mod in ipairs { '', 'S-' } do
+      local expr, pum = cmds[idx]:gsub('@', map[1]), map[2]
+      vim.keymap.set(mode, '<' .. mod .. key .. '>', function()
+        return vim.fn.pumvisible() == 1 and pum or expr
+      end, { silent = true, expr = true })
+    end
+  end
+end
+
 local group = vim.api.nvim_create_augroup('EditInsertLock', { clear = true })
+
+M.insert = vim.schedule_wrap(function()
+  vim.cmd(vim.bo.modifiable and 'startinsert' or 'stopinsert')
+end)
 
 vim.api.nvim_create_autocmd('BufEnter', {
   group = group,
-  callback = vim.schedule_wrap(function()
-    vim.cmd(vim.bo.modifiable and 'startinsert' or 'stopinsert')
-  end)
+  callback = M.insert
 })
 
 vim.api.nvim_create_autocmd('ModeChanged', {
   group = group,
   pattern = '[vV\22sS\19]:n',
-  callback = vim.schedule_wrap(function()
-    if vim.bo.modifiable then vim.cmd 'startinsert' end
-  end)
+  callback = M.insert
 })
+
+return M

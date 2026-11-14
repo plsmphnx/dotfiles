@@ -1,3 +1,4 @@
+require 'mini.ai'.setup {}
 require 'mini.basics'.setup { mappings = { enable = false } }
 require 'mini.bufremove'.setup {}
 require 'mini.cmdline'.setup {}
@@ -21,7 +22,10 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.keymap.set('i', '<Tab>', function()
-  return vim.fn.pumvisible() == 1 and '<C-N>' or '<Tab>'
+  return vim.fn.pumvisible() == 1 and (
+    vim.fn.complete_info { 'selected' }.selected == -1
+    and '<C-N><C-Y>' or '<C-Y>'
+  ) or '<Tab>'
 end, { expr = true })
 
 vim.api.nvim_create_autocmd('ModeChanged', {
@@ -37,33 +41,28 @@ vim.keymap.set('s', '/', '<C-O>/', { remap = true })
 
 ----
 
-require 'bufferline'.setup {
-  options = {
-    indicator = { style = 'none' },
-    separator_style = { '', '' },
-    offsets = { {
-      filetype = 'snacks_layout_box',
-      separator = true,
-      highlight = 'TabLineFill',
-    } },
-    always_show_bufferline = false,
-    close_command = MiniBufremove.delete,
-    right_mouse_command = MiniBufremove.delete,
-  },
-}
-
-----
-
 require 'guess-indent'.setup {}
 
 ----
+
+local function single_click(opts)
+  return vim.tbl_deep_extend('force', {
+    win = {
+      list = {
+        keys = {
+          ['<LeftRelease>'] = { 'confirm', mode = { 'i', 'n', 'v' } },
+        }
+      }
+    }
+  }, opts or {})
+end
 
 local function persist(opts)
   return vim.tbl_deep_extend('force', {
     layout = { preset = 'bottom', preview = false },
     auto_close = false,
     jump = { close = false },
-  }, opts or {})
+  }, single_click(opts))
 end
 
 require 'snacks'.setup {
@@ -108,14 +107,34 @@ require 'snacks'.setup {
       }
     },
     sources = {
-      diagnostics_buffer = persist {},
-      explorer = {
+      buffers = persist { layout = { hidden = { 'input' } } },
+      diagnostics_buffer = persist { layout = { hidden = { 'input' } } },
+      explorer = single_click {
         layout = { hidden = { 'input' } },
-        win = { list = { keys = { ['<Esc>'] = false } } },
+        win = { list = {
+          keys = { ['<Esc>'] = false },
+          on_buf = function(win)
+            vim.b[win.buf].menu = function()
+              return {
+                { 'a', '\u{f0214} Create', 'a',    true },
+                { 'a', '-1-',              '<Nop>' },
+                { 'a', '\u{f0455} Rename', 'r',    true },
+                { 'a', '\u{f01b4} Delete', 'd',    true },
+              }
+            end
+          end
+        } },
       },
-      grep = persist { matcher = { fuzzy = false } },
-      lines = persist { matcher = { fuzzy = false } },
-      pickers = { layout = 'vscode' },
+      grep = persist {
+        follow = true,
+        matcher = { fuzzy = false },
+        args = { '--sort=path' },
+      },
+      lines = persist {
+        matcher = { fuzzy = false },
+        sort = { fields = { 'idx' } },
+      },
+      pickers = single_click { layout = 'vscode' },
     },
     win = {
       input = { keys = {
@@ -125,7 +144,6 @@ require 'snacks'.setup {
       list = { keys = {
         ['<Esc>'] = { 'cancel', mode = { 'i', 'n', 'v' } },
         ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
-        ['<LeftRelease>'] = { 'confirm', mode = { 'i', 'n', 'v' } },
       } },
       preview = { keys = {
         ['<Esc>'] = { 'cancel', mode = { 'i', 'n', 'v' } },
@@ -133,6 +151,7 @@ require 'snacks'.setup {
       } },
     },
     actions = { quit = require 'cmds'.quit },
+    on_close = require 'edit'.insert
   },
   quickfile = { enabled = true },
   scope = { enabled = true },
@@ -143,16 +162,6 @@ require 'snacks'.setup {
   },
   words = { enabled = true },
 }
-
-local menu = require 'menu'
-menu.filetype.snacks_picker_list = function(bufnr)
-  return {
-    { 'a', '\u{f0214} Create', 'a' },
-    { 'a', '-1-',              '<Nop>' },
-    { 'a', '\u{f0455} Rename', 'r' },
-    { 'a', '\u{f01b4} Delete', 'd' },
-  }
-end
 
 vim.diagnostic.config { signs = { text = {
   [vim.diagnostic.severity.ERROR] = '\u{f015a}',
@@ -177,7 +186,7 @@ require 'lualine'.setup {
     lualine_b = {
       { 'diff',
         padding = { left = 1, right = 0 },
-        on_click = function() Snacks.picker.git_diff { group = true } end,
+        on_click = function() MiniDiff.toggle_overlay() end,
       },
       { 'diagnostics',
         padding = { left = 1, right = 0 },
@@ -191,17 +200,15 @@ require 'lualine'.setup {
       },
       { function()
         local ico, hl = MiniIcons.get('filetype', vim.bo.filetype)
-        return '%#' .. hl .. '#' .. ico .. ' %#Normal#' .. vim.bo.filetype
+        return '%#' .. hl .. '#' .. ico .. ' %*' .. vim.bo.filetype
       end,
         padding = { left = 0, right = 1 },
         on_click = function()
-          local items = {}
-          for _, ft in ipairs(vim.fn.getcompletion('', 'filetype')) do
-            items[#items + 1] = { text = ft }
-          end
-          Snacks.picker {
+          Snacks.picker(single_click {
             title = 'File Type',
-            items = items,
+            items = vim.tbl_map(function(ft)
+              return { text = ft }
+            end, vim.fn.getcompletion('', 'filetype')),
             layout = 'vscode',
             format = function(item)
               return {
@@ -214,12 +221,12 @@ require 'lualine'.setup {
               picker:close()
               if item then vim.bo.filetype = item.text end
             end,
-          }
+          })
         end,
       },
       { function()
         local indent = vim.bo.expandtab and vim.bo.tabstop or ''
-        return '%#MiniIconsGrey#\u{f0312} %#Normal#' .. indent
+        return '%#MiniIconsGrey#\u{f0312} %*' .. indent
       end,
         padding = { left = 0, right = 1 },
         on_click = function()
@@ -255,10 +262,6 @@ require 'vscode'.setup {
   group_overrides = {
     FloatBorder = { fg = c.vscSplitDark },
     PmenuBorder = { fg = c.vscSplitDark },
-
-    TabLine = { bg = 'NONE' },
-    TabLineSel = { bg = 'NONE' },
-    TabLineFill = { bg = 'NONE' },
 
     Added = { fg = c.vscGreen },
     Removed = { fg = c.vscRed },
