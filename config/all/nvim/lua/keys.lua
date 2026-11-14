@@ -1,5 +1,4 @@
 local cmds = require 'cmds'
-local side = require 'side'
 local util = require 'util'
 
 local visual = { v = true, V = true, ['\22'] = true }
@@ -17,10 +16,10 @@ util.keys {
   [{ 'i', 'n', 'v' }] = {
     c_s = cmds.save,
     c_q = cmds.quit,
-    c_f = function() side.pick('lines', { pattern = sel() }) end,
-    c_s_f = function() side.pick('grep', { search = sel() }) end,
+    c_f = function() Snacks.picker.lines { pattern = sel() } end,
+    c_s_f = function() Snacks.picker.grep { search = sel() } end,
     c_s_i = function() vim.lsp.buf.format() end,
-    c_b = function() side.pick 'explorer' end,
+    c_b = function() Snacks.picker.explorer() end,
     f1 = function() Snacks.picker.help { pattern = sel() } end,
     f2 = function() Snacks.picker.pickers() end,
     f12 = '<C-O><C-]>',

@@ -58,6 +58,14 @@ require 'guess-indent'.setup {}
 
 ----
 
+local function persist(opts)
+  return vim.tbl_deep_extend('force', {
+    layout = { preset = 'bottom', preview = false },
+    auto_close = false,
+    jump = { close = false },
+  }, opts or {})
+end
+
 require 'snacks'.setup {
   bigfile = { enabled = true },
   explorer = { enabled = true },
@@ -82,7 +90,7 @@ require 'snacks'.setup {
     ignored = true,
     layout = { preset = 'horizontal' },
     layouts = {
-      ivy_split = { layout = { height = 0.25 } },
+      bottom = { layout = { height = 0.25 } },
       horizontal = {
         layout = {
           width = 0.9,
@@ -100,9 +108,13 @@ require 'snacks'.setup {
       }
     },
     sources = {
-      explorer = { layout = { auto_hide = { 'input' } } },
-      grep = { matcher = { fuzzy = false } },
-      lines = { matcher = { fuzzy = false } },
+      diagnostics_buffer = persist {},
+      explorer = {
+        layout = { hidden = { 'input' } },
+        win = { list = { keys = { ['<Esc>'] = false } } },
+      },
+      grep = persist { matcher = { fuzzy = false } },
+      lines = persist { matcher = { fuzzy = false } },
       pickers = { layout = 'vscode' },
     },
     win = {
