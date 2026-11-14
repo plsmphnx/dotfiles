@@ -100,10 +100,9 @@ require 'snacks'.setup {
       }
     },
     sources = {
-      diagnostics_buffer = { layout = 'ivy_split' },
       explorer = { layout = { auto_hide = { 'input' } } },
-      grep = { layout = 'ivy_split', matcher = { fuzzy = false } },
-      lines = { layout = 'ivy_split', matcher = { fuzzy = false } },
+      grep = { matcher = { fuzzy = false } },
+      lines = { matcher = { fuzzy = false } },
       pickers = { layout = 'vscode' },
     },
     win = {
