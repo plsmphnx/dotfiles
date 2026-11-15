@@ -1,3 +1,34 @@
+local c = require 'vscode.colors'.get_colors()
+
+require 'vscode'.setup {
+  transparent = true,
+  color_overrides = { vscPopupBack = 'NONE' },
+  group_overrides = {
+    FloatBorder = { fg = c.vscSplitDark },
+    PmenuBorder = { fg = c.vscSplitDark },
+    StatusLine = { fg = c.vscSplitDark },
+    StatusLineNC = { fg = c.vscSplitDark },
+
+    Added = { fg = c.vscGreen },
+    Removed = { fg = c.vscRed },
+    Changed = { fg = c.vscBlue },
+
+    MiniIconsAzure = { fg = c.vscAccentBlue },
+    MiniIconsBlue = { fg = c.vscBlue },
+    MiniIconsCyan = { fg = c.vscBlueGreen },
+    MiniIconsGreen = { fg = c.vscGreen },
+    MiniIconsGrey = { fg = c.vscGray },
+    MiniIconsOrange = { fg = c.vscOrange },
+    MiniIconsPurple = { fg = c.vscViolet },
+    MiniIconsRed = { fg = c.vscRed },
+    MiniIconsYellow = { fg = c.vscYellow },
+  },
+}
+
+vim.cmd.colorscheme 'vscode'
+
+----
+
 require 'mini.ai'.setup {}
 require 'mini.basics'.setup { mappings = { enable = false } }
 require 'mini.bufremove'.setup {}
@@ -37,7 +68,7 @@ vim.api.nvim_create_autocmd('ModeChanged', {
   end
 })
 
-vim.keymap.set('s', '/', '<C-O>/', { remap = true })
+vim.keymap.set('s', '/', '<Esc>/', { remap = true })
 
 ----
 
@@ -63,6 +94,19 @@ local function persist(opts)
     auto_close = false,
     jump = { close = false },
   }, single_click(opts))
+end
+
+local explorer_menu = {}
+for mode, prefix in pairs { [''] = '', i = '<Esc>' } do
+  vim.list_extend(explorer_menu, {
+    { mode, '\u{f0214} Create', prefix .. 'a',     true },
+    { mode, '-1-',              '<Nop>' },
+    { mode, '\u{eb57} HSplit',  prefix .. '<C-S>', true },
+    { mode, '\u{eb56} VSplit',  prefix .. '<C-V>', true },
+    { mode, '-2-',              '<Nop>' },
+    { mode, '\u{f0455} Rename', prefix .. 'r',     true },
+    { mode, '\u{f01b4} Delete', prefix .. 'd',     true },
+  })
 end
 
 require 'snacks'.setup {
@@ -107,23 +151,44 @@ require 'snacks'.setup {
       }
     },
     sources = {
-      buffers = persist { layout = { hidden = { 'input' } } },
+      buffers = persist {
+        layout = { hidden = { 'input' } },
+        win = { list = {
+          keys = {
+            ['<RightRelease>'] = { 'bufdelete', mode = { 'i', 'n', 'v' } },
+          },
+          on_buf = function(win) vim.b[win.buf].menu = function() end end
+        } },
+      },
       diagnostics_buffer = persist { layout = { hidden = { 'input' } } },
       explorer = single_click {
         layout = { hidden = { 'input' } },
         win = { list = {
           keys = { ['<Esc>'] = false },
           on_buf = function(win)
-            vim.b[win.buf].menu = function()
-              return {
-                { 'a', '\u{f0214} Create', 'a',    true },
-                { 'a', '-1-',              '<Nop>' },
-                { 'a', '\u{f0455} Rename', 'r',    true },
-                { 'a', '\u{f01b4} Delete', 'd',    true },
-              }
-            end
+            vim.b[win.buf].menu = function() return explorer_menu end
           end
         } },
+      },
+      filetype = single_click {
+        title = 'File Type',
+        finder = function()
+          return vim.tbl_map(function(ft)
+            return { text = ft }
+          end, vim.fn.getcompletion('', 'filetype'))
+        end,
+        layout = 'vscode',
+        format = function(item)
+          return {
+            { MiniIcons.get('filetype', item.text) },
+            { ' ',                                 virtual = true },
+            { item.text,                           'Normal' },
+          }
+        end,
+        confirm = function(picker, item)
+          picker:close()
+          if item then vim.bo.filetype = item.text end
+        end,
       },
       grep = persist {
         follow = true,
@@ -135,6 +200,7 @@ require 'snacks'.setup {
         sort = { fields = { 'idx' } },
       },
       pickers = single_click { layout = 'vscode' },
+      select = single_click {},
     },
     win = {
       input = { keys = {
@@ -160,8 +226,23 @@ require 'snacks'.setup {
     enabled = true,
     folds = { open = true, git_hl = true },
   },
+  styles = {
+    minimal = { wo = {
+      fillchars = 'eob: ,lastline:\u{2026},stl:\u{2500},stlnc:\u{2500}',
+    } },
+    split = { wo = {
+      statusline = '%@v:lua.snacks_picker_close@%= \u{f0156}  %T',
+    } }
+  },
   words = { enabled = true },
 }
+
+_G.snacks_picker_close = function()
+  local winid = vim.fn.getmousepos().winid
+  for _, picker in ipairs(Snacks.picker.get()) do
+    if picker.layout.root.win == winid then picker:close() end
+  end
+end
 
 vim.diagnostic.config { signs = { text = {
   [vim.diagnostic.severity.ERROR] = '\u{f015a}',
@@ -170,10 +251,41 @@ vim.diagnostic.config { signs = { text = {
   [vim.diagnostic.severity.INFO]  = '\u{f02fd}',
 } } }
 
+vim.api.nvim_create_autocmd({
+  'BufAdd',
+  'BufDelete',
+  'BufWipeout',
+  'BufModifiedSet',
+}, {
+  group = vim.api.nvim_create_augroup('SnacksBuffersRefresh', { clear = true }),
+  callback = function()
+    for _, picker in ipairs(Snacks.picker.get { source = 'buffers' }) do
+      vim.schedule(function()
+        if not picker.closed then picker:find { refresh = true } end
+      end)
+    end
+  end,
+})
+
 ----
+
+local lualine_highlight = require 'lualine.highlight'
+local function filetype_status()
+  local ico, hl = MiniIcons.get('filetype', vim.bo.filetype)
+  return '%#' .. hl .. '#' .. ico .. ' ' ..
+      lualine_highlight.format_highlight('x', true) .. vim.bo.filetype
+end
+
+local theme = require 'lualine.themes.vscode'
+for _, colors in pairs(theme) do
+  colors.x = colors.x or colors.c
+  colors.c = { fg = c.vscSplitDark }
+end
+
 
 require 'lualine'.setup {
   options = {
+    theme = theme,
     disabled_filetypes = { statusline = { 'snacks_layout_box' } },
     ignore_focus = function(win)
       local ft = vim.bo[vim.api.nvim_win_get_buf(win)].filetype
@@ -194,41 +306,18 @@ require 'lualine'.setup {
         on_click = function() Snacks.picker.diagnostics_buffer() end,
       },
     },
+    lualine_c = { { 'filename', color = { fg = 'white' } } },
     lualine_x = {
       { 'lsp_status',
-        padding = { left = 0, right = 1 },
+        padding = { left = 1, right = 0 },
       },
-      { function()
-        local ico, hl = MiniIcons.get('filetype', vim.bo.filetype)
-        return '%#' .. hl .. '#' .. ico .. ' %*' .. vim.bo.filetype
-      end,
-        padding = { left = 0, right = 1 },
-        on_click = function()
-          Snacks.picker(single_click {
-            title = 'File Type',
-            items = vim.tbl_map(function(ft)
-              return { text = ft }
-            end, vim.fn.getcompletion('', 'filetype')),
-            layout = 'vscode',
-            format = function(item)
-              return {
-                { MiniIcons.get('filetype', item.text) },
-                { ' ',                                 virtual = true },
-                { item.text,                           'Normal' },
-              }
-            end,
-            confirm = function(picker, item)
-              picker:close()
-              if item then vim.bo.filetype = item.text end
-            end,
-          })
-        end,
+      { filetype_status,
+        padding = { left = 1, right = 0 },
+        on_click = function() Snacks.picker.filetype() end,
       },
-      { function()
-        local indent = vim.bo.expandtab and vim.bo.tabstop or ''
-        return '%#MiniIconsGrey#\u{f0312} %*' .. indent
-      end,
-        padding = { left = 0, right = 1 },
+      { 'vim.bo.expandtab and tostring(vim.bo.tabstop) or ""',
+        icon = { '\u{f0312}', color = { fg = 'gray' } },
+        padding = 1,
         on_click = function()
           Snacks.input.input({
             prompt = 'Indentation',
@@ -252,31 +341,4 @@ require 'lualine'.setup {
   },
 }
 
-----
-
-local c = require 'vscode.colors'.get_colors()
-
-require 'vscode'.setup {
-  transparent = true,
-  color_overrides = { vscPopupBack = 'NONE' },
-  group_overrides = {
-    FloatBorder = { fg = c.vscSplitDark },
-    PmenuBorder = { fg = c.vscSplitDark },
-
-    Added = { fg = c.vscGreen },
-    Removed = { fg = c.vscRed },
-    Changed = { fg = c.vscBlue },
-
-    MiniIconsAzure = { fg = c.vscAccentBlue },
-    MiniIconsBlue = { fg = c.vscBlue },
-    MiniIconsCyan = { fg = c.vscBlueGreen },
-    MiniIconsGreen = { fg = c.vscGreen },
-    MiniIconsGrey = { fg = c.vscGray },
-    MiniIconsOrange = { fg = c.vscOrange },
-    MiniIconsPurple = { fg = c.vscViolet },
-    MiniIconsRed = { fg = c.vscRed },
-    MiniIconsYellow = { fg = c.vscYellow },
-  },
-}
-
-vim.cmd.colorscheme 'vscode'
+vim.opt.fillchars:append { stl = '\u{2500}', stlnc = '\u{2500}' }
