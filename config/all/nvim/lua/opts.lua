@@ -6,6 +6,7 @@ require 'util'.opts {
   cursorline = vim.g.project ~= nil,
   colorcolumn = vim.g.project and '80,120' or '',
   shortmess = vim.opt.shortmess + 'I',
+  fillchars = { eob = ' ', lastline = '\u{2026}' },
   swapfile = false,
 
   background = 'dark',

@@ -7,11 +7,16 @@ end
 vim.g.clipboard = 'osc52'
 
 require 'vim._core.ui2'.enable { msg = { targets = 'msg' } }
-require 'menu'
-require 'plug'
+
+require 'plug.misc'
+require 'plug.mini'
+require 'plug.pick'
+require 'plug.line'
+
 require 'edit'
 require 'opts'
 require 'keys'
+require 'menu'
 
 vim.diagnostic.config { update_in_insert = true }
 vim.api.nvim_create_autocmd('FileType', {

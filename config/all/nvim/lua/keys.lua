@@ -15,6 +15,7 @@ end
 util.keys {
   [{ 'i', 'n', 'v' }] = {
     c_s = cmds.save,
+    c_s_s = cmds.save_as,
     c_q = cmds.quit,
     c_f = function() Snacks.picker.lines { pattern = sel() } end,
     c_s_f = function() Snacks.picker.grep { search = sel() } end,
@@ -40,3 +41,10 @@ util.keys {
     s_tab = function() MiniMove.move_line 'left' end,
   },
 }
+
+vim.keymap.set('i', '<Tab>', function()
+  return vim.fn.pumvisible() == 1 and (
+    vim.fn.complete_info { 'selected' }.selected == -1
+    and '<C-N><C-Y>' or '<C-Y>'
+  ) or '<Tab>'
+end, { expr = true })
