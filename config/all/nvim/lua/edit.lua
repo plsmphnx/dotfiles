@@ -19,8 +19,6 @@ util.keys {
     c_z = '<Cmd>undo<CR>',
     c_y = '<Cmd>redo<CR>',
     ['2-LeftMouse'] = '<C-O>viw<C-G>',
-    ['M-ScrollWheelUp'] = '<Cmd>normal! 6zh<CR>',
-    ['M-ScrollWheelDown'] = '<Cmd>normal! 6zl<CR>',
   },
   v = {
     bs = '"_d',
@@ -47,10 +45,6 @@ util.keys {
   },
   c = {
     c_v = '<C-R>+',
-  },
-  [''] = {
-    ['M-ScrollWheelUp'] = '6zh',
-    ['M-ScrollWheelDown'] = '6zl',
   },
 }
 
@@ -89,20 +83,34 @@ for mode, cmds in pairs {
   end
 end
 
+for dir, cmd in pairs { Up = 'zh', Down = 'zl' } do
+  vim.keymap.set({ '', '!', 't' }, '<M-ScrollWheel' .. dir .. '>', function()
+    local winid = vim.fn.getmousepos().winid
+    if not vim.api.nvim_win_is_valid(winid) then
+      winid = vim.api.nvim_get_current_win()
+    end
+    local step = tonumber(vim.o.mousescroll:match('hor:(%d+)')) or 6
+    vim.api.nvim_win_call(winid, function()
+      vim.cmd('normal! ' .. step .. cmd)
+    end)
+  end, { silent = true })
+end
+
 local group = vim.api.nvim_create_augroup('EditInsertLock', { clear = true })
 
 M.insert = vim.schedule_wrap(function()
-  vim.cmd(vim.bo.modifiable and 'startinsert' or 'stopinsert')
+  local edit = vim.bo.modifiable or vim.bo.buftype == 'terminal'
+  vim.cmd(edit and 'startinsert' or 'stopinsert')
 end)
 
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd({ 'BufEnter', 'TermLeave' }, {
   group = group,
   callback = M.insert
 })
 
 vim.api.nvim_create_autocmd('ModeChanged', {
   group = group,
-  pattern = '[vV\22sS\19]:n',
+  pattern = '[vV\22sS\19]*:n',
   callback = M.insert
 })
 

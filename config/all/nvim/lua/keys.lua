@@ -13,10 +13,9 @@ local function sel()
 end
 
 util.keys {
-  [{ 'i', 'n', 'v' }] = {
+  [{ '', 'i' }] = {
     c_s = cmds.save,
     c_s_s = cmds.save_as,
-    c_q = cmds.quit,
     c_f = function() Snacks.picker.lines { pattern = sel() } end,
     c_s_f = function() Snacks.picker.grep { search = sel() } end,
     c_s_i = function() vim.lsp.buf.format() end,
@@ -26,6 +25,9 @@ util.keys {
     f2 = function() Snacks.picker.pickers() end,
     f12 = '<C-O><C-]>',
     m_g = function() Snacks.lazygit.open() end,
+  },
+  [{ '', '!', 't' }] = {
+    c_q = cmds.quit,
   },
   [{ 'i', 'n' }] = {
     home = function()

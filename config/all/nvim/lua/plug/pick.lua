@@ -51,7 +51,18 @@ require 'snacks'.setup {
       actions = { quit = require 'cmds'.quit },
     },
   },
-  lazygit = { enabled = true },
+  lazygit = {
+    enabled = true,
+    config = {
+      gui = {
+        fileTreeSortOrder = 'foldersFirst',
+        showCommandLog = false,
+        showBottomLine = false,
+        showRandomTip = false,
+      },
+      disableStartupPopups = true,
+    },
+  },
   picker = {
     enabled = true,
     hidden = true,
