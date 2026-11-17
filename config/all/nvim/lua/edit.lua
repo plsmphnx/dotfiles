@@ -19,30 +19,38 @@ util.keys {
     c_z = '<Cmd>undo<CR>',
     c_y = '<Cmd>redo<CR>',
     ['2-LeftMouse'] = '<C-O>viw<C-G>',
+    ['M-ScrollWheelUp'] = '<Cmd>normal! 6zh<CR>',
+    ['M-ScrollWheelDown'] = '<Cmd>normal! 6zl<CR>',
   },
   v = {
     bs = '"_d',
     c_x = '"+x',
     c_c = '"+y',
     c_v = '"+P',
-    c_z = '<Cmd>undo<CR>',
-    c_y = '<Cmd>redo<CR>',
   },
   n = {
     esc = 'i',
     c_v = '"+gP',
-    c_z = '<Cmd>undo<CR>',
-    c_y = '<Cmd>redo<CR>',
+    c_z = 'u',
+    c_y = '<C-R>',
   },
   s = {
     esc = '<C-O>',
     s_esc = '<C-G>',
+    c_z = '<Esc>ui',
+    c_y = '<Esc><C-R>i',
   },
   x = {
     esc = '<C-G>',
+    c_z = '<Esc>u',
+    c_y = '<Esc><C-R>',
   },
   c = {
     c_v = '<C-R>+',
+  },
+  [''] = {
+    ['M-ScrollWheelUp'] = '6zh',
+    ['M-ScrollWheelDown'] = '6zl',
   },
 }
 

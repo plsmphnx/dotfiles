@@ -1,3 +1,5 @@
+local icon = require 'icon'
+
 local function single_click(opts)
   return vim.tbl_deep_extend('force', {
     win = {
@@ -49,10 +51,17 @@ require 'snacks'.setup {
       actions = { quit = require 'cmds'.quit },
     },
   },
+  lazygit = { enabled = true },
   picker = {
     enabled = true,
     hidden = true,
     ignored = true,
+    icons = { diagnostics = {
+      Error = icon.diagnostics.error .. ' ',
+      Warn = icon.diagnostics.warn .. ' ',
+      Hint = icon.diagnostics.hint .. ' ',
+      Info = icon.diagnostics.info .. ' ',
+    } },
     layout = { preset = 'horizontal' },
     layouts = {
       bottom = { layout = { height = 0.25 } },
@@ -167,10 +176,10 @@ _G.snacks_picker_close = function()
 end
 
 vim.diagnostic.config { signs = { text = {
-  [vim.diagnostic.severity.ERROR] = '\u{f015a}',
-  [vim.diagnostic.severity.WARN]  = '\u{f002a}',
-  [vim.diagnostic.severity.HINT]  = '\u{f0336}',
-  [vim.diagnostic.severity.INFO]  = '\u{f02fd}',
+  [vim.diagnostic.severity.ERROR] = icon.diagnostics.error,
+  [vim.diagnostic.severity.WARN]  = icon.diagnostics.warn,
+  [vim.diagnostic.severity.HINT]  = icon.diagnostics.hint,
+  [vim.diagnostic.severity.INFO]  = icon.diagnostics.info,
 } } }
 
 vim.api.nvim_create_autocmd({

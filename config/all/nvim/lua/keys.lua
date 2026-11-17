@@ -25,6 +25,7 @@ util.keys {
     f1 = function() Snacks.picker.help { pattern = sel() } end,
     f2 = function() Snacks.picker.pickers() end,
     f12 = '<C-O><C-]>',
+    m_g = function() Snacks.lazygit.open() end,
   },
   [{ 'i', 'n' }] = {
     home = function()

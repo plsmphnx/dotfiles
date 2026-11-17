@@ -7,6 +7,8 @@ require 'util'.opts {
   colorcolumn = vim.g.project and '80,120' or '',
   shortmess = vim.opt.shortmess + 'I',
   fillchars = { eob = ' ', lastline = '\u{2026}' },
+
+  modeline = false,
   swapfile = false,
 
   background = 'dark',

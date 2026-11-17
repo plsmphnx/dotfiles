@@ -1,3 +1,5 @@
+local icon = require 'icon'
+
 local lualine_highlight = require 'lualine.highlight'
 local function filetype_status()
   local ico, hl = MiniIcons.get('filetype', vim.bo.filetype)
@@ -24,20 +26,26 @@ require 'lualine'.setup {
     component_separators = '',
   },
   sections = {
-    lualine_b = {
+    lualine_b = {},
+    lualine_c = {
       { 'diff',
         padding = { left = 1, right = 0 },
         on_click = function() MiniDiff.toggle_overlay() end,
       },
       { 'diagnostics',
         padding = { left = 1, right = 0 },
+        symbols = {
+          error = icon.diagnostics.error .. ' ',
+          warn = icon.diagnostics.warn .. ' ',
+          hint = icon.diagnostics.hint .. ' ',
+          info = icon.diagnostics.info .. ' ',
+        },
         update_in_insert = true,
         on_click = function()
           Snacks.picker.diagnostics_buffer { enter = false }
         end,
       },
-    },
-    lualine_c = { { 'filename', color = { fg = 'white' } } },
+      { 'filename', color = { fg = 'white' } } },
     lualine_x = {
       { 'lsp_status',
         padding = { left = 1, right = 0 },
@@ -70,6 +78,7 @@ require 'lualine'.setup {
     },
     lualine_y = {},
   },
+  inactive_sections = { lualine_b = { 'mode' } },
 }
 
 vim.api.nvim_create_autocmd('BufWinEnter', {

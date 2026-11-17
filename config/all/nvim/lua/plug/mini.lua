@@ -10,9 +10,13 @@ for plug, config in pairs {
     style = 'sign',
     signs = { add = '\u{2590}', change = '\u{2590}', delete = '\u{2582}' },
   } },
+  hipatterns = { highlighters = {
+    trailspace = {  pattern = '%f[%s]%s*$',  group = 'MiniTrailspace' },
+  } },
   icons = { default = { directory = { hl = 'MiniIconsGrey' } } },
   move = {},
   surround = {},
+  trailspace = {},
 } do require('mini.' .. plug).setup(config) end
 
 MiniIcons.mock_nvim_web_devicons()
