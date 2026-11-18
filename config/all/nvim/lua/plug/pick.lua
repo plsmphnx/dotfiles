@@ -17,6 +17,11 @@ local function persist(opts)
     layout = { preset = 'bottom', preview = false },
     auto_close = false,
     jump = { close = false },
+    on_show = function(self)
+      self.list.win:on('WinEnter', function()
+        if not self.closed then self._main:update() end
+      end)
+    end
   }, single_click(opts))
 end
 
@@ -95,6 +100,9 @@ require 'snacks'.setup {
     sources = {
       buffers = persist {
         layout = { hidden = { 'input' } },
+        sort_lastused = false,
+        matcher = { sort_empty = true },
+        sort = { fields = { 'file:asc' } },
         win = { list = {
           keys = {
             ['<RightRelease>'] = { 'bufdelete', mode = { 'i', 'n', 'v' } },
@@ -195,16 +203,19 @@ vim.diagnostic.config { signs = { text = {
 
 vim.api.nvim_create_autocmd({
   'BufAdd',
+  'BufEnter',
   'BufDelete',
   'BufWipeout',
   'BufModifiedSet',
 }, {
   group = vim.api.nvim_create_augroup('SnacksBuffersRefresh', { clear = true }),
-  callback = function()
-    for _, picker in ipairs(Snacks.picker.get { source = 'buffers' }) do
-      vim.schedule(function()
-        if not picker.closed then picker:find { refresh = true } end
-      end)
+  callback = function(event)
+    if vim.bo[event.buf].buflisted then
+      for _, picker in ipairs(Snacks.picker.get { source = 'buffers' }) do
+        vim.schedule(function()
+          if not picker.closed then picker:find { refresh = true } end
+        end)
+      end
     end
   end,
 })

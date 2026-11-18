@@ -58,9 +58,10 @@ require 'lualine'.setup {
         icon = { '\u{f0312}', color = { fg = 'gray' } },
         padding = 1,
         on_click = function()
-          vim.ui.input({
+          Snacks.input.input({
             prompt = 'Indentation',
             default = tostring(vim.bo.tabstop),
+            win = { relative = 'win' },
           }, function(input)
             if input then
               if input == '' then
