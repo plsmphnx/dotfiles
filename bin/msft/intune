@@ -1,140 +1,294 @@
-#!/bin/sh
-set -e
+#!/usr/bin/env bash
+set -eo pipefail
 
-yubikey() {
-    udevadm info --tree --no-pager $(
-        ykman -ldebug list 2>&1 | sed -n "s_.*='\(/dev/.*\)'.*_\1_p"
-    ) | awk -F '=' '/DEVNAME/ { print "--device " $2 }'
+NAME=intune
+SOCK=42
+PORT=5000
+
+PORT_DBUS=$(($PORT+0))
+PORT_X=$(($PORT+1))
+PORT_PCSCD=$(($PORT+2))
+PORT_BROKER=$(($PORT+3))
+PORT_PORTAL=$(($PORT+4))
+
+CONF="${XDG_CONFIG_HOME:-$HOME/.config}"
+DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+QEMU="$CONF/qemu"
+SYSD="$CONF/systemd/user"
+ENVD="$CONF/environment.d"
+DBUS="$DATA/dbus-1/services"
+
+socatd() {
+  cat > "$1.socket" << EOF
+[Socket]
+ListenStream=$2
+Accept=yes
+[Install]
+WantedBy=${4:-sockets.target}
+EOF
+  cat > "$1@.service" << EOF
+[Service]
+ExecStart=/bin/sh -c 'exec socat FD:3 $3'
+EOF
+  if [ -n "$4" ]; then
+    cat >> "$1.socket" << EOF
+[Unit]
+PartOf=$4
+Before=$4
+EOF
+    cat >> "$1@.service" << EOF
+[Unit]
+PartOf=$4
+EOF
+  fi
+  if [ -n "$5" ]; then
+    cat >> "$1.socket" << EOF
+Requires=$5
+After=$5
+EOF
+  fi
 }
 
-crypt() {
-    echo --mount "type=bind,src=/dev/mapper,dst=/dev/mapper,ro=true"
-    find /dev/mapper -type l | xargs realpath \
-    | awk '{ print "--device " $1 ":" $1 ":r" }'
+rpc() {
+  cat > "$SYSD/$1.socket" << EOF
+[Socket]
+ListenStream=vsock:$SOCK:$2
+Accept=yes
+[Install]
+WantedBy=sockets.target
+EOF
+  cat > "$SYSD/$1@.service" << EOF
+[Service]
+Type=oneshot
+ExecStart=$3
+EOF
 }
 
-ROOT=$XDG_STATE_HOME/intune
-CONF=/home/ubuntu/.config
-DATA=/home/ubuntu/.local/share
-CERT=/etc/microsoft/identity-broker/certs
-PRIV=/etc/microsoft/identity-broker/private
-SBDB=$DATA/sb.db
+case "$1" in
+  setup)
+    mkdir -p "$QEMU" "$SYSD" "$DBUS"
+    ln -sfn /usr/share/qemu/firmware "$QEMU/firmware"
 
-case $1 in
-    install)
-        TEMP="$(mktemp -d)"
-        cat > "$TEMP/mokutil" << END
-#!/bin/sh
-case \$1 in
-  --sb-state) echo "SecureBoot enabled" ;;
-  --db) cat $SBDB ;;
-esac
-END
+    dconf write /org/virt-manager/virt-manager/connections/autoconnect \
+      "['qemu:///session']"
+    dconf write /org/virt-manager/virt-manager/connections/uris \
+      "['qemu:///session']"
 
-        REPO=https://packages.microsoft.com
-        BASE=24.04
-        PCSC=/home/ubuntu/.pki/nssdb
-        podman build -t intune -f - "$TEMP" << END
-FROM ubuntu:$BASE
+    cat > "$SYSD/$NAME.service" << EOF
+[Unit]
+Conflicts=sleep.target
+Before=sleep.target
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=LIBVIRT_DEFAULT_URI=qemu:///session
+ExecStartPre="$(realpath "$0")" reset
+ExecStart=/usr/bin/virsh start "$NAME"
+ExecStop=/usr/bin/virsh shutdown "$NAME"
+EOF
+    cat > "$SYSD/$NAME-vsock.service" << EOF
+[Unit]
+PartOf=$NAME.service
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=LIBVIRT_DEFAULT_URI=qemu:///session
+ExecStart=/usr/bin/virsh uri
+EOF
 
-# Setup Microsoft repositories
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt update && apt install -y curl gpg
-RUN curl "$REPO/keys/microsoft.asc" \
-    | gpg --dearmor > /usr/share/keyrings/microsoft-prod.gpg
-RUN curl "$REPO/config/ubuntu/$BASE/prod.list" \
-    > /etc/apt/sources.list.d/microsoft-prod.list
-RUN curl "$REPO/config/ubuntu/$BASE/insiders-fast.list" \
-    > /etc/apt/sources.list.d/microsoft-insiders-fast.list
-RUN apt update && apt upgrade --autoremove --purge -y
+    socatd "$SYSD/$NAME-dbus" vsock:2:$PORT_DBUS \
+      'UNIX-CONNECT:"$${DBUS_SESSION_BUS_ADDRESS#*=}"' \
+      "$NAME.service" "$NAME-vsock.service"
+    socatd "$SYSD/$NAME-x" vsock:2:$PORT_X \
+      'UNIX-CONNECT:/tmp/.X11-unix/X$$(echo $$DISPLAY | cut -c2-)' \
+      "$NAME.service" "$NAME-vsock.service"
+    socatd "$SYSD/$NAME-pcscd" /run/pcscd/pcscd.comm \
+      VSOCK-CONNECT:$SOCK:$PORT_PCSCD \
+      "$NAME.service"
+    systemctl --user daemon-reload && systemctl --user enable \
+      "$NAME-dbus.socket" "$NAME-x.socket" "$NAME-pcscd.socket"
 
-# Install Intune and dependencies
-RUN apt install -y microsoft-identity-broker
-RUN apt install -y --no-install-recommends intune-portal; exit 0
-RUN touch /tmp/systemctl && chmod +x /tmp/systemctl
-RUN PATH="/tmp:\$PATH" dpkg --configure intune-portal
-RUN apt install -y libnss3-tools opensc
-
-# Prepare environment
-RUN sed -i \
-    's/retry=3/minlen=12 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1/' \
-    /etc/pam.d/common-password
-RUN echo "PCSCD_ARGS=--disable-polkit" > /etc/default/pcscd
-RUN su ubuntu -c "mkdir -p $PCSC && chmod -R 700 $PCSC && \
-    modutil -force -dbdir sql:$PCSC -add OpenSC \
-        -libfile /usr/lib/x86_64-linux-gnu/pkcs11/opensc-pkcs11.so"
-ENV WEBKIT_DISABLE_DMABUF_RENDERER 1
-COPY mokutil /bin
-RUN chmod a+rx /bin/mokutil
-
-# Cleanup
-RUN apt purge --autoremove -y curl gpg libnss3-tools && apt clean
-
-CMD [ "/sbin/init" ]
-END
-        rm -rf "$TEMP"
-
-        DBUS=$XDG_DATA_HOME/dbus-1/services
-        mkdir -p $DBUS
-        cat > $DBUS/com.microsoft.identity.broker1.service << END
+    cat > "$DBUS/com.microsoft.identity.broker1.service" << END
 [D-BUS Service]
 Name=com.microsoft.identity.broker1
-Exec=$0 broker
+Exec=/usr/bin/socat -u /dev/null VSOCK-CONNECT:$SOCK:$PORT_BROKER
 END
-        systemctl --user reload dbus-broker
-        ;;
+    ;;
 
-    start)
-        DBUS=${DBUS_SESSION_BUS_ADDRESS#*=}
-        PCSC=/run/pcscd
-        X11=/tmp/.X11-unix/X$(echo $DISPLAY | cut -c2-)
-        podman rm --force --ignore --time 0 intune
-        mkdir -p $ROOT/conf $ROOT/data $ROOT/cert $ROOT/priv
-        mokutil --db > $ROOT/data/sb.db
-        podman run --detach \
-            --userns keep-id \
-            --user root:root \
-            --network host \
-            --mount "type=bind,src=$DBUS,dst=$DBUS" \
-            --env DBUS_SESSION_BUS_ADDRESS \
-            --mount "type=bind,src=$PCSC,dst=$PCSC" \
-            --mount "type=bind,src=$X11,dst=$X11" \
-            --env DISPLAY \
-            --mount "type=bind,src=$ROOT/conf,dst=$CONF" \
-            --mount "type=bind,src=$ROOT/data,dst=$DATA" \
-            --mount "type=bind,src=$ROOT/cert,dst=$CERT" \
-            --mount "type=bind,src=$ROOT/priv,dst=$PRIV" \
-            $(yubikey) \
-            $(crypt) \
-            --name intune \
-            intune
-        podman exec -i intune sh -- << END
-chown root:root $CERT $PRIV
-chown ubuntu:ubuntu $(dirname $DBUS) /home/ubuntu/.local
-END
-        ;;
+  clean)
+    systemctl --user disable \
+      "$NAME-dbus.socket" "$NAME-x.socket" "$NAME-pcscd.socket"
+    rm "$SYSD/$NAME"*
+    rm "$DBUS/com.microsoft.identity.broker1.service"
+    ;;
 
-    stop)
-        podman rm -fit 0 intune
-        ;;
+  build)
+    TEMP="$(mktemp -d)"
+    mkdir -p "$TEMP"
+    trap 'rm -rf "$TEMP"' EXIT
 
-    portal)
-        exec $0 user \
-            /opt/microsoft/intune/bin/intune-portal
-        ;;
+    read -sp 'Password: ' PASS
+    cat > "$TEMP/autoinstall.yaml" << EOF
+#cloud-config
+autoinstall:
+  version: 1
+  source:
+    id: ubuntu-server-minimal
+  storage:
+    layout:
+      name: lvm
+      password: "$PASS"
+  timezone: "$(timedatectl show -p Timezone --value)"
+  identity:
+    hostname: "$USER-ubuntu"
+    username: "$USER"
+    password: "$(printf %s "$PASS" | mkpasswd -sm sha-512)"
+  late-commands:
+    - install -D -m 0700 -t /target/usr/local/bin "/cdrom/onboard-mse"
+    - install -D -m 0755 -t /target/usr/local/bin "/cdrom/$(basename "$0")"
+    - install -D -m 0755 -t /target/usr/local/lib "/cdrom/xshim.so"
+EOF
 
-    broker)
-        exec $0 user \
-            /opt/microsoft/identity-broker/bin/microsoft-identity-broker
-        ;;
+    xorriso -osirrox on -indev "$2" \
+      -extract /boot/grub/grub.cfg "$TEMP/grub.cfg"
+    chmod u+w "$TEMP/grub.cfg"
+    sed -i -f - "$TEMP/grub.cfg" << EOF
+1i\
+serial --unit=0 --speed=115200\
+terminal_input console serial\
+terminal_output console serial
 
-    user)
-        shift
-        exec podman exec -itu ubuntu:ubuntu intune $@
-        ;;
+s/^set timeout=.*/set timeout=0/
 
-    root)
-        shift
-        exec podman exec -itu root:root intune $@
-        ;;
+/^[[:space:]]*linux/ s|---| autoinstall console=tty0 console=ttyS0,115200n8 ---|
+EOF
+
+    zcat "$3" > "$TEMP/onboard-mse"
+
+    cat > "$TEMP/xshim.c" << EOF
+unsigned int xcb_dri3_open(void *, unsigned int, unsigned int) { return 0; }
+void *xcb_dri3_open_reply(void *, unsigned int, void **) { return (void *)0; }
+EOF
+    gcc -shared -fPIC -nostdlib -O2 -s "$TEMP/xshim.c" -o "$TEMP/xshim.so"
+
+    xorriso -indev "$2" -outdev "$TEMP/boot.iso" \
+      -map "$TEMP/autoinstall.yaml" /autoinstall.yaml \
+      -map "$TEMP/grub.cfg" /boot/grub/grub.cfg \
+      -map "$TEMP/onboard-mse" /onboard-mse \
+      -map "$TEMP/xshim.so" /xshim.so \
+      -map "$(realpath "$0")" "/$(basename "$0")" \
+      -boot_image any replay
+
+    virt-install --name "$NAME" --cdrom "$TEMP/boot.iso" \
+      --memory 2048 --cpu host-passthrough --vcpus 1 --disk size=16 \
+      --graphics none --network user --vsock cid.address=$SOCK \
+      --tpm backend.type=emulator,backend.version=2.0,model=tpm-crb \
+      --features smm.state=on --boot "$(paste -sd ',' << EOF
+uefi
+firmware.feature0.name=secure-boot
+firmware.feature0.enabled=yes
+firmware.feature1.name=enrolled-keys
+firmware.feature1.enabled=yes
+EOF
+)"
+    virsh setmaxmem "$NAME" 1G --config
+    virsh attach-device "$NAME" --config --file <(cat << EOF
+<hostdev mode='subsystem' type='usb' managed='yes'>
+  <source>
+    <vendor id='0x1050'/>
+    <product id='0x$(grep -il 1050 /sys/bus/usb/devices/*/idVendor \
+      | sed 's/idVendor/idProduct/' | xargs cat)'/>
+  </source>
+</hostdev>
+EOF
+)
+    ;;
+
+  guest)
+    [ $(id -u) = 0 ] || exec sudo "$0" guest "$USER"
+
+    export DEBIAN_FRONTEND=noninteractive
+    REPO="https://packages.microsoft.com"
+    BASE="$(lsb_release -rs)"
+
+    apt update && apt install -y curl gpg && apt upgrade -y --autoremove --purge
+    curl "$REPO/keys/microsoft-rolling.asc" | gpg --dearmor \
+      > /usr/share/keyrings/microsoft-prod.gpg
+    curl "$REPO/config/ubuntu/$BASE/prod.list" \
+      > /etc/apt/sources.list.d/microsoft-prod.list
+    curl "$REPO/config/ubuntu/$BASE/insiders-fast.list" \
+      > /etc/apt/sources.list.d/microsoft-insiders-fast.list
+    apt update && apt install -y --no-install-recommends \
+      socat \
+      cryptsetup tpm2-tools \
+      intune-portal mdatp \
+      libnss3-tools opensc pcscd
+
+    sed -i 's/retry=3/minlen=12 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1/' \
+      /etc/pam.d/common-password
+
+    echo vmw_vsock_virtio_transport > /etc/modules-load.d/vsock.conf
+
+    echo 'PCSCD_ARGS=--disable-polkit' > /etc/default/pcscd
+    socatd /etc/systemd/system/vpcscd vsock:$SOCK:$PORT_PCSCD \
+      UNIX-CONNECT:/run/pcscd/pcscd.comm
+    systemctl daemon-reload && systemctl enable vpcscd.socket
+
+    runuser -u "$2" -- "$(realpath "$0")" local
+    systemctl --user --machine "$2@" enable \
+      broker.socket portal.socket vdbus.socket vx.socket
+    systemctl --user --machine "$2@" mask \
+      dbus.socket gnome-keyring-daemon.socket
+    loginctl enable-linger "$2"
+
+    cat > /etc/dracut.conf.d/90-luks-tpm2.conf << EOF
+add_dracutmodules+=" crypt lvm tpm2-tss systemd "
+install_items+=" /etc/crypttab "
+EOF
+    dracut --force --regenerate-all
+    update-grub
+
+    systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 \
+      "$(blkid -t TYPE=crypto_LUKS -o device | head -n1)"
+
+    systemctl poweroff
+    ;;
+
+  local)
+    mkdir -p ~/.pki/nssdb
+    chmod -R 700 ~/.pki/nssdb
+    modutil -force -dbdir sql:"$HOME/.pki/nssdb" -add OpenSC \
+      -libfile /usr/lib/x86_64-linux-gnu/pkcs11/opensc-pkcs11.so
+
+    mkdir -p "$SYSD" "$ENVD"
+
+    rpc broker $PORT_BROKER \
+      /opt/microsoft/identity-broker/bin/microsoft-identity-broker
+    rpc portal $PORT_PORTAL \
+      /usr/bin/intune-portal
+
+    socatd "$SYSD/vdbus" %t/bus VSOCK-CONNECT:2:$PORT_DBUS
+    socatd "$SYSD/vx" /tmp/.X11-unix/X0 VSOCK-CONNECT:2:$PORT_X
+
+    cat > "$ENVD/env.conf" << 'EOF'
+DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus
+DISPLAY=:0
+LD_PRELOAD=/usr/local/lib/xshim.so
+LIBGL_ALWAYS_SOFTWARE=1
+WEBKIT_DISABLE_DMABUF_RENDERER=1
+EOF
+    cat >> ~/.bashrc << EOF
+set -a
+source "$ENVD/env.conf"
+set +a
+EOF
+    ;;
+
+  reset)
+    virsh define <(virsh dumpxml "$NAME" | sed -E '/<loader|<nvram/d')
+    ;;
+
+  portal)
+    socat -u /dev/null VSOCK-CONNECT:$SOCK:$PORT_PORTAL
+    ;;
 esac

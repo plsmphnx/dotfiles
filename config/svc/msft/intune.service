@@ -1,9 +1,0 @@
-[Unit]
-Conflicts=sleep.target
-Before=sleep.target
-
-[Service]
-Type=oneshot
-RemainAfterExit=true
-ExecStart=%h/.local/bin/intune start
-ExecStop=%h/.local/bin/intune stop
