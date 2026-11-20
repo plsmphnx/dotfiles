@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+HERE="$(dirname "$(realpath "$0")")"
+NAME=intune
+SOCK=42
+BASE=26.04
+
+case $1 in
+  setup)
+    mkdir -p $XDG_CONFIG_HOME/qemu
+    ln -sfn /usr/share/qemu/firmware $XDG_CONFIG_HOME/qemu/firmware
+
+    dconf write /org/virt-manager/virt-manager/connections/autoconnect "['qemu:///session']"
+    dconf write /org/virt-manager/virt-manager/connections/uris "['qemu:///session']"
+    ;;
+
+  clean)
+    rm "$HERE/*.iso"
+    ;;
+
+  build)
+    if [ ! -f "$HERE/base.iso" ]; then
+      wget -o "$HERE/base.iso" \
+        "https://releases.ubuntu.com/$BASE/ubuntu-$BASE-live-server-amd64.iso"
+    fi
+    zcat "$2" > "$HERE/payload/bin/onboard-mse"
+
+    TEMP="$(mktemp -d)"
+    mkdir -p "$TEMP"
+    trap 'rm -rf "$TEMP"' EXIT
+
+    read -sp 'Password: ' PASS
+    cat > "$TEMP/autoinstall.yaml" << EOF
+#cloud-config
+autoinstall:
+  version: 1
+  source:
+    id: ubuntu-server-minimal
+  storage:
+    layout:
+      name: lvm
+      password: "$PASS"
+  timezone: "$(timedatectl show -p Timezone --value)"
+  identity:
+    hostname: "$USER-ubuntu"
+    username: "$USER"
+    password: "$(printf %s "$PASS" | mkpasswd -sm sha-512)"
+  late-commands:
+    - install -D -m 0755 -t /target/usr/local/bin /cdrom/payload/bin/*
+EOF
+
+    xorriso -osirrox on -indev "$HERE/base.iso" \
+      -extract /boot/grub/grub.cfg "$TEMP/grub.cfg"
+    chmod u+w "$TEMP/grub.cfg"
+    sed -i -f "$HERE/grub.sed" "$TEMP/grub.cfg"
+
+    xorriso -indev "$HERE/base.iso" -outdev "$TEMP/boot.iso" \
+      -map "$TEMP/autoinstall.yaml" /autoinstall.yaml \
+      -map "$TEMP/grub.cfg" /boot/grub/grub.cfg \
+      -map "$HERE/payload" /payload \
+      -boot_image any replay
+
+    virt-install --name $NAME --osinfo ubuntu$BASE --cdrom "$TEMP/boot.iso" \
+      --memory 2048 --cpu host-passthrough --vcpus 1 --disk size=16 \
+      --graphics none --network user --vsock cid.address=$SOCK \
+      --tpm backend.type=emulator,backend.version=2.0,model=tpm-crb \
+      --features smm.state=on --boot "$(paste -sd ',' << EOF
+uefi
+firmware.feature0.name=secure-boot
+firmware.feature0.enabled=yes
+firmware.feature1.name=enrolled-keys
+firmware.feature1.enabled=yes
+EOF
+)"
+    ;;
+esac

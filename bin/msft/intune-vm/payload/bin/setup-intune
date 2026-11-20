@@ -1,0 +1,40 @@
+#!/bin/sh
+
+[ $(id -u) = 0 ] || exec sudo $0 $USER
+
+export DEBIAN_FRONTEND=noninteractive
+REPO=https://packages.microsoft.com
+BASE=$(lsb_release -rs)
+
+apt update && apt install -y curl gpg && apt upgrade -y --autoremove --purge
+curl $REPO/keys/microsoft-rolling.asc | gpg --dearmor \
+  > /usr/share/keyrings/microsoft-prod.gpg
+curl $REPO/config/ubuntu/$BASE/prod.list \
+  > /etc/apt/sources.list.d/microsoft-prod.list
+curl $REPO/config/ubuntu/$BASE/insiders-fast.list \
+  > /etc/apt/sources.list.d/microsoft-insiders-fast.list
+apt update && apt install -y --no-install-recommends \
+  socat \
+  cryptsetup tpm2-tools \
+  intune-portal mdatp \
+  libnss3-tools opensc yubikey-manager
+
+sed -i 's/retry=3/minlen=12 dcredit=-1 ucredit=-1 lcredit=-1 ocredit=-1/' \
+  /etc/pam.d/common-password
+
+runuser -u $1 -- /bin/sh << EOF
+mkdir -p ~/.pki/nssdb
+chmod -R 700 ~/.pki/nssdb
+modutil -force -dbdir sql:/home/$1/.pki/nssdb -add OpenSC \
+  -libfile /usr/lib/x86_64-linux-gnu/pkcs11/opensc-pkcs11.so
+EOF
+
+cat > /etc/dracut.conf.d/90-luks-tpm2.conf << EOF
+add_dracutmodules+=" crypt lvm tpm2-tss systemd "
+install_items+=" /etc/crypttab "
+EOF
+dracut --force --regenerate-all
+update-grub
+
+systemd-cryptenroll --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7 \
+  $(blkid -t TYPE=crypto_LUKS -o device | head -n1)
