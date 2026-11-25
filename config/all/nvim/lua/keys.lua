@@ -30,11 +30,7 @@ util.keys {
     c_q = cmds.quit,
   },
   [{ 'i', 'n' }] = {
-    home = function()
-      local col = vim.fn.col '.'
-      vim.cmd 'normal! ^'
-      if col == vim.fn.col '.' then vim.cmd 'normal! 0' end
-    end,
+    home = cmds.home,
   },
   [{ 'i' }] = {
     s_tab = function() MiniMove.move_line 'left' end,

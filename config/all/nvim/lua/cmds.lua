@@ -57,4 +57,10 @@ M.quit = function()
   M.confirm(first, next, unpack(unsaved))
 end
 
+M.home = function()
+  local col = vim.fn.col '.'
+  vim.cmd.normal { '^', bang = true }
+  if col == vim.fn.col '.' then vim.cmd.normal { '0', bang = true } end
+end
+
 return M

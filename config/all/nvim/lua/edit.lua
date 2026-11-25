@@ -21,7 +21,6 @@ util.keys {
     ['2-LeftMouse'] = '<C-O>viw<C-G>',
   },
   v = {
-    bs = '"_d',
     c_x = '"+x',
     c_c = '"+y',
     c_v = '"+P',

@@ -4,14 +4,14 @@ for plug, config in pairs {
   bufremove = {},
   cmdline = {},
   colors = {},
-  comment = { mappings = { comment_visual = '/' } },
+  comment = {},
   completion = {},
   diff = { view = {
     style = 'sign',
     signs = { add = '\u{2590}', change = '\u{2590}', delete = '\u{2582}' },
   } },
   hipatterns = { highlighters = {
-    trailspace = {  pattern = '%f[%s]%s*$',  group = 'MiniTrailspace' },
+    trailspace = { pattern = '%f[%s]%s*$', group = 'MiniTrailspace' },
   } },
   icons = { default = { directory = { hl = 'MiniIconsGrey' } } },
   move = {},
@@ -41,4 +41,15 @@ vim.api.nvim_create_autocmd('ModeChanged', {
   end
 })
 
-vim.keymap.set('s', '/', '<Esc>/', { remap = true })
+vim.keymap.set('s', '/', '<Esc>gc', { remap = true, silent = true })
+
+for l, r in pairs {
+  ['('] = ')',
+  ['['] = ']',
+  ['{'] = '}',
+  ['<'] = '>',
+  ["'"] = "'",
+  ['"'] = '"',
+} do
+  vim.keymap.set('s', l, '<Esc>sa' .. r, { remap = true, silent = true })
+end
