@@ -5,11 +5,11 @@ M.default = function(event)
 
   if vim.lsp.get_clients { bufnr = event.buf }[1] then
     vim.list_extend(entries, {
-      { 'a', 'Info',       '<Cmd>lua vim.lsp.buf.hover()<CR>' },
-      { 'a', 'Action',     '<Cmd>lua vim.lsp.buf.code_action()<CR>' },
-      { 'a', 'Diagnostic', '<Cmd>lua vim.diagnostic.open_float()<CR>' },
-      { 'a', 'Definition', '<Cmd>lua vim.lsp.buf.definition()<CR>' },
-      { 'a', '-1-',        '<Nop>' },
+      { 'a', 'Actions',     '<Cmd>lua vim.lsp.buf.code_action()<CR>' },
+      { 'a', 'Diagnostics', '<Cmd>lua vim.diagnostic.open_float()<CR>' },
+      { 'a', 'Definitions', '<C-\\><C-N><Cmd>lua Snacks.picker.lsp_definitions()<CR>' },
+      { 'a', 'References',  '<C-\\><C-N><Cmd>lua Snacks.picker.lsp_references()<CR>' },
+      { 'a', '-1-',         '<Nop>' },
     })
   end
 
@@ -34,9 +34,10 @@ vim.api.nvim_create_autocmd('MenuPopup', {
   callback = function(event)
     vim.cmd.aunmenu 'PopUp'
     for _, e in ipairs((vim.b[event.buf].menu or M.default)(event) or {}) do
-      local label = e[2]:gsub(' ', [[\ ]])
-      local re = e[4] and '' or 'nore'
-      vim.cmd(e[1] .. re .. 'menu PopUp.' .. label .. ' ' .. e[3])
+      vim.cmd {
+        cmd = e[1] .. (e[4] and '' or 'nore') .. 'menu',
+        args = { 'PopUp.' .. e[2]:gsub(' ', [[\ ]]), e[3] },
+      }
     end
   end
 })

@@ -1,29 +1,19 @@
-local cmds = require 'cmds'
-local util = require 'util'
-
-local visual = { v = true, V = true, ['\22'] = true }
-local function sel()
-  local mode = vim.fn.mode()
-  if not visual[mode] then return end
-  return table.concat(vim.fn.getregion(
-    vim.fn.getpos 'v',
-    vim.fn.getpos '.',
-    { type = mode }
-  ), '\n')
-end
+local cmds = require 'edit.cmds'
+local util = require 'edit.util'
 
 util.keys {
   [{ '', 'i' }] = {
     c_s = cmds.save,
     c_s_s = cmds.save_as,
-    c_f = function() Snacks.picker.lines { pattern = sel() } end,
-    c_s_f = function() Snacks.picker.grep { search = sel() } end,
+    c_f = function() Snacks.picker.lines { pattern = util.sel() } end,
+    c_s_f = function() Snacks.picker.grep { search = util.sel() } end,
     c_s_i = function() vim.lsp.buf.format() end,
     ['c_\\'] = function() Snacks.picker.buffers() end,
     ['c_s_\\'] = function() Snacks.picker.explorer() end,
-    f1 = function() Snacks.picker.help { pattern = sel() } end,
+    f1 = function() Snacks.picker.help { pattern = util.sel() } end,
     f2 = function() Snacks.picker.pickers() end,
-    f12 = '<C-O><C-]>',
+    f11 = function() vim.lsp.buf.hover() end,
+    f12 = function() Snacks.picker.lsp_definitions() end,
     m_g = function() Snacks.lazygit.open() end,
   },
   [{ '', '!', 't' }] = {

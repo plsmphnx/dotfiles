@@ -1,6 +1,7 @@
 local M = {}
 
-local util = require 'util'
+local cmds = require 'edit.cmds'
+local util = require 'edit.util'
 
 util.opts {
   selection = 'exclusive',
@@ -22,7 +23,7 @@ util.keys {
   },
   v = {
     c_x = '"+x',
-    c_c = '"+y',
+    c_c = cmds.copy,
     c_v = '"+P',
   },
   n = {
@@ -47,7 +48,7 @@ util.keys {
   },
 }
 
-for mode, cmds in pairs {
+for mode, cmd in pairs {
   i = {
     function(k) return '<Cmd>normal! ' .. k .. '<CR>' end,
     function(k)
@@ -75,8 +76,8 @@ for mode, cmds in pairs {
     for idx, mod in ipairs { '', 'S-' } do
       vim.keymap.set(mode, '<' .. mod .. key .. '>', function()
         if vim.fn.pumvisible() == 1 then return map[2] end
-        if vim.fn.line '.' == map[4]() then return cmds[idx](map[3]) end
-        return cmds[idx](map[1])
+        if vim.fn.line '.' == map[4]() then return cmd[idx](map[3]) end
+        return cmd[idx](map[1])
       end, { silent = true, expr = true })
     end
   end
@@ -90,7 +91,7 @@ for dir, cmd in pairs { Up = 'zh', Down = 'zl' } do
     end
     local step = tonumber(vim.o.mousescroll:match('hor:(%d+)')) or 6
     vim.api.nvim_win_call(winid, function()
-      vim.cmd('normal! ' .. step .. cmd)
+      vim.cmd.normal { step .. cmd, bang = true }
     end)
   end, { silent = true })
 end
@@ -99,7 +100,7 @@ local group = vim.api.nvim_create_augroup('EditInsertLock', { clear = true })
 
 M.insert = vim.schedule_wrap(function()
   local edit = vim.bo.modifiable or vim.bo.buftype == 'terminal'
-  vim.cmd(edit and 'startinsert' or 'stopinsert')
+  if edit then vim.cmd.startinsert() else vim.cmd.stopinsert() end
 end)
 
 vim.api.nvim_create_autocmd({ 'BufEnter', 'TermLeave' }, {

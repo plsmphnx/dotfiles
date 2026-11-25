@@ -13,7 +13,7 @@ require 'plug.mini'
 require 'plug.pick'
 require 'plug.line'
 
-require 'edit'
+require 'edit.keys'
 require 'opts'
 require 'keys'
 require 'menu'

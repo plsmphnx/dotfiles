@@ -3,10 +3,16 @@ local c = require 'vscode.colors'.get_colors()
 require 'vscode'.setup {
   transparent = true,
   group_overrides = {
-    FloatBorder = { fg = c.vscSplitDark },
-    PmenuBorder = { fg = c.vscSplitDark },
-    StatusLine = { fg = c.vscSplitDark },
-    StatusLineNC = { fg = c.vscSplitDark },
+    FloatBorder = { link = 'WinSeparator' },
+    PmenuBorder = { link = 'FloatBorder' },
+    StatusLine = { link = 'WinSeparator' },
+    StatusLineNC = { link = 'StatusLine' },
+
+    SnacksPickerBorder = { fg = c.vscSplitLight },
+
+    SnacksInputBorder = { link = 'SnacksPickerBorder' },
+    SnacksInputTitle = { link = 'SnacksPickerTitle' },
+    SnacksInputIcon = { link = 'SnacksPickerIcon' },
 
     Added = { fg = c.vscGreen },
     Removed = { fg = c.vscRed },

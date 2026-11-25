@@ -12,6 +12,10 @@ local function single_click(opts)
   }, opts or {})
 end
 
+local function list_focused(self)
+  return not self.closed and self.list.win.win == vim.api.nvim_get_current_win()
+end
+
 local function persist(opts)
   return vim.tbl_deep_extend('force', {
     layout = { preset = 'bottom', preview = false },
@@ -21,8 +25,32 @@ local function persist(opts)
       self.list.win:on('WinEnter', function()
         if not self.closed then self._main:update() end
       end)
-    end
-  }, single_click(opts))
+    end,
+  }, opts or {})
+end
+
+local function autojump(opts)
+  return vim.tbl_deep_extend('force', {
+    on_change = function(self, item)
+      if item and list_focused(self) then
+        vim.schedule(function()
+          if self:current() == item and list_focused(self) then
+            self:action { 'jump', 'focus_list' }
+          end
+        end)
+      end
+    end,
+    win = {
+      list = {
+        keys = {
+          ['<LeftRelease>'] = {
+            { 'jump', 'focus_list' },
+            mode = { 'i', 'n', 'v' },
+          }
+        }
+      }
+    },
+  }, persist(opts))
 end
 
 local explorer_menu = {}
@@ -53,7 +81,7 @@ require 'snacks'.setup {
         i_esc = { '<Esc>', 'cancel', mode = { 'i', 'v' } },
         a_c_q = { '<C-Q>', 'quit', mode = { 'i', 'n', 'v' } },
       },
-      actions = { quit = require 'cmds'.quit },
+      actions = { quit = require 'edit.cmds'.quit },
     },
   },
   lazygit = {
@@ -80,13 +108,12 @@ require 'snacks'.setup {
     } },
     layout = { preset = 'horizontal' },
     layouts = {
-      bottom = { layout = { height = 0.25 } },
       horizontal = {
         layout = {
-          width = 0.9,
-          height = 0.9,
+          width = 7 / 8,
+          height = 7 / 8,
           box = 'vertical',
-          { win = 'preview', height = 0.5, border = true },
+          { win = 'preview', height = 1 / 2, border = true },
           {
             box = 'vertical',
             border = true,
@@ -95,7 +122,9 @@ require 'snacks'.setup {
             { win = 'list' },
           },
         },
-      }
+      },
+      ivy = { layout = { height = 1 / 4 } },
+      sidebar = { layout = { width = 1 / 5 } },
     },
     sources = {
       buffers = persist {
@@ -105,12 +134,13 @@ require 'snacks'.setup {
         sort = { fields = { 'file:asc' } },
         win = { list = {
           keys = {
+            ['<LeftRelease>'] = { 'confirm', mode = { 'i', 'n', 'v' } },
             ['<RightRelease>'] = { 'bufdelete', mode = { 'i', 'n', 'v' } },
           },
           on_buf = function(win) vim.b[win.buf].menu = function() end end
         } },
       },
-      diagnostics_buffer = persist { layout = { hidden = { 'input' } } },
+      diagnostics_buffer = autojump { layout = { hidden = { 'input' } } },
       explorer = single_click {
         layout = { hidden = { 'input' } },
         win = { list = {
@@ -140,15 +170,17 @@ require 'snacks'.setup {
           if item then vim.bo.filetype = item.text end
         end,
       },
-      grep = persist {
+      grep = autojump {
         follow = true,
         matcher = { fuzzy = false },
         args = { '--sort=path' },
       },
-      lines = persist {
+      lines = autojump {
         matcher = { fuzzy = false },
         sort = { fields = { 'idx' } },
       },
+      lsp_definitions = autojump { layout = { hidden = { 'input' } } },
+      lsp_references = autojump { layout = { hidden = { 'input' } } },
       pickers = single_click { layout = 'vscode' },
       select = single_click {},
     },
@@ -166,8 +198,8 @@ require 'snacks'.setup {
         ['<C-Q>'] = { 'quit', mode = { 'i', 'n', 'v' } },
       } },
     },
-    actions = { quit = require 'cmds'.quit },
-    on_close = require 'edit'.insert
+    actions = { quit = require 'edit.cmds'.quit },
+    on_close = require 'edit.keys'.insert
   },
   quickfile = { enabled = true },
   scope = { enabled = true },

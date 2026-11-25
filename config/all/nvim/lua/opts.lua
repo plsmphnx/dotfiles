@@ -1,4 +1,4 @@
-require 'util'.opts {
+require 'edit.util'.opts {
   title = not vim.g.present,
   laststatus = vim.g.present and 0 or 2,
 

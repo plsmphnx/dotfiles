@@ -1,8 +1,11 @@
 local M = {}
 
+local util = require 'edit.util'
+
 local function save(buf)
-  buf = buf or vim.api.nvim_get_current_buf()
-  vim.cmd('noautocmd ' .. buf .. 'bufdo update')
+  vim.cmd.bufdo { 'update', mods = { noautocmd = true }, range = {
+    buf or vim.api.nvim_get_current_buf()
+  } }
 end
 
 M.save = function(buf, next, ...)
@@ -46,21 +49,25 @@ M.quit = function()
   local unsaved = vim.tbl_filter(function(buf)
     return vim.bo[buf].buflisted and vim.bo[buf].modified
   end, vim.api.nvim_list_bufs())
-  if #unsaved == 0 then
-    vim.cmd 'qa!'
-    return
-  end
+  if #unsaved == 0 then return vim.cmd.quitall { bang = true } end
   local first = table.remove(unsaved, 1)
   local function next(tail, ...)
-    if not tail then vim.cmd 'qa!' else M.confirm(tail, next, ...) end
+    if not tail then return vim.cmd.quitall { bang = true } end
+    M.confirm(tail, next, ...)
   end
   M.confirm(first, next, unpack(unsaved))
 end
 
 M.home = function()
   local col = vim.fn.col '.'
-  vim.cmd.normal { '^', bang = true }
-  if col == vim.fn.col '.' then vim.cmd.normal { '0', bang = true } end
+  for _, cmd in ipairs { 'g^', 'g0', '^', '0' } do
+    vim.cmd.normal { cmd, bang = true }
+    local new = vim.fn.col '.'
+    if new < col then return end
+    col = new
+  end
 end
+
+M.copy = function() vim.fn.setreg('+', util.sel() or '') end
 
 return M
